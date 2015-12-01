@@ -10,6 +10,7 @@ namespace DnD_Character_Manager.Model
 {
 	class CharacterModel5E
 	{
+		public int proficiencyBonus { get; private set; }
 		//Stored as the full number, the Bonus will be calculated on the fly
 		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
 		{
@@ -22,9 +23,36 @@ namespace DnD_Character_Manager.Model
 
 		};
 
-		private ObservableCollection<Tuple<string, int, MainStat>> skills = new ObservableCollection<Tuple<string, int, MainStat>>();
+		public Dictionary<MainStat, int> abilityModifiers = null;
 
-		public ObservableCollection<Tuple<string, int, MainStat>> Skills { get { return skills; } }
-		
+		private ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
+
+		public ObservableCollection<Skill> Skills { get { return skills; } }
+
+
+
+		public void CalculateAbilityModifiers()
+		{
+			if (abilityModifiers == null)
+			{
+				abilityModifiers = new Dictionary<MainStat, int>();
+			}
+			foreach (var mainstat in mainstats)
+			{
+				abilityModifiers.Add(mainstat.Key, Utility.CalculateMainStatBonus(mainstat.Value));
+			}
+		}
+
+		public void CalculateSkillBonuses()
+		{
+			if (abilityModifiers == null)
+			{
+				CalculateAbilityModifiers();
+			}
+			foreach (var skill in Skills)
+			{
+				skill.CalculateBonus(mainstats[skill.MainStatType], proficiencyBonus);
+			}
+		}
 	}
 }
