@@ -1,20 +1,82 @@
 ﻿<Page
-    x:Class="Dnd_Character_Manager.AddNewCharacter"
+    x:Class="DnD_Character_Manager.Views.AddNewCharacter"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Dnd_Character_Manager"
+    xmlns:local="using:DnD_Character_Manager.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel HorizontalAlignment="Left" Height="620" Margin="10,10,0,0" VerticalAlignment="Top" Width="340" Background="AliceBlue"
-					Orientation="Vertical">
-			<TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Get started with your new character here.&#x0a;You can leave anything blank to fill out later" FontSize="10">
-				
-			</TextBlock>
-			<TextBox x:Name="NameTextBox" TextWrapping="Wrap" PlaceholderText="Name Here"/>
-		</StackPanel>
+		<ScrollViewer HorizontalScrollMode="Disabled">
+			<StackPanel Margin="10" Background="AliceBlue"
+					Orientation="Vertical" >
+				<TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="To get started with your new character, enter your name, race and class here.&#x0a;You can leave anything blank to fill out later if you're not sure about it yet." FontSize="{ThemeResource SearchBoxContentThemeFontSize}">
 
+				</TextBlock>
+				<TextBox x:Name="NameTextBox" TextWrapping="Wrap" PlaceholderText="Enter name here" Margin="0, 10, 0, 0"/>
+				<TextBox PlaceholderText="Enter your race here" Margin="0, 10, 0, 0"/>
+				<TextBox PlaceholderText="Enter your class here" Margin="0, 10, 0, 0"/>
+				
+				<TextBlock Text="Now Enter your Ability points. You can either roll your own dice (6d4, take the highest three), or use the roll button here and choose which numbers go where" Margin="0, 10, 0, 0" TextWrapping="WrapWholeWords"/>
+				
+				<StackPanel Orientation="Horizontal">
+					<TextBox x:Name="StrengthTextBox" MaxWidth="60" HorizontalAlignment="Left" Margin="15, 10, 0, 0"/>
+					<Button x:Name="SelectStrengthButton" Margin="15, 10, 0, 0" Padding="5, 2, 5, 2" Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Add"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+				
+				<StackPanel  Orientation="Horizontal">
+					<TextBox x:Name="DexterityTextBox" MaxWidth="60" HorizontalAlignment="Left" Margin="15, 10, 0, 0"/>
+					<Button x:Name="SelectDexterityButton" Margin="15, 10, 0, 0" Padding="5, 2, 5, 2" Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Add"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+				
+				<StackPanel Orientation="Horizontal">
+					<TextBox x:Name="ConstitutionTextBox" MaxWidth="60" HorizontalAlignment="Left" Margin="15, 10, 0, 0"/>
+					<Button x:Name="SelectConstButton" Margin="15, 10, 0, 0" Padding="5, 2, 5, 2" Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Add"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+				
+				<StackPanel Orientation="Horizontal">
+					<TextBox x:Name="IntelligenceTextBox" MaxWidth="60" HorizontalAlignment="Left" Margin="15, 10, 0, 0"/>
+					<Button x:Name="SelectIntelligenceButton" Margin="15, 10, 0, 0" Padding="5, 2, 5, 2" Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Add"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+				
+				<StackPanel Orientation="Horizontal">
+					<TextBox x:Name="WisdomTextBox" MaxWidth="60" HorizontalAlignment="Left" Margin="15, 10, 0, 0"/>
+					<Button x:Name="SelectWisdomButton" Margin="15, 10, 0, 0" Padding="5, 2, 5, 2" Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Add"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+				
+				<StackPanel Orientation="Horizontal">
+					<TextBox x:Name="CharismaTextBox" MaxWidth="60" HorizontalAlignment="Left" Margin="15, 10, 0, 0"/>
+					<Button x:Name="SelectCharismaButton" Margin="15, 10, 0, 0" Padding="5, 2, 5, 2" Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Add"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+				
+				<Button x:Name="button" Content="Roll" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="115,10,15,0"/>
+
+				</StackPanel>
+		</ScrollViewer>
 	</Grid>
 </Page>

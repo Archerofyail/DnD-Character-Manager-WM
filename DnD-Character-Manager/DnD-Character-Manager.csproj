@@ -105,6 +105,9 @@
     <Compile Include="Model\5ECharacterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="Views\AddNewCharacter.xaml.cs">
+      <DependentUpon>AddNewCharacter.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
