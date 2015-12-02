@@ -8,6 +8,7 @@ using Windows.Data.Json;
 
 namespace DnD_Character_Manager.Model
 {
+	//To make racial bonuses have a class with methods to add stuff to a character, like points to ability modifiers and entries to features and stuff. Then make a list of (structs maybe?) that contains the data, with the delegate. When that race is selected, call the delegate, and pass it the data
 	class CharacterModel5E
 	{
 		public int Level = 1;

@@ -131,6 +131,16 @@
 						</ItemsPanelTemplate>
 					</ListView.ItemsPanel>
 				</ListView>
+				<TextBlock Text="Now Choose your Background, personality trait, ideal, bond, and flaw"/>
+				<TextBox PlaceholderText="Personality Trait"></TextBox>
+				<TextBox PlaceholderText="Ideal"></TextBox>
+				<TextBox PlaceholderText="Bond"></TextBox>
+				<TextBox PlaceholderText="Flaw"></TextBox>
+				<TextBlock Text="Fill in your proficiencies here"></TextBlock>
+				<TextBox Height="320" Name="WeaponProficiences" PlaceholderText="Weapons"></TextBox>
+				<TextBox Height="320" Name="Armor"></TextBox>
+				<TextBox Height="320" Name="Language"></TextBox>
+				
 			</StackPanel>
 
 		</ScrollViewer>
