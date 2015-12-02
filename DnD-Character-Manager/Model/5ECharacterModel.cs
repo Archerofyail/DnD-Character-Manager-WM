@@ -10,7 +10,10 @@ namespace DnD_Character_Manager.Model
 {
 	class CharacterModel5E
 	{
-		public int proficiencyBonus { get; private set; }
+		public int Level = 1;
+		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
+		public string Race { get; private set; }
+		public string Subrace { get; private set; }
 		//Stored as the full number, the Bonus will be calculated on the fly
 		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
 		{
@@ -29,7 +32,7 @@ namespace DnD_Character_Manager.Model
 
 		public ObservableCollection<Skill> Skills { get { return skills; } }
 
-
+		
 
 		public void CalculateAbilityModifiers()
 		{

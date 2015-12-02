@@ -64,6 +64,12 @@ namespace DnD_Character_Manager
 			bonus /= 2;
 			return bonus;
 		}
+
+		public static int CalculateProficiencyBonus(int level)
+		{
+			int bonus = 0;
+			return bonus;
+		}
 	}
 }
 
