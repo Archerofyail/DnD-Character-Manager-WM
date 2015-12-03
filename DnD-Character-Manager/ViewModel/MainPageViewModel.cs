@@ -43,8 +43,7 @@ namespace DnD_Character_Manager.ViewModel
 				try
 				{
 					string charJsonString = await FileIO.ReadTextAsync(charFile);
-					var charJsonObj = JsonObject.Parse(charJsonString);
-					DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(CharacterModel5E));
+					
 				}
 				catch (Exception)
 				{

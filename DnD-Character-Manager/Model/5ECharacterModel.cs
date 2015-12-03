@@ -13,15 +13,15 @@ namespace DnD_Character_Manager.Model
 	{
 		public int Level = 1;
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
-		public string Race { get; private set; }
-		public string Subrace { get; private set; }
+		public string Race { get; set; }
+		public string Subrace { get; set; }
 
-		public int Age { get; private set; }
-		public string Height { get; private set; }
-		public string Weight { get; private set; }
-		public string EyeColor { get; private set; }
-		public string SkinColor { get; private set; }
-		public string HairColor { get; private set; }
+		public int Age { get; set; }
+		public string Height { get; set; }
+		public string Weight { get; set; }
+		public string EyeColor { get; set; }
+		public string SkinColor { get; set; }
+		public string HairColor { get; set; }
 
 		//Stored as the full number, the Bonus will be calculated on the fly
 		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
@@ -37,11 +37,18 @@ namespace DnD_Character_Manager.Model
 
 		public Dictionary<MainStat, int> abilityModifiers = null;
 
-		private ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
+		private List<Skill> skills = new List<Skill>();
 
-		public ObservableCollection<Skill> Skills { get { return skills; } }
+		public List<Skill> Skills { get { return skills; } }
 
-		
+		private List<CharacterTrait> languageProficiencies = new List<CharacterTrait>();
+		public List<CharacterTrait> LanguageProficiencies { get { return languageProficiencies; } }
+		private List<CharacterTrait> weaponProficiencies = new List<CharacterTrait>();
+		public List<CharacterTrait> WeaponProficiencies { get { return weaponProficiencies; } }
+		private List<CharacterTrait> armorProficiencies = new List<CharacterTrait>();
+		public List<CharacterTrait> ArmorProficiencies { get { return armorProficiencies; } }
+		private List<CharacterTrait> features = new List<CharacterTrait>();
+		public List<CharacterTrait> Features { get { return features; } }
 
 		public void CalculateAbilityModifiers()
 		{

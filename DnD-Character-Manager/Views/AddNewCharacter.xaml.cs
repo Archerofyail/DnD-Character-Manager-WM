@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using DnD_Character_Manager.Model;
 using DnD_Character_Manager.ViewModel;
 
 namespace DnD_Character_Manager.Views
@@ -52,6 +54,18 @@ namespace DnD_Character_Manager.Views
 			IntelligenceTextBox.Text = "";
 			WisdomTextBox.Text = "";
 			CharismaTextBox.Text = "";
+		}
+
+		private void SaveButtonClick(object sender, RoutedEventArgs e)
+		{
+			//((AddNewCharacterPageViewModel)DataContext)
+			CharacterModel5E newChar = new CharacterModel5E();
+			newChar.abilityModifiers[MainStat.Strength] = int.Parse(StrengthTextBox.Text);
+			newChar.abilityModifiers[MainStat.Dexterity] = int.Parse(DexterityTextBox.Text);
+			newChar.abilityModifiers[MainStat.Constitution] = int.Parse(ConstitutionTextBox.Text);
+			newChar.abilityModifiers[MainStat.Intelligence] = int.Parse(IntelligenceTextBox.Text);
+			newChar.abilityModifiers[MainStat.Wisdom] = int.Parse(WisdomTextBox.Text);
+			newChar.abilityModifiers[MainStat.Charisma] = int.Parse(CharismaTextBox.Text);
 		}
 	}
 }
