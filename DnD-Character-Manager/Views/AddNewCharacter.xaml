@@ -9,7 +9,7 @@
 	DataContext="AddNewCharacterPageViewModel">
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton Icon="Accept"/>
+			<AppBarButton Icon="Accept" Click="SaveButtonClick"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 	<Page.Resources>
@@ -45,15 +45,25 @@
 			<StackPanel Margin="10" Background="AliceBlue"
 					Orientation="Vertical" Name="StackPanelMain">
 				<TextBlock x:Name="textBlock" TextWrapping="Wrap" 
-						   Text="To get started with your new character, enter your name, race and class here.&#x0a;You can leave anything blank to fill out later if you're not sure about it yet." />
+						   Text="To get started with your new character, choose your name, race and class here.&#x0a;You can leave anything blank to fill out later if you're not sure about it yet." />
 				<TextBox x:Name="NameTextBox" TextWrapping="Wrap" 
-						 PlaceholderText="Enter name here" Margin="0, 10, 0, 0"/>
-				<TextBox PlaceholderText="Enter your race here" Margin="0, 10, 0, 0"
-						 Name="RaceTextBox"/>
-				<TextBox PlaceholderText="Enter your class here" Margin="0, 10, 0, 0"
-						 Name="ClassTextBox"/>
+						 PlaceholderText="Enter your character's name here" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=CharName, Mode=TwoWay}"/>
+				<ComboBox PlaceholderText="Choose your race" Margin="0, 10, 0, 0"
+						 Name="RaceTextBox" HorizontalAlignment="Stretch"
+						  ItemsSource="{Binding Path=Races}"/>
+				<ComboBox Visibility="Collapsed" Name="SubraceTextBox" Margin="50, 0, 0, 0"
+						  PlaceholderText="Choose your subrace"
+						  ItemsSource="{Binding Path=SubraceChoices}"/>
+				<ComboBox Margin="0, 10, 0, 0" HorizontalAlignment="Stretch" 
+						  PlaceholderText="Choose your class"
+						  ItemsSource="{Binding Path=Classes}"/>
+				<ComboBox Visibility="Collapsed" Name="SubclassTextBox" 
+						  PlaceholderText="{Binding Path=SubclassChoiceStatement}" 
+						  Margin="50, 0, 0, 0"
+						  ItemsSource="{Binding Path=SubclassChoices}"/>
 
-				<TextBlock Text="Now Enter your Ability scores.&#x0a;&#x0a;You can either roll your own dice, or use the roll button here and choose which numbers go where." 
+					<TextBlock Text="Now Enter your Ability scores.&#x0a;&#x0a;You can either roll your own dice, or use the roll button here and choose which numbers go where." 
 						   Margin="0, 10, 0, 0" TextWrapping="WrapWholeWords"/>
 				<Rectangle Height="1" RenderTransformOrigin="0.5,0.5">
 					<Rectangle.RenderTransform>
@@ -201,7 +211,8 @@
 						  Width="{Binding Width, ElementName=StackPanelMain}"
 						  SelectionMode="None"
 						  IsTemplateFocusTarget="True"
-						  MaxWidth="500">
+						  MaxWidth="500"
+						  >
 					<ListView.ItemsPanel>
 						<ItemsPanelTemplate>
 							<WrapGrid HorizontalAlignment="Left" 
@@ -260,15 +271,20 @@
 				</StackPanel>
 				<TextBlock Text="Now Enter your character's physical appearance"></TextBlock>
 				<TextBox PlaceholderText="Age"
-						 Name="AgeTextBox" Margin="0, 10, 0, 0"/>
+						 Name="AgeTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Age, Mode=TwoWay}"/>
 				<TextBox PlaceholderText="Height"
-						 Name="HeightTextBox" Margin="0, 10, 0, 0"/>
+						 Name="HeightTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Height, Mode=TwoWay}"/>
 				<TextBox PlaceholderText="Hair"
-						 Name="HairTextBox" Margin="0, 10, 0, 0"/>
+						 Name="HairTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Hair, Mode=TwoWay}"/>
 				<TextBox PlaceholderText="Skin"
-						 Name="SkinTextBox" Margin="0, 10, 0, 0"/>
+						 Name="SkinTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Skin, Mode=TwoWay}"/>
 				<TextBox PlaceholderText="Eyes"
-						 Name="EyeTextBox" Margin="0, 10, 0, 0"/>
+						 Name="EyeTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Eye, Mode=TwoWay}"/>
 			</StackPanel>
 
 		</ScrollViewer>

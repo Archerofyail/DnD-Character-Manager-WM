@@ -60,6 +60,24 @@ namespace DnD_Character_Manager
 		}
 	}
 
+	public struct CharacterTrait
+	{
+		public string Description { get; private set; }
+		public string Title { get; private set; }
+
+		public CharacterTrait(string title, string description = "")
+		{
+			Title = title;
+			Description = description;
+		}
+
+		public void UpdateTrait(string title, string description)
+		{
+			Title = title;
+			Description = description;
+		}
+	}
+
 	public struct Weapon
 	{
 		public WeaponType WeaponType { get; private set; }
@@ -68,7 +86,8 @@ namespace DnD_Character_Manager
 		public int MagicLevel { get; private set; }
 		public List<string> MagicEffects { get; private set; }
 
-		public Weapon(WeaponType weaponType, int strengthBonus, int proficiencyBonus, bool isProficient, int magicLevel, List<string> magicEffects)
+		public Weapon(WeaponType weaponType, int strengthBonus, int proficiencyBonus, bool isProficient, int magicLevel,
+			List<string> magicEffects)
 		{
 			WeaponType = weaponType;
 			AttackBonus = strengthBonus + proficiencyBonus + magicLevel;
@@ -86,24 +105,6 @@ namespace DnD_Character_Manager
 		public void SetMagicLevel(int magicLevel)
 		{
 			MagicLevel = magicLevel;
-		}
-	}
-
-	public struct CharacterTrait
-	{
-		public string Description { get; private set; }
-		public string Title { get; private set; }
-
-		public CharacterTrait(string title, string description = "")
-		{
-			Title = title;
-			Description = description;
-		}
-
-		public void UpdateTrait(string title, string description)
-		{
-			Title = title;
-			Description = description;
 		}
 	}
 

@@ -58,14 +58,8 @@ namespace DnD_Character_Manager.Views
 
 		private void SaveButtonClick(object sender, RoutedEventArgs e)
 		{
-			//((AddNewCharacterPageViewModel)DataContext)
-			CharacterModel5E newChar = new CharacterModel5E();
-			newChar.abilityModifiers[MainStat.Strength] = int.Parse(StrengthTextBox.Text);
-			newChar.abilityModifiers[MainStat.Dexterity] = int.Parse(DexterityTextBox.Text);
-			newChar.abilityModifiers[MainStat.Constitution] = int.Parse(ConstitutionTextBox.Text);
-			newChar.abilityModifiers[MainStat.Intelligence] = int.Parse(IntelligenceTextBox.Text);
-			newChar.abilityModifiers[MainStat.Wisdom] = int.Parse(WisdomTextBox.Text);
-			newChar.abilityModifiers[MainStat.Charisma] = int.Parse(CharismaTextBox.Text);
+			((AddNewCharacterPageViewModel) DataContext).CreateCharacter();
+
 		}
 	}
 }
