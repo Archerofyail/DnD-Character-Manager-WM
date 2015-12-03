@@ -26,6 +26,18 @@
 					</Button>
 				</StackPanel>
 			</DataTemplate>
+			<DataTemplate x:Key="CharTrait">
+				<StackPanel Orientation="Horizontal">
+					<CheckBox Content="{Binding Path=Title}"></CheckBox>
+					<Button>
+						<Button.Content>
+							<SymbolIcon Symbol="Remove"></SymbolIcon>
+						</Button.Content>
+					</Button>
+					<CheckBox IsChecked="False" Content="Save to global list"></CheckBox>
+				</StackPanel>
+			</DataTemplate>
+			
 		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -132,15 +144,29 @@
 					</ListView.ItemsPanel>
 				</ListView>
 				<TextBlock Text="Now Choose your Background, personality trait, ideal, bond, and flaw"/>
-				<TextBox PlaceholderText="Personality Trait"></TextBox>
-				<TextBox PlaceholderText="Ideal"></TextBox>
-				<TextBox PlaceholderText="Bond"></TextBox>
-				<TextBox PlaceholderText="Flaw"></TextBox>
-				<TextBlock Text="Fill in your proficiencies here"></TextBlock>
-				<TextBox Height="320" Name="WeaponProficiences" PlaceholderText="Weapons"></TextBox>
-				<TextBox Height="320" Name="Armor"></TextBox>
-				<TextBox Height="320" Name="Language"></TextBox>
-				
+				<TextBox Margin="0, 10, 0, 0" PlaceholderText="Personality Trait"></TextBox>
+				<TextBox Margin="0, 10, 0, 0"  PlaceholderText="Ideal"></TextBox>
+				<TextBox Margin="0, 10, 0, 0" PlaceholderText="Bond"></TextBox>
+				<TextBox Margin="0, 10, 0, 0" PlaceholderText="Flaw"></TextBox>
+				<TextBlock Margin="0, 10, 0, 0" Text="Fill in your proficiencies here"></TextBlock>
+				<TextBox Margin="0, 10, 0, 0" Height="320" Name="WeaponProficiences" PlaceholderText="Weapons"></TextBox>
+				<TextBox Margin="0, 10, 0, 0" Height="320" Name="Armor" PlaceholderText="Armor"></TextBox>
+				<TextBlock Text="Now fill in your language proficiencies here"></TextBlock>
+				<ListView ItemTemplate="{StaticResource CharTrait}" 
+						  ItemsSource="{Binding Path=Languages}"
+						  HorizontalAlignment="Left"
+						  HorizontalContentAlignment="Left" 
+						  Name="LanguagesList"
+						  Width="{Binding Width, ElementName=StackPanelMain}"
+						  SelectionMode="None"
+						  IsTemplateFocusTarget="True">
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapGrid HorizontalAlignment="Left" Width="{Binding Width, ElementName=StackPanelMain}"
+									  Orientation="Horizontal"></WrapGrid>
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
+				</ListView>
 			</StackPanel>
 
 		</ScrollViewer>

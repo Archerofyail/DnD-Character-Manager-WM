@@ -15,6 +15,14 @@ namespace DnD_Character_Manager.Model
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
 		public string Race { get; private set; }
 		public string Subrace { get; private set; }
+
+		public int Age { get; private set; }
+		public string Height { get; private set; }
+		public string Weight { get; private set; }
+		public string EyeColor { get; private set; }
+		public string SkinColor { get; private set; }
+		public string HairColor { get; private set; }
+
 		//Stored as the full number, the Bonus will be calculated on the fly
 		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
 		{
@@ -55,7 +63,7 @@ namespace DnD_Character_Manager.Model
 			}
 			foreach (var skill in Skills)
 			{
-				skill.CalculateBonus(mainstats[skill.MainStatType], proficiencyBonus);
+				skill.CalculateBonus(mainstats[skill.MainStatType], ProficiencyBonus);
 			}
 		}
 	}
