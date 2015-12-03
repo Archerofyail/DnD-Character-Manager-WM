@@ -13,5 +13,20 @@ namespace DnD_Character_Manager.Views
 			this.InitializeComponent();
 			this.DataContext = new AddNewCharacterPageViewModel();
 		}
+
+		private void LanguageAddClick(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void ArmorAddClick(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void WeaponAddClick(object sender, RoutedEventArgs e)
+		{
+			
+		}
 	}
 }

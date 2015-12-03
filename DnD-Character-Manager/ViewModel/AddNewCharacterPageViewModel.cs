@@ -12,6 +12,7 @@ namespace DnD_Character_Manager.ViewModel
 	{
 		private ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
 		public ObservableCollection<Skill> Skills { get { return skills; } }
+
 		private ObservableCollection<CharacterTrait> languages = new ObservableCollection<CharacterTrait>();
 
 		public ObservableCollection<CharacterTrait> Languages
@@ -30,6 +31,30 @@ namespace DnD_Character_Manager.ViewModel
 				return languages;
 			}
 		}
+
+		private ObservableCollection<CharacterTrait> weaponProficiencies = new ObservableCollection<CharacterTrait>();
+
+		public ObservableCollection<CharacterTrait> WeaponProficiencies
+		{
+			get
+			{
+				if (weaponProficiencies.Count == 0)
+				{
+					weaponProficiencies.Add(new CharacterTrait("Simple"));
+					weaponProficiencies.Add(new CharacterTrait("Warhammer"));
+				}
+				return weaponProficiencies;
+			}
+		}
+
+		private ObservableCollection<CharacterTrait> armorProficiencies = new ObservableCollection<CharacterTrait>();
+		public ObservableCollection<CharacterTrait> ArmorProficiencies { get {
+			if (armorProficiencies.Count == 0)
+			{
+				armorProficiencies.Add(new CharacterTrait("Light"));
+				armorProficiencies.Add(new CharacterTrait("Medium"));
+			}
+			return armorProficiencies; } }
 
 		public AddNewCharacterPageViewModel()
 		{
