@@ -4,12 +4,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using DnD_Character_Manager.Types;
 
 namespace DnD_Character_Manager.ViewModel
 {
 	class AddNewCharacterPageViewModel
 	{
+
+		private Random randd6 = new Random();
+
 		private ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
 		public ObservableCollection<Skill> Skills { get { return skills; } }
 
@@ -55,6 +59,49 @@ namespace DnD_Character_Manager.ViewModel
 				armorProficiencies.Add(new CharacterTrait("Medium"));
 			}
 			return armorProficiencies; } }
+
+		private ObservableCollection<string> rolledAbilityScores = new ObservableCollection<string>();
+
+		public ObservableCollection<string> RolledAbilityScores
+		{
+			get
+			{
+				return rolledAbilityScores;
+			}
+		}
+
+		public void RollAbilityScores()
+		{
+			rolledAbilityScores.Clear();
+			for (int i = 0; i < 6; i++)
+			{
+				int final;
+				List<int> rolls = new List<int>()
+						{
+							randd6.Next(1, 7),
+							randd6.Next(1, 7),
+							randd6.Next(1, 7),
+							randd6.Next(1, 7)
+						};
+				rolls.Sort();
+				final = rolls[1] + rolls[2] + rolls[3];
+				rolledAbilityScores.Add(final + "");
+
+			}
+		}
+
+		public Visibility RolledScoresExist
+		{
+			get
+			{
+				if (rolledAbilityScores.Count > 0)
+				{
+					return Visibility.Visible;
+				}
+				return Visibility.Collapsed;
+			}
+		}
+
 
 		public AddNewCharacterPageViewModel()
 		{
