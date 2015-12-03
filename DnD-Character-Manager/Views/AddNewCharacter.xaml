@@ -17,7 +17,7 @@
 			<DataTemplate x:Key="Skill">
 				<StackPanel Orientation="Horizontal">
 					<CheckBox Content="{Binding Path=Name}" 
-							  IsChecked="{Binding Path=IsProficient}"></CheckBox>
+							  IsChecked="{Binding Path=IsProficient, Mode=TwoWay}"/>
 					<Button Visibility="Collapsed">
 						<Button.Content>
 							<SymbolIcon Symbol="Remove"></SymbolIcon>
@@ -27,7 +27,7 @@
 			</DataTemplate>
 			<DataTemplate x:Key="CharTrait">
 				<StackPanel Orientation="Horizontal" Margin="10, 10, 0, 0">
-					<CheckBox Content="{Binding Path=Title}"></CheckBox>
+					<CheckBox Content="{Binding}"></CheckBox>
 					<Button Visibility="Collapsed">
 						<Button.Content>
 							<SymbolIcon Symbol="Remove"></SymbolIcon>
@@ -50,20 +50,20 @@
 						 PlaceholderText="Enter your character's name here" Margin="0, 10, 0, 0"
 						 Text="{Binding Path=CharName, Mode=TwoWay}"/>
 				<ComboBox PlaceholderText="Choose your race" Margin="0, 10, 0, 0"
-						 Name="RaceTextBox" HorizontalAlignment="Stretch"
+						  Name="RaceTextBox" HorizontalAlignment="Stretch"
 						  ItemsSource="{Binding Path=Races}"/>
 				<ComboBox Visibility="Collapsed" Name="SubraceTextBox" Margin="50, 0, 0, 0"
 						  PlaceholderText="Choose your subrace"
-						  ItemsSource="{Binding Path=SubraceChoices}"/>
+						  ItemsSource="{Binding Path=Subraces}"/>
 				<ComboBox Margin="0, 10, 0, 0" HorizontalAlignment="Stretch" 
 						  PlaceholderText="Choose your class"
 						  ItemsSource="{Binding Path=Classes}"/>
 				<ComboBox Visibility="Collapsed" Name="SubclassTextBox" 
 						  PlaceholderText="{Binding Path=SubclassChoiceStatement}" 
 						  Margin="50, 0, 0, 0"
-						  ItemsSource="{Binding Path=SubclassChoices}"/>
+						  ItemsSource="{Binding Path=Subclasses}"/>
 
-					<TextBlock Text="Now Enter your Ability scores.&#x0a;&#x0a;You can either roll your own dice, or use the roll button here and choose which numbers go where." 
+				<TextBlock Text="Now Enter your Ability scores.&#x0a;&#x0a;You can either roll your own dice, or use the roll button here and choose which numbers go where." 
 						   Margin="0, 10, 0, 0" TextWrapping="WrapWholeWords"/>
 				<Rectangle Height="1" RenderTransformOrigin="0.5,0.5">
 					<Rectangle.RenderTransform>
@@ -224,7 +224,7 @@
 				<Button Content="+ Add new Weapon" Click="WeaponAddClick" 
 						HorizontalAlignment="Right" Background="Transparent"/>
 				<TextBlock Text="Armor"/>
-				<ListView ItemTemplate="{StaticResource CharTrait}" 
+				<ListView ItemTemplate="{StaticResource CharTrait}"
 						  ItemsSource="{Binding Path=ArmorProficiencies}"
 						  HorizontalAlignment="Left"
 						  HorizontalContentAlignment="Left" 
@@ -244,7 +244,7 @@
 				<Button Content="+ Add new Armor" Click="ArmorAddClick" 
 						HorizontalAlignment="Right" Background="Transparent"/>
 				<TextBlock Text="Languages"/>
-				<ListView ItemTemplate="{StaticResource CharTrait}" 
+				<ListView  
 						  ItemsSource="{Binding Path=Languages}"
 						  HorizontalAlignment="Left"
 						  HorizontalContentAlignment="Left" 
@@ -262,7 +262,7 @@
 					</ListView.ItemsPanel>
 				</ListView>
 				<Button Content="+ Add new Language" Click="LanguageAddClick" 
-						Background="Transparent" Margin="{Binding Width, ElementName=LanguagesList}"
+						Background="Transparent" Margin="0"
 						/>
 				<StackPanel>
 					<TextBox PlaceholderText="Language name" Visibility="Collapsed"

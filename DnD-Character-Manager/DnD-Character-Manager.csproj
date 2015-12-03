@@ -92,31 +92,16 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Assets\Data\ArmorProficienciesList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\ClassFeatureList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\ClassList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\RaceList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\RacialTraitList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\SubclassList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\SubraceList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\Data\WeaponProficienciesList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <None Include="Assets\Data\LanguageList.json" />
+    <EmbeddedResource Include="Assets\Data\ArmorProficienciesList.json" />
+    <EmbeddedResource Include="Assets\Data\ClassFeatureList.json" />
+    <EmbeddedResource Include="Assets\Data\ClassList.json" />
+    <EmbeddedResource Include="Assets\Data\RaceList.json" />
+    <EmbeddedResource Include="Assets\Data\RacialTraitList.json" />
+    <EmbeddedResource Include="Assets\Data\SubclassList.json" />
+    <EmbeddedResource Include="Assets\Data\SubraceList.json" />
+    <EmbeddedResource Include="Assets\Data\WeaponProficienciesList.json" />
+    <EmbeddedResource Include="Assets\Data\LanguageList.json" />
+    <PRIResource Include="Assets\DefaultData.resw" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

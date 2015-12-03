@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
@@ -14,6 +15,7 @@ namespace DnD_Character_Manager.Views
 		{
 			this.InitializeComponent();
 			this.DataContext = new AddNewCharacterPageViewModel();
+			Debug.WriteLine("added data context");
 		}
 
 		private void LanguageAddClick(object sender, RoutedEventArgs e)

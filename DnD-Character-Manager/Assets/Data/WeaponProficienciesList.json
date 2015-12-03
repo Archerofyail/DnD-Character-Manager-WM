@@ -1,28 +1,20 @@
 ﻿[
-    {
-        "Simple" : [
-            "Club",
-            "Dagger",
-            "Greatclub",
-            "Handaxe",
-            "Javelin",
-            "Light hammer",
-            "Mace",
-            "Quarterstaff",
-            "Sickle",
-            "Spear"
-
-        ]
-    },
-    {
-        "Martial": [
-            "Battleaxe",
-            "Flail",
-            "Glaive",
-            "Greataxe",
-            "Greatsword",
-            "Halberd"
-        ]
-
-    }
+    "Simple",
+    "Club",
+    "Dagger",
+    "Greatclub",
+    "Handaxe",
+    "Javelin",
+    "Light hammer",
+    "Mace",
+    "Quarterstaff",
+    "Sickle",
+    "Spear",
+    "Martial",
+    "Battleaxe",
+    "Flail",
+    "Glaive",
+    "Greataxe",
+    "Greatsword",
+    "Halberd"
 ]

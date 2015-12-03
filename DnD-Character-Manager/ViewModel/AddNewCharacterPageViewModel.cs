@@ -114,21 +114,18 @@ namespace DnD_Character_Manager.ViewModel
 			get { return skills; }
 		}
 
-		private ObservableCollection<CharacterTrait> languages = new ObservableCollection<CharacterTrait>();
+		private ObservableCollection<string> languages = new ObservableCollection<string>();
 
-		public ObservableCollection<CharacterTrait> Languages
+		public ObservableCollection<string> Languages
 		{
 			get
 			{
-				if (CharacterTraitSelectionStore.Languages.Count > 0)
-				{
-					languages = new ObservableCollection<CharacterTrait>(CharacterTraitSelectionStore.Languages);
-				}
 				if (languages.Count == 0)
 				{
-					
-					languages.Add(new CharacterTrait("Common"));
-					languages.Add(new CharacterTrait("Dwarven"));
+					foreach (var language in CharacterTraitSelectionStore.Languages)
+					{
+						languages.Add(language);
+					}
 				}
 				return languages;
 			}
@@ -151,6 +148,20 @@ namespace DnD_Character_Manager.ViewModel
 			}
 		}
 
+		private ObservableCollection<string> subraces = new ObservableCollection<string>();
+
+		public ObservableCollection<string> Subraces
+		{
+			get
+			{
+				if (subraces.Count == 0)
+				{
+					subraces.Add("default subrace");
+				}
+				return subraces;
+			}
+		}
+
 		private ObservableCollection<string> classes = new ObservableCollection<string>();
 
 		public ObservableCollection<string> Classes
@@ -168,31 +179,59 @@ namespace DnD_Character_Manager.ViewModel
 			}
 		}
 
-		private ObservableCollection<CharacterTrait> weaponProficiencies = new ObservableCollection<CharacterTrait>();
+		private ObservableCollection<string> subclasses = new ObservableCollection<string>();
 
-		public ObservableCollection<CharacterTrait> WeaponProficiencies
+		public ObservableCollection<string> Subclasses
+		{
+			get
+			{
+				if (subclasses.Count == 0)
+				{
+					subclasses.Add("default subclass");
+				}
+				return subclasses;
+
+			}
+		}
+
+		private string subclassChoiceStatement = "Choose your subclass{default}";
+
+		public string SubclassChoiceStatement
+		{
+			get { return subclassChoiceStatement; }
+		}
+
+
+
+		private ObservableCollection<string> weaponProficiencies = new ObservableCollection<string>();
+
+		public ObservableCollection<string> WeaponProficiencies
 		{
 			get
 			{
 				if (weaponProficiencies.Count == 0)
 				{
-					weaponProficiencies.Add(new CharacterTrait("Simple"));
-					weaponProficiencies.Add(new CharacterTrait("Warhammer"));
+					foreach (var weapon in ItemSelectionStore.weaponProfList)
+					{
+						weaponProficiencies.Add(weapon);
+					}
 				}
 				return weaponProficiencies;
 			}
 		}
 
-		private ObservableCollection<CharacterTrait> armorProficiencies = new ObservableCollection<CharacterTrait>();
+		private ObservableCollection<string> armorProficiencies = new ObservableCollection<string>();
 
-		public ObservableCollection<CharacterTrait> ArmorProficiencies
+		public ObservableCollection<string> ArmorProficiencies
 		{
 			get
 			{
 				if (armorProficiencies.Count == 0)
 				{
-					armorProficiencies.Add(new CharacterTrait("Light"));
-					armorProficiencies.Add(new CharacterTrait("Medium"));
+					foreach (var weapon in ItemSelectionStore.armorProfList)
+					{
+						armorProficiencies.Add(weapon);
+					}
 				}
 				return armorProficiencies;
 			}

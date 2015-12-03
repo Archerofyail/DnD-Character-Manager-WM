@@ -8,6 +8,7 @@ using Windows.Storage;
 using Windows.UI.Notifications;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 namespace DnD_Character_Manager.Types
@@ -24,17 +25,29 @@ namespace DnD_Character_Manager.Types
 		{
 			armor = new List<Armor>();
 			weapons = new List<Weapon>();
-			LoadArmorList();
-			LoadWeaponList();
-			
+			armorProfList = new List<string>();
+			weaponProfList = new List<string>();
+			//LoadArmorList();
+			//LoadWeaponList();
+			LoadProficiencies();
+		}
+
+		public async static void LoadProficiencies()
+		{
+			string weaponJson = "";
+			string armorJson = "";
+			weaponJson = await JsonLoader.LoadJsonFromEmbeddedResource("WeaponProficienciesList");
+			armorJson = await JsonLoader.LoadJsonFromEmbeddedResource("ArmorProficienciesList");
+			weaponProfList.AddRange(JsonConvert.DeserializeObject<string[]>(weaponJson));
+			armorProfList.AddRange(JsonConvert.DeserializeObject<string[]>(armorJson));
+
 		}
 
 		public async static void LoadArmorList()
 		{
 			Debug.WriteLine("Starting to load armor");
-			string profJson = await JsonLoader.LoadJsonFromEmbeddedResource("WeaponProficienciesList.json");
-			Debug.WriteLine("loaded armor proficieny json: \n" + profJson);
-			string json = await JsonLoader.LoadJsonFromFile("ArmorList.json", ApplicationData.Current.RoamingFolder);
+			
+			string json = await JsonLoader.LoadJsonFromFile("ArmorList", ApplicationData.Current.RoamingFolder);
 			if (!string.IsNullOrEmpty(json))
 			{
 				armor = JsonConvert.DeserializeObject<List<Armor>>(json);
@@ -42,10 +55,8 @@ namespace DnD_Character_Manager.Types
 		}
 
 		public async static void LoadWeaponList()
-		{
-			string profJson = await JsonLoader.LoadJsonFromEmbeddedResource("ArmorProficienciesList.json");
-			Debug.WriteLine("loaded weapon proficieny json: \n" +profJson);
-			string json = await JsonLoader.LoadJsonFromFile("WeaponList.json", ApplicationData.Current.RoamingFolder);
+		{ 
+			string json = await JsonLoader.LoadJsonFromFile("WeaponList", ApplicationData.Current.RoamingFolder);
 			if (!string.IsNullOrEmpty(json))
 			{
 				weapons = JsonConvert.DeserializeObject<List<Weapon>>(json);

@@ -30,14 +30,37 @@ namespace DnD_Character_Manager.Types
 
 		public async static Task<string> LoadJsonFromEmbeddedResource(string resourceName)
 		{
-			//var resourceNamesFound = typeof (JsonLoader).GetTypeInfo().Assembly.GetManifestResourceNames();
-			var json = "";
-			using (var fileStream = typeof (JsonLoader).GetTypeInfo().Assembly.GetManifestResourceStream("DnD_Character_Manager.Assets.Data." + resourceName))
+
+			Debug.WriteLine("looking for " + resourceName + ".json");
+			var Assembly = typeof (JsonLoader).GetTypeInfo().Assembly;
+			var resourceList = Assembly.GetManifestResourceNames();
+			foreach (var s in resourceList)
 			{
-				using (var stream = new StreamReader(fileStream))
+			Debug.WriteLine(s);
+			}
+			var json = "";
+			try
+			{
+				Debug.WriteLine("Loading Stream...");
+				using (
+					var stream =
+						typeof (JsonLoader).GetTypeInfo()
+							.Assembly.GetManifestResourceStream(  "DnD_Character_Manager.Assets.Data." + resourceName + ".json"))
 				{
-					json = stream.ReadToEnd();
+					Debug.WriteLine("Loaded stream, value is " + stream +" grabbing json...");
+
+					using (var textStream = new StreamReader(stream))
+					{
+						Debug.WriteLine("Loaded StreamReader with value " + textStream);
+						json = textStream.ReadToEnd();
+						Debug.WriteLine("grabbed json woth value \n" + json);
+					}
 				}
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("Exception happened:\n" + e.StackTrace);
+				Debug.WriteLine(e.Message);
 			}
 			return json;
 		}

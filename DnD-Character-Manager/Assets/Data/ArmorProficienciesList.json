@@ -1,32 +1,20 @@
 ﻿[
-    {
-        "Light": [
-            "Padded",
-            "Leather",
-            "Studded Leather"
-        ]
-    },
-    {
-        "Medium": [
-            "Hide",
-            "Chain Shirt",
-            "Scale Mail",
-            "Breastplate",
-            "Half Plate"
-        ]
-    },
-    {
-        "Heavy": [
-            "Ring Mail",
-            "Chain Mail",
-            "Splint",
-            "Plate"
-        ]
-    },
-    {
-        "Shield": [
-            "Shield"
-        ]
-    }
+
+    "Light",
+    "Padded",
+    "Leather",
+    "Studded Leather",
+    "Medium",
+    "Hide",
+    "Chain Shirt",
+    "Scale Mail",
+    "Breastplate",
+    "Half Plate",
+    "Heavy",
+    "Ring Mail",
+    "Chain Mail",
+    "Splint",
+    "Plate",
+    "Shield"
 
 ]
