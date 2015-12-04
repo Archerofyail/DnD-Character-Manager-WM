@@ -17,8 +17,7 @@ namespace DnD_Character_Manager.ViewModel
 {
 	internal class AddNewCharacterPageViewModel : INotifyCollectionChanged, INotifyPropertyChanged
 	{
-
-		private Random randd6 = new Random();
+		private readonly Random randd6 = new Random();
 
 		private string charName = "";
 
@@ -166,7 +165,7 @@ namespace DnD_Character_Manager.ViewModel
 			get { return intelligenceStat; }
 			set
 			{
-				IntelligenceStat = value;
+				intelligenceStat = value;
 				NotifyPropertyChanged();
 			}
 		}
@@ -202,9 +201,9 @@ namespace DnD_Character_Manager.ViewModel
 			get { return skills; }
 		}
 
-		private ObservableCollection<string> languages = new ObservableCollection<string>();
+		private ObservableCollection<ItemPair<string, bool>> languages = new ObservableCollection<ItemPair<string, bool>>();
 
-		public ObservableCollection<string> Languages
+		public ObservableCollection<ItemPair<string, bool>> Languages
 		{
 			get
 			{
@@ -212,7 +211,7 @@ namespace DnD_Character_Manager.ViewModel
 				{
 					foreach (var language in CharacterTraitSelectionStore.Languages)
 					{
-						languages.Add(language);
+						languages.Add(new ItemPair<string, bool>(language, false));
 					}
 				}
 				return languages;
@@ -340,9 +339,9 @@ namespace DnD_Character_Manager.ViewModel
 
 
 
-		private ObservableCollection<string> weaponProficiencies = new ObservableCollection<string>();
+		private ObservableCollection<ItemPair<string, bool>> weaponProficiencies = new ObservableCollection<ItemPair<string, bool>>();
 
-		public ObservableCollection<string> WeaponProficiencies
+		public ObservableCollection<ItemPair<string, bool>> WeaponProficiencies
 		{
 			get
 			{
@@ -350,16 +349,16 @@ namespace DnD_Character_Manager.ViewModel
 				{
 					foreach (var weapon in ItemSelectionStore.weaponProfList)
 					{
-						weaponProficiencies.Add(weapon);
+						weaponProficiencies.Add(new ItemPair<string, bool>(weapon, false));
 					}
 				}
 				return weaponProficiencies;
 			}
 		}
 
-		private ObservableCollection<string> armorProficiencies = new ObservableCollection<string>();
+		private ObservableCollection<ItemPair<string, bool>> armorProficiencies = new ObservableCollection<ItemPair<string, bool>>();
 
-		public ObservableCollection<string> ArmorProficiencies
+		public ObservableCollection<ItemPair<string, bool>> ArmorProficiencies
 		{
 			get
 			{
@@ -367,7 +366,7 @@ namespace DnD_Character_Manager.ViewModel
 				{
 					foreach (var weapon in ItemSelectionStore.armorProfList)
 					{
-						armorProficiencies.Add(weapon);
+						armorProficiencies.Add(new ItemPair<string, bool>(weapon, false));
 					}
 				}
 				return armorProficiencies;
@@ -439,6 +438,27 @@ namespace DnD_Character_Manager.ViewModel
 			character.abilityModifiers.Add(MainStat.Intelligence, intelligenceStat);
 			character.abilityModifiers.Add(MainStat.Wisdom, wisdomStat);
 			character.abilityModifiers.Add(MainStat.Charisma, charismaStat);
+			foreach (var language in Languages)
+			{
+				if (language.Item2)
+				{
+					character.LanguageProficiencies.Add(new CharacterTrait(language.Item1));
+				}
+			}
+			foreach (var weaponProficiency in weaponProficiencies)
+			{
+				if (weaponProficiency.Item2)
+				{
+					character.WeaponProficiencies.Add(new CharacterTrait(weaponProficiency.Item1));
+				}
+			}
+			foreach (var armorItem in armorProficiencies)
+			{
+				if (armorItem.Item2)
+				{
+					character.WeaponProficiencies.Add(new CharacterTrait(armorItem.Item1));
+				}
+			}
 		}
 
 		public AddNewCharacterPageViewModel()

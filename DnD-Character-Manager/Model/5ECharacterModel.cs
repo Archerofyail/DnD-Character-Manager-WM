@@ -11,12 +11,29 @@ namespace DnD_Character_Manager.Model
 	//To make racial bonuses have a class with methods to add stuff to a character, like points to ability modifiers and entries to features and stuff. Then make a list of (structs maybe?) that contains the data, with the delegate. When that race is selected, call the delegate, and pass it the data
 	class CharacterModel5E
 	{
+		private int equippedArmor;
 		public int Level = 1;
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
 		public string Race { get; set; }
 		public string Subrace { get; set; }
 		public string Class { get; set; }
 		public string SubClass { get; set; }
+
+		public int ArmorClass
+		{
+			get
+			{
+				return Armor.Find((item) => item.Equipped).ArmorClass +
+				       Utility.CalculateMainStatBonus(mainstats[MainStat.Dexterity]);
+			}
+		}
+
+		private int speed;
+		public int Speed
+		{
+			get { return speed; }
+			set { speed = (value/5)*5; }
+		}
 
 		public string Name { get; set; }
 		public int Age { get; set; }
@@ -25,6 +42,8 @@ namespace DnD_Character_Manager.Model
 		public string EyeColor { get; set; }
 		public string SkinColor { get; set; }
 		public string HairColor { get; set; }
+
+
 
 		//Stored as the full number, the Bonus will be calculated on the fly
 		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
@@ -52,6 +71,9 @@ namespace DnD_Character_Manager.Model
 		public List<CharacterTrait> ArmorProficiencies { get { return armorProficiencies; } }
 		private List<CharacterTrait> features = new List<CharacterTrait>();
 		public List<CharacterTrait> Features { get { return features; } }
+		public List<IItem> Items { get; set; }
+		public List<Armor> Armor { get; set; } 
+		public List<Weapon> Weapons { get; set; } 
 
 		public void CalculateAbilityModifiers()
 		{

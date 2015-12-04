@@ -1,13 +1,39 @@
 ﻿<Page
-    x:Class="DnD_Character_Manager.CharacterSheet"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DnD_Character_Manager"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+	x:Class="DnD_Character_Manager.CharacterSheet"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:DnD_Character_Manager"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid Name="General">
+			<StackPanel Name="ClassAndRaceInfo"></StackPanel>
+			<StackPanel Name="PhysicalDescription"></StackPanel>
+		</Grid>
+		<Grid Name="AbilityScores">
+			
+		</Grid>
+		<Grid Name="Skills">
+			
+		</Grid>
+		<Grid Name="BattleStats">
+			
+		</Grid>
+		<Grid Name="Proficiencies">
+			<StackPanel Name="Languages">
+				
+			</StackPanel>
+			<StackPanel Name="Weapons">
+				
+			</StackPanel>
+			<StackPanel Name="ClassAndRaceFeatures">
+				
+			</StackPanel>
+			<StackPanel Name="OtherProficiencies">
+				
+			</StackPanel>
+		</Grid>
+	</Grid>
 </Page>

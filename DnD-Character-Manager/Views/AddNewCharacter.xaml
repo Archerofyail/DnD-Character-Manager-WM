@@ -18,6 +18,7 @@
 				<StackPanel Orientation="Horizontal">
 					<CheckBox Content="{Binding Path=Name}" 
 							  IsChecked="{Binding Path=IsProficient, Mode=TwoWay}"/>
+					<TextBlock Text="{Binding Path=MainStatType}"></TextBlock>
 					<Button Visibility="Collapsed">
 						<Button.Content>
 							<SymbolIcon Symbol="Remove"></SymbolIcon>
@@ -27,7 +28,8 @@
 			</DataTemplate>
 			<DataTemplate x:Key="CharTrait">
 				<StackPanel Orientation="Horizontal" Margin="10, 10, 0, 0">
-					<CheckBox Content="{Binding}"></CheckBox>
+					<CheckBox Content="{Binding Path=Item1}"
+							  IsChecked="{Binding Path=Item2}"/>
 					<Button Visibility="Collapsed">
 						<Button.Content>
 							<SymbolIcon Symbol="Remove"></SymbolIcon>

@@ -116,9 +116,12 @@
     </Compile>
     <Compile Include="Model\5ECharacterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\CharacterTrait.cs" />
     <Compile Include="Types\CharacterTraitSelectionStore.cs" />
+    <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Types\ItemSelectionStore.cs" />
     <Compile Include="Types\JsonLoader.cs" />
+    <Compile Include="Types\Skill.cs" />
     <Compile Include="ViewModel\AddNewCharacterPageViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">
