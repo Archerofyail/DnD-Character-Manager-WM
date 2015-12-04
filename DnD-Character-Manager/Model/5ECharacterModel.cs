@@ -15,7 +15,10 @@ namespace DnD_Character_Manager.Model
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
 		public string Race { get; set; }
 		public string Subrace { get; set; }
+		public string Class { get; set; }
+		public string SubClass { get; set; }
 
+		public string Name { get; set; }
 		public int Age { get; set; }
 		public string Height { get; set; }
 		public string Weight { get; set; }

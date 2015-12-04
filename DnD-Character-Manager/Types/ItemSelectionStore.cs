@@ -34,6 +34,7 @@ namespace DnD_Character_Manager.Types
 
 		public async static void LoadProficiencies()
 		{
+			
 			string weaponJson = "";
 			string armorJson = "";
 			weaponJson = await JsonLoader.LoadJsonFromEmbeddedResource("WeaponProficienciesList");

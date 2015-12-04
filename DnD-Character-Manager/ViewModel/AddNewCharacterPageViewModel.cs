@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using DnD_Character_Manager.Model;
 using DnD_Character_Manager.Types;
 
 namespace DnD_Character_Manager.ViewModel
@@ -38,7 +39,7 @@ namespace DnD_Character_Manager.ViewModel
 		{
 			get
 			{
-				return age; 
+				return age;
 			}
 			set
 			{
@@ -58,6 +59,21 @@ namespace DnD_Character_Manager.ViewModel
 			set
 			{
 				height = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		private string weight = "";
+
+		public string Weight
+		{
+			get
+			{
+				return weight;
+			}
+			set
+			{
+				weight = value;
 				NotifyPropertyChanged();
 			}
 		}
@@ -107,6 +123,78 @@ namespace DnD_Character_Manager.ViewModel
 			}
 		}
 
+		private int strengthStat = 0;
+
+		public int StrengthStat
+		{
+			get { return strengthStat; }
+			set
+			{
+				strengthStat = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		private int dexterityStat = 0;
+
+		public int DexterityStat
+		{
+			get { return dexterityStat; }
+			set
+			{
+				dexterityStat = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		private int constitutionStat = 0;
+
+		public int ConstitutionStat
+		{
+			get { return constitutionStat; }
+			set
+			{
+				constitutionStat = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		private int intelligenceStat = 0;
+
+		public int IntelligenceStat
+		{
+			get { return intelligenceStat; }
+			set
+			{
+				IntelligenceStat = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		private int wisdomStat = 0;
+
+		public int WisdomStat
+		{
+			get { return wisdomStat; }
+			set
+			{
+				wisdomStat = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+		private int charismaStat = 0;
+
+		public int CharismaStat
+		{
+			get { return charismaStat; }
+			set
+			{
+				charismaStat = value;
+				NotifyPropertyChanged();
+			}
+		}
+
 		private ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
 
 		public ObservableCollection<Skill> Skills
@@ -148,6 +236,19 @@ namespace DnD_Character_Manager.ViewModel
 			}
 		}
 
+		private int selectedRace = -1;
+
+		public int SelectedRace
+		{
+			get { return selectedRace; }
+			set
+			{
+				selectedRace = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+
 		private ObservableCollection<string> subraces = new ObservableCollection<string>();
 
 		public ObservableCollection<string> Subraces
@@ -159,6 +260,18 @@ namespace DnD_Character_Manager.ViewModel
 					subraces.Add("default subrace");
 				}
 				return subraces;
+			}
+		}
+
+		private int selectedSubRace = -1;
+
+		public int SelectedSubRace
+		{
+			get { return selectedSubRace; }
+			set
+			{
+				selectedSubRace = value;
+				NotifyPropertyChanged();
 			}
 		}
 
@@ -179,6 +292,19 @@ namespace DnD_Character_Manager.ViewModel
 			}
 		}
 
+		private int selectedClass = -1;
+
+		public int SelectedClass
+		{
+			get { return selectedClass; }
+			set
+			{
+				selectedClass = value;
+				NotifyPropertyChanged();
+			}
+		}
+
+
 		private ObservableCollection<string> subclasses = new ObservableCollection<string>();
 
 		public ObservableCollection<string> Subclasses
@@ -191,6 +317,17 @@ namespace DnD_Character_Manager.ViewModel
 				}
 				return subclasses;
 
+			}
+		}
+
+		private int selectedSubClass = -1;
+		public int SelectedSubClass
+		{
+			get { return selectedSubClass; }
+			set
+			{
+				selectedSubClass = value;
+				NotifyPropertyChanged();
 			}
 		}
 
@@ -262,6 +399,7 @@ namespace DnD_Character_Manager.ViewModel
 				final = rolls[1] + rolls[2] + rolls[3];
 				rolledAbilityScores.Add(final + "");
 
+
 			}
 		}
 
@@ -280,7 +418,27 @@ namespace DnD_Character_Manager.ViewModel
 
 		public void CreateCharacter()
 		{
+			CharacterModel5E character = new CharacterModel5E()
+			{
+				Age = int.Parse(age),
+				Height = height,
+				SkinColor = skin,
+				EyeColor = eye,
+				HairColor = hair,
+				Weight = weight,
+				Name = CharName,
+				Race = Races[SelectedRace],
+				Subrace = Subraces[SelectedSubClass],
+				Class = Classes[selectedClass],
+				SubClass = Subclasses[SelectedSubClass]
 
+			};
+			character.abilityModifiers.Add(MainStat.Strength, strengthStat);
+			character.abilityModifiers.Add(MainStat.Dexterity, dexterityStat);
+			character.abilityModifiers.Add(MainStat.Constitution, constitutionStat);
+			character.abilityModifiers.Add(MainStat.Intelligence, intelligenceStat);
+			character.abilityModifiers.Add(MainStat.Wisdom, wisdomStat);
+			character.abilityModifiers.Add(MainStat.Charisma, charismaStat);
 		}
 
 		public AddNewCharacterPageViewModel()
@@ -308,5 +466,5 @@ namespace DnD_Character_Manager.ViewModel
 				PropertyChanged(this, new PropertyChangedEventArgs(senderName));
 			}
 		}
-}
+	}
 }
