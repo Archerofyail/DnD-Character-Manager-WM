@@ -45,29 +45,24 @@ namespace DnD_Character_Manager.Types
 			var json = "";
 			await Task.Run(() =>
 			{
-				Debug.WriteLine("looking for " + resourceName + ".json");
-				var Assembly = typeof(JsonLoader).GetTypeInfo().Assembly;
-				var resourceList = Assembly.GetManifestResourceNames();
-				foreach (var s in resourceList)
-				{
-					Debug.WriteLine(s);
-				}
+				//Debug.WriteLine("looking for " + resourceName + ".json");
+				var assembly = typeof(JsonLoader).GetTypeInfo().Assembly;
+				
 				
 				try
 				{
-					Debug.WriteLine("Loading Stream...");
+					//Debug.WriteLine("Loading Stream...");
 					using (
 						var stream =
-							typeof(JsonLoader).GetTypeInfo()
-								.Assembly.GetManifestResourceStream("DnD_Character_Manager.Assets.Data." + resourceName + ".json"))
+							assembly.GetManifestResourceStream("DnD_Character_Manager.Assets.Data." + resourceName + ".json"))
 					{
-						Debug.WriteLine("Loaded stream, value is " + stream + " grabbing json...");
+						//Debug.WriteLine("Loaded stream, value is " + stream + " grabbing json...");
 
 						using (var textStream = new StreamReader(stream))
 						{
-							Debug.WriteLine("Loaded StreamReader with value " + textStream);
+							//Debug.WriteLine("Loaded StreamReader with value " + textStream);
 							json = textStream.ReadToEnd();
-							Debug.WriteLine("grabbed json woth value \n" + json);
+							//Debug.WriteLine("grabbed json woth value \n" + json);
 						}
 					}
 				}

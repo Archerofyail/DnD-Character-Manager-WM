@@ -8,32 +8,46 @@
 	mc:Ignorable="d">
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Grid Name="General">
-			<StackPanel Name="ClassAndRaceInfo"></StackPanel>
-			<StackPanel Name="PhysicalDescription"></StackPanel>
-		</Grid>
-		<Grid Name="AbilityScores">
-			
-		</Grid>
-		<Grid Name="Skills">
-			
-		</Grid>
-		<Grid Name="BattleStats">
-			
-		</Grid>
-		<Grid Name="Proficiencies">
-			<StackPanel Name="Languages">
-				
+		<TextBlock Text="{Binding Path=Name}"></TextBlock>
+		<StackPanel>
+			<StackPanel Name="General"
+					BorderBrush="Black"
+					BorderThickness="2">
+				<Grid MaxHeight="50">
+					<TextBlock Text="General"></TextBlock>
+					<TextBlock HorizontalAlignment="Right"
+						   Text="+"></TextBlock>
+				</Grid>
+				<StackPanel Name="ClassAndRaceInfo"/>
+				<StackPanel Name="PhysicalDescription"></StackPanel>
 			</StackPanel>
-			<StackPanel Name="Weapons">
-				
+			<StackPanel Name="AbilityScores">
+
 			</StackPanel>
-			<StackPanel Name="ClassAndRaceFeatures">
-				
+			<StackPanel Name="Skills">
+
 			</StackPanel>
-			<StackPanel Name="OtherProficiencies">
-				
+			<StackPanel Name="BattleStats">
+
 			</StackPanel>
-		</Grid>
+			<StackPanel Name="Proficiencies">
+				<StackPanel Name="Languages"
+						Margin="20, 0, 0, 0">
+
+				</StackPanel>
+				<StackPanel Name="Weapons"
+						Margin="20, 0, 0, 0">
+
+				</StackPanel>
+				<StackPanel Name="ClassAndRaceFeatures"
+						Margin="20, 0, 0, 0">
+
+				</StackPanel>
+				<StackPanel Name="OtherProficiencies"
+						Margin="20, 0, 0, 0">
+
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
 	</Grid>
 </Page>
