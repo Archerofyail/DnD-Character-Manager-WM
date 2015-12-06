@@ -337,7 +337,17 @@ namespace DnD_Character_Manager.ViewModel
 			get { return subclassChoiceStatement; }
 		}
 
+		private string alignment = "";
 
+		public string Alignment
+		{
+			get { return alignment; }
+			set
+			{
+				alignment = value;
+				NotifyPropertyChanged();
+			}
+		}
 
 		private ObservableCollection<ItemPair<string, bool>> weaponProficiencies = new ObservableCollection<ItemPair<string, bool>>();
 

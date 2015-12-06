@@ -19,6 +19,8 @@ namespace DnD_Character_Manager.Model
 		public string Class { get; set; }
 		public string SubClass { get; set; }
 
+		public CharacterTrait Alignment { get; set; }
+
 		public int ArmorClass
 		{
 			get
