@@ -1,8 +1,0 @@
-﻿[
-    {
-        "Name": "ShortSword",
-        "WeaponType" :  "Simple",
-        "AttackBonus": 0,
-        "MagicBonus" : 0
-    }
-]

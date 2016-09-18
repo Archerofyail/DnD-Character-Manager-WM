@@ -1,0 +1,308 @@
+﻿<Page
+	x:Class="TabletopRolePlayingCharacterManager.Views.AddNewCharacter"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:TabletopRolePlayingCharacterManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	DataContext="AddNewCharacterPageViewModel">
+	<Page.BottomAppBar>
+		<CommandBar>
+			<AppBarButton Icon="Accept" Click="SaveButtonClick"/>
+		</CommandBar>
+	</Page.BottomAppBar>
+	<Page.Resources>
+		<ResourceDictionary>
+			<DataTemplate x:Key="Skill">
+				<StackPanel Orientation="Horizontal">
+					<CheckBox Content="{Binding Path=Name}" 
+							  IsChecked="{Binding Path=IsProficient, Mode=TwoWay}"/>
+					<TextBlock Text="{Binding Path=MainStatType}"></TextBlock>
+					<Button Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Remove"></SymbolIcon>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="CharTrait">
+				<StackPanel Orientation="Horizontal" Margin="10, 10, 0, 0">
+					<CheckBox Content="{Binding Path=Item1}"
+							  IsChecked="{Binding Path=Item2}"/>
+					<Button Visibility="Collapsed">
+						<Button.Content>
+							<SymbolIcon Symbol="Remove"></SymbolIcon>
+						</Button.Content>
+					</Button>
+					<CheckBox IsChecked="False" Content="Save to global list" 
+							  Visibility="Collapsed"/>
+				</StackPanel>
+			</DataTemplate>
+
+		</ResourceDictionary>
+	</Page.Resources>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<ScrollViewer HorizontalScrollMode="Disabled">
+			<StackPanel Margin="10" Background="AliceBlue"
+					Orientation="Vertical" Name="StackPanelMain">
+				<TextBlock x:Name="textBlock" TextWrapping="Wrap" 
+						   Text="To get started with your new character, choose your name, race and class here.&#x0a;You can leave anything blank to fill out later if you're not sure about it yet." />
+				<TextBox x:Name="NameTextBox" TextWrapping="Wrap" 
+						 PlaceholderText="Enter your character's name here" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=CharName, Mode=TwoWay}"/>
+				<ComboBox PlaceholderText="Choose your race" Margin="0, 10, 0, 0"
+						  Name="RaceTextBox" HorizontalAlignment="Stretch"
+						  ItemsSource="{Binding Path=Races}"
+						  SelectedIndex="{Binding Path=SelectedRace}"/>
+				<ComboBox Visibility="Collapsed" Name="SubraceTextBox" Margin="50, 0, 0, 0"
+						  PlaceholderText="Choose your subrace"
+						  ItemsSource="{Binding Path=Subraces}"
+						  SelectedIndex="{Binding Path=SelectedSubRace}"/>
+				<ComboBox Margin="0, 10, 0, 0" HorizontalAlignment="Stretch" 
+						  PlaceholderText="Choose your class"
+						  ItemsSource="{Binding Path=Classes}"
+						  SelectedIndex="{Binding Path=SelectedClass}"/>
+				<ComboBox Visibility="Collapsed" Name="SubclassTextBox" 
+						  PlaceholderText="{Binding Path=SubclassChoiceStatement}" 
+						  Margin="50, 0, 0, 0"
+						  ItemsSource="{Binding Path=Subclasses}"
+						  SelectedIndex="{Binding Path=SelectedSubClass}"/>
+				
+				
+				<TextBox Text="{Binding Path=Alignment}" Margin="0, 10, 0, 0"
+						 PlaceholderText="Enter your Alignment here"/>
+
+				<TextBlock Text="Now Enter your Ability scores.&#x0a;&#x0a;You can either roll your own dice, or use the roll button here and choose which numbers go where." 
+						   Margin="0, 10, 0, 0" TextWrapping="WrapWholeWords"/>
+				<Rectangle Height="1" RenderTransformOrigin="0.5,0.5">
+					<Rectangle.RenderTransform>
+						<CompositeTransform ScaleY="-1"/>
+					</Rectangle.RenderTransform>
+					<Rectangle.Fill>
+						<LinearGradientBrush EndPoint="0,0" StartPoint="1,0" >
+							<GradientStop Color="#FF4F4F4F" Offset="0.25"/>
+							<GradientStop Color="#006C6C6C" Offset="1"/>
+							<GradientStop Color="#006E6E6E"/>
+							<GradientStop Color="#FF4F4F4F" Offset="0.75"/>
+							<GradientStop Color="#FF6E6B6B" Offset="0.5"/>
+						</LinearGradientBrush>
+					</Rectangle.Fill>
+				</Rectangle>
+				<StackPanel Orientation="Horizontal" MinWidth="300">
+					<StackPanel Orientation="Vertical">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Strength" VerticalAlignment="Center" 
+							   Margin="0, 10, 0, 0" Width="90"/>
+							<TextBox x:Name="StrengthTextBox" MaxWidth="60" 
+							 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
+									 Text="{Binding Path=StrengthStat}"/>
+							<Button x:Name="SelectStrengthButton" Margin="15, 10, 0, 0" 
+									Padding="5, 2, 5, 2" Visibility="{Binding Path=RolledScoresExist}"
+									Click="SelectAbilityToAssign">
+								<Button.Content>
+									<SymbolIcon Symbol="Add"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+
+						<StackPanel  Orientation="Horizontal">
+							<TextBlock Text="Dexterity" VerticalAlignment="Center" 
+							   Margin="0, 10, 0, 0" Width="90"/>
+							<TextBox x:Name="DexterityTextBox" MaxWidth="60"
+									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
+									 Text="{Binding Path=DexterityStat}"/>
+							<Button x:Name="SelectDexterityButton" Margin="15, 10, 0, 0" 
+							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
+									Visibility="{Binding Path=RolledScoresExist}">
+								<Button.Content>
+									<SymbolIcon Symbol="Add"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Constitution" VerticalAlignment="Center"
+									   Margin="0, 10, 0, 0" Width="90"/>
+							<TextBox x:Name="ConstitutionTextBox" MaxWidth="60"
+									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
+									 Text="{Binding Path=ConstitutionStat}"/>
+							<Button x:Name="SelectConstButton" Margin="15, 10, 0, 0" 
+							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
+									Visibility="{Binding Path=RolledScoresExist}">
+								<Button.Content>
+									<SymbolIcon Symbol="Add"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Intelligence" VerticalAlignment="Center" 
+							   Margin="0, 10, 0, 0" Width="90"/>
+							<TextBox x:Name="IntelligenceTextBox" MaxWidth="60" 
+							 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
+									 Text="{Binding Path=IntelligenceStat}"/>
+							<Button x:Name="SelectIntelligenceButton" Margin="15, 10, 0, 0" 
+							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
+									Visibility="{Binding Path=RolledScoresExist}">
+								<Button.Content>
+									<SymbolIcon Symbol="Add"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Wisdom" VerticalAlignment="Center" 
+							   Margin="0, 10, 0, 0" Width="90"/>
+							<TextBox x:Name="WisdomTextBox" MaxWidth="60"
+									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
+									 Text="{Binding Path=WisdomStat}"/>
+							<Button x:Name="SelectWisdomButton" Margin="15, 10, 0, 0" 
+							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
+									Visibility="{Binding Path=RolledScoresExist}">
+								<Button.Content>
+									<SymbolIcon Symbol="Add"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Charisma" VerticalAlignment="Center" 
+							   Margin="0, 10, 0, 0" Width="90"/>
+							<TextBox x:Name="CharismaTextBox" MaxWidth="60" 
+									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
+									 Text="{Binding Path=CharismaStat}"/>
+							<Button x:Name="SelectCharismaButton" Margin="15, 10, 0, 0" 
+									Padding="5, 2, 5, 2"  
+									Visibility="{Binding Path=RolledScoresExist}" 
+									Click="SelectAbilityToAssign">
+								<Button.Content>
+									<SymbolIcon Symbol="Add"/>
+								</Button.Content>
+							</Button>
+						</StackPanel>
+					</StackPanel>
+					<ListView ItemsSource="{Binding Path=RolledAbilityScores}" Visibility="Collapsed"
+							  CanDrag="True" HorizontalAlignment="Right" SelectionMode="Single"
+							  Name="RolledAbilityScoresList"/>
+				</StackPanel>
+				<Grid Width="{Binding Width, ElementName=StackPanelMain}">
+					<Button x:Name="ClearScores" Click="ClearScoresClick" 
+							Content="Clear All" Margin="0, 10, 0, 0" 
+							Padding="20, 0" VerticalAlignment="Stretch"/>
+					<Button x:Name="RollAbilityScores" Content="Roll"
+							HorizontalAlignment="Right" VerticalAlignment="Stretch" 
+							Margin="0,10,0,0" Click="RollAbilityScoresClick" Width="120"/>
+				</Grid>
+				<TextBlock Text="Now select the skills you're proficient in"/>
+				<ListView ItemTemplate="{StaticResource Skill}" 
+						  ItemsSource="{Binding Path=Skills}"
+						  HorizontalAlignment="Left"
+						  HorizontalContentAlignment="Left" 
+						  Name="SkillsList"
+						  Width="{Binding Width, ElementName=StackPanelMain}"
+						  SelectionMode="None"
+						  IsTemplateFocusTarget="True"
+						  MaxWidth="500">
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapGrid HorizontalAlignment="Left" 
+									  Width="{Binding Width, ElementName=StackPanelMain}"
+									  Orientation="Horizontal"></WrapGrid>
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
+				</ListView>
+				<TextBlock Text="Now Choose your Background, personality trait, ideal, bond, and flaw"/>
+				<TextBox Margin="0, 10, 0, 0" PlaceholderText="Personality Trait"/>
+				<TextBox Margin="0, 10, 0, 0"  PlaceholderText="Ideal"/>
+				<TextBox Margin="0, 10, 0, 0" PlaceholderText="Bond"/>
+				<TextBox Margin="0, 10, 0, 0" PlaceholderText="Flaw"/>
+				<TextBlock Margin="0, 10, 0, 0" Text="Fill in your proficiencies here"/>
+				<TextBlock Text="Weapons"/>
+				<ListView ItemTemplate="{StaticResource CharTrait}" 
+						  ItemsSource="{Binding Path=WeaponProficiencies}"
+						  HorizontalAlignment="Left"
+						  HorizontalContentAlignment="Left" 
+						  Name="WeaponProfList"
+						  Width="{Binding Width, ElementName=StackPanelMain}"
+						  SelectionMode="None"
+						  IsTemplateFocusTarget="True"
+						  MaxWidth="500"
+						  >
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapGrid HorizontalAlignment="Left" 
+									  Width="{Binding Width, ElementName=StackPanelMain}"
+									  Orientation="Horizontal"></WrapGrid>
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
+				</ListView>
+				<Button Content="+ Add new Weapon" Click="WeaponAddClick" 
+						HorizontalAlignment="Right" Background="Transparent"/>
+				<TextBlock Text="Armor"/>
+				<ListView ItemTemplate="{StaticResource CharTrait}"
+						  ItemsSource="{Binding Path=ArmorProficiencies}"
+						  HorizontalAlignment="Left"
+						  HorizontalContentAlignment="Left" 
+						  Name="ArmorProfList"
+						  Width="{Binding Width, ElementName=StackPanelMain}"
+						  SelectionMode="None"
+						  IsTemplateFocusTarget="True"
+						  MaxWidth="500">
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapGrid HorizontalAlignment="Left" 
+									  Width="{Binding Width, ElementName=StackPanelMain}"
+									  Orientation="Horizontal"></WrapGrid>
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
+				</ListView>
+				<Button Content="+ Add new Armor" Click="ArmorAddClick" 
+						HorizontalAlignment="Right" Background="Transparent"/>
+				<TextBlock Text="Languages"/>
+				<ListView  
+						  ItemsSource="{Binding Path=Languages}"
+						  HorizontalAlignment="Left"
+						  HorizontalContentAlignment="Left" 
+						  Name="LanguagesList"
+						  Width="{Binding Width, ElementName=StackPanelMain}"
+						  SelectionMode="None"
+						  IsTemplateFocusTarget="True"
+						  MaxWidth="500">
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapGrid HorizontalAlignment="Left" 
+									  Width="{Binding Width, ElementName=StackPanelMain}"
+									  Orientation="Horizontal"></WrapGrid>
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
+				</ListView>
+				<Button Content="+ Add new Language" Click="LanguageAddClick" 
+						Background="Transparent" Margin="0"
+						/>
+				<StackPanel>
+					<TextBox PlaceholderText="Language name" Visibility="Collapsed"
+						 Name="LanguageAddNameTextBox"/>
+					<Button Content="Add"></Button>
+				</StackPanel>
+				<TextBlock Text="Now Enter your character's physical appearance"></TextBlock>
+				<TextBox PlaceholderText="Age"
+						 Name="AgeTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Age, Mode=TwoWay}"/>
+				<TextBox PlaceholderText="Height"
+						 Name="HeightTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Height, Mode=TwoWay}"/>
+				<TextBox PlaceholderText="Hair"
+						 Name="HairTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Hair, Mode=TwoWay}"/>
+				<TextBox PlaceholderText="Skin"
+						 Name="SkinTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Skin, Mode=TwoWay}"/>
+				<TextBox PlaceholderText="Eyes"
+						 Name="EyeTextBox" Margin="0, 10, 0, 0"
+						 Text="{Binding Path=Eye, Mode=TwoWay}"/>
+			</StackPanel>
+
+		</ScrollViewer>
+	</Grid>
+</Page>
