@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,11 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
-namespace TabletopRolePlayingCharacterManager.Model
+namespace TabletopRolePlayingCharacterManager.Models
 {
 	//To make racial bonuses have a class with methods to add stuff to a character, like points to ability modifiers and entries to features and stuff. Then make a list of (structs maybe?) that contains the data, with the delegate. When that race is selected, call the delegate, and pass it the data
-	class CharacterModel5E
+	class Character5E
 	{
+		[PrimaryKey(), AutoIncrement]
+		public int id { get; set; }
 		private int equippedArmor;
 		public int Level = 1;
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
@@ -20,14 +24,14 @@ namespace TabletopRolePlayingCharacterManager.Model
 		public string Class { get; set; }
 		public string SubClass { get; set; }
 
-		public CharacterTrait Alignment { get; set; }
+		public Alignment Alignment { get; set; }
 
 		public int ArmorClass
 		{
 			get
 			{
 				return Armor.Find((item) => item.Equipped).ArmorClass +
-				       Utility.CalculateMainStatBonus(mainstats[MainStat.Dexterity]);
+					   Utility.CalculateMainStatBonus(mainstats[MainStat.Dexterity]);
 			}
 		}
 
@@ -66,15 +70,12 @@ namespace TabletopRolePlayingCharacterManager.Model
 
 		public List<Skill> Skills { get { return skills; } }
 
-        //Todo: figure out how to load proficiencies as items from another table, that work with an ORM
-		private List<CharacterTrait> languageProficiencies = new List<CharacterTrait>();
-		public List<CharacterTrait> LanguageProficiencies { get { return languageProficiencies; } }
-		private List<CharacterTrait> weaponProficiencies = new List<CharacterTrait>();
-		public List<CharacterTrait> WeaponProficiencies { get { return weaponProficiencies; } }
-		private List<CharacterTrait> armorProficiencies = new List<CharacterTrait>();
-		public List<CharacterTrait> ArmorProficiencies { get { return armorProficiencies; } }
-		private List<CharacterTrait> features = new List<CharacterTrait>();
-		public List<CharacterTrait> Features { get { return features; } }
+		//Todo: figure out how to load proficiencies as items from another table, that work with an ORM
+		private List<Proficiency> proficiencies = new List<Proficiency>();
+		[ManyToMany(typeof(CharacterProficiency))]
+		public List<Proficiency> Proficiencies { get { return proficiencies; } }
+		private List<Proficiency> features = new List<Proficiency>();
+		public List<Proficiency> Features { get { return features; } }
 		public List<IItem> Items { get; set; }
 		public List<Armor> Armor { get; set; } 
 		public List<Weapon> Weapons { get; set; } 
@@ -99,7 +100,7 @@ namespace TabletopRolePlayingCharacterManager.Model
 			}
 			foreach (var skill in Skills)
 			{
-				skill.CalculateBonus(mainstats[skill.MainStatType], ProficiencyBonus);
+				
 			}
 		}
 	}

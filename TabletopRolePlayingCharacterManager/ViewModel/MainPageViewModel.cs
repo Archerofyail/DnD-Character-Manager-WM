@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
 using Windows.UI.Xaml;
-using TabletopRolePlayingCharacterManager.Model;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
 	class MainPageViewModel
 	{
-		private ObservableCollection<CharacterModel5E> characterList = new ObservableCollection<CharacterModel5E>();
-		public ObservableCollection<CharacterModel5E> CharacterList
+		private ObservableCollection<Character5E> characterList = new ObservableCollection<Character5E>();
+		public ObservableCollection<Character5E> CharacterList
 		{
 			get
 			{

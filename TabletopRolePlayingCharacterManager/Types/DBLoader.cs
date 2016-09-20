@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using SQLite;
 using SQLite.Net;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
@@ -21,17 +22,19 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		static DBLoader()
 		{
-            CreatePreexistingData();
+			CreatePreexistingData();
 			Debug.WriteLine("db created ");
 		}
 
-        public static void CreatePreexistingData()
-        {
-            dbConnection = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), Path.Combine(ApplicationData.Current.RoamingFolder.Path, "ItemDB.db"));
-            dbConnection.CreateTable<Skill>();
-            dbConnection.CreateTable<Race>();
-            dbConnection.CreateTable<string>();
-        }
+		public static void CreatePreexistingData()
+		{
+			using (dbConnection = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), Path.Combine(ApplicationData.Current.RoamingFolder.Path, "ItemDB.db")))
+			{
+				dbConnection.CreateTable<Skill>();
+				dbConnection.CreateTable<Race>();
+				dbConnection.CreateTable<Proficiency>();
+			}
+		}
 
 		//Loads a file with the specified file name, from the speci fied folder. Returns an empty string if the file wasn't found
 		public static async Task<string> LoadJsonFromFile(string fileName, StorageFolder folder)
@@ -48,14 +51,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public async static Task<string> LoadJsonFromEmbeddedResource(string resourceName)
 		{
-			
+
 			var json = "";
 			await Task.Run(() =>
 			{
 				//Debug.WriteLine("looking for " + resourceName + ".json");
 				var assembly = typeof(DBLoader).GetTypeInfo().Assembly;
-				
-				
+
+
 				try
 				{
 					//Debug.WriteLine("Loading Stream...");
@@ -79,7 +82,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					Debug.WriteLine(e.Message);
 				}
 			});
-			
+
 			return json;
 		}
 	}

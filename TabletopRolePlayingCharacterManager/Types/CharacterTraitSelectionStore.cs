@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-    public static class CharacterTraitSelectionStore
+	public static class CharacterTraitSelectionStore
 	{
 		public static List<CharacterTrait> RacialTraits
 		{

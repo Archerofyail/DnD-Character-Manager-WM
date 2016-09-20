@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using TabletopRolePlayingCharacterManager.Model;
+using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
@@ -427,7 +427,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public void CreateCharacter()
 		{
-			CharacterModel5E character = new CharacterModel5E()
+			Character5E character = new Character5E()
 			{
 				Age = int.Parse(age),
 				Height = height,
@@ -448,41 +448,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.abilityModifiers.Add(MainStat.Intelligence, intelligenceStat);
 			character.abilityModifiers.Add(MainStat.Wisdom, wisdomStat);
 			character.abilityModifiers.Add(MainStat.Charisma, charismaStat);
-			foreach (var language in Languages)
-			{
-				if (language.Item2)
-				{
-					character.LanguageProficiencies.Add(new CharacterTrait(language.Item1));
-				}
-			}
-			foreach (var weaponProficiency in weaponProficiencies)
-			{
-				if (weaponProficiency.Item2)
-				{
-					character.WeaponProficiencies.Add(new CharacterTrait(weaponProficiency.Item1));
-				}
-			}
-			foreach (var armorItem in armorProficiencies)
-			{
-				if (armorItem.Item2)
-				{
-					character.WeaponProficiencies.Add(new CharacterTrait(armorItem.Item1));
-				}
-			}
 		}
 
 		public AddNewCharacterPageViewModel()
 		{
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, 14, 3, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength,true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
+			skills.Add(new Skill("Athletics", MainStat.Strength, true));
 		}
 
 

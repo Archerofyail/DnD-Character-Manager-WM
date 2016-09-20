@@ -25,17 +25,5 @@
 		}
 	}
 
-	public class Race : CharacterTrait
-	{
-		public Race(string title, string description) : base(title, description)
-		{
-
-		}
-
-		public Race()
-		{
-
-		}
-
-	}
+	
 }

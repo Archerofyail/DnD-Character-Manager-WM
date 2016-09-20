@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using Windows.Devices.Bluetooth.Advertisement;
 
@@ -15,11 +16,16 @@ namespace TabletopRolePlayingCharacterManager
 		Charisma
 	}
 
-	public enum ArmorType
+	public enum DieType
 	{
-		Light = 55,
-		Medium = 2,
-		Heavy = 0
+		d3,
+		d4,
+		d6,
+		d8,
+		d10,
+		d12,
+		d20,
+		d100
 	}
 
 	//TODO: Give the user the option of saving the custom items during character creation.
@@ -37,6 +43,8 @@ namespace TabletopRolePlayingCharacterManager
 
 	public class Weapon : IItem
 	{
+		[PrimaryKey()]
+		public int id { get; set; }
 		public string WeaponType { get; private set; } //Simple or martial in 5E, though this could also be a specific type such as a club, or a rapier or something (or both?)
 		public int AttackBonus { get; private set; }
 		public int DamageBonus { get; private set; }
@@ -69,17 +77,18 @@ namespace TabletopRolePlayingCharacterManager
 		
 	}
 
-	public class Armor
+	public class Armor : IItem
 	{
-		public ArmorType ArmorType;
+		public string ArmorType;
 		private int baseAC;
 		public int ArmorClass { get { return MagicBonus + baseAC; } }
 		public int MagicBonus { get; private set; }
+		public int id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public bool Equipped { get; set; }
 
-		public Armor(string name, ArmorType armorType, int armorClass, int magicLevel)
+		public Armor(string name, string armorType, int armorClass, int magicLevel)
 		{
 			Name = name;
 			ArmorType = armorType;
@@ -87,7 +96,7 @@ namespace TabletopRolePlayingCharacterManager
 			MagicBonus = magicLevel;
 		}
 
-		public void UpdateStats(ArmorType armorType, int baseAC, int magicLevel)
+		public void UpdateStats(string armorType, int baseAC, int magicLevel)
 		{
 			armorType = ArmorType;
 			this.baseAC = baseAC;
@@ -97,6 +106,7 @@ namespace TabletopRolePlayingCharacterManager
 		
 	}
 
+	
 	public static class Utility
 	{
 
