@@ -19,6 +19,37 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static SQLiteAsyncConnection dbConnection;
 		private static string DBPath = "Database.sqlite";
 
+		public static List<Race> Races
+		{
+			get
+			{
+				return dbConnection.Table<Race>().ToListAsync().Result;
+			}
+		}
+
+		public static List<Subrace> Subraces
+		{
+			get
+			{
+				return dbConnection.Table<Subrace>().ToListAsync().Result;
+			}
+		}
+
+		public static List<Class> Classes
+		{
+			get
+			{
+				return dbConnection.Table<Class>().ToListAsync().Result;
+			}
+		}
+		public static List<Subclass> Subclasses
+		{
+			get
+			{
+				return dbConnection.Table<Subclass>().ToListAsync().Result;
+			}
+		}
+
 		static DBLoader()
 		{
 			
@@ -56,7 +87,6 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await dbConnection.CreateTableAsync<CharacterArmor>();
 			await dbConnection.CreateTableAsync<CharacterItem>();
 			await dbConnection.CreateTableAsync<CharacterProficiency>();
-			await dbConnection.CreateTableAsync<CharacterRace>();
 			await dbConnection.CreateTableAsync<CharacterSkill>();
 			await dbConnection.CreateTableAsync<CharacterSpell>();
 			await dbConnection.CreateTableAsync<CharacterWeapon>();
@@ -78,7 +108,8 @@ namespace TabletopRolePlayingCharacterManager.Types
 				//Default data Races
 				await dbConnection.InsertAsync(new Race("Human", "Sturdy Creatures"));
 				await dbConnection.InsertAsync(new Race("Dwarves", "Short, Strong, live in mountains or hills usually"));
-			
+				await dbConnection.InsertAsync(new Race("Elf", "Live forever"));
+
 				//Default data Proficiencies
 				await dbConnection.InsertAsync(new Proficiency
 				{
@@ -120,8 +151,16 @@ namespace TabletopRolePlayingCharacterManager.Types
 					HitDieSize = 6,
 					HPPerLevel = "d6"
 				});
+				await dbConnection.InsertAsync(new Class
+				{
+					Name = "Warrior",
+					Description = "Super strong",
+					InitHP = 10,
+					HitDieSize = 10,
+					HPPerLevel = "d10"
+				});
 
-				
+
 				//Default data Items
 				await dbConnection.InsertAsync(new Item
 				{
@@ -147,15 +186,28 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 				});
 
-				
+				await dbConnection.InsertAsync(new Subclass
+				{
+					Name = "Conjuration",
+					Description = "The School of conjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation."
+
+				});
+
+
 				await dbConnection.InsertAsync(new Subrace
 				{
 					Name = "Hill Dwarves",
 					Description = "Live in hills, +1 dexterity"
 				});
 
+				await dbConnection.InsertAsync(new Subrace
+				{
+					Name = "Northern Human",
+					Description = "Live in the north, + resistance to cold"
+				});
 
-				
+
+
 				await dbConnection.InsertAsync(new Weapon
 				{
 					Name = "Shortsword",
@@ -210,13 +262,12 @@ DeleteAllData()
 			await dbConnection.DropTableAsync<CharacterArmor>();
 			await dbConnection.DropTableAsync<CharacterItem>();
 			await dbConnection.DropTableAsync<CharacterProficiency>();
-			await dbConnection.DropTableAsync<CharacterRace>();
 			await dbConnection.DropTableAsync<CharacterSkill>();
 			await dbConnection.DropTableAsync<CharacterSpell>();
 			await dbConnection.DropTableAsync<CharacterWeapon>();
 		}
 
-		public static List<T> GetTableFromDB<T>() where T : class
+		public static List<T> GetTable<T>() where T : class
 		{
 			try
 			{

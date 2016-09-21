@@ -17,22 +17,22 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		[ForeignKey(typeof(Race))]
 		public int Race_id { get; set; }
-		[OneToOne]
+		[ManyToOne]
 		public Race Race { get; set; }
 
 		[ForeignKey(typeof(Subrace))]
 		public int Subrace_id { get; set; }
-		[OneToOne]
+		[ManyToOne]
 		public Subrace Subrace { get; set; }
 
 		[ForeignKey(typeof(Class))]
 		public int Class_id { get; set; }
-		[OneToOne]
+		[ManyToOne]
 		public Class Class { get; set; }
 
 		[ForeignKey(typeof(Subclass))]
 		public int SubClass_id { get; set; }
-		[OneToOne]
+		[ManyToOne]
 		public Subclass Subclass { get; set; }
 		
 		[Ignore]

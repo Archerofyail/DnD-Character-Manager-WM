@@ -1,4 +1,6 @@
 ﻿using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -8,15 +10,20 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
+
+		[OneToMany(CascadeOperations = CascadeOperation.All)]
+		public List<Character5E> Characters { get; set; }
+
 		public Race(string title, string description)
 		{
 			Name = title;
 			Description = description;
+			Characters = new List<Character5E>();
 		}
 
 		public Race()
 		{
-
+			Characters = new List<Character5E>();
 		}
 
 	}

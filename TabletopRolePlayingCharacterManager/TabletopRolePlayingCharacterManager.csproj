@@ -110,7 +110,6 @@
     <Compile Include="Models\Intermediates\CharacterWeapon.cs" />
     <Compile Include="Models\Intermediates\CharacterArmor.cs" />
     <Compile Include="Models\Intermediates\CharacterItem.cs" />
-    <Compile Include="Models\Intermediates\CharacterRace.cs" />
     <Compile Include="Models\Intermediates\CharacterProficiency.cs" />
     <Compile Include="Models\SkillProficiency.cs" />
     <Compile Include="Models\Weapon.cs" />

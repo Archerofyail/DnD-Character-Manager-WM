@@ -7,6 +7,9 @@ using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
+using System.Diagnostics;
+using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
@@ -204,7 +207,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (languages.Count == 0)
 				{
-					foreach (var language in DBLoader.GetTableFromDB<Proficiency>())
+					foreach (var language in DBLoader.GetTable<Proficiency>())
 					{
 						if (language.Category == "Language")
 						{
@@ -224,7 +227,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (races.Count == 0)
 				{
-					foreach (var race in DBLoader.GetTableFromDB<Race>())
+					foreach (var race in DBLoader.GetTable<Race>())
 					{
 						races.Add(race);
 					}
@@ -233,7 +236,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private int selectedRace_id = -1;
+		private int selectedRace_id = 0;
 
 		public int SelectedRace_id
 		{
@@ -254,7 +257,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (subraces.Count == 0)
 				{
-					foreach (var race in DBLoader.GetTableFromDB<Subrace>())
+					foreach (var race in DBLoader.GetTable<Subrace>())
 					{
 						subraces.Add(race);
 					}
@@ -264,7 +267,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private int selectedSubRace_id = -1;
+		private int selectedSubRace_id = 0;
 
 		public int SelectedSubRace_id
 		{
@@ -284,7 +287,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (classes.Count == 0)
 				{
-					foreach (var Class in DBLoader.GetTableFromDB<Class>())
+					foreach (var Class in DBLoader.GetTable<Class>())
 					{
 						classes.Add(Class);
 					}
@@ -293,7 +296,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private int selectedClass_id = -1;
+		private int selectedClass_id = 0;
 
 		public int SelectedClass_Id
 		{
@@ -314,7 +317,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (subclasses.Count == 0)
 				{
-					foreach (var subclass in DBLoader.GetTableFromDB<Subclass>())
+					foreach (var subclass in DBLoader.GetTable<Subclass>())
 					{
 						subclasses.Add(subclass);
 					}
@@ -324,7 +327,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private int selectedSubClass_Id = -1;
+		private int selectedSubClass_Id = 0;
 		public int SelectedSubClass_Id
 		{
 			get { return selectedSubClass_Id; }
@@ -350,7 +353,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (alignments.Count == 0)
 				{
-					foreach (var alignment in DBLoader.GetTableFromDB<Alignment>())
+					foreach (var alignment in DBLoader.GetTable<Alignment>())
 					{
 						alignments.Add(alignment);
 					}
@@ -372,7 +375,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (weaponProficiencies.Count == 0)
 				{
-					var proficiencies = DBLoader.GetTableFromDB<Proficiency>();
+					var proficiencies = DBLoader.GetTable<Proficiency>();
 					foreach (var prof in proficiencies)
 					{
 						if (prof.Category == "Weapon")
@@ -393,7 +396,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (weaponProficiencies.Count == 0)
 				{
-					var proficiencies = DBLoader.GetTableFromDB<Proficiency>();
+					var proficiencies = DBLoader.GetTable<Proficiency>();
 					foreach (var prof in proficiencies)
 					{
 						if (prof.Category == "Armor")
@@ -448,8 +451,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 
-		public void CreateCharacter()
+		public async void CreateCharacter()
 		{
+			Debug.WriteLine("Adding new character to database");
+			var races = DBLoader.Races;
+			var subraces = DBLoader.Subraces;
+			var classes = DBLoader.Classes;
+			var subclasses = DBLoader.Subclasses;
+			var selRace = races.Find(x => x.id == Races[selectedRace_id].id);
+			var selClass = classes.Find(x => x.id == Races[selectedClass_id].id);
+			var selsubclass = subclasses.Find(x => x.id == Races[selectedSubClass_Id].id);
+			var selsubrace = subraces.Find(x => x.id == Races[selectedSubRace_id].id);
 			Character5E character = new Character5E()
 			{
 				Age = int.Parse(age),
@@ -459,10 +471,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				HairColor = hair,
 				Weight = weight,
 				Name = CharName,
-				Race = DBLoader.GetTableFromDB<Race>().Find(race => race.id == selectedRace_id),
-				Subrace = DBLoader.GetTableFromDB<Subrace>().Find(subrace => subrace.id == selectedSubRace_id),
-				Class = DBLoader.GetTableFromDB<Class>().Find(Class => Class.id == selectedClass_id),
-				Subclass = DBLoader.GetTableFromDB<Subclass>().Find(Subclass => Subclass.id == selectedSubClass_Id)
 
 			};
 			character.abilityModifiers.Add(MainStat.Strength, strengthStat);
@@ -471,7 +479,29 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.abilityModifiers.Add(MainStat.Intelligence, intelligenceStat);
 			character.abilityModifiers.Add(MainStat.Wisdom, wisdomStat);
 			character.abilityModifiers.Add(MainStat.Charisma, charismaStat);
-			DBLoader.dbConnection.InsertAsync(character);
+
+			await DBLoader.dbConnection.InsertAsync(character);
+			Debug.WriteLine("Creating onetomany relationships with races and classes");
+			if (selRace != null)
+			{
+				selRace.Characters.Add(character);
+				await DBLoader.dbConnection.UpdateWithChildrenAsync(selRace);
+			}
+			if (selsubrace != null)
+			{
+				selsubrace.Characters.Add(character);
+				await DBLoader.dbConnection.UpdateWithChildrenAsync(selsubrace);
+			}
+			if (selClass != null)
+			{
+				selClass.Characters.Add(character);
+				await DBLoader.dbConnection.UpdateWithChildrenAsync(selClass);
+			}
+			if (selsubclass != null)
+			{
+				selsubclass.Characters.Add(character);
+				await DBLoader.dbConnection.UpdateWithChildrenAsync(selsubclass);
+			}
 		}
 
 		public AddNewCharacterPageViewModel()
