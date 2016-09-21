@@ -54,10 +54,11 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string HairColor { get; set; }
 		#endregion
 
-		public string MainStatsJson
+		[TextBlob("MainStats")]
+		public Dictionary<MainStat,int> MainStatsJson
 		{
-			get { return JsonConvert.SerializeObject(mainstats); }
-			set { mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value); }
+			get { return mainstats; }
+			set { mainstats = value; }
 		}
 		//Stored as the full number, the Bonus will be calculated on the fly
 		private Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
