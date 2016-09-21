@@ -344,34 +344,42 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private ObservableCollection<ItemPair<string, bool>> weaponProficiencies = new ObservableCollection<ItemPair<string, bool>>();
+		private ObservableCollection<Proficiency> weaponProficiencies = new ObservableCollection<Proficiency>();
 
-		public ObservableCollection<ItemPair<string, bool>> WeaponProficiencies
+		public ObservableCollection<Proficiency> WeaponProficiencies
 		{
 			get
 			{
 				if (weaponProficiencies.Count == 0)
 				{
-					foreach (var weapon in ItemSelectionStore.weaponProfList)
+					var proficiencies = DBLoader.GetTableFromDB<Proficiency>();
+					foreach (var prof in proficiencies)
 					{
-						weaponProficiencies.Add(new ItemPair<string, bool>(weapon, false));
+						if (prof.Category == "Weapon")
+						{
+							weaponProficiencies.Add(prof);
+						}
 					}
 				}
 				return weaponProficiencies;
 			}
 		}
 
-		private ObservableCollection<ItemPair<string, bool>> armorProficiencies = new ObservableCollection<ItemPair<string, bool>>();
+		private ObservableCollection<Proficiency> armorProficiencies = new ObservableCollection<Proficiency>();
 
-		public ObservableCollection<ItemPair<string, bool>> ArmorProficiencies
+		public ObservableCollection<Proficiency> ArmorProficiencies
 		{
 			get
 			{
-				if (armorProficiencies.Count == 0)
+				if (weaponProficiencies.Count == 0)
 				{
-					foreach (var weapon in ItemSelectionStore.armorProfList)
+					var proficiencies = DBLoader.GetTableFromDB<Proficiency>();
+					foreach (var prof in proficiencies)
 					{
-						armorProficiencies.Add(new ItemPair<string, bool>(weapon, false));
+						if (prof.Category == "Armor")
+						{
+							armorProficiencies.Add(prof);
+						}
 					}
 				}
 				return armorProficiencies;

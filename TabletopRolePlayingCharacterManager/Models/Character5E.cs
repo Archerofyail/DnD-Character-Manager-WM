@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using SQLite.Net.Attributes;
+﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -11,14 +9,14 @@ namespace TabletopRolePlayingCharacterManager.Models
 	{
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }
-		private int equippedArmor;
+		private int equippedArmorId;
 		public int Level { get; set; }
 		public int Experience { get; set; }
 		[Ignore]
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
 		[ForeignKey(typeof(Race))]
 		public string Race { get; set; }
-		[ForeignKey(typeof(SubRace))]
+		[ForeignKey(typeof(Subrace))]
 		public string Subrace { get; set; }
 		[ForeignKey(typeof(Class))]
 		public string Class { get; set; }
@@ -30,7 +28,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		{
 			get
 			{
-				return Armor.Find((item) => item.Equipped).ArmorClass +
+				return Armor.Find((item) => item.id == equippedArmorId).ArmorClass +
 					   Utility.CalculateMainStatBonus(mainstats[MainStat.Dexterity]);
 			}
 		}
@@ -80,7 +78,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public List<Skill> Skills { get; set; }
 		[OneToMany]
-		public List<SkillProficiency> SkillProficiencies { get; set; }
+		public List<CharacterSkillProficiency> SkillProficiencies { get; set; }
 		public Dictionary<string, int> SkillMods { get; set; }
 
 		//Todo: figure out how to load proficiencies as items from another table, that work with an ORM

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Windows.Storage;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
@@ -25,12 +25,6 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public async static void LoadProficiencies()
 		{
-			
-			string weaponJson = "";
-			string armorJson = "";
-			//weaponJson = await JsonLoader.LoadJsonFromEmbeddedResource("WeaponProficienciesList");
-			//armorJson = await JsonLoader.LoadJsonFromEmbeddedResource("ArmorProficienciesList");
-			//Todo:add list of weapons and armor from sqlitedb
 
 		}
 
