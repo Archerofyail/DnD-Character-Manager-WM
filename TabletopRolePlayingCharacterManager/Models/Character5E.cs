@@ -1,6 +1,8 @@
-﻿using SQLite.Net.Attributes;
+﻿using Newtonsoft.Json;
+using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -51,8 +53,14 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[MaxLength(30)]
 		public string HairColor { get; set; }
 		#endregion
+
+		public string MainStatsJson
+		{
+			get { return JsonConvert.SerializeObject(mainstats); }
+			set { mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value); }
+		}
 		//Stored as the full number, the Bonus will be calculated on the fly
-		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
+		private Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
 		{
 			{ MainStat.Strength, 0},
 			{ MainStat.Dexterity, 0 },
@@ -72,6 +80,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
 
 		public List<Skill> Skills { get; set; }
+		[OneToMany]
+		public List<SkillProficiency> SkillProficiencies { get; set; }
+		public Dictionary<string, int> SkillMods { get; set; }
 
 		//Todo: figure out how to load proficiencies as items from another table, that work with an ORM
 		[ManyToMany(typeof(CharacterProficiency))]
@@ -85,9 +96,16 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<Armor> Armor { get; set; }
 		[ManyToMany(typeof(CharacterWeapon))]
 		public List<Weapon> Weapons { get; set; }
-
-		public void CalculateAbilityModifiers()
+		[ManyToMany(typeof(CharacterSpell))]
+		public List<Spell> Spells { get; set; }
+		[OneToMany]
+		public List<CharacterPreparedSpells> SpellsPrepared { get; set; }
+		public void CalculateAbilityModifiers(bool recalculate = false)
 		{
+			if (recalculate)
+			{
+				abilityModifiers.Clear();
+			}
 			if (abilityModifiers == null)
 			{
 				abilityModifiers = new Dictionary<MainStat, int>();
@@ -98,15 +116,25 @@ namespace TabletopRolePlayingCharacterManager.Models
 			}
 		}
 
-		public void CalculateSkillBonuses()
+		public void CalculateSkillBonuses(bool recalculate = false)
 		{
-			if (abilityModifiers == null)
+			if (recalculate)
+			{
+				SkillMods.Clear();
+			}
+			if (SkillMods == null)
+			{
+				SkillMods = new Dictionary<string, int>();
+			}
+			if (abilityModifiers.Count == 0 || abilityModifiers == null)
 			{
 				CalculateAbilityModifiers();
 			}
 			foreach (var skill in Skills)
 			{
-
+				int bonus = SkillProficiencies.Find(x => x.Skill_id == skill.id).isProficient ? ProficiencyBonus : 0;
+				bonus += abilityModifiers[skill.MainStatType];
+				SkillMods.Add(skill.Name, bonus);
 			}
 		}
 	}

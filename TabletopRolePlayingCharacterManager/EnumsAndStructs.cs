@@ -1,7 +1,5 @@
 ﻿using SQLite.Net.Attributes;
-using System;
 using System.Collections.Generic;
-using Windows.Devices.Bluetooth.Advertisement;
 
 namespace TabletopRolePlayingCharacterManager
 {

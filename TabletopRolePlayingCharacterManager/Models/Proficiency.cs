@@ -1,6 +1,4 @@
-﻿
-using SQLite.Net;
-using SQLite.Net.Attributes;
+﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
 
@@ -11,25 +9,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 	{
 		[PrimaryKey(), AutoIncrement]
 		private int id { get; set; }
-		public string name;
-		public string description;
-		public string category = "Miscellaneous";
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public string Category { get; set; }
 		[ManyToMany(typeof(CharacterProficiency))]
 		public List<Character5E> Characters { get; set; }
-
-		public string Name
-		{
-			get { return name; }
-		}
-
-		public string Description
-		{
-			get { return description; }
-		}
-
-		public string Category
-		{
-			get { return category; }
-		}
 	}
 }

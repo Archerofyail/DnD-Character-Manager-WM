@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
@@ -452,16 +447,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public AddNewCharacterPageViewModel()
 		{
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength,true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
-			skills.Add(new Skill("Athletics", MainStat.Strength, true));
 		}
 
 

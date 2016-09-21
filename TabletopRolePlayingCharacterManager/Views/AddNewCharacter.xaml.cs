@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using System.Diagnostics;
-using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
-using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.ViewModel;
 
 namespace TabletopRolePlayingCharacterManager.Views
 {
-	
+
 	public sealed partial class AddNewCharacter : Page
 	{
 		public AddNewCharacter()
