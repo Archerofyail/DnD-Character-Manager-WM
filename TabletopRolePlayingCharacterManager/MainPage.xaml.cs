@@ -3,6 +3,7 @@ using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TabletopRolePlayingCharacterManager.Views;
+using TabletopRolePlayingCharacterManager.Types;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -27,6 +28,7 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
+			DBLoader.CreateData();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 		}
 

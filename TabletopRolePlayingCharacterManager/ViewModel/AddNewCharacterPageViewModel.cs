@@ -471,6 +471,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.abilityModifiers.Add(MainStat.Intelligence, intelligenceStat);
 			character.abilityModifiers.Add(MainStat.Wisdom, wisdomStat);
 			character.abilityModifiers.Add(MainStat.Charisma, charismaStat);
+			DBLoader.dbConnection.InsertAsync(character);
 		}
 
 		public AddNewCharacterPageViewModel()

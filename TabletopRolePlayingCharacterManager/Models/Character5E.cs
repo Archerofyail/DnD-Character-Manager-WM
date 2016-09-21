@@ -112,6 +112,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<CharacterPreparedSpells> SpellsPrepared { get; set; }
 
 
+		public Character5E()
+		{
+			abilityModifiers = new Dictionary<MainStat, int>();
+		}
 
 
 		public void CalculateAbilityModifiers(bool recalculate = false)
