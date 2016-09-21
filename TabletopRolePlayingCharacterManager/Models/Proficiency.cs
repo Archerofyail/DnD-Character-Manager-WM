@@ -1,6 +1,9 @@
 ﻿
 using SQLite.Net;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
+
 namespace TabletopRolePlayingCharacterManager.Models
 {
 	//This is for non-skill proficiencies, i.e. languages, weapon and armor, tools, etc.
@@ -8,9 +11,11 @@ namespace TabletopRolePlayingCharacterManager.Models
 	{
 		[PrimaryKey(), AutoIncrement]
 		private int id { get; set; }
-		private string name;
-		private string description;
-		private string category = "Miscellaneous";
+		public string name;
+		public string description;
+		public string category = "Miscellaneous";
+		[ManyToMany(typeof(CharacterProficiency))]
+		public List<Character5E> Characters { get; set; }
 
 		public string Name
 		{

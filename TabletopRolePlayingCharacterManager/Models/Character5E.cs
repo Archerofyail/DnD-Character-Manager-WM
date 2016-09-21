@@ -1,31 +1,29 @@
 ﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Data.Json;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
 	//To make racial bonuses have a class with methods to add stuff to a character, like points to ability modifiers and entries to features and stuff. Then make a list of (structs maybe?) that contains the data, with the delegate. When that race is selected, call the delegate, and pass it the data
-	class Character5E
+	public class Character5E
 	{
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }
 		private int equippedArmor;
-		public int Level = 1;
+		public int Level { get; set; }
+		public int Experience { get; set; }
+		[Ignore]
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
+		[ForeignKey(typeof(Race))]
 		public string Race { get; set; }
+		[ForeignKey(typeof(SubRace))]
 		public string Subrace { get; set; }
+		[ForeignKey(typeof(Class))]
 		public string Class { get; set; }
+		[ForeignKey(typeof(Subclass))]
 		public string SubClass { get; set; }
-
-		public Alignment Alignment { get; set; }
-
+		
+		[Ignore]
 		public int ArmorClass
 		{
 			get
@@ -35,23 +33,24 @@ namespace TabletopRolePlayingCharacterManager.Models
 			}
 		}
 
-		private int speed;
-		public int Speed
-		{
-			get { return speed; }
-			set { speed = (value/5)*5; }
-		}
+		//Validation to occur in the text box during character creation
+		public int Speed { get; set; }
 
+		#region Aesthetic Featues
+		[MaxLength(50)]
 		public string Name { get; set; }
 		public int Age { get; set; }
+		[MaxLength(30)]
 		public string Height { get; set; }
+		[MaxLength(15)]
 		public string Weight { get; set; }
+		[MaxLength(30)]
 		public string EyeColor { get; set; }
+		[MaxLength(30)]
 		public string SkinColor { get; set; }
+		[MaxLength(30)]
 		public string HairColor { get; set; }
-
-
-
+		#endregion
 		//Stored as the full number, the Bonus will be calculated on the fly
 		public Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
 		{
@@ -64,21 +63,28 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		};
 
-		public Dictionary<MainStat, int> abilityModifiers = null;
+		[ForeignKey(typeof(Alignment))]
+		public Alignment Alignment { get; set; }
 
-		private List<Skill> skills = new List<Skill>();
+		
 
-		public List<Skill> Skills { get { return skills; } }
+		[Ignore]
+		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
+
+		public List<Skill> Skills { get; set; }
 
 		//Todo: figure out how to load proficiencies as items from another table, that work with an ORM
-		private List<Proficiency> proficiencies = new List<Proficiency>();
 		[ManyToMany(typeof(CharacterProficiency))]
-		public List<Proficiency> Proficiencies { get { return proficiencies; } }
-		private List<Proficiency> features = new List<Proficiency>();
-		public List<Proficiency> Features { get { return features; } }
+		public List<Proficiency> Proficiencies { get; set; }
+
+		
+		public List<Proficiency> Features { get; private set; }
+		[ManyToMany(typeof(CharacterItem))]
 		public List<IItem> Items { get; set; }
-		public List<Armor> Armor { get; set; } 
-		public List<Weapon> Weapons { get; set; } 
+		[ManyToMany(typeof(CharacterArmor))]
+		public List<Armor> Armor { get; set; }
+		[ManyToMany(typeof(CharacterWeapon))]
+		public List<Weapon> Weapons { get; set; }
 
 		public void CalculateAbilityModifiers()
 		{
@@ -100,7 +106,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			}
 			foreach (var skill in Skills)
 			{
-				
+
 			}
 		}
 	}

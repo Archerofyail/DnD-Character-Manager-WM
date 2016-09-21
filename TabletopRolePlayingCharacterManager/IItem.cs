@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager
 {
-	interface IItem
+	public interface IItem
 	{
 		int id { get; set; }
 		string Name { get; set; }

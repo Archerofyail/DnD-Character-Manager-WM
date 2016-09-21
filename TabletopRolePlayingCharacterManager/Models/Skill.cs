@@ -1,4 +1,7 @@
 ﻿using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
+
 namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class Skill
@@ -20,6 +23,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		{
 			IsProficient = isProf;
 		}
+		[ManyToMany(typeof(CharacterWeapon))]
+		public List<Character5E> Characters { get; set; }
 	}
 
 }

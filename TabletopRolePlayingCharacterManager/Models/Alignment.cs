@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
-	class Alignment
+	public class Alignment
 	{
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }

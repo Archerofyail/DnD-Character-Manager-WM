@@ -102,7 +102,8 @@
     </Compile>
     <Compile Include="Models\Alignment.cs" />
     <Compile Include="Models\Character5E.cs" />
-    <Compile Include="Models\ProficiencyIntermediate.cs" />
+    <Compile Include="Models\CharacterRace.cs" />
+    <Compile Include="Models\CharacterProficiency.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Subclass.cs" />

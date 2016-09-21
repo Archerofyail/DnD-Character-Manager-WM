@@ -1,10 +1,11 @@
 ﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
 
-	class Weapon
+	public class Weapon
 	{
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }
@@ -17,5 +18,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[NotNull]
 		public int DamageDie { get; set; }
 		public int DamageBonus { get; set; }
+		[ManyToMany(typeof(CharacterWeapon))]
+		public List<Character5E> Characters { get; set; }
 	}
 }

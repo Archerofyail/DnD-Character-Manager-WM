@@ -1,4 +1,6 @@
 ﻿using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -11,6 +13,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Damage { get; set; }
 		[NotNull()]
 		public int SpellLevel { get; set; }
+		[ManyToMany(typeof(CharacterSpell))]
+		public List<Character5E> Characters { get; set; }
 		public Spell(string title, string description)
 		{
 			Name = title;
