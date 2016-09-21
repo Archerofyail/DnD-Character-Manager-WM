@@ -75,8 +75,6 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[ForeignKey(typeof(Alignment))]
 		public Alignment Alignment { get; set; }
 
-		
-
 		[Ignore]
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
 
@@ -101,6 +99,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<Spell> Spells { get; set; }
 		[OneToMany]
 		public List<CharacterPreparedSpells> SpellsPrepared { get; set; }
+
+
+
+
 		public void CalculateAbilityModifiers(bool recalculate = false)
 		{
 			if (recalculate)

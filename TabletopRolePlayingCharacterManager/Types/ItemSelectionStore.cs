@@ -4,7 +4,7 @@ using Windows.Storage;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-    public static class ItemSelectionStore
+	public static class ItemSelectionStore
 	{
 		public static List<Armor> armor { get;private set; }
 		public static List<Weapon> weapons { get; private set; }
@@ -38,20 +38,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			Debug.WriteLine("Starting to load armor");
 			
-			string json = await DBLoader.LoadJsonFromFile("ArmorList", ApplicationData.Current.RoamingFolder);
-			if (!string.IsNullOrEmpty(json))
-			{
-				
-			}
+			
+			
 		}
 
 		public async static void LoadWeaponList()
 		{ 
-			string json = await DBLoader.LoadJsonFromFile("WeaponList", ApplicationData.Current.RoamingFolder);
-			if (!string.IsNullOrEmpty(json))
-			{
-				//todo: potentially remove the load lists functions
-			}
+			
+			
 		}
 
 
