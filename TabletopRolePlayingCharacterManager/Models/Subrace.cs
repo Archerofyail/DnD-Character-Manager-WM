@@ -10,7 +10,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
 		[ForeignKey(typeof(Race))]
-		public Race ParentRace { get; set; }
+		public int ParentRace_id { get; set; }
 		public Subrace(string title, string description)
 		{
 			Name = title;

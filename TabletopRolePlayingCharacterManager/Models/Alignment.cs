@@ -6,7 +6,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 	{
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }
-		public string alignment = "";
+		public string Name { get; set; }
 
 	}
 }

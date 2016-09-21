@@ -27,7 +27,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private string age = "";
+		private string age = "10";
 
 		public string Age
 		{
@@ -42,7 +42,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private string height = "";
+		private string height = "72 inches";
 
 		public string Height
 		{
@@ -57,7 +57,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private string weight = "";
+		private string weight = "145 lbs.";
 
 		public string Weight
 		{
@@ -72,7 +72,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private string hair = "";
+		private string hair = "Auburn";
 
 		public string Hair
 		{
@@ -87,7 +87,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private string skin = "";
+		private string skin = "Tan";
 
 		public string Skin
 		{
@@ -102,7 +102,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private string eye = "";
+		private string eye = "Blue";
 
 		public string Eye
 		{
@@ -196,32 +196,35 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return skills; }
 		}
 
-		private ObservableCollection<ItemPair<string, bool>> languages = new ObservableCollection<ItemPair<string, bool>>();
+		private ObservableCollection<Proficiency> languages = new ObservableCollection<Proficiency>();
 
-		public ObservableCollection<ItemPair<string, bool>> Languages
+		public ObservableCollection<Proficiency> Languages
 		{
 			get
 			{
 				if (languages.Count == 0)
 				{
-					foreach (var language in CharacterTraitSelectionStore.Languages)
+					foreach (var language in DBLoader.GetTableFromDB<Proficiency>())
 					{
-						languages.Add(new ItemPair<string, bool>(language, false));
+						if (language.Category == "Language")
+						{
+							languages.Add(language);
+						}
 					}
 				}
 				return languages;
 			}
 		}
 
-		private ObservableCollection<string> races = new ObservableCollection<string>();
+		private ObservableCollection<Race> races = new ObservableCollection<Race>();
 
-		public ObservableCollection<string> Races
+		public ObservableCollection<Race> Races
 		{
 			get
 			{
 				if (races.Count == 0)
 				{
-					foreach (var race in CharacterTraitSelectionStore.Races)
+					foreach (var race in DBLoader.GetTableFromDB<Race>())
 					{
 						races.Add(race);
 					}
@@ -230,97 +233,104 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private int selectedRace = -1;
+		private int selectedRace_id = -1;
 
-		public int SelectedRace
+		public int SelectedRace_id
 		{
-			get { return selectedRace; }
+			get { return selectedRace_id; }
 			set
 			{
-				selectedRace = value;
+				selectedRace_id = value;
 				NotifyPropertyChanged();
 			}
 		}
 
 
-		private ObservableCollection<string> subraces = new ObservableCollection<string>();
+		private ObservableCollection<Subrace> subraces = new ObservableCollection<Subrace>();
 
-		public ObservableCollection<string> Subraces
+		public ObservableCollection<Subrace> Subraces
 		{
 			get
 			{
 				if (subraces.Count == 0)
 				{
-					subraces.Add("default subrace");
+					foreach (var race in DBLoader.GetTableFromDB<Subrace>())
+					{
+						subraces.Add(race);
+					}
+					
 				}
 				return subraces;
 			}
 		}
 
-		private int selectedSubRace = -1;
+		private int selectedSubRace_id = -1;
 
-		public int SelectedSubRace
+		public int SelectedSubRace_id
 		{
-			get { return selectedSubRace; }
+			get { return selectedSubRace_id; }
 			set
 			{
-				selectedSubRace = value;
+				selectedSubRace_id = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private ObservableCollection<string> classes = new ObservableCollection<string>();
+		private ObservableCollection<Class> classes = new ObservableCollection<Class>();
 
-		public ObservableCollection<string> Classes
+		public ObservableCollection<Class> Classes
 		{
 			get
 			{
 				if (classes.Count == 0)
 				{
-					foreach (var race in CharacterTraitSelectionStore.Classes)
+					foreach (var Class in DBLoader.GetTableFromDB<Class>())
 					{
-						classes.Add(race);
+						classes.Add(Class);
 					}
 				}
 				return classes;
 			}
 		}
 
-		private int selectedClass = -1;
+		private int selectedClass_id = -1;
 
-		public int SelectedClass
+		public int SelectedClass_Id
 		{
-			get { return selectedClass; }
+			get { return selectedClass_id; }
 			set
 			{
-				selectedClass = value;
+				selectedClass_id = value;
 				NotifyPropertyChanged();
 			}
 		}
 
 
-		private ObservableCollection<string> subclasses = new ObservableCollection<string>();
+		private ObservableCollection<Subclass> subclasses = new ObservableCollection<Subclass>();
 
-		public ObservableCollection<string> Subclasses
+		public ObservableCollection<Subclass> Subclasses
 		{
 			get
 			{
 				if (subclasses.Count == 0)
 				{
-					subclasses.Add("default subclass");
+					foreach (var subclass in DBLoader.GetTableFromDB<Subclass>())
+					{
+						subclasses.Add(subclass);
+					}
 				}
 				return subclasses;
 
 			}
 		}
 
-		private int selectedSubClass = -1;
-		public int SelectedSubClass
+		private int selectedSubClass_Id = -1;
+		public int SelectedSubClass_Id
 		{
-			get { return selectedSubClass; }
+			get { return selectedSubClass_Id; }
 			set
 			{
-				selectedSubClass = value;
+				selectedSubClass_Id = value;
 				NotifyPropertyChanged();
 			}
 		}
@@ -332,14 +342,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return subclassChoiceStatement; }
 		}
 
-		private string alignment = "";
+		private ObservableCollection<Alignment> alignments = new ObservableCollection<Alignment>();
 
-		public string Alignment
+		public ObservableCollection<Alignment> Alignments
 		{
-			get { return alignment; }
+			get
+			{
+				if (alignments.Count == 0)
+				{
+					foreach (var alignment in DBLoader.GetTableFromDB<Alignment>())
+					{
+						alignments.Add(alignment);
+					}
+				}
+				return alignments;
+			}
 			set
 			{
-				alignment = value;
+				alignments = value;
 				NotifyPropertyChanged();
 			}
 		}
@@ -439,10 +459,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				HairColor = hair,
 				Weight = weight,
 				Name = CharName,
-				Race = Races[SelectedRace],
-				Subrace = Subraces[SelectedSubClass],
-				Class = Classes[selectedClass],
-				SubClass = Subclasses[SelectedSubClass]
+				Race = DBLoader.GetTableFromDB<Race>().Find(race => race.id == selectedRace_id),
+				Subrace = DBLoader.GetTableFromDB<Subrace>().Find(subrace => subrace.id == selectedSubRace_id),
+				Class = DBLoader.GetTableFromDB<Class>().Find(Class => Class.id == selectedClass_id),
+				Subclass = DBLoader.GetTableFromDB<Subclass>().Find(Subclass => Subclass.id == selectedSubClass_Id)
 
 			};
 			character.abilityModifiers.Add(MainStat.Strength, strengthStat);

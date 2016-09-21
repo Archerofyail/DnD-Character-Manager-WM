@@ -17,7 +17,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 	{
 		public static ResourceLoader resourceLoader;
 		public static SQLiteAsyncConnection dbConnection;
-
+		private static string DBPath = "Database.sqlite";
 
 		static DBLoader()
 		{
@@ -44,19 +44,40 @@ namespace TabletopRolePlayingCharacterManager.Types
 				Name = "Common",
 				Description = "The english language",
 				Category = "Language"
+
+			});
+			await dbConnection.InsertAsync(new Proficiency
+			{
+				Name = "Short Sword",
+				Description = "Proficiency with a short sword",
+				Category = "Weapon"
+
+			});
+			await dbConnection.InsertAsync(new Proficiency
+			{
+				Name = "Light Armor",
+				Description = "Proficiency with light armor such as leather, or hide",
+				Category = "Armor"
+
 			});
 			await dbConnection.CreateTableAsync<Alignment>();
 			//Default data Alignments
 			await dbConnection.InsertAsync(new Alignment
 			{
-				alignment = "True Neutral"
+				Name = "True Neutral"
 			});
 			
 
 			
 			await dbConnection.CreateTableAsync<Class>();
 			//Default data Class
-			await dbConnection.InsertAsync(new Class("Wizard", "Magic users of insane power"));
+			await dbConnection.InsertAsync(new Class {
+				Name = "Wizard",
+				Description = "Magic users of insane power",
+				InitHP = 6,
+				HitDieSize = 6,
+				HPPerLevel = "d6"
+			});
 
 			await dbConnection.CreateTableAsync<Item>();
 			//Default data Items
@@ -121,14 +142,32 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public static SQLiteConnectionWithLock ConnectToDB()
 		{
-			SQLiteConnectionWithLock dbConn = new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString("Database", false));
+			SQLiteConnectionWithLock dbConn;
+			try
+			{
+				dbConn = new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString(Path.Combine(ApplicationData.Current.RoamingFolder.Path, DBPath), false));
+			}
+			catch (Exception ex)
+			{
+				
+				dbConn = new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString(DBPath, false));
+			}
 			return dbConn;
 		}
 
 		public static List<T> GetTableFromDB<T>() where T : class
 		{
-			var query = dbConnection.Table<T>();
-			return query.ToListAsync().Result;
+			try
+			{
+				Debug.WriteLine("Attempting to get a list of " + typeof(T).ToString() + " from the db.");
+				var query = dbConnection.Table<T>();
+				return query.ToListAsync().Result;
+			}
+			catch (AggregateException ex)
+			{
+				Debug.WriteLine("Failed to get data from the database, returning empty list");
+				return new List<T>();
+			}
 
 		}
 	}

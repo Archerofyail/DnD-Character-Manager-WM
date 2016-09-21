@@ -14,14 +14,26 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int Experience { get; set; }
 		[Ignore]
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
+
 		[ForeignKey(typeof(Race))]
-		public string Race { get; set; }
+		public int Race_id { get; set; }
+		[OneToOne]
+		public Race Race { get; set; }
+
 		[ForeignKey(typeof(Subrace))]
-		public string Subrace { get; set; }
+		public int Subrace_id { get; set; }
+		[OneToOne]
+		public Subrace Subrace { get; set; }
+
 		[ForeignKey(typeof(Class))]
-		public string Class { get; set; }
+		public int Class_id { get; set; }
+		[OneToOne]
+		public Class Class { get; set; }
+
 		[ForeignKey(typeof(Subclass))]
-		public string SubClass { get; set; }
+		public int SubClass_id { get; set; }
+		[OneToOne]
+		public Subclass Subclass { get; set; }
 		
 		[Ignore]
 		public int ArmorClass
@@ -52,8 +64,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string HairColor { get; set; }
 		#endregion
 
-		[TextBlob("MainStats")]
-		public Dictionary<MainStat,int> MainStatsJson
+		[TextBlob("MainStatsJson")]
+		public Dictionary<MainStat,int> MainStats
 		{
 			get { return mainstats; }
 			set { mainstats = value; }
@@ -71,14 +83,15 @@ namespace TabletopRolePlayingCharacterManager.Models
 		};
 
 		[ForeignKey(typeof(Alignment))]
-		public Alignment Alignment { get; set; }
+		public int Alignment_id { get; set; }
 
 		[Ignore]
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
-
+		[ManyToMany(typeof(CharacterSkill))]
 		public List<Skill> Skills { get; set; }
 		[OneToMany]
 		public List<CharacterSkillProficiency> SkillProficiencies { get; set; }
+		[Ignore]
 		public Dictionary<string, int> SkillMods { get; set; }
 
 		//Todo: figure out how to load proficiencies as items from another table, that work with an ORM
@@ -86,7 +99,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<Proficiency> Proficiencies { get; set; }
 
 		
-		public List<Proficiency> Features { get; private set; }
+		//public List<Proficiency> Features { get; private set; }
 		[ManyToMany(typeof(CharacterItem))]
 		public List<IItem> Items { get; set; }
 		[ManyToMany(typeof(CharacterArmor))]

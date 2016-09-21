@@ -1,4 +1,5 @@
 ﻿using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -10,8 +11,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Name { get; set; }
 		[NotNull]
 		public string Description { get; set; }
-		
-		public Class ParentClass { get; set; }
+		[ForeignKey(typeof(Class))]
+		public int ParentClass_id { get; set; }
 		public Subclass(string title, string description)
 		{
 			Name = title;
