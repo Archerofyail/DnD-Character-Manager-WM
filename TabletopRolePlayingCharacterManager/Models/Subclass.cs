@@ -15,6 +15,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[ForeignKey(typeof(Class))]
 		public int ParentClass_id { get; set; }
 
+		[ManyToOne]
+		public Class ParentClass { get; set; }
+
 		[OneToMany(CascadeOperations = CascadeOperation.All)]
 		public List<Character5E> Characters { get; set; }
 		public Subclass(string title, string description)

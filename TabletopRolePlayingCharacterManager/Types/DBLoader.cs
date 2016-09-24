@@ -23,7 +23,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			get
 			{
-				return dbConnection.Table<Race>().ToListAsync().Result;
+				var races = dbConnection.Table<Race>().ToListAsync().Result;
+				Debug.WriteLine("Got list of races from DB, IDs are:");
+				foreach (var race in races)
+				{
+					Debug.WriteLine(race.Name + ": " + race.id);
+				}
+				return races;
+				
 			}
 		}
 
@@ -104,11 +111,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 				//default data skills
 				await dbConnection.InsertAsync(new Skill("Deception", MainStat.Dexterity));
 
-				
+
 				//Default data Races
-				await dbConnection.InsertAsync(new Race("Human", "Sturdy Creatures"));
-				await dbConnection.InsertAsync(new Race("Dwarves", "Short, Strong, live in mountains or hills usually"));
-				await dbConnection.InsertAsync(new Race("Elf", "Live forever"));
+				var race1 = new Race("Human", "Sturdy Creatures");
+				var race2 = new Race("Dwarves", "Short, Strong, live in mountains or hills usually");
+				var race3 = new Race("Elf", "Live forever");
+				await dbConnection.InsertAsync(race1);
+				await dbConnection.InsertAsync(race2);
+				await dbConnection.InsertAsync(race3);
 
 				//Default data Proficiencies
 				await dbConnection.InsertAsync(new Proficiency
@@ -141,24 +151,26 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 
 
-				
+
 				//Default data Class
-				await dbConnection.InsertAsync(new Class
+				var class1 = new Class
 				{
 					Name = "Wizard",
 					Description = "Magic users of insane power",
 					InitHP = 6,
 					HitDieSize = 6,
 					HPPerLevel = "d6"
-				});
-				await dbConnection.InsertAsync(new Class
+				};
+				var class2 = new Class
 				{
 					Name = "Warrior",
 					Description = "Super strong",
 					InitHP = 10,
 					HitDieSize = 10,
 					HPPerLevel = "d10"
-				});
+				};
+				await dbConnection.InsertAsync(class1);
+				await dbConnection.InsertAsync(class2);
 
 
 				//Default data Items
@@ -182,14 +194,15 @@ namespace TabletopRolePlayingCharacterManager.Types
 				await dbConnection.InsertAsync(new Subclass
 				{
 					Name = "Abjuration",
-					Description = "The School of Abjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation."
-
+					Description = "The School of Abjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation.",
+					ParentClass = class1
 				});
 
 				await dbConnection.InsertAsync(new Subclass
 				{
 					Name = "Conjuration",
-					Description = "The School of conjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation."
+					Description = "The School of conjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation.",
+					ParentClass = class1
 
 				});
 
@@ -197,13 +210,15 @@ namespace TabletopRolePlayingCharacterManager.Types
 				await dbConnection.InsertAsync(new Subrace
 				{
 					Name = "Hill Dwarves",
-					Description = "Live in hills, +1 dexterity"
+					Description = "Live in hills, +1 dexterity",
+					ParentRace = race2
 				});
 
 				await dbConnection.InsertAsync(new Subrace
 				{
 					Name = "Northern Human",
-					Description = "Live in the north, + resistance to cold"
+					Description = "Live in the north, + resistance to cold",
+					ParentRace = race1
 				});
 
 
@@ -216,6 +231,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					DamageDie = 6,
 					DamageBonus = 2,
 				});
+				//Set up relationships
 
 				
 

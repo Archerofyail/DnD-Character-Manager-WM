@@ -1,4 +1,5 @@
-﻿using SQLite.Net.Attributes;
+﻿using Newtonsoft.Json;
+using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
 
@@ -64,7 +65,13 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string HairColor { get; set; }
 		#endregion
 
-		[TextBlob("MainStatsJson")]
+		public string MainStatsJson
+		{
+			get { return JsonConvert.SerializeObject(mainstats); }
+			set { mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value); }
+		}
+
+		[Ignore]
 		public Dictionary<MainStat,int> MainStats
 		{
 			get { return mainstats; }

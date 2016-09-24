@@ -76,23 +76,23 @@
 						  Name="RaceTextBox" HorizontalAlignment="Stretch"
 						  ItemsSource="{Binding Path=Races}"
 						  ItemTemplate="{StaticResource ComboBoxItem}"
-						  SelectedIndex="{Binding Path=SelectedRace}"/>
+						  SelectedIndex="{Binding Path=SelectedRace, Mode=TwoWay}"/>
 				<ComboBox Visibility="Collapsed" Name="SubraceTextBox" Margin="50, 0, 0, 0"
 						  PlaceholderText="Choose your subrace"
 						   ItemTemplate="{StaticResource ComboBoxItem}"
 						  ItemsSource="{Binding Path=Subraces}"
-						  SelectedIndex="{Binding Path=SelectedSubRace}"/>
+						  SelectedIndex="{Binding Path=SelectedSubRace, Mode=TwoWay}"/>
 				<ComboBox Margin="0, 10, 0, 0" HorizontalAlignment="Stretch" 
 						  PlaceholderText="Choose your class"
 						   ItemTemplate="{StaticResource ComboBoxItem}"
 						  ItemsSource="{Binding Path=Classes}"
-						  SelectedIndex="{Binding Path=SelectedClass}"/>
+						  SelectedIndex="{Binding Path=SelectedClass, Mode=TwoWay}"/>
 				<ComboBox Visibility="Collapsed" Name="SubclassTextBox" 
 						  PlaceholderText="{Binding Path=SubclassChoiceStatement}" 
 						  Margin="50, 0, 0, 0"
 						   ItemTemplate="{StaticResource ComboBoxItem}"
 						  ItemsSource="{Binding Path=Subclasses}"
-						  SelectedIndex="{Binding Path=SelectedSubClass}"/>
+						  SelectedIndex="{Binding Path=SelectedSubClass, Mode=TwoWay}"/>
 
 
 				<ComboBox 

@@ -238,7 +238,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		private int selectedRace_id = 0;
 
-		public int SelectedRace_id
+		public int SelectedRace
 		{
 			get { return selectedRace_id; }
 			set
@@ -269,7 +269,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		private int selectedSubRace_id = 0;
 
-		public int SelectedSubRace_id
+		public int SelectedSubRace
 		{
 			get { return selectedSubRace_id; }
 			set
@@ -298,7 +298,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		private int selectedClass_id = 0;
 
-		public int SelectedClass_Id
+		public int SelectedClass
 		{
 			get { return selectedClass_id; }
 			set
@@ -328,7 +328,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 		private int selectedSubClass_Id = 0;
-		public int SelectedSubClass_Id
+		public int SelectedSubClass
 		{
 			get { return selectedSubClass_Id; }
 			set
@@ -501,6 +501,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				selsubclass.Characters.Add(character);
 				await DBLoader.dbConnection.UpdateWithChildrenAsync(selsubclass);
+			}
+			if (character.Race == selRace)
+			{
+				Debug.WriteLine("It actually works");
+				Debug.WriteLine("IDs for stuff are:\nRace: " + character.Race.Name + ", " + character.Race_id + "\nClass: " + character.Class.Name + ", " + character.Class_id);
+			}
+			else
+			{
+				Debug.WriteLine("It didn't work");
 			}
 		}
 

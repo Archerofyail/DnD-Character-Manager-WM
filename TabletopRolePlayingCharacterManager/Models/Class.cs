@@ -22,16 +22,21 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[OneToMany(CascadeOperations = CascadeOperation.All)]
 		public List<Character5E> Characters { get; set; }
 
+		[OneToMany(CascadeOperations = CascadeOperation.All)]
+		public List<Subclass> Subclasses { get; set; }
+
 		public Class(string title, string description)
 		{
 			Name = title;
 			Description = description;
 			Characters = new List<Character5E>();
+			Subclasses = new List<Subclass>();
 		}
 
 		public Class()
 		{
 			Characters = new List<Character5E>();
+			Subclasses = new List<Subclass>();
 		}
 
 	}

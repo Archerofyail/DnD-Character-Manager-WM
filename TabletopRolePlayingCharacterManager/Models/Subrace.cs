@@ -13,6 +13,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[ForeignKey(typeof(Race))]
 		public int ParentRace_id { get; set; }
 
+		[ManyToOne]
+		public Race ParentRace { get; set; }
+
 		[OneToMany(CascadeOperations = CascadeOperation.All)]
 		public List<Character5E> Characters { get; set; }
 
