@@ -74,23 +74,8 @@ namespace TabletopRolePlayingCharacterManager.Types
 			Races = new List<string>();
 			Classes = new List<string>();
 
-			LoadClasses();
-			LoadRaces();
-			LoadLanguages();
-		}
-
-		public async static void LoadLanguages()
-		{
-		}
-
-		public async static void LoadClasses()
-		{
 			
 		}
 
-		public async static void LoadRaces()
-		{
-			
-		}
 	}
 }

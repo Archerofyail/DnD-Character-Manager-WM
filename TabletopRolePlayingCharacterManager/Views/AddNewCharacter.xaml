@@ -125,7 +125,7 @@
 							   Margin="0, 10, 0, 0" Width="90"/>
 							<TextBox x:Name="StrengthTextBox" MaxWidth="60" 
 							 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
-									 Text="{Binding Path=StrengthStat}"/>
+									 Text="{Binding Path=StrengthStat, Mode=TwoWay}"/>
 							<Button x:Name="SelectStrengthButton" Margin="15, 10, 0, 0" 
 									Padding="5, 2, 5, 2" Visibility="{Binding Path=RolledScoresExist}"
 									Click="SelectAbilityToAssign">
@@ -140,7 +140,7 @@
 							   Margin="0, 10, 0, 0" Width="90"/>
 							<TextBox x:Name="DexterityTextBox" MaxWidth="60"
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
-									 Text="{Binding Path=DexterityStat}"/>
+									 Text="{Binding Path=DexterityStat, Mode=TwoWay}"/>
 							<Button x:Name="SelectDexterityButton" Margin="15, 10, 0, 0" 
 							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
 									Visibility="{Binding Path=RolledScoresExist}">
@@ -155,7 +155,7 @@
 									   Margin="0, 10, 0, 0" Width="90"/>
 							<TextBox x:Name="ConstitutionTextBox" MaxWidth="60"
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
-									 Text="{Binding Path=ConstitutionStat}"/>
+									 Text="{Binding Path=ConstitutionStat, Mode=TwoWay}"/>
 							<Button x:Name="SelectConstButton" Margin="15, 10, 0, 0" 
 							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
 									Visibility="{Binding Path=RolledScoresExist}">
@@ -170,7 +170,7 @@
 							   Margin="0, 10, 0, 0" Width="90"/>
 							<TextBox x:Name="IntelligenceTextBox" MaxWidth="60" 
 							 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
-									 Text="{Binding Path=IntelligenceStat}"/>
+									 Text="{Binding Path=IntelligenceStat, Mode=TwoWay}"/>
 							<Button x:Name="SelectIntelligenceButton" Margin="15, 10, 0, 0" 
 							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
 									Visibility="{Binding Path=RolledScoresExist}">
@@ -185,7 +185,7 @@
 							   Margin="0, 10, 0, 0" Width="90"/>
 							<TextBox x:Name="WisdomTextBox" MaxWidth="60"
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
-									 Text="{Binding Path=WisdomStat}"/>
+									 Text="{Binding Path=WisdomStat, Mode=TwoWay}"/>
 							<Button x:Name="SelectWisdomButton" Margin="15, 10, 0, 0" 
 							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
 									Visibility="{Binding Path=RolledScoresExist}">
@@ -200,7 +200,7 @@
 							   Margin="0, 10, 0, 0" Width="90"/>
 							<TextBox x:Name="CharismaTextBox" MaxWidth="60" 
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
-									 Text="{Binding Path=CharismaStat}"/>
+									 Text="{Binding Path=CharismaStat, Mode=TwoWay}"/>
 							<Button x:Name="SelectCharismaButton" Margin="15, 10, 0, 0" 
 									Padding="5, 2, 5, 2"  
 									Visibility="{Binding Path=RolledScoresExist}" 

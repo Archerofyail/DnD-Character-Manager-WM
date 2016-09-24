@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.Storage;
 using TabletopRolePlayingCharacterManager.Models;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
@@ -15,15 +16,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (characterList.Count == 0)
 				{
-					LoadCharactersFromFile();
+					//foreach (var character in DBLoader.Characters)
+					//{
+					//	//characterList.Add(character);
+					//}
+
 				}
 				return characterList;
 			}
 		}
+		public string CharListEmptyText
+		{
+			get { return "You don't have any characters created, click the add new character button in the bottom right to get started"; }
+		}
+
 
 		public MainPageViewModel()
 		{
-			
+
 		}
 
 		public async void LoadCharactersFromFile()
@@ -36,11 +46,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				try
 				{
 					string charJsonString = await FileIO.ReadTextAsync(charFile);
-					
+
 				}
 				catch (Exception)
 				{
-					
+
 					throw;
 				}
 			}

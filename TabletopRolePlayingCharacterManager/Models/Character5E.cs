@@ -35,7 +35,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int SubClass_id { get; set; }
 		[ManyToOne]
 		public Subclass Subclass { get; set; }
-		
+
 		[Ignore]
 		public int ArmorClass
 		{
@@ -68,26 +68,23 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string MainStatsJson
 		{
 			get { return JsonConvert.SerializeObject(mainstats); }
-			set { mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value); }
+			set
+			{
+				if (!string.IsNullOrEmpty(value))
+				{
+					mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
+				}
+			}
 		}
 
 		[Ignore]
-		public Dictionary<MainStat,int> MainStats
+		public Dictionary<MainStat, int> MainStats
 		{
 			get { return mainstats; }
 			set { mainstats = value; }
 		}
 		//Stored as the full number, the Bonus will be calculated on the fly
-		private Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>
-		{
-			{ MainStat.Strength, 0},
-			{ MainStat.Dexterity, 0 },
-			{ MainStat.Constitution, 0 },
-			{ MainStat.Intelligence, 0 },
-			{ MainStat.Wisdom, 0 },
-			{ MainStat.Charisma, 0 }
-
-		};
+		private Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>();
 
 		[ForeignKey(typeof(Alignment))]
 		public int Alignment_id { get; set; }
@@ -105,13 +102,13 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[ManyToMany(typeof(CharacterProficiency))]
 		public List<Proficiency> Proficiencies { get; set; }
 
-		
+
 		//public List<Proficiency> Features { get; private set; }
 		[ManyToMany(typeof(CharacterItem))]
 		public List<IItem> Items { get; set; }
 		[ManyToMany(typeof(CharacterArmor))]
 		public List<Armor> Armor { get; set; }
-		[ManyToMany(typeof(CharacterWeapon))]
+		[ManyToMany(typeof(Character))]
 		public List<Weapon> Weapons { get; set; }
 		[ManyToMany(typeof(CharacterSpell))]
 		public List<Spell> Spells { get; set; }

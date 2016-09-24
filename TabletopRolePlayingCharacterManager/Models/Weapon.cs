@@ -18,7 +18,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[NotNull]
 		public int DamageDie { get; set; }
 		public int DamageBonus { get; set; }
-		[ManyToMany(typeof(CharacterWeapon))]
+		[ManyToMany(typeof(Character))]
 		public List<Character5E> Characters { get; set; }
 	}
 }

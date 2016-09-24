@@ -2,7 +2,7 @@
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
-	public class CharacterWeapon
+	public class Character
 	{
 		[ForeignKey(typeof(Character5E))]
 		public int Character_id { get; set; }

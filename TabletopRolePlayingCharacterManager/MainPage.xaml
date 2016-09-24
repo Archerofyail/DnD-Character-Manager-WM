@@ -6,17 +6,17 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
-
+	
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Assets/Dictionary1.xaml">
-					
+
 				</ResourceDictionary>
 				<ResourceDictionary>
 					<DataTemplate x:Key="Character">
 						<Grid>
-							<TextBlock Text="Character Name"></TextBlock>
+							<TextBlock Text="{Binding Path=Name}"></TextBlock>
 						</Grid>
 					</DataTemplate>
 				</ResourceDictionary>
@@ -40,9 +40,15 @@
 		<Hub Header="DnD Character Sheet">
 			<HubSection Header="Characters">
 				<DataTemplate>
-					<ListView ItemTemplate="{StaticResource Character}">
-						
-					</ListView>
+					<Grid>
+						<ListView Name="CharacterList"  
+							  ItemTemplate="{StaticResource Character}"
+							  >
+
+						</ListView>
+						<TextBlock Text="{Binding Path=CharListEmptyText}"
+								   Visibility="{Binding CharacterList.Count}"/>
+					</Grid>
 				</DataTemplate>
 			</HubSection>
 		</Hub>

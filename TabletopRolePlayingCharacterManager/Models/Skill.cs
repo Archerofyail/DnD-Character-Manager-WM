@@ -6,7 +6,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class Skill
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; private set; }
 		public string Name { get; private set; }
 		public readonly MainStat MainStatType;
@@ -17,7 +17,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			MainStatType = mainStatType;
 		}
 
-		[ManyToMany(typeof(CharacterWeapon))]
+		[ManyToMany(typeof(Character))]
 		public List<Character5E> Characters { get; set; }
 	}
 

@@ -10,6 +10,7 @@ using TabletopRolePlayingCharacterManager.Models;
 using SQLite.Net.Async;
 using SQLite.Net.Platform.WinRT;
 using System.Collections.Generic;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
@@ -23,14 +24,9 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			get
 			{
-				var races = dbConnection.Table<Race>().ToListAsync().Result;
-				Debug.WriteLine("Got list of races from DB, IDs are:");
-				foreach (var race in races)
-				{
-					Debug.WriteLine(race.Name + ": " + race.id);
-				}
+				var races = dbConnection.GetAllWithChildrenAsync<Race>().Result;
 				return races;
-				
+
 			}
 		}
 
@@ -38,7 +34,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			get
 			{
-				return dbConnection.Table<Subrace>().ToListAsync().Result;
+				return dbConnection.GetAllWithChildrenAsync<Subrace>().Result;
 			}
 		}
 
@@ -46,20 +42,33 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			get
 			{
-				return dbConnection.Table<Class>().ToListAsync().Result;
+				return dbConnection.GetAllWithChildrenAsync<Class>().Result;
 			}
 		}
 		public static List<Subclass> Subclasses
 		{
 			get
 			{
-				return dbConnection.Table<Subclass>().ToListAsync().Result;
+				return dbConnection.GetAllWithChildrenAsync<Subclass>().Result;
 			}
+		}
+
+		public static List<Character5E> Characters
+		{
+			get
+			{
+				return dbConnection.GetAllWithChildrenAsync<Character5E>().Result;
+			}
+		}
+
+		public static List<Skill> Skills
+		{
+			get { return dbConnection.GetAllWithChildrenAsync<Skill>().Result; }
 		}
 
 		static DBLoader()
 		{
-			
+
 			Debug.WriteLine("db created ");
 		}
 
@@ -96,18 +105,18 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await dbConnection.CreateTableAsync<CharacterProficiency>();
 			await dbConnection.CreateTableAsync<CharacterSkill>();
 			await dbConnection.CreateTableAsync<CharacterSpell>();
-			await dbConnection.CreateTableAsync<CharacterWeapon>();
+			await dbConnection.CreateTableAsync<Character>();
 
 
 
 			await dbConnection.CreateTableAsync<FirstRun>();
-			if ( (await dbConnection.Table<FirstRun>().ToListAsync()).Count == 0)
+			if ((await dbConnection.Table<FirstRun>().ToListAsync()).Count == 0)
 			{
 
 				Debug.WriteLine("Recreating default data");
 				await dbConnection.InsertAsync(new FirstRun());
 
-				
+
 				//default data skills
 				await dbConnection.InsertAsync(new Skill("Deception", MainStat.Dexterity));
 
@@ -142,7 +151,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					Category = "Armor"
 
 				});
-				
+
 				//Default data Alignments
 				await dbConnection.InsertAsync(new Alignment
 				{
@@ -180,7 +189,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					Description = "Heals 2d4+2"
 				});
 
-				
+
 				await dbConnection.InsertAsync(new Spell
 				{
 					Name = "Eldritch Blat",
@@ -190,7 +199,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 				});
 
 
-				
+
 				await dbConnection.InsertAsync(new Subclass
 				{
 					Name = "Abjuration",
@@ -233,10 +242,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 				});
 				//Set up relationships
 
-				
 
 
-				
+
+
 			}
 
 		}
@@ -256,9 +265,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			return dbConn;
 		}
 
-		public static async 
-		Task
-DeleteAllData()
+		public static async	Task DeleteAllData()
 		{
 			await dbConnection.DropTableAsync<FirstRun>();
 			await dbConnection.DropTableAsync<Skill>();
@@ -280,7 +287,7 @@ DeleteAllData()
 			await dbConnection.DropTableAsync<CharacterProficiency>();
 			await dbConnection.DropTableAsync<CharacterSkill>();
 			await dbConnection.DropTableAsync<CharacterSpell>();
-			await dbConnection.DropTableAsync<CharacterWeapon>();
+			await dbConnection.DropTableAsync<Character>();
 		}
 
 		public static List<T> GetTable<T>() where T : class

@@ -196,7 +196,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public ObservableCollection<Skill> Skills
 		{
-			get { return skills; }
+			get
+			{
+				if (skills.Count == 0)
+				{
+					foreach (var skill in DBLoader.Skills)
+					{
+						skills.Add(skill);
+					}
+				}
+				return skills;
+			}
 		}
 
 		private ObservableCollection<Proficiency> languages = new ObservableCollection<Proficiency>();
@@ -261,7 +271,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 					{
 						subraces.Add(race);
 					}
-					
+
 				}
 				return subraces;
 			}
@@ -473,12 +483,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				Name = CharName,
 
 			};
-			character.abilityModifiers.Add(MainStat.Strength, strengthStat);
-			character.abilityModifiers.Add(MainStat.Dexterity, dexterityStat);
-			character.abilityModifiers.Add(MainStat.Constitution, constitutionStat);
-			character.abilityModifiers.Add(MainStat.Intelligence, intelligenceStat);
-			character.abilityModifiers.Add(MainStat.Wisdom, wisdomStat);
-			character.abilityModifiers.Add(MainStat.Charisma, charismaStat);
+			character.MainStats.Add(MainStat.Strength, strengthStat);
+			character.MainStats.Add(MainStat.Dexterity, dexterityStat);
+			character.MainStats.Add(MainStat.Constitution, constitutionStat);
+			character.MainStats.Add(MainStat.Intelligence, intelligenceStat);
+			character.MainStats.Add(MainStat.Wisdom, wisdomStat);
+			character.MainStats.Add(MainStat.Charisma, charismaStat);
 
 			await DBLoader.dbConnection.InsertAsync(character);
 			Debug.WriteLine("Creating onetomany relationships with races and classes");
