@@ -99,6 +99,7 @@
 					Name="AlignmentChoice"
 					ItemTemplate="{StaticResource ComboBoxItem}" 
 					ItemsSource="{Binding Path=Alignments}"
+					SelectedIndex="{Binding Path=SelectedAlignment}"
 					Margin="0, 10, 0, 0"
 					PlaceholderText="Enter your Alignment here"/>
 

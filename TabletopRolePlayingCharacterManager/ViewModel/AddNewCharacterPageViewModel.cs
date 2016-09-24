@@ -202,6 +202,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					foreach (var skill in DBLoader.Skills)
 					{
+						Debug.WriteLine("Added skill to list: " + skill.Name);
 						skills.Add(skill);
 					}
 				}
@@ -355,6 +356,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return subclassChoiceStatement; }
 		}
 
+		private int selectedAlignment;
+		public int SelectedAlignment
+		{
+			get { return selectedAlignment; }
+			set
+			{
+				selectedAlignment = value;
+				NotifyPropertyChanged();
+			}
+		}
+
 		private ObservableCollection<Alignment> alignments = new ObservableCollection<Alignment>();
 
 		public ObservableCollection<Alignment> Alignments
@@ -472,6 +484,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			var selClass = classes.Find(x => x.id == Races[selectedClass_id].id);
 			var selsubclass = subclasses.Find(x => x.id == Races[selectedSubClass_Id].id);
 			var selsubrace = subraces.Find(x => x.id == Races[selectedSubRace_id].id);
+			var selAlignment = DBLoader.Alignments.Find(x => x.id == Alignments[selectedAlignment].id);
 			Character5E character = new Character5E()
 			{
 				Age = int.Parse(age),
@@ -489,6 +502,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.MainStats.Add(MainStat.Intelligence, intelligenceStat);
 			character.MainStats.Add(MainStat.Wisdom, wisdomStat);
 			character.MainStats.Add(MainStat.Charisma, charismaStat);
+			
 
 			await DBLoader.dbConnection.InsertAsync(character);
 			Debug.WriteLine("Creating onetomany relationships with races and classes");
@@ -511,6 +525,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				selsubclass.Characters.Add(character);
 				await DBLoader.dbConnection.UpdateWithChildrenAsync(selsubclass);
+			}
+			if (selAlignment != null)
+			{
+				selAlignment.Characters.Add(character);
+				await DBLoader.dbConnection.UpdateWithChildrenAsync(selAlignment);
 			}
 			if (character.Race == selRace)
 			{

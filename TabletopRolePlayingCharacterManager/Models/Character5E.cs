@@ -88,6 +88,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		[ForeignKey(typeof(Alignment))]
 		public int Alignment_id { get; set; }
+		[ManyToOne]
+		public Alignment Alignment { get; set; }
 
 		[Ignore]
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
@@ -108,7 +110,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<IItem> Items { get; set; }
 		[ManyToMany(typeof(CharacterArmor))]
 		public List<Armor> Armor { get; set; }
-		[ManyToMany(typeof(Character))]
+		[ManyToMany(typeof(CharacterWeapon))]
 		public List<Weapon> Weapons { get; set; }
 		[ManyToMany(typeof(CharacterSpell))]
 		public List<Spell> Spells { get; set; }

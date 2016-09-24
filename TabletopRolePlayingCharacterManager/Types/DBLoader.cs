@@ -66,6 +66,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 			get { return dbConnection.GetAllWithChildrenAsync<Skill>().Result; }
 		}
 
+		public static List<Alignment> Alignments
+		{
+			get
+			{
+				return dbConnection.GetAllWithChildrenAsync<Alignment>().Result;
+			}
+		}
+
 		static DBLoader()
 		{
 
@@ -105,7 +113,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await dbConnection.CreateTableAsync<CharacterProficiency>();
 			await dbConnection.CreateTableAsync<CharacterSkill>();
 			await dbConnection.CreateTableAsync<CharacterSpell>();
-			await dbConnection.CreateTableAsync<Character>();
+			await dbConnection.CreateTableAsync<CharacterWeapon>();
 
 
 
@@ -153,10 +161,46 @@ namespace TabletopRolePlayingCharacterManager.Types
 				});
 
 				//Default data Alignments
-				await dbConnection.InsertAsync(new Alignment
+				var alignmentList = new List<Alignment>
 				{
-					Name = "True Neutral"
-				});
+					new Alignment
+					{
+						Name = "True Neutral"
+					},
+					new Alignment
+					{
+						Name="Chaotic Neutral"
+					},
+					new Alignment
+					{
+						Name="Lawful Neutral"
+					},
+					new Alignment
+					{
+						Name="Lawful Good"
+					},
+					new Alignment
+					{
+						Name="Chaotic Good"
+					},
+					new Alignment
+					{
+						Name="Neutral Good"
+					},
+					new Alignment
+					{
+						Name="Neutral Evil"
+					},
+					new Alignment
+					{
+						Name="Lawful Evil"
+					},
+					new Alignment
+					{
+						Name="Chaotic Evil"
+					},
+				};
+				await dbConnection.InsertAllAsync(alignmentList);
 
 
 
@@ -265,7 +309,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			return dbConn;
 		}
 
-		public static async	Task DeleteAllData()
+		public static async Task DeleteAllData()
 		{
 			await dbConnection.DropTableAsync<FirstRun>();
 			await dbConnection.DropTableAsync<Skill>();
@@ -287,7 +331,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await dbConnection.DropTableAsync<CharacterProficiency>();
 			await dbConnection.DropTableAsync<CharacterSkill>();
 			await dbConnection.DropTableAsync<CharacterSpell>();
-			await dbConnection.DropTableAsync<Character>();
+			await dbConnection.DropTableAsync<CharacterWeapon>();
 		}
 
 		public static List<T> GetTable<T>() where T : class

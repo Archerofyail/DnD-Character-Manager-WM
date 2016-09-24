@@ -1,4 +1,6 @@
 ﻿using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -7,6 +9,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }
 		public string Name { get; set; }
+
+		[OneToMany]
+		public List<Character5E> Characters { get; set; }
 
 	}
 }
