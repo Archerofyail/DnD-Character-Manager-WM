@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.Storage;
 using TabletopRolePlayingCharacterManager.Models;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
 	class MainPageViewModel
 	{
-		private ObservableCollection<Character5E> characterList = new ObservableCollection<Character5E>();
+		private ObservableCollection<Character5E> _characterList = new ObservableCollection<Character5E>();
 		public ObservableCollection<Character5E> CharacterList
 		{
 			get
 			{
-				if (characterList.Count == 0)
+				if (_characterList.Count == 0)
 				{
 					//foreach (var character in DBLoader.Characters)
 					//{
@@ -22,7 +21,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 					//}
 
 				}
-				return characterList;
+				return _characterList;
 			}
 		}
 		public string CharListEmptyText

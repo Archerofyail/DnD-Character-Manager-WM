@@ -2,7 +2,7 @@
 {
 	public interface IItem
 	{
-		int id { get; set; }
+		int Id { get; set; }
 		string Name { get; set; }
 		string Description { get; set; }
 

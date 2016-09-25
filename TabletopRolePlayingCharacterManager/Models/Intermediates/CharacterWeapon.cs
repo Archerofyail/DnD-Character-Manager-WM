@@ -1,12 +1,12 @@
 ﻿using SQLiteNetExtensions.Attributes;
 
-namespace TabletopRolePlayingCharacterManager.Models
+namespace TabletopRolePlayingCharacterManager.Models.Intermediates
 {
 	public class CharacterWeapon
 	{
 		[ForeignKey(typeof(Character5E))]
-		public int Character_id { get; set; }
+		public int CharacterId { get; set; }
 		[ForeignKey(typeof(Weapon))]
-		public int Weapon_id { get; set; }
+		public int WeaponId { get; set; }
 	}
 }

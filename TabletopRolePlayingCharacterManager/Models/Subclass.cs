@@ -13,7 +13,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[NotNull]
 		public string Description { get; set; }
 		[ForeignKey(typeof(Class))]
-		public int ParentClass_id { get; set; }
+		public int ParentClassId { get; set; }
 
 		[ManyToOne]
 		public Class ParentClass { get; set; }

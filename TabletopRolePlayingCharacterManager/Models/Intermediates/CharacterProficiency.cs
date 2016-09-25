@@ -1,13 +1,13 @@
 ﻿using SQLiteNetExtensions.Attributes;
 
-namespace TabletopRolePlayingCharacterManager.Models
+namespace TabletopRolePlayingCharacterManager.Models.Intermediates
 {
 	class CharacterProficiency
 	{
 		[ForeignKey(typeof(Character5E))]
-		public int Character_id { get; set; }
+		public int CharacterId { get; set; }
 		[ForeignKey(typeof(Proficiency))]
-		public int Proficiency_id { get; set; }
+		public int ProficiencyId { get; set; }
 		public bool isProficient { get; set; }
 	}
 }

@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
 		[ForeignKey(typeof(Race))]
-		public int ParentRace_id { get; set; }
+		public int ParentRaceId { get; set; }
 
 		[ManyToOne]
 		public Race ParentRace { get; set; }

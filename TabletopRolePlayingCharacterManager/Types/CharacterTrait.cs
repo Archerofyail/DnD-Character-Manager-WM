@@ -1,4 +1,4 @@
-﻿namespace TabletopRolePlayingCharacterManager
+﻿namespace TabletopRolePlayingCharacterManager.Types
 {
 
 	public class CharacterTrait

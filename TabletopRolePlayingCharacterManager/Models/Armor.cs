@@ -1,4 +1,5 @@
-﻿using SQLite.Net.Attributes;
+﻿using System;
+using SQLite.Net.Attributes;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -25,10 +26,11 @@ namespace TabletopRolePlayingCharacterManager.Models
 			MagicBonus = magicLevel;
 		}
 
-		public void UpdateStats(string armorType, int baseAC, int magicLevel)
+		public void UpdateStats(string armorType, int ac, int magicLevel)
 		{
-			armorType = ArmorType;
-			this.baseAC = baseAC;
+			if (armorType == null) throw new ArgumentNullException(nameof(armorType));
+			ArmorType = armorType;
+			baseAC = ac;
 			MagicBonus = magicLevel;
 		}
 

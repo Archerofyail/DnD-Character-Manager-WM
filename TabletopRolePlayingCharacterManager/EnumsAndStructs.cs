@@ -1,5 +1,4 @@
-﻿using SQLite.Net.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager
 {
@@ -16,14 +15,14 @@ namespace TabletopRolePlayingCharacterManager
 
 	public enum DieType
 	{
-		d3,
-		d4,
-		d6,
-		d8,
-		d10,
-		d12,
-		d20,
-		d100
+		D3,
+		D4,
+		D6,
+		D8,
+		D10,
+		D12,
+		D20,
+		D100
 	}
 
 	//TODO: Give the user the option of saving the custom items during character creation.
@@ -42,7 +41,7 @@ namespace TabletopRolePlayingCharacterManager
 	public static class Utility
 	{
 
-		public static readonly Dictionary<MainStat, string> shorthandStatString = new Dictionary<MainStat, string>
+		public static readonly Dictionary<MainStat, string> ShorthandStatString = new Dictionary<MainStat, string>
 		{
 			{MainStat.Strength, "STR" },
 			{MainStat.Dexterity, "DEX" },

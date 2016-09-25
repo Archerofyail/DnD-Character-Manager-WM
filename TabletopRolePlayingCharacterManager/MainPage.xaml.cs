@@ -13,11 +13,11 @@ namespace TabletopRolePlayingCharacterManager
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class MainPage : Page
+	public sealed partial class MainPage
 	{
 		public MainPage()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 			var resourcenames = GetType().GetTypeInfo().Assembly.GetManifestResourceNames();
 			 
 			if (resourcenames.Length == 0)
@@ -29,7 +29,7 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-			DBLoader.CreateData();
+			DbLoader.CreateData();
 			DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 		}

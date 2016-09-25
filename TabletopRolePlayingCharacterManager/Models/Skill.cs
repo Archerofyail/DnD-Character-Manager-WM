@@ -1,6 +1,7 @@
 ﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Models.Intermediates;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {

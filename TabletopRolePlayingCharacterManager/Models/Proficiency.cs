@@ -1,13 +1,14 @@
 ﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Models.Intermediates;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
 	//This is for non-skill proficiencies, i.e. languages, weapon and armor, tools, etc.
 	public class Proficiency
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		private int id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }

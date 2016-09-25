@@ -15,9 +15,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[NotNull]
 		public int HitDieSize { get; set; }
 		[NotNull]
-		public int InitHP { get; set; }
+		public int InitHp { get; set; }
 		[NotNull]
-		public string HPPerLevel { get; set; }
+		public string HpPerLevel { get; set; }
 
 		[OneToMany(CascadeOperations = CascadeOperation.All)]
 		public List<Character5E> Characters { get; set; }

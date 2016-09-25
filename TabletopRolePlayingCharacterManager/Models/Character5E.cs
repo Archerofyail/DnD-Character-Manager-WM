@@ -2,6 +2,7 @@
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Models.Intermediates;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -10,29 +11,29 @@ namespace TabletopRolePlayingCharacterManager.Models
 	{
 		[PrimaryKey(), AutoIncrement]
 		public int id { get; set; }
-		private int equippedArmorId;
+		private int _equippedArmorId;
 		public int Level { get; set; }
 		public int Experience { get; set; }
 		[Ignore]
 		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
 
 		[ForeignKey(typeof(Race))]
-		public int Race_id { get; set; }
+		public int RaceId { get; set; }
 		[ManyToOne]
 		public Race Race { get; set; }
 
 		[ForeignKey(typeof(Subrace))]
-		public int Subrace_id { get; set; }
+		public int SubraceId { get; set; }
 		[ManyToOne]
 		public Subrace Subrace { get; set; }
 
 		[ForeignKey(typeof(Class))]
-		public int Class_id { get; set; }
+		public int ClassId { get; set; }
 		[ManyToOne]
 		public Class Class { get; set; }
 
 		[ForeignKey(typeof(Subclass))]
-		public int SubClass_id { get; set; }
+		public int SubClassId { get; set; }
 		[ManyToOne]
 		public Subclass Subclass { get; set; }
 
@@ -41,8 +42,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		{
 			get
 			{
-				return Armor.Find((item) => item.id == equippedArmorId).ArmorClass +
-					   Utility.CalculateMainStatBonus(mainstats[MainStat.Dexterity]);
+				return Armor.Find((item) => item.id == _equippedArmorId).ArmorClass +
+					   Utility.CalculateMainStatBonus(_mainstats[MainStat.Dexterity]);
 			}
 		}
 
@@ -67,12 +68,12 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public string MainStatsJson
 		{
-			get { return JsonConvert.SerializeObject(mainstats); }
+			get { return JsonConvert.SerializeObject(_mainstats); }
 			set
 			{
 				if (!string.IsNullOrEmpty(value))
 				{
-					mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
+					_mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
 				}
 			}
 		}
@@ -80,14 +81,14 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[Ignore]
 		public Dictionary<MainStat, int> MainStats
 		{
-			get { return mainstats; }
-			set { mainstats = value; }
+			get { return _mainstats; }
+			set { _mainstats = value; }
 		}
 		//Stored as the full number, the Bonus will be calculated on the fly
-		private Dictionary<MainStat, int> mainstats = new Dictionary<MainStat, int>();
+		private Dictionary<MainStat, int> _mainstats = new Dictionary<MainStat, int>();
 
 		[ForeignKey(typeof(Alignment))]
-		public int Alignment_id { get; set; }
+		public int AlignmentId { get; set; }
 		[ManyToOne]
 		public Alignment Alignment { get; set; }
 
@@ -134,7 +135,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			{
 				abilityModifiers = new Dictionary<MainStat, int>();
 			}
-			foreach (var mainstat in mainstats)
+			foreach (var mainstat in _mainstats)
 			{
 				abilityModifiers.Add(mainstat.Key, Utility.CalculateMainStatBonus(mainstat.Value));
 			}
@@ -156,7 +157,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			}
 			foreach (var skill in Skills)
 			{
-				int bonus = SkillProficiencies.Find(x => x.Skill_id == skill.id).isProficient ? ProficiencyBonus : 0;
+				int bonus = SkillProficiencies.Find(x => x.SkillId == skill.id).IsProficient ? ProficiencyBonus : 0;
 				bonus += abilityModifiers[skill.MainStatType];
 				SkillMods.Add(skill.Name, bonus);
 			}

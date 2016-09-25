@@ -8,453 +8,452 @@ using Windows.UI.Xaml;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 using System.Diagnostics;
-using SQLiteNetExtensions.Extensions;
 using SQLiteNetExtensionsAsync.Extensions;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
 	internal class AddNewCharacterPageViewModel : INotifyCollectionChanged, INotifyPropertyChanged
 	{
-		private readonly Random randd6 = new Random();
+		private readonly Random _randd6 = new Random();
 
-		private string charName = "";
+		private string _charName = "";
 
 		public string CharName
 		{
-			get { return charName; }
+			get { return _charName; }
 			set
 			{
-				charName = value;
+				_charName = value;
 				NotifyPropertyChanged();
 
 			}
 		}
 
-		private string age = "10";
+		private string _age = "10";
 
 		public string Age
 		{
 			get
 			{
-				return age;
+				return _age;
 			}
 			set
 			{
-				age = value;
+				_age = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private string height = "72 inches";
+		private string _height = "72 inches";
 
 		public string Height
 		{
 			get
 			{
-				return height;
+				return _height;
 			}
 			set
 			{
-				height = value;
+				_height = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private string weight = "145 lbs.";
+		private string _weight = "145 lbs.";
 
 		public string Weight
 		{
 			get
 			{
-				return weight;
+				return _weight;
 			}
 			set
 			{
-				weight = value;
+				_weight = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private string hair = "Auburn";
+		private string _hair = "Auburn";
 
 		public string Hair
 		{
 			get
 			{
-				return hair;
+				return _hair;
 			}
 			set
 			{
-				hair = value;
+				_hair = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private string skin = "Tan";
+		private string _skin = "Tan";
 
 		public string Skin
 		{
 			get
 			{
-				return skin;
+				return _skin;
 			}
 			set
 			{
-				skin = value;
+				_skin = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private string eye = "Blue";
+		private string _eye = "Blue";
 
 		public string Eye
 		{
 			get
 			{
-				return eye;
+				return _eye;
 			}
 			set
 			{
-				eye = value;
+				_eye = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private int strengthStat = 0;
+		private int _strengthStat;
 
 		public int StrengthStat
 		{
-			get { return strengthStat; }
+			get { return _strengthStat; }
 			set
 			{
-				strengthStat = value;
+				_strengthStat = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private int dexterityStat = 0;
+		private int _dexterityStat;
 
 		public int DexterityStat
 		{
-			get { return dexterityStat; }
+			get { return _dexterityStat; }
 			set
 			{
-				dexterityStat = value;
+				_dexterityStat = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private int constitutionStat = 0;
+		private int _constitutionStat;
 
 		public int ConstitutionStat
 		{
-			get { return constitutionStat; }
+			get { return _constitutionStat; }
 			set
 			{
-				constitutionStat = value;
+				_constitutionStat = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private int intelligenceStat = 0;
+		private int _intelligenceStat;
 
 		public int IntelligenceStat
 		{
-			get { return intelligenceStat; }
+			get { return _intelligenceStat; }
 			set
 			{
-				intelligenceStat = value;
+				_intelligenceStat = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private int wisdomStat = 0;
+		private int _wisdomStat;
 
 		public int WisdomStat
 		{
-			get { return wisdomStat; }
+			get { return _wisdomStat; }
 			set
 			{
-				wisdomStat = value;
+				_wisdomStat = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private int charismaStat = 0;
+		private int _charismaStat;
 
 		public int CharismaStat
 		{
-			get { return charismaStat; }
+			get { return _charismaStat; }
 			set
 			{
-				charismaStat = value;
+				_charismaStat = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
+		private readonly ObservableCollection<Skill> _skills = new ObservableCollection<Skill>();
 
 		public ObservableCollection<Skill> Skills
 		{
 			get
 			{
-				if (skills.Count == 0)
+				if (_skills.Count == 0)
 				{
-					foreach (var skill in DBLoader.Skills)
+					foreach (var skill in DbLoader.Skills)
 					{
 						Debug.WriteLine("Added skill to list: " + skill.Name);
-						skills.Add(skill);
+						_skills.Add(skill);
 					}
 				}
-				return skills;
+				return _skills;
 			}
 		}
 
-		private ObservableCollection<Proficiency> languages = new ObservableCollection<Proficiency>();
+		private ObservableCollection<Proficiency> _languages = new ObservableCollection<Proficiency>();
 
 		public ObservableCollection<Proficiency> Languages
 		{
 			get
 			{
-				if (languages.Count == 0)
+				if (_languages.Count == 0)
 				{
-					foreach (var language in DBLoader.GetTable<Proficiency>())
+					foreach (var language in DbLoader.GetTable<Proficiency>())
 					{
 						if (language.Category == "Language")
 						{
-							languages.Add(language);
+							_languages.Add(language);
 						}
 					}
 				}
-				return languages;
+				return _languages;
 			}
 		}
 
-		private ObservableCollection<Race> races = new ObservableCollection<Race>();
+		private ObservableCollection<Race> _races = new ObservableCollection<Race>();
 
 		public ObservableCollection<Race> Races
 		{
 			get
 			{
-				if (races.Count == 0)
+				if (_races.Count == 0)
 				{
-					foreach (var race in DBLoader.GetTable<Race>())
+					foreach (var race in DbLoader.GetTable<Race>())
 					{
-						races.Add(race);
+						_races.Add(race);
 					}
 				}
-				return races;
+				return _races;
 			}
 		}
 
-		private int selectedRace_id = 0;
+		private int _selectedRaceId;
 
 		public int SelectedRace
 		{
-			get { return selectedRace_id; }
+			get { return _selectedRaceId; }
 			set
 			{
-				selectedRace_id = value;
+				_selectedRaceId = value;
 				NotifyPropertyChanged();
 			}
 		}
 
 
-		private ObservableCollection<Subrace> subraces = new ObservableCollection<Subrace>();
+		private ObservableCollection<Subrace> _subraces = new ObservableCollection<Subrace>();
 
 		public ObservableCollection<Subrace> Subraces
 		{
 			get
 			{
-				if (subraces.Count == 0)
+				if (_subraces.Count == 0)
 				{
-					foreach (var race in DBLoader.GetTable<Subrace>())
+					foreach (var race in DbLoader.GetTable<Subrace>())
 					{
-						subraces.Add(race);
+						_subraces.Add(race);
 					}
 
 				}
-				return subraces;
+				return _subraces;
 			}
 		}
 
-		private int selectedSubRace_id = 0;
+		private int _selectedSubRaceId;
 
 		public int SelectedSubRace
 		{
-			get { return selectedSubRace_id; }
+			get { return _selectedSubRaceId; }
 			set
 			{
-				selectedSubRace_id = value;
+				_selectedSubRaceId = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private ObservableCollection<Class> classes = new ObservableCollection<Class>();
+		private ObservableCollection<Class> _classes = new ObservableCollection<Class>();
 
 		public ObservableCollection<Class> Classes
 		{
 			get
 			{
-				if (classes.Count == 0)
+				if (_classes.Count == 0)
 				{
-					foreach (var Class in DBLoader.GetTable<Class>())
+					foreach (var Class in DbLoader.GetTable<Class>())
 					{
-						classes.Add(Class);
+						_classes.Add(Class);
 					}
 				}
-				return classes;
+				return _classes;
 			}
 		}
 
-		private int selectedClass_id = 0;
+		private int _selectedClassId;
 
 		public int SelectedClass
 		{
-			get { return selectedClass_id; }
+			get { return _selectedClassId; }
 			set
 			{
-				selectedClass_id = value;
+				_selectedClassId = value;
 				NotifyPropertyChanged();
 			}
 		}
 
 
-		private ObservableCollection<Subclass> subclasses = new ObservableCollection<Subclass>();
+		private ObservableCollection<Subclass> _subclasses = new ObservableCollection<Subclass>();
 
 		public ObservableCollection<Subclass> Subclasses
 		{
 			get
 			{
-				if (subclasses.Count == 0)
+				if (_subclasses.Count == 0)
 				{
-					foreach (var subclass in DBLoader.GetTable<Subclass>())
+					foreach (var subclass in DbLoader.GetTable<Subclass>())
 					{
-						subclasses.Add(subclass);
+						_subclasses.Add(subclass);
 					}
 				}
-				return subclasses;
+				return _subclasses;
 
 			}
 		}
 
-		private int selectedSubClass_Id = 0;
+		private int _selectedSubClassId;
 		public int SelectedSubClass
 		{
-			get { return selectedSubClass_Id; }
+			get { return _selectedSubClassId; }
 			set
 			{
-				selectedSubClass_Id = value;
+				_selectedSubClassId = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private string subclassChoiceStatement = "Choose your subclass{default}";
+		private string _subclassChoiceStatement = "Choose your subclass{default}";
 
 		public string SubclassChoiceStatement
 		{
-			get { return subclassChoiceStatement; }
+			get { return _subclassChoiceStatement; }
 		}
 
-		private int selectedAlignment;
+		private int _selectedAlignment;
 		public int SelectedAlignment
 		{
-			get { return selectedAlignment; }
+			get { return _selectedAlignment; }
 			set
 			{
-				selectedAlignment = value;
+				_selectedAlignment = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private ObservableCollection<Alignment> alignments = new ObservableCollection<Alignment>();
+		private ObservableCollection<Alignment> _alignments = new ObservableCollection<Alignment>();
 
 		public ObservableCollection<Alignment> Alignments
 		{
 			get
 			{
-				if (alignments.Count == 0)
+				if (_alignments.Count == 0)
 				{
-					foreach (var alignment in DBLoader.GetTable<Alignment>())
+					foreach (var alignment in DbLoader.GetTable<Alignment>())
 					{
-						alignments.Add(alignment);
+						_alignments.Add(alignment);
 					}
 				}
-				return alignments;
+				return _alignments;
 			}
 			set
 			{
-				alignments = value;
+				_alignments = value;
 				NotifyPropertyChanged();
 			}
 		}
 
-		private ObservableCollection<Proficiency> weaponProficiencies = new ObservableCollection<Proficiency>();
+		private ObservableCollection<Proficiency> _weaponProficiencies = new ObservableCollection<Proficiency>();
 
 		public ObservableCollection<Proficiency> WeaponProficiencies
 		{
 			get
 			{
-				if (weaponProficiencies.Count == 0)
+				if (_weaponProficiencies.Count == 0)
 				{
-					var proficiencies = DBLoader.GetTable<Proficiency>();
+					var proficiencies = DbLoader.GetTable<Proficiency>();
 					foreach (var prof in proficiencies)
 					{
 						if (prof.Category == "Weapon")
 						{
-							weaponProficiencies.Add(prof);
+							_weaponProficiencies.Add(prof);
 						}
 					}
 				}
-				return weaponProficiencies;
+				return _weaponProficiencies;
 			}
 		}
 
-		private ObservableCollection<Proficiency> armorProficiencies = new ObservableCollection<Proficiency>();
+		private ObservableCollection<Proficiency> _armorProficiencies = new ObservableCollection<Proficiency>();
 
 		public ObservableCollection<Proficiency> ArmorProficiencies
 		{
 			get
 			{
-				if (weaponProficiencies.Count == 0)
+				if (_weaponProficiencies.Count == 0)
 				{
-					var proficiencies = DBLoader.GetTable<Proficiency>();
+					var proficiencies = DbLoader.GetTable<Proficiency>();
 					foreach (var prof in proficiencies)
 					{
 						if (prof.Category == "Armor")
 						{
-							armorProficiencies.Add(prof);
+							_armorProficiencies.Add(prof);
 						}
 					}
 				}
-				return armorProficiencies;
+				return _armorProficiencies;
 			}
 		}
 
-		private ObservableCollection<string> rolledAbilityScores = new ObservableCollection<string>();
+		private ObservableCollection<string> _rolledAbilityScores = new ObservableCollection<string>();
 
 		public ObservableCollection<string> RolledAbilityScores
 		{
-			get { return rolledAbilityScores; }
+			get { return _rolledAbilityScores; }
 		}
 
 		public void RollAbilityScores()
 		{
-			ItemSelectionStore.LoadWeaponList();
-			rolledAbilityScores.Clear();
+			
+			_rolledAbilityScores.Clear();
 			for (int i = 0; i < 6; i++)
 			{
 				int final;
 				List<int> rolls = new List<int>()
 				{
-					randd6.Next(1, 7),
-					randd6.Next(1, 7),
-					randd6.Next(1, 7),
-					randd6.Next(1, 7)
+					_randd6.Next(1, 7),
+					_randd6.Next(1, 7),
+					_randd6.Next(1, 7),
+					_randd6.Next(1, 7)
 				};
 				rolls.Sort();
 				final = rolls[1] + rolls[2] + rolls[3];
-				rolledAbilityScores.Add(final + "");
+				_rolledAbilityScores.Add(final + "");
 
 
 			}
@@ -464,7 +463,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		{
 			get
 			{
-				if (rolledAbilityScores.Count > 0)
+				if (_rolledAbilityScores.Count > 0)
 				{
 					return Visibility.Visible;
 				}
@@ -476,65 +475,65 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public async void CreateCharacter()
 		{
 			Debug.WriteLine("Adding new character to database");
-			var races = DBLoader.Races;
-			var subraces = DBLoader.Subraces;
-			var classes = DBLoader.Classes;
-			var subclasses = DBLoader.Subclasses;
-			var selRace = races.Find(x => x.id == Races[selectedRace_id].id);
-			var selClass = classes.Find(x => x.id == Races[selectedClass_id].id);
-			var selsubclass = subclasses.Find(x => x.id == Races[selectedSubClass_Id].id);
-			var selsubrace = subraces.Find(x => x.id == Races[selectedSubRace_id].id);
-			var selAlignment = DBLoader.Alignments.Find(x => x.id == Alignments[selectedAlignment].id);
+			var races = DbLoader.Races;
+			var subraces = DbLoader.Subraces;
+			var classes = DbLoader.Classes;
+			var subclasses = DbLoader.Subclasses;
+			var selRace = races.Find(x => x.id == Races[_selectedRaceId].id);
+			var selClass = classes.Find(x => x.id == Races[_selectedClassId].id);
+			var selsubclass = subclasses.Find(x => x.id == Races[_selectedSubClassId].id);
+			var selsubrace = subraces.Find(x => x.id == Races[_selectedSubRaceId].id);
+			var selAlignment = DbLoader.Alignments.Find(x => x.id == Alignments[_selectedAlignment].id);
 			Character5E character = new Character5E()
 			{
-				Age = int.Parse(age),
-				Height = height,
-				SkinColor = skin,
-				EyeColor = eye,
-				HairColor = hair,
-				Weight = weight,
+				Age = int.Parse(_age),
+				Height = _height,
+				SkinColor = _skin,
+				EyeColor = _eye,
+				HairColor = _hair,
+				Weight = _weight,
 				Name = CharName,
 
 			};
-			character.MainStats.Add(MainStat.Strength, strengthStat);
-			character.MainStats.Add(MainStat.Dexterity, dexterityStat);
-			character.MainStats.Add(MainStat.Constitution, constitutionStat);
-			character.MainStats.Add(MainStat.Intelligence, intelligenceStat);
-			character.MainStats.Add(MainStat.Wisdom, wisdomStat);
-			character.MainStats.Add(MainStat.Charisma, charismaStat);
+			character.MainStats.Add(MainStat.Strength, _strengthStat);
+			character.MainStats.Add(MainStat.Dexterity, _dexterityStat);
+			character.MainStats.Add(MainStat.Constitution, _constitutionStat);
+			character.MainStats.Add(MainStat.Intelligence, _intelligenceStat);
+			character.MainStats.Add(MainStat.Wisdom, _wisdomStat);
+			character.MainStats.Add(MainStat.Charisma, _charismaStat);
 			
 
-			await DBLoader.dbConnection.InsertAsync(character);
+			await DbLoader.DbConnection.InsertAsync(character);
 			Debug.WriteLine("Creating onetomany relationships with races and classes");
 			if (selRace != null)
 			{
 				selRace.Characters.Add(character);
-				await DBLoader.dbConnection.UpdateWithChildrenAsync(selRace);
+				await DbLoader.DbConnection.UpdateWithChildrenAsync(selRace);
 			}
 			if (selsubrace != null)
 			{
 				selsubrace.Characters.Add(character);
-				await DBLoader.dbConnection.UpdateWithChildrenAsync(selsubrace);
+				await DbLoader.DbConnection.UpdateWithChildrenAsync(selsubrace);
 			}
 			if (selClass != null)
 			{
 				selClass.Characters.Add(character);
-				await DBLoader.dbConnection.UpdateWithChildrenAsync(selClass);
+				await DbLoader.DbConnection.UpdateWithChildrenAsync(selClass);
 			}
 			if (selsubclass != null)
 			{
 				selsubclass.Characters.Add(character);
-				await DBLoader.dbConnection.UpdateWithChildrenAsync(selsubclass);
+				await DbLoader.DbConnection.UpdateWithChildrenAsync(selsubclass);
 			}
 			if (selAlignment != null)
 			{
 				selAlignment.Characters.Add(character);
-				await DBLoader.dbConnection.UpdateWithChildrenAsync(selAlignment);
+				await DbLoader.DbConnection.UpdateWithChildrenAsync(selAlignment);
 			}
 			if (character.Race == selRace)
 			{
 				Debug.WriteLine("It actually works");
-				Debug.WriteLine("IDs for stuff are:\nRace: " + character.Race.Name + ", " + character.Race_id + "\nClass: " + character.Class.Name + ", " + character.Class_id);
+				Debug.WriteLine("IDs for stuff are:\nRace: " + character.Race.Name + ", " + character.RaceId + "\nClass: " + character.Class.Name + ", " + character.ClassId);
 			}
 			else
 			{

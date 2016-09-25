@@ -5,11 +5,11 @@ using Windows.UI.Xaml.Input;
 
 namespace TabletopRolePlayingCharacterManager.Views
 {
-	public sealed partial class CharacterSheet : Page
+	public sealed partial class CharacterSheet
 	{
 		public CharacterSheet ()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 
 		public void GeneralTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)

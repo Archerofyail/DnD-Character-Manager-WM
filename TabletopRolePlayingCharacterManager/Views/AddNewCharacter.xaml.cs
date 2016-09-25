@@ -6,12 +6,12 @@ using TabletopRolePlayingCharacterManager.ViewModel;
 namespace TabletopRolePlayingCharacterManager.Views
 {
 
-	public sealed partial class AddNewCharacter : Page
+	public sealed partial class AddNewCharacter
 	{
 		public AddNewCharacter()
 		{
-			this.InitializeComponent();
-			this.DataContext = new AddNewCharacterPageViewModel();
+			InitializeComponent();
+			DataContext = new AddNewCharacterPageViewModel();
 			Debug.WriteLine("added data context");
 		}
 
