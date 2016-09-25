@@ -5,7 +5,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 	class Item
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		[NotNull]
 		public string Name { get; set; }

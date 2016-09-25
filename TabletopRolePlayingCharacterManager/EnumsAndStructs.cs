@@ -36,7 +36,13 @@ namespace TabletopRolePlayingCharacterManager
 	//For displaying skills during character creation, you need the name, and the ability score it's associated with.
 	//For skills within the character class, you want the name{string}, the ability score{MainStat}, and whether they're proficient with it{bool}
 
-
+	public struct GenericSkill
+	{
+		public string Name { get; set; }
+		public string MainStat { get; set; }
+		public int Bonus { get; set; }
+		public int MiscBonus { get; set; }
+	}
 	
 	public static class Utility
 	{

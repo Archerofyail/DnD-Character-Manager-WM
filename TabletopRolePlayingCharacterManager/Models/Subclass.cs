@@ -6,7 +6,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class Subclass
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		[NotNull]
 		public string Name { get; set; }

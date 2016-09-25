@@ -30,11 +30,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 
-		public MainPageViewModel()
-		{
-
-		}
-
 		public async void LoadCharactersFromFile()
 		{
 			StorageFolder roamingFolder = ApplicationData.Current.RoamingFolder;

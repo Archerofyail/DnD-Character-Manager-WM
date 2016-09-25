@@ -6,7 +6,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class Race
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }

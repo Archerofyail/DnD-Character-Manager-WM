@@ -7,12 +7,12 @@ namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class Spell
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string Damage { get; set; }
-		[NotNull()]
+		[NotNull]
 		public int SpellLevel { get; set; }
 		[ManyToMany(typeof(CharacterSpell))]
 		public List<Character5E> Characters { get; set; }

@@ -105,6 +105,7 @@
     <Compile Include="Models\CharacterPreparedSpells.cs" />
     <Compile Include="Models\Armor.cs" />
     <Compile Include="Models\FirstRun.cs" />
+    <Compile Include="Models\GeneralCharacterModel.cs" />
     <Compile Include="Models\Intermediates\CharacterSkill.cs" />
     <Compile Include="Models\Intermediates\CharacterSpell.cs" />
     <Compile Include="Models\Intermediates\CharacterWeapon.cs" />

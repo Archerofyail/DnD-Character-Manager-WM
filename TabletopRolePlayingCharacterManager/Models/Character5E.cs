@@ -9,13 +9,74 @@ namespace TabletopRolePlayingCharacterManager.Models
 	//To make racial bonuses have a class with methods to add stuff to a character, like points to ability modifiers and entries to features and stuff. Then make a list of (structs maybe?) that contains the data, with the delegate. When that race is selected, call the delegate, and pass it the data
 	public class Character5E
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		private int _equippedArmorId;
 		public int Level { get; set; }
 		public int Experience { get; set; }
+		//Validation to occur in the text box during character creation
+		public int Speed { get; set; }
+		public int MaxHP { get; set; }
+		public int CurrHP { get; set; }
+		public int TempHP { get; set; }
+
+		public bool[] DeathSaveFails { get; set; } = new bool[3];
+		public bool[] DeathSaveSuccesses { get; set; } = new bool[3];
+		
+		#region Aesthetic Featues
+		[MaxLength(50)]
+		public string Name { get; set; }
+		public int Age { get; set; }
+		[MaxLength(30)]
+		public string Height { get; set; }
+		[MaxLength(15)]
+		public string Weight { get; set; }
+		[MaxLength(30)]
+		public string EyeColor { get; set; }
+		[MaxLength(30)]
+		public string SkinColor { get; set; }
+		[MaxLength(30)]
+		public string HairColor { get; set; }
+		#endregion
+
+		#region Ignored
 		[Ignore]
-		public int ProficiencyBonus { get { return Utility.CalculateProficiencyBonus(Level); } }
+		public int ProficiencyBonus => Utility.CalculateProficiencyBonus(Level);
+		[Ignore]
+		public int ArmorClass
+		{
+			get
+			{
+				return Armor.Find((item) => item.id == _equippedArmorId).ArmorClass +
+					   Utility.CalculateMainStatBonus(_mainstats[MainStat.Dexterity]);
+			}
+		}
+		private Dictionary<MainStat, int> _mainstats = new Dictionary<MainStat, int>();
+		[Ignore]
+		public Dictionary<MainStat, int> MainStats
+		{
+			get { return _mainstats; }
+			set { _mainstats = value; }
+		}
+		[Ignore]
+		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
+		[Ignore]
+		public Dictionary<string, int> SkillMods { get; set; }
+		#endregion
+
+
+		public string MainStatsJson
+		{
+			get { return JsonConvert.SerializeObject(_mainstats); }
+			set
+			{
+				if (!string.IsNullOrEmpty(value))
+				{
+					_mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
+				}
+			}
+		}
+		#region DatabaseRelationships
 
 		[ForeignKey(typeof(Race))]
 		public int RaceId { get; set; }
@@ -36,77 +97,23 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int SubClassId { get; set; }
 		[ManyToOne]
 		public Subclass Subclass { get; set; }
-
-		[Ignore]
-		public int ArmorClass
-		{
-			get
-			{
-				return Armor.Find((item) => item.id == _equippedArmorId).ArmorClass +
-					   Utility.CalculateMainStatBonus(_mainstats[MainStat.Dexterity]);
-			}
-		}
-
-		//Validation to occur in the text box during character creation
-		public int Speed { get; set; }
-
-		#region Aesthetic Featues
-		[MaxLength(50)]
-		public string Name { get; set; }
-		public int Age { get; set; }
-		[MaxLength(30)]
-		public string Height { get; set; }
-		[MaxLength(15)]
-		public string Weight { get; set; }
-		[MaxLength(30)]
-		public string EyeColor { get; set; }
-		[MaxLength(30)]
-		public string SkinColor { get; set; }
-		[MaxLength(30)]
-		public string HairColor { get; set; }
-		#endregion
-
-		public string MainStatsJson
-		{
-			get { return JsonConvert.SerializeObject(_mainstats); }
-			set
-			{
-				if (!string.IsNullOrEmpty(value))
-				{
-					_mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
-				}
-			}
-		}
-
-		[Ignore]
-		public Dictionary<MainStat, int> MainStats
-		{
-			get { return _mainstats; }
-			set { _mainstats = value; }
-		}
 		//Stored as the full number, the Bonus will be calculated on the fly
-		private Dictionary<MainStat, int> _mainstats = new Dictionary<MainStat, int>();
+		
 
 		[ForeignKey(typeof(Alignment))]
 		public int AlignmentId { get; set; }
 		[ManyToOne]
 		public Alignment Alignment { get; set; }
 
-		[Ignore]
-		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
+
 		[ManyToMany(typeof(CharacterSkill))]
 		public List<Skill> Skills { get; set; }
 		[OneToMany]
 		public List<CharacterSkillProficiency> SkillProficiencies { get; set; }
-		[Ignore]
-		public Dictionary<string, int> SkillMods { get; set; }
 
-		//Todo: figure out how to load proficiencies as items from another table, that work with an ORM
+
 		[ManyToMany(typeof(CharacterProficiency))]
 		public List<Proficiency> Proficiencies { get; set; }
-
-
-		//public List<Proficiency> Features { get; private set; }
 		[ManyToMany(typeof(CharacterItem))]
 		public List<IItem> Items { get; set; }
 		[ManyToMany(typeof(CharacterArmor))]
@@ -118,7 +125,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[OneToMany]
 		public List<CharacterPreparedSpells> SpellsPrepared { get; set; }
 
-
+		#endregion
 		public Character5E()
 		{
 			abilityModifiers = new Dictionary<MainStat, int>();

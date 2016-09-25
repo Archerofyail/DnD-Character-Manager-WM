@@ -8,7 +8,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 	public class Weapon
 	{
-		[PrimaryKey(), AutoIncrement]
+		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		[NotNull, MaxLength(50)]
 		public string Name { get; set; }
