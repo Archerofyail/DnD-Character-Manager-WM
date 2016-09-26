@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager
 {
@@ -20,6 +21,7 @@ namespace TabletopRolePlayingCharacterManager
 		{
 			InitializeComponent();
 			Suspending += OnSuspending;
+			//DbLoader.CreateData();
 		}
 
 		/// <summary>
@@ -67,6 +69,8 @@ namespace TabletopRolePlayingCharacterManager
 				// Ensure the current window is active
 				Window.Current.Activate();
 			}
+
+		
 		}
 
 		/// <summary>

@@ -9,6 +9,8 @@ using TabletopRolePlayingCharacterManager.Models;
 using SQLite.Net.Async;
 using SQLite.Net.Platform.WinRT;
 using System.Collections.Generic;
+using System.Data.Common;
+using SQLite.Net.Interop;
 using SQLiteNetExtensionsAsync.Extensions;
 using TabletopRolePlayingCharacterManager.Models.Intermediates;
 
@@ -19,7 +21,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static ResourceLoader ResourceLoader;
 		public static SQLiteAsyncConnection DbConnection;
 		private static string _dbPath = "Database.sqlite";
-
+		private static bool doneCreatingData = false;
 		public static List<Race> Races
 		{
 			get
@@ -30,23 +32,93 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public static List<Subrace> Subraces => DbConnection.GetAllWithChildrenAsync<Subrace>().Result;
+		public static List<Subrace> Subraces
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<Subrace>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<Subrace>().Result;
+			}
+		}
 
-		public static List<Class> Classes => DbConnection.GetAllWithChildrenAsync<Class>().Result;
+		public static List<Class> Classes
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<Class>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<Class>().Result;
+			}
+		}
 
-		public static List<Subclass> Subclasses => DbConnection.GetAllWithChildrenAsync<Subclass>().Result;
+		public static List<Subclass> Subclasses
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<Subclass>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<Subclass>().Result;
+			}
+		}
 
-		public static List<Character5E> Characters => DbConnection.GetAllWithChildrenAsync<Character5E>().Result;
+		public static List<Character5E> Characters
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<Character5E>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<Character5E>().Result;
+			}
+		}
 
-		public static List<Skill> Skills => DbConnection.GetAllWithChildrenAsync<Skill>().Result;
+		public static List<Skill> Skills
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<Skill>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<Skill>().Result;
+			}
+		}
 
-		public static List<Alignment> Alignments => DbConnection.GetAllWithChildrenAsync<Alignment>().Result;
+		public static List<Alignment> Alignments
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<Alignment>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<Alignment>().Result;
+			}
+		}
 
-		public static List<CharacterTemplate> CharacterTemplates => DbConnection.GetAllWithChildrenAsync<CharacterTemplate>().Result;
+		public static List<CharacterTemplate> CharacterTemplates
+		{
+			get
+			{
+				if (!doneCreatingData)
+				{
+					return new List<CharacterTemplate>();
+				}
+				return DbConnection.GetAllWithChildrenAsync<CharacterTemplate>().Result;
+			}
+		}
 
 		static DbLoader()
 		{
-
+			CreateData();
 			Debug.WriteLine("db created ");
 		}
 
@@ -266,7 +338,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 
 			}
-
+			doneCreatingData = true;
 		}
 
 		public static SQLiteConnectionWithLock ConnectToDb()

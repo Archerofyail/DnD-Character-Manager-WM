@@ -24,22 +24,19 @@
 	<Page.BottomAppBar>
 		<CommandBar>
 			<CommandBar.SecondaryCommands>
-				<AppBarButton
-					Content="Settings"/>
+
 			</CommandBar.SecondaryCommands>
 			<CommandBar.Content>
 				<Grid/>
 			</CommandBar.Content>
-			<AppBarButton Icon="Add" Label="appbarbutton" Click="AddButtonClicked"/>
+			<AppBarButton Icon="Add" Label="New Character" Click="AddButtonClicked"/>
+			<AppBarButton Icon="Setting" Label="Settings"
+						  Click="SettingsClicked"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Hub Header="DnD Character Sheet">
-			<HubSection Header="Characters">
-				<DataTemplate>
-					<Grid>
-						<Popup IsOpen="{Binding Path=AddingNewCharacter}"
+		<Popup IsOpen="{Binding Path=AddingNewCharacter}"
 							   Name="CharacterTemplatePopup">
 							<StackPanel>
 								<TextBlock Text="Choose A Template"
@@ -50,6 +47,11 @@
 										SelectionMode="Single"/>
 							</StackPanel>
 						</Popup>
+		<Hub Header="DnD Character Sheet">
+			<HubSection Header="Characters">
+				<DataTemplate>
+					<Grid>
+						
 						<ListView Name="CharacterList"  
 							  ItemTemplate="{StaticResource Character}" />
 						<TextBlock Text="{Binding Path=CharListEmptyText}"

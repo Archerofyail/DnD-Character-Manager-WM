@@ -23,13 +23,25 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string DeathSaveFailsJson
 		{
 			get { return JsonConvert.SerializeObject(DeathSaveFails); }
-			set { DeathSaveFails = JsonConvert.DeserializeObject<bool[]>(value); }
+			set
+			{
+				if (value != null)
+				{
+					DeathSaveFails = JsonConvert.DeserializeObject<bool[]>(value);
+				}
+			}
 		}
 
 		public string DeathSaveSuccessesJson
 		{
 			get { return JsonConvert.SerializeObject(DeathSaveSuccesses); }
-			set { DeathSaveSuccesses = JsonConvert.DeserializeObject<bool[]>(value); }
+			set
+			{
+				if (value != null)
+				{
+					DeathSaveSuccesses = JsonConvert.DeserializeObject<bool[]>(value);
+				}
+			}
 		}
 
 		[Ignore]

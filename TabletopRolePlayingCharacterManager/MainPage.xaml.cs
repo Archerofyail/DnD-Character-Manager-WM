@@ -31,7 +31,7 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-			DbLoader.CreateData();
+		
 			DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 			
@@ -40,12 +40,17 @@ namespace TabletopRolePlayingCharacterManager
 		private void AddButtonClicked(object sender, RoutedEventArgs e)
 		{
 
-			//CharacterTemplatePopup.IsOpen = true;
+			CharacterTemplatePopup.IsOpen = true;
 		}
 
 		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
 		{
 			((MainPageViewModel) DataContext).CharacterTemplateListClicked();
+		}
+
+		private void SettingsClicked(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(SettingsPage));
 		}
 	}
 }

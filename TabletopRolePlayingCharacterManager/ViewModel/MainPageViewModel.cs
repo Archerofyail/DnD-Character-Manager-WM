@@ -58,7 +58,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 		public string CharListEmptyText
-			=> "You don't have any characters created, click the add new character button in the bottom right to get started";
+			=> "You don't have any characters created yet!\nClick the add new character button in the bottom right to get started";
 
 
 		#region UIControl
