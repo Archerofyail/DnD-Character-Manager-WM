@@ -35,23 +35,37 @@
 		</CommandBar>
 	</Page.BottomAppBar>
 
-	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+		 
+		  >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 		<Popup IsOpen="{Binding Path=AddingNewCharacter}"
-							   Name="CharacterTemplatePopup">
-							<StackPanel>
-								<TextBlock Text="Choose A Template"
+				Name="CharacterTemplatePopup"
+			   Grid.Row="1"
+			   Grid.Column="1">
+			<StackPanel>
+				<TextBlock Text="Choose A Template"
 										Visibility="{Binding Path=IsChoosingTemplate}"/>
-								<ListView ItemsSource="{Binding Path=CharacterTemplates}"
+				<ListView ItemsSource="{Binding Path=CharacterTemplates}"
 										Tapped="CharacterTemplateListClicked"
 										Name="CharacterTemplateList"
 										SelectionMode="Single"/>
-							</StackPanel>
-						</Popup>
+			</StackPanel>
+		</Popup>
 		<Hub Header="DnD Character Sheet">
 			<HubSection Header="Characters">
 				<DataTemplate>
 					<Grid>
-						
+
 						<ListView Name="CharacterList"  
 							  ItemTemplate="{StaticResource Character}" />
 						<TextBlock Text="{Binding Path=CharListEmptyText}"
