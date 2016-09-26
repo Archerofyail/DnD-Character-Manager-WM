@@ -16,6 +16,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	{
 		private readonly Random _randd6 = new Random();
 
+
+		#region CharacterData
 		private string _charName = "";
 
 		public string CharName
@@ -190,7 +192,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				NotifyPropertyChanged();
 			}
 		}
-
+		private int _selectedSubClassId;
+		public int SelectedSubClass
+		{
+			get { return _selectedSubClassId; }
+			set
+			{
+				_selectedSubClassId = value;
+				NotifyPropertyChanged();
+			}
+		}
+		private int _selectedAlignment;
+		public int SelectedAlignment
+		{
+			get { return _selectedAlignment; }
+			set
+			{
+				_selectedAlignment = value;
+				NotifyPropertyChanged();
+			}
+		}
+		#endregion
+		#region Lists
 		private readonly ObservableCollection<Skill> _skills = new ObservableCollection<Skill>();
 
 		public ObservableCollection<Skill> Skills
@@ -336,48 +359,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 			}
 		}
-
-		private int _selectedSubClassId;
-		public int SelectedSubClass
-		{
-			get { return _selectedSubClassId; }
-			set
-			{
-				_selectedSubClassId = value;
-				NotifyPropertyChanged();
-			}
-		}
-
-		private string _subclassChoiceStatement = "Choose your subclass{default}";
-
-		public string SubclassChoiceStatement
-		{
-			get { return _subclassChoiceStatement; }
-		}
-
-		private int _selectedAlignment;
-		public int SelectedAlignment
-		{
-			get { return _selectedAlignment; }
-			set
-			{
-				_selectedAlignment = value;
-				NotifyPropertyChanged();
-			}
-		}
-
 		private ObservableCollection<Alignment> _alignments = new ObservableCollection<Alignment>();
 
 		public ObservableCollection<Alignment> Alignments
 		{
 			get
 			{
-				if (_alignments.Count == 0)
+				if (_alignments.Count != 0) return _alignments;
+				foreach (var alignment in DbLoader.GetTable<Alignment>())
 				{
-					foreach (var alignment in DbLoader.GetTable<Alignment>())
-					{
-						_alignments.Add(alignment);
-					}
+					_alignments.Add(alignment);
 				}
 				return _alignments;
 			}
@@ -430,6 +421,35 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		private ObservableCollection<string> _characterTemplates = new ObservableCollection<string>();
+		public ObservableCollection<string> CharacterTemplates
+		{
+			get
+			{
+				if (_characterTemplates.Count != 0) return _characterTemplates;
+				_characterTemplates.Add("Fifth Edition Character");
+				_characterTemplates.Add("Generic Character");
+				foreach (var characterTemplate in DbLoader.CharacterTemplates)
+				{
+					_characterTemplates.Add(characterTemplate.TemplateName);
+				}
+				return _characterTemplates;
+			}
+		}
+
+		#endregion
+
+
+		private string _subclassChoiceStatement = "Choose your subclass{default}";
+
+		public string SubclassChoiceStatement
+		{
+			get { return _subclassChoiceStatement; }
+		}
+
+
+
+
 		private ObservableCollection<string> _rolledAbilityScores = new ObservableCollection<string>();
 
 		public ObservableCollection<string> RolledAbilityScores
@@ -439,7 +459,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public void RollAbilityScores()
 		{
-			
+
 			_rolledAbilityScores.Clear();
 			for (int i = 0; i < 6; i++)
 			{
@@ -459,6 +479,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		#region UIControls
+
+		private bool _isChoosingTemplates = true;
+		private bool _didSelect5ECharacter;
+		public Visibility IsChoosingTemplate => _isChoosingTemplates ? Visibility.Visible : Visibility.Collapsed;
+		public Visibility Show5ECharacterCreator => _didSelect5ECharacter ? Visibility.Visible : Visibility.Collapsed;
+		public Visibility ShowGeneralCharacterCreator => !_didSelect5ECharacter ? Visibility.Visible : Visibility.Collapsed;
+
 		public Visibility RolledScoresExist
 		{
 			get
@@ -470,7 +498,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				return Visibility.Collapsed;
 			}
 		}
-
+		#endregion
 
 		public async void CreateCharacter()
 		{
@@ -501,7 +529,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.MainStats.Add(MainStat.Intelligence, _intelligenceStat);
 			character.MainStats.Add(MainStat.Wisdom, _wisdomStat);
 			character.MainStats.Add(MainStat.Charisma, _charismaStat);
-			
+
 
 			await DbLoader.DbConnection.InsertAsync(character);
 			Debug.WriteLine("Creating onetomany relationships with races and classes");
@@ -556,5 +584,30 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				PropertyChanged(this, new PropertyChangedEventArgs(senderName));
 			}
 		}
+
+		public void CharacterTemplateChosen(int selectedIndex)
+		{
+			
+			_isChoosingTemplates = false;
+			//need to minus by two for the templated in the database
+			if (selectedIndex > 1)
+			{
+				selectedIndex -= 2;
+				var selectedTemplate = DbLoader.CharacterTemplates[selectedIndex];
+
+			}
+			else if (selectedIndex == 0)
+			{
+				_didSelect5ECharacter = true;
+				
+			}
+			else
+			{
+				_didSelect5ECharacter = false;
+			}
+
+		}
+
+
 	}
 }

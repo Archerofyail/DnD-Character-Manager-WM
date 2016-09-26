@@ -30,49 +30,19 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public static List<Subrace> Subraces
-		{
-			get
-			{
-				return DbConnection.GetAllWithChildrenAsync<Subrace>().Result;
-			}
-		}
+		public static List<Subrace> Subraces => DbConnection.GetAllWithChildrenAsync<Subrace>().Result;
 
-		public static List<Class> Classes
-		{
-			get
-			{
-				return DbConnection.GetAllWithChildrenAsync<Class>().Result;
-			}
-		}
-		public static List<Subclass> Subclasses
-		{
-			get
-			{
-				return DbConnection.GetAllWithChildrenAsync<Subclass>().Result;
-			}
-		}
+		public static List<Class> Classes => DbConnection.GetAllWithChildrenAsync<Class>().Result;
 
-		public static List<Character5E> Characters
-		{
-			get
-			{
-				return DbConnection.GetAllWithChildrenAsync<Character5E>().Result;
-			}
-		}
+		public static List<Subclass> Subclasses => DbConnection.GetAllWithChildrenAsync<Subclass>().Result;
 
-		public static List<Skill> Skills
-		{
-			get { return DbConnection.GetAllWithChildrenAsync<Skill>().Result; }
-		}
+		public static List<Character5E> Characters => DbConnection.GetAllWithChildrenAsync<Character5E>().Result;
 
-		public static List<Alignment> Alignments
-		{
-			get
-			{
-				return DbConnection.GetAllWithChildrenAsync<Alignment>().Result;
-			}
-		}
+		public static List<Skill> Skills => DbConnection.GetAllWithChildrenAsync<Skill>().Result;
+
+		public static List<Alignment> Alignments => DbConnection.GetAllWithChildrenAsync<Alignment>().Result;
+
+		public static List<CharacterTemplate> CharacterTemplates => DbConnection.GetAllWithChildrenAsync<CharacterTemplate>().Result;
 
 		static DbLoader()
 		{
@@ -106,6 +76,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await DbConnection.CreateTableAsync<Character5E>();
 			await DbConnection.CreateTableAsync<CharacterPreparedSpells>();
 			await DbConnection.CreateTableAsync<CharacterSkillProficiency>();
+
+			await DbConnection.CreateTableAsync<GeneralCharacterModel>();
+			await DbConnection.CreateTableAsync<CharacterTemplate>();
+
 
 			//Intermediate Tables for Many to Many relations
 			await DbConnection.CreateTableAsync<CharacterArmor>();
@@ -345,7 +319,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 			catch (AggregateException ex)
 			{
-				Debug.WriteLine("Failed to get data from the database with error: " + ex.Message +", returning empty list");
+				Debug.WriteLine("Failed to get data from the database with error: " + ex.Message + ", returning empty list");
 				return new List<T>();
 			}
 

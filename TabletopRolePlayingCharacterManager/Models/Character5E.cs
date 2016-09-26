@@ -20,7 +20,21 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int CurrHP { get; set; }
 		public int TempHP { get; set; }
 
+		public string DeathSaveFailsJson
+		{
+			get { return JsonConvert.SerializeObject(DeathSaveFails); }
+			set { DeathSaveFails = JsonConvert.DeserializeObject<bool[]>(value); }
+		}
+
+		public string DeathSaveSuccessesJson
+		{
+			get { return JsonConvert.SerializeObject(DeathSaveSuccesses); }
+			set { DeathSaveSuccesses = JsonConvert.DeserializeObject<bool[]>(value); }
+		}
+
+		[Ignore]
 		public bool[] DeathSaveFails { get; set; } = new bool[3];
+		[Ignore]
 		public bool[] DeathSaveSuccesses { get; set; } = new bool[3];
 		
 		#region Aesthetic Featues
@@ -48,16 +62,13 @@ namespace TabletopRolePlayingCharacterManager.Models
 			get
 			{
 				return Armor.Find((item) => item.id == _equippedArmorId).ArmorClass +
-					   Utility.CalculateMainStatBonus(_mainstats[MainStat.Dexterity]);
+					   Utility.CalculateMainStatBonus(MainStats[MainStat.Dexterity]);
 			}
 		}
-		private Dictionary<MainStat, int> _mainstats = new Dictionary<MainStat, int>();
+
 		[Ignore]
-		public Dictionary<MainStat, int> MainStats
-		{
-			get { return _mainstats; }
-			set { _mainstats = value; }
-		}
+		public Dictionary<MainStat, int> MainStats { get; set; } = new Dictionary<MainStat, int>();
+
 		[Ignore]
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
 		[Ignore]
@@ -67,12 +78,12 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public string MainStatsJson
 		{
-			get { return JsonConvert.SerializeObject(_mainstats); }
+			get { return JsonConvert.SerializeObject(MainStats); }
 			set
 			{
 				if (!string.IsNullOrEmpty(value))
 				{
-					_mainstats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
+					MainStats = JsonConvert.DeserializeObject<Dictionary<MainStat, int>>(value);
 				}
 			}
 		}
@@ -142,7 +153,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			{
 				abilityModifiers = new Dictionary<MainStat, int>();
 			}
-			foreach (var mainstat in _mainstats)
+			foreach (var mainstat in MainStats)
 			{
 				abilityModifiers.Add(mainstat.Key, Utility.CalculateMainStatBonus(mainstat.Value));
 			}
