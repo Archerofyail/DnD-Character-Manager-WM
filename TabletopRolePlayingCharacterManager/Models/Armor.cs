@@ -14,9 +14,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int baseAC { get; set; }
 		public int MagicBonus { get; set; }
 		[Ignore]
-		public int ArmorClass { get { return MagicBonus + baseAC; } }
+		public int ArmorClass => MagicBonus + baseAC;
 
-		
 
 		public Armor(string name, string armorType, int armorClass, int magicLevel)
 		{

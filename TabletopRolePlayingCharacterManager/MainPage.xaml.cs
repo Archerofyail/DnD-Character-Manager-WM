@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using TabletopRolePlayingCharacterManager.Views;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.ViewModel;
@@ -32,12 +34,18 @@ namespace TabletopRolePlayingCharacterManager
 			DbLoader.CreateData();
 			DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
+			
 		}
 
 		private void AddButtonClicked(object sender, RoutedEventArgs e)
 		{
-			
-			Frame.Navigate(typeof (AddNewCharacter));
+
+			//CharacterTemplatePopup.IsOpen = true;
+		}
+
+		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
+		{
+			((MainPageViewModel) DataContext).CharacterTemplateListClicked();
 		}
 	}
 }

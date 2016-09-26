@@ -61,16 +61,5 @@ namespace TabletopRolePlayingCharacterManager.Views
 			((AddNewCharacterPageViewModel)DataContext).CreateCharacter();
 
 		}
-
-		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
-		{
-			((AddNewCharacterPageViewModel)DataContext).CharacterTemplateChosen(CharacterTemplateList.SelectedIndex);
-		}
-
-		private void CharacterTemplateList_OnItemClick(object sender, ItemClickEventArgs e)
-		{
-
-			((AddNewCharacterPageViewModel)DataContext).CharacterTemplateChosen(CharacterTemplateList.SelectedIndex);
-		}
 	}
 }

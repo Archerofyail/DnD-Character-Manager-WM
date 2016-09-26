@@ -1,33 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Windows.Storage;
 using TabletopRolePlayingCharacterManager.Models;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	class MainPageViewModel
+	class MainPageViewModel : ViewModelBase
 	{
+
+		private int _selectedCharacterTemplate;
+
+		public int SelectedCharacterTemplate
+		{
+			get
+			{ return _selectedCharacterTemplate; }
+			set { _selectedCharacterTemplate = value; NotifyPropertyChanged(); }
+		}
+
+		private ObservableCollection<string> _characterTemplates = new ObservableCollection<string>();
+
+		public ObservableCollection<string> CharacterTemplates
+		{
+			get
+			{
+				if (_characterTemplates.Count != 0) return _characterTemplates;
+				_characterTemplates.Add("Fifth Edition Character");
+				_characterTemplates.Add("Generic Character");
+				foreach (var characterTemplate in DbLoader.CharacterTemplates)
+				{
+					_characterTemplates.Add(characterTemplate.TemplateName);
+				}
+				return _characterTemplates;
+			}
+		}
+
 		private ObservableCollection<Character5E> _characterList = new ObservableCollection<Character5E>();
+
 		public ObservableCollection<Character5E> CharacterList
 		{
 			get
 			{
 				if (_characterList.Count == 0)
 				{
-					//foreach (var character in DBLoader.Characters)
-					//{
-					//	//characterList.Add(character);
-					//}
+					foreach (var character in DbLoader.Characters)
+					{
+						_characterList.Add(character);
+					}
 
 				}
 				return _characterList;
 			}
 		}
+
 		public string CharListEmptyText
+			=> "You don't have any characters created, click the add new character button in the bottom right to get started";
+
+
+		#region UIControl
+
+		private bool _addingNewCharacter;
+		public bool AddingNewCharacter
 		{
-			get { return "You don't have any characters created, click the add new character button in the bottom right to get started"; }
+			get { return _addingNewCharacter; }
+			set { _addingNewCharacter = value; NotifyPropertyChanged(); }
 		}
+
+		#endregion
 
 
 		public async void LoadCharactersFromFile()
@@ -49,5 +92,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				}
 			}
 		}
+
+		public void CharacterTemplateListClicked()
+		{
+
+		}
+
 	}
 }

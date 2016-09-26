@@ -12,7 +12,7 @@ using SQLiteNetExtensionsAsync.Extensions;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	internal class AddNewCharacterPageViewModel : INotifyCollectionChanged, INotifyPropertyChanged
+	internal class AddNewCharacterPageViewModel : ViewModelBase, INotifyCollectionChanged, INotifyPropertyChanged
 	{
 		private readonly Random _randd6 = new Random();
 
@@ -421,50 +421,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private ObservableCollection<string> _characterTemplates = new ObservableCollection<string>();
-		public ObservableCollection<string> CharacterTemplates
-		{
-			get
-			{
-				if (_characterTemplates.Count != 0) return _characterTemplates;
-				_characterTemplates.Add("Fifth Edition Character");
-				_characterTemplates.Add("Generic Character");
-				foreach (var characterTemplate in DbLoader.CharacterTemplates)
-				{
-					_characterTemplates.Add(characterTemplate.TemplateName);
-				}
-				return _characterTemplates;
-			}
-		}
+		
 
 		#endregion
 
 
 		private string _subclassChoiceStatement = "Choose your subclass{default}";
 
-		public string SubclassChoiceStatement
-		{
-			get { return _subclassChoiceStatement; }
-		}
-
-
+		public string SubclassChoiceStatement => _subclassChoiceStatement;
 
 
 		private ObservableCollection<string> _rolledAbilityScores = new ObservableCollection<string>();
 
-		public ObservableCollection<string> RolledAbilityScores
-		{
-			get { return _rolledAbilityScores; }
-		}
+		public ObservableCollection<string> RolledAbilityScores => _rolledAbilityScores;
 
 		public void RollAbilityScores()
 		{
 
 			_rolledAbilityScores.Clear();
-			for (int i = 0; i < 6; i++)
+			for (var i = 0; i < 6; i++)
 			{
 				int final;
-				List<int> rolls = new List<int>()
+				var rolls = new List<int>
 				{
 					_randd6.Next(1, 7),
 					_randd6.Next(1, 7),
@@ -481,11 +459,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		#region UIControls
 
-		private bool _isChoosingTemplates = true;
-		private bool _didSelect5ECharacter;
-		public Visibility IsChoosingTemplate => _isChoosingTemplates ? Visibility.Visible : Visibility.Collapsed;
-		public Visibility Show5ECharacterCreator => _didSelect5ECharacter ? Visibility.Visible : Visibility.Collapsed;
-		public Visibility ShowGeneralCharacterCreator => !_didSelect5ECharacter ? Visibility.Visible : Visibility.Collapsed;
+
 
 		public Visibility RolledScoresExist
 		{
@@ -572,42 +546,5 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public AddNewCharacterPageViewModel()
 		{
 		}
-
-
-		public event NotifyCollectionChangedEventHandler CollectionChanged;
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void NotifyPropertyChanged([CallerMemberName]string senderName = null)
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(senderName));
-			}
-		}
-
-		public void CharacterTemplateChosen(int selectedIndex)
-		{
-			
-			_isChoosingTemplates = false;
-			//need to minus by two for the templated in the database
-			if (selectedIndex > 1)
-			{
-				selectedIndex -= 2;
-				var selectedTemplate = DbLoader.CharacterTemplates[selectedIndex];
-
-			}
-			else if (selectedIndex == 0)
-			{
-				_didSelect5ECharacter = true;
-				
-			}
-			else
-			{
-				_didSelect5ECharacter = false;
-			}
-
-		}
-
-
 	}
 }

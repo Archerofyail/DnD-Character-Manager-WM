@@ -129,8 +129,12 @@
     <Compile Include="Models\Skill.cs" />
     <Compile Include="ViewModel\AddNewCharacterPageViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">
       <DependentUpon>AddNewCharacter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewGenericCharacter.xaml.cs">
+      <DependentUpon>AddNewGenericCharacter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CharacterSheet.xaml.cs">
       <DependentUpon>CharacterSheet.xaml</DependentUpon>
@@ -168,6 +172,10 @@
     <Page Include="Views\AddNewCharacter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddNewGenericCharacter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CharacterSheet.xaml">
       <Generator>MSBuild:Compile</Generator>

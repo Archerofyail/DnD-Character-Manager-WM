@@ -63,23 +63,6 @@
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<StackPanel>
-			<StackPanel Orientation="Vertical" 
-					Visibility="{Binding Path=IsChoosingTemplate, Mode=TwoWay}">
-				<TextBlock Text="Choose A Template"
-					   Visibility="{Binding Path=IsChoosingTemplate}"/>
-				<ListView ItemsSource="{Binding Path=CharacterTemplates}"
-						  Tapped="CharacterTemplateListClicked"
-					ItemClick="CharacterTemplateList_OnItemClick"
-					Name="CharacterTemplateList"
-				  SelectionMode="Single"/>
-			</StackPanel>
-			<ScrollViewer Name="GeneralCharacterCreator"
-					  HorizontalScrollMode="Disabled"
-					  Visibility="{Binding Path=ShowGeneralCharacterCreator}">
-				<StackPanel Margin="10" Orientation="Vertical">
-
-				</StackPanel>
-			</ScrollViewer>
 			<ScrollViewer HorizontalScrollMode="Disabled"
 					  Visibility="{Binding Path=Show5ECharacterCreator, Mode=TwoWay}"
 					  Name="FifthEditionCreator">

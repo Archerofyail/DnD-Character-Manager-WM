@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
-	
+
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -39,6 +39,17 @@
 			<HubSection Header="Characters">
 				<DataTemplate>
 					<Grid>
+						<Popup IsOpen="{Binding Path=AddingNewCharacter}"
+							   Name="CharacterTemplatePopup">
+							<StackPanel>
+								<TextBlock Text="Choose A Template"
+										Visibility="{Binding Path=IsChoosingTemplate}"/>
+								<ListView ItemsSource="{Binding Path=CharacterTemplates}"
+										Tapped="CharacterTemplateListClicked"
+										Name="CharacterTemplateList"
+										SelectionMode="Single"/>
+							</StackPanel>
+						</Popup>
 						<ListView Name="CharacterList"  
 							  ItemTemplate="{StaticResource Character}" />
 						<TextBlock Text="{Binding Path=CharListEmptyText}"
