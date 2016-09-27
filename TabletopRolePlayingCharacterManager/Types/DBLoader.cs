@@ -44,27 +44,27 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public static List<Class> Classes
+		public static List<CharacterClass> Classes
 		{
 			get
 			{
 				if (!doneCreatingData)
 				{
-					return new List<Class>();
+					return new List<CharacterClass>();
 				}
-				return DbConnection.GetAllWithChildrenAsync<Class>().Result;
+				return DbConnection.GetAllWithChildrenAsync<CharacterClass>().Result;
 			}
 		}
 
-		public static List<Subclass> Subclasses
+		public static List<CharacterSubclass> Subclasses
 		{
 			get
 			{
 				if (!doneCreatingData)
 				{
-					return new List<Subclass>();
+					return new List<CharacterSubclass>();
 				}
-				return DbConnection.GetAllWithChildrenAsync<Subclass>().Result;
+				return DbConnection.GetAllWithChildrenAsync<CharacterSubclass>().Result;
 			}
 		}
 
@@ -138,10 +138,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await DbConnection.CreateTableAsync<Race>();
 			await DbConnection.CreateTableAsync<Alignment>();
 			await DbConnection.CreateTableAsync<Proficiency>();
-			await DbConnection.CreateTableAsync<Class>();
+			await DbConnection.CreateTableAsync<CharacterClass>();
 			await DbConnection.CreateTableAsync<Item>();
 			await DbConnection.CreateTableAsync<Spell>();
-			await DbConnection.CreateTableAsync<Subclass>();
+			await DbConnection.CreateTableAsync<CharacterSubclass>();
 			await DbConnection.CreateTableAsync<Subrace>();
 			await DbConnection.CreateTableAsync<Weapon>();
 
@@ -253,7 +253,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 
 				//Default data Class
-				var class1 = new Class
+				var class1 = new CharacterClass
 				{
 					Name = "Wizard",
 					Description = "Magic users of insane power",
@@ -261,7 +261,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					HitDieSize = 6,
 					HpPerLevel = "d6"
 				};
-				var class2 = new Class
+				var class2 = new CharacterClass
 				{
 					Name = "Warrior",
 					Description = "Super strong",
@@ -291,18 +291,18 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 
 
-				await DbConnection.InsertAsync(new Subclass
+				await DbConnection.InsertAsync(new CharacterSubclass
 				{
 					Name = "Abjuration",
 					Description = "The School of Abjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation.",
-					ParentClass = class1
+					ParentCharacterClass = class1
 				});
 
-				await DbConnection.InsertAsync(new Subclass
+				await DbConnection.InsertAsync(new CharacterSubclass
 				{
 					Name = "Conjuration",
 					Description = "The School of conjuration emphasizes magic that blocks,banishes, or protects. Detractors o f this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void. It is a proud and respected vocation.",
-					ParentClass = class1
+					ParentCharacterClass = class1
 
 				});
 
@@ -363,10 +363,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await DbConnection.DropTableAsync<Race>();
 			await DbConnection.DropTableAsync<Proficiency>();
 			await DbConnection.DropTableAsync<Alignment>();
-			await DbConnection.DropTableAsync<Class>();
+			await DbConnection.DropTableAsync<CharacterClass>();
 			await DbConnection.DropTableAsync<Item>();
 			await DbConnection.DropTableAsync<Spell>();
-			await DbConnection.DropTableAsync<Subclass>();
+			await DbConnection.DropTableAsync<CharacterSubclass>();
 			await DbConnection.DropTableAsync<Subrace>();
 			await DbConnection.DropTableAsync<Weapon>();
 			await DbConnection.DropTableAsync<Character5E>();

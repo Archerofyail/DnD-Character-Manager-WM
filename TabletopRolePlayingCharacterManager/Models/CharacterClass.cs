@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
-	public class Subclass
+	public class CharacterClass
 	{
 		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
@@ -12,24 +12,31 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Name { get; set; }
 		[NotNull]
 		public string Description { get; set; }
-		[ForeignKey(typeof(Class))]
-		public int ParentClassId { get; set; }
-
-		[ManyToOne]
-		public Class ParentClass { get; set; }
+		[NotNull]
+		public int HitDieSize { get; set; }
+		[NotNull]
+		public int InitHp { get; set; }
+		[NotNull]
+		public string HpPerLevel { get; set; }
 
 		[OneToMany(CascadeOperations = CascadeOperation.All)]
 		public List<Character5E> Characters { get; set; }
-		public Subclass(string title, string description)
+
+		[OneToMany(CascadeOperations = CascadeOperation.All)]
+		public List<CharacterSubclass> Subclasses { get; set; }
+
+		public CharacterClass(string title, string description)
 		{
 			Name = title;
 			Description = description;
 			Characters = new List<Character5E>();
+			Subclasses = new List<CharacterSubclass>();
 		}
 
-		public Subclass()
+		public CharacterClass()
 		{
 			Characters = new List<Character5E>();
+			Subclasses = new List<CharacterSubclass>();
 		}
 
 	}

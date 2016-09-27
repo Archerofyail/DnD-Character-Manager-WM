@@ -111,15 +111,15 @@ namespace TabletopRolePlayingCharacterManager.Models
 		[ManyToOne]
 		public Subrace Subrace { get; set; }
 
-		[ForeignKey(typeof(Class))]
+		[ForeignKey(typeof(CharacterClass))]
 		public int ClassId { get; set; }
 		[ManyToOne]
-		public Class Class { get; set; }
+		public CharacterClass CharacterClass { get; set; }
 
-		[ForeignKey(typeof(Subclass))]
+		[ForeignKey(typeof(CharacterSubclass))]
 		public int SubClassId { get; set; }
 		[ManyToOne]
-		public Subclass Subclass { get; set; }
+		public CharacterSubclass CharacterSubclass { get; set; }
 		//Stored as the full number, the Bonus will be calculated on the fly
 		
 

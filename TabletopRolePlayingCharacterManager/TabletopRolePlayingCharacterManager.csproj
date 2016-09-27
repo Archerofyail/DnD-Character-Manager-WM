@@ -116,10 +116,10 @@
     <Compile Include="Models\SkillProficiency.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\Subclass.cs" />
+    <Compile Include="Models\CharacterSubclass.cs" />
     <Compile Include="Models\Proficiency.cs" />
     <Compile Include="Models\Spell.cs" />
-    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\CharacterClass.cs" />
     <Compile Include="Models\Subrace.cs" />
     <Compile Include="Models\Race.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,6 +127,7 @@
     <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Types\DBLoader.cs" />
     <Compile Include="Models\Skill.cs" />
+    <Compile Include="Types\VMMessenger.cs" />
     <Compile Include="ViewModel\AddNewCharacterPageViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

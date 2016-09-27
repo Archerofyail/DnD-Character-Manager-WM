@@ -92,10 +92,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public void CharacterTemplateListClicked()
 		{
-			if (SelectedCharacterTemplate == 0)
-			{
-				Frame.Navigate(typeof(AddNewCharacter));
-			}
+			
 		}
 
 	}

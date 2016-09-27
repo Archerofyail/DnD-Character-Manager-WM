@@ -312,15 +312,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private ObservableCollection<Class> _classes = new ObservableCollection<Class>();
+		private ObservableCollection<CharacterClass> _classes = new ObservableCollection<CharacterClass>();
 
-		public ObservableCollection<Class> Classes
+		public ObservableCollection<CharacterClass> Classes
 		{
 			get
 			{
 				if (_classes.Count == 0)
 				{
-					foreach (var Class in DbLoader.GetTable<Class>())
+					foreach (var Class in DbLoader.GetTable<CharacterClass>())
 					{
 						_classes.Add(Class);
 					}
@@ -342,15 +342,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 
-		private ObservableCollection<Subclass> _subclasses = new ObservableCollection<Subclass>();
+		private ObservableCollection<CharacterSubclass> _subclasses = new ObservableCollection<CharacterSubclass>();
 
-		public ObservableCollection<Subclass> Subclasses
+		public ObservableCollection<CharacterSubclass> Subclasses
 		{
 			get
 			{
 				if (_subclasses.Count == 0)
 				{
-					foreach (var subclass in DbLoader.GetTable<Subclass>())
+					foreach (var subclass in DbLoader.GetTable<CharacterSubclass>())
 					{
 						_subclasses.Add(subclass);
 					}
@@ -535,7 +535,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			if (character.Race == selRace)
 			{
 				Debug.WriteLine("It actually works");
-				Debug.WriteLine("IDs for stuff are:\nRace: " + character.Race.Name + ", " + character.RaceId + "\nClass: " + character.Class.Name + ", " + character.ClassId);
+				Debug.WriteLine("IDs for stuff are:\nRace: " + character.Race.Name + ", " + character.RaceId + "\nClass: " + character.CharacterClass.Name + ", " + character.ClassId);
 			}
 			else
 			{
