@@ -48,10 +48,11 @@
 			<ColumnDefinition Width="*"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
-		<Popup IsOpen="{Binding Path=AddingNewCharacter}"
-				Name="CharacterTemplatePopup"
-			   Grid.Row="1"
-			   Grid.Column="1">
+
+		<ContentDialog
+				Grid.Row="1"
+				Grid.Column="0"
+		Grid.ColumnSpan="3">
 			<StackPanel>
 				<TextBlock Text="Choose A Template"
 										Visibility="{Binding Path=IsChoosingTemplate}"/>
@@ -60,8 +61,12 @@
 										Name="CharacterTemplateList"
 										SelectionMode="Single"/>
 			</StackPanel>
-		</Popup>
-		<Hub Header="DnD Character Sheet">
+		</ContentDialog>
+
+
+		<Hub Header="DnD Character Sheet"
+			 Grid.RowSpan="3"
+			 Grid.ColumnSpan="3">
 			<HubSection Header="Characters">
 				<DataTemplate>
 					<Grid>
