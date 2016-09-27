@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,15 +39,32 @@ namespace TabletopRolePlayingCharacterManager
 			
 		}
 
-		private void AddButtonClicked(object sender, RoutedEventArgs e)
+		private async void AddButtonClicked(object sender, RoutedEventArgs e)
 		{
 
-			CharacterTemplatePopup.IsOpen = true;
+			await CharacterTemplateDialog.ShowAsync();
 		}
 
 		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
 		{
-			((MainPageViewModel) DataContext).CharacterTemplateListClicked();
+
+			var dm = DataContext as MainPageViewModel;
+			if (dm != null)
+			{
+				if (dm.SelectedCharacterTemplate == 0)
+				{
+					Frame.Navigate(typeof(AddNewCharacter));
+				}
+				else if (dm.SelectedCharacterTemplate == 1)
+				{
+					Frame.Navigate(typeof(AddNewGenericCharacter));
+				}
+				else
+				{
+					ApplicationData.Current.LocalSettings.Values["TemplateChosen"] = dm.SelectedCharacterTemplate - 2;
+					Frame.Navigate(typeof(AddNewGenericCharacter));
+				}
+			}
 		}
 
 		private void SettingsClicked(object sender, RoutedEventArgs e)

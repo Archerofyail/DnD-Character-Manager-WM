@@ -5,8 +5,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
+using TabletopRolePlayingCharacterManager.Views;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
@@ -63,12 +65,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		#region UIControl
 
-		private bool _addingNewCharacter;
-		public bool AddingNewCharacter
-		{
-			get { return _addingNewCharacter; }
-			set { _addingNewCharacter = value; NotifyPropertyChanged(); }
-		}
+		
 
 		#endregion
 
@@ -95,7 +92,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public void CharacterTemplateListClicked()
 		{
-
+			if (SelectedCharacterTemplate == 0)
+			{
+				Frame.Navigate(typeof(AddNewCharacter));
+			}
 		}
 
 	}
