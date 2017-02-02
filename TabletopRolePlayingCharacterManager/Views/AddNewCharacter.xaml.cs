@@ -12,7 +12,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 		public AddNewCharacter()
 		{
 			InitializeComponent();
-			DataContext = new AddNewCharacterPageViewModel();
+			
 			Debug.WriteLine("added data context");
 		}
 
@@ -34,16 +34,12 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void RollAbilityScoresClick(object sender, RoutedEventArgs e)
 		{
-			((AddNewCharacterPageViewModel)DataContext).RollAbilityScores();
-			RolledAbilityScoresList.Visibility = Visibility.Visible;
+			
 		}
 
 		private void SelectAbilityToAssign(object sender, RoutedEventArgs e)
 		{
-			var element = (Button)sender;
-			var stackPanel = (StackPanel)element.Parent;
-			((TextBox)stackPanel.Children[1]).Text = ((AddNewCharacterPageViewModel)DataContext).RolledAbilityScores[RolledAbilityScoresList.SelectedIndex];
-			((AddNewCharacterPageViewModel)DataContext).RolledAbilityScores.RemoveAt(RolledAbilityScoresList.SelectedIndex);
+			
 		}
 
 		private void ClearScoresClick(object sender, RoutedEventArgs e)
@@ -58,7 +54,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void SaveButtonClick(object sender, RoutedEventArgs e)
 		{
-			((AddNewCharacterPageViewModel)DataContext).CreateCharacter();
+			
 
 		}
 	}
