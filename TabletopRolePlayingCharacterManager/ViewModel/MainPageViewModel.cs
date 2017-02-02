@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.Views;
+using GalaSoft.MvvmLight;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
@@ -21,7 +22,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		{
 			get
 			{ return _selectedCharacterTemplate; }
-			set { _selectedCharacterTemplate = value; NotifyPropertyChanged(); }
+			set { _selectedCharacterTemplate = value; RaisePropertyChanged(); }
 		}
 
 		private ObservableCollection<string> _characterTemplates = new ObservableCollection<string>();

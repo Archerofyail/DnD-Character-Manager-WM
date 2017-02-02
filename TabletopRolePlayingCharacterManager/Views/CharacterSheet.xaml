@@ -12,13 +12,14 @@
 		<ResourceDictionary />
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<TextBlock Text="{Binding Path=CharacterTitle}" />
+		<TextBlock Text="{Binding Path=CharacterTitle, Mode=TwoWay}" />
 		<StackPanel Name="GlobalStackPanel">
-			<StackPanel Name="General">
+			<StackPanel Name="General"						>
 				<Grid Tapped="GeneralTapped">
 					<TextBlock Text="General"
-							   VerticalAlignment="Center"/>
-					<TextBlock Text="{Binding Path=GeneralIsExpanded}" FontSize="20" HorizontalAlignment="Right"
+							   VerticalAlignment="Center"
+							   FontWeight="Bold"/>
+					<TextBlock Text="{Binding Path=GeneralIsExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
 							   VerticalAlignment="Center"/>
 					
 				</Grid>
@@ -36,28 +37,28 @@
 					</Grid.RowDefinitions>
 					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Name}" BorderThickness="0"/>
+						<TextBox Text="{Binding Path=Name, Mode=TwoWay}" BorderThickness="0"/>
 						<Rectangle Height="1"
 								   Fill="Black"/>
 						<TextBlock Text="Name"/>
 					</StackPanel>
 					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Class}" BorderThickness="0"/>
+						<TextBox Text="{Binding Path=Class, Mode=TwoWay}" BorderThickness="0"/>
 						<Rectangle Height="1"
 								   Fill="Black"/>
 						<TextBlock Text="Class"/>
 					</StackPanel>
 					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Level}" BorderThickness="0"/>
+						<TextBox Text="{Binding Path=Level, Mode=TwoWay}" BorderThickness="0"/>
 						<Rectangle Height="1"
 								   Fill="Black"/>
 						<TextBlock Text="Level"/>
 					</StackPanel>
 					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Race}" BorderThickness="0"/>
+						<TextBox Text="{Binding Path=Race, Mode=TwoWay}" BorderThickness="0"/>
 						<Rectangle 
 								   Height="1"
 								   Fill="Black"/>
@@ -65,7 +66,7 @@
 					</StackPanel>
 					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Alignment}" BorderThickness="0"/>
+						<TextBox Text="{Binding Path=Alignment, Mode=TwoWay}" BorderThickness="0"/>
 						<Rectangle 
 								   Height="1"
 								   Fill="Black"/>
@@ -73,7 +74,7 @@
 					</StackPanel>
 					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Experience}" BorderThickness="0"/>
+						<TextBox Text="{Binding Path=Experience, Mode=TwoWay}" BorderThickness="0"/>
 						<Rectangle 
 								   Height="1"
 								   Fill="Black"/>
@@ -148,7 +149,36 @@
 				</Grid>
 
 			</StackPanel>
-			<StackPanel Name="AbilityScores" />
+			<Rectangle Fill="Black" Height="1"
+						   Margin="0, 10, 0, 0"/>
+			<TextBlock Text="Ability Scores"
+					   FontWeight="Bold"/>
+			<StackPanel Name="AbilityScores" Width="1000" HorizontalAlignment="Stretch"
+						Orientation="Horizontal">
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Strength" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+					<TextBlock Text="Dexterity" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+					<TextBlock Text="Constitution" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+					<TextBlock Text="Inteligence" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+					<TextBlock Text="Wisdom" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+					<TextBlock Text="Charisma" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+				</StackPanel>
+				<StackPanel Orientation="Vertical">
+					<TextBox Text="{Binding Strength, Mode=TwoWay}"/>
+
+					<TextBox Text="{Binding Dexterity, Mode=TwoWay}"/>
+
+					<TextBox Text="{Binding Constitution, Mode=TwoWay}"/>
+
+					<TextBox Text="{Binding Inteligence, Mode=TwoWay}"/>
+
+					<TextBox Text="{Binding Wisdom, Mode=TwoWay}"/>
+				
+					<TextBox Text="{Binding Charisma, Mode=TwoWay}"/>
+				</StackPanel>
+				
+			</StackPanel>
 			<StackPanel Name="Skills" />
 			<StackPanel Name="BattleStats" />
 			<StackPanel Name="Proficiencies">
