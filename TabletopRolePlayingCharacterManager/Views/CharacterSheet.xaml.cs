@@ -33,5 +33,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 				}
 			}
 		}
+
+		private void AbilityScoresHeaderTapped(object sender, TappedRoutedEventArgs e)
+		{
+
+		}
 	}
 }

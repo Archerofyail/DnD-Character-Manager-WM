@@ -13,8 +13,8 @@
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<TextBlock Text="{Binding Path=CharacterTitle, Mode=TwoWay}" />
-		<StackPanel Name="GlobalStackPanel">
-			<StackPanel Name="General"						>
+		<StackPanel Name="GlobalStackPanel" Orientation="Horizontal">
+			<StackPanel Name="General" MinWidth="360"						>
 				<Grid Tapped="GeneralTapped">
 					<TextBlock Text="General"
 							   VerticalAlignment="Center"
@@ -86,7 +86,7 @@
 				<TextBlock Text="Physical Description"
 						   FontWeight="Bold"/>
 				<Grid Name="PhysicalDescription"
-					   Margin="5, 0, 5, 0">
+					   Margin="5, 0, 5, 0" MinWidth="360">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="3*"/>
@@ -147,49 +147,36 @@
 						<TextBlock Text="Hair"/>
 					</StackPanel>
 				</Grid>
-
-			</StackPanel>
-			<Rectangle Fill="Black" Height="1"
+				<Rectangle Fill="Black" Height="1"
 						   Margin="0, 10, 0, 0"/>
-			<TextBlock Text="Ability Scores"
-					   FontWeight="Bold"/>
-			<StackPanel Name="AbilityScores" Width="1000" HorizontalAlignment="Stretch"
-						Orientation="Horizontal">
-				
-				<StackPanel Orientation="Vertical">
+				<StackPanel Name="AbilityScoresStackPanel"
+				Orientation="Vertical" MinWidth="90">
+					<Grid Tapped="AbilityScoresHeaderTapped">
+						
+						<TextBlock Text="Ability Scores"
+						   FontWeight="Bold"
+						    VerticalAlignment="Center"/>
+						<TextBlock Text="{Binding Path=AbilityScoresAreExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
+							   VerticalAlignment="Center"/>
+						
+
+					</Grid>
 					<TextBlock Text="Strength" VerticalAlignment="Center" MinHeight="32"></TextBlock>
-					<TextBlock Text="Dexterity" VerticalAlignment="Center" MinHeight="32"></TextBlock>
-					<TextBlock Text="Constitution" VerticalAlignment="Center" MinHeight="32"></TextBlock>
-					<TextBlock Text="Inteligence" VerticalAlignment="Center" MinHeight="32"></TextBlock>
-					<TextBlock Text="Wisdom" VerticalAlignment="Center" MinHeight="32"></TextBlock>
-					<TextBlock Text="Charisma" VerticalAlignment="Center" MinHeight="32"></TextBlock>
-				</StackPanel>
-				<StackPanel Orientation="Vertical">
 					<TextBox Text="{Binding Strength, Mode=TwoWay}"/>
-
+					<TextBlock Text="Dexterity" VerticalAlignment="Center" MinHeight="32"></TextBlock>
 					<TextBox Text="{Binding Dexterity, Mode=TwoWay}"/>
-
+					<TextBlock Text="Constitution" VerticalAlignment="Center" MinHeight="32"></TextBlock>
 					<TextBox Text="{Binding Constitution, Mode=TwoWay}"/>
-
+					<TextBlock Text="Inteligence" VerticalAlignment="Center" MinHeight="32"></TextBlock>
 					<TextBox Text="{Binding Inteligence, Mode=TwoWay}"/>
-
+					<TextBlock Text="Wisdom" VerticalAlignment="Center" MinHeight="32"></TextBlock>
 					<TextBox Text="{Binding Wisdom, Mode=TwoWay}"/>
-				
+					<TextBlock Text="Charisma" VerticalAlignment="Center" MinHeight="32"></TextBlock>
 					<TextBox Text="{Binding Charisma, Mode=TwoWay}"/>
 				</StackPanel>
-				
-			</StackPanel>
-			<StackPanel Name="Skills" />
-			<StackPanel Name="BattleStats" />
-			<StackPanel Name="Proficiencies">
-				<StackPanel Name="Languages"
-						Margin="20, 0, 0, 0" />
-				<StackPanel Name="Weapons"
-						Margin="20, 0, 0, 0" />
-				<StackPanel Name="ClassAndRaceFeatures"
-						Margin="20, 0, 0, 0" />
-				<StackPanel Name="OtherProficiencies"
-						Margin="20, 0, 0, 0" />
+				<StackPanel Name="Skills">
+					
+				</StackPanel>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

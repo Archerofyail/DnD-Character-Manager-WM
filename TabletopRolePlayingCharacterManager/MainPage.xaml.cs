@@ -53,16 +53,16 @@ namespace TabletopRolePlayingCharacterManager
 			{
 				if (dm.SelectedCharacterTemplate == 0)
 				{
-					Frame.Navigate(typeof(AddNewCharacter));
+					Frame.Navigate(typeof(CharacterSheet));
 				}
 				else if (dm.SelectedCharacterTemplate == 1)
 				{
-					Frame.Navigate(typeof(AddNewGenericCharacter));
+					Frame.Navigate(typeof(CharacterSheet));
 				}
 				else
 				{
 					ApplicationData.Current.LocalSettings.Values["TemplateChosen"] = dm.SelectedCharacterTemplate - 2;
-					Frame.Navigate(typeof(AddNewGenericCharacter));
+					Frame.Navigate(typeof(CharacterSheet));
 				}
 			}
 		}
