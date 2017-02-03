@@ -102,9 +102,11 @@
     </Compile>
     <Compile Include="Models\Character5E.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\CharacterManager.cs" />
     <Compile Include="Types\CharacterTrait.cs" />
     <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Types\VMMessenger.cs" />
+    <Compile Include="ViewModel\CharacterSheetViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">
       <DependentUpon>AddNewCharacter.xaml</DependentUpon>

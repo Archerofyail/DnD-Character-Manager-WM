@@ -71,7 +71,7 @@
 
 		<Hub Header="DnD Character Sheet"
 			 Grid.RowSpan="3"
-			 Grid.ColumnSpan="3">
+			 Grid.ColumnSpan="4">
 			<HubSection Header="Characters">
 				<DataTemplate>
 					<Grid>

@@ -7,179 +7,190 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
 
-	
+
 	<Page.Resources>
 		<ResourceDictionary />
 	</Page.Resources>
-	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<TextBlock Text="{Binding Path=CharacterTitle, Mode=TwoWay}" />
-		<StackPanel Name="GlobalStackPanel" Orientation="Horizontal">
-			<StackPanel Name="General" MinWidth="360"						>
-				<Grid Tapped="GeneralTapped">
-					<TextBlock Text="General"
+	<RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+						
+						   MinWidth="360" Margin="0" Padding="12,0,12,0">
+
+		<TextBlock Text="{Binding Path=CharacterTitle, Mode=TwoWay}" Name="CharacterTitle"/>
+
+		<StackPanel Orientation="Vertical" Name="ClassAndRacePanel" RelativePanel.Below="CharacterTitle" MinWidth="360">
+			<Grid Tapped="GeneralTapped">
+				<TextBlock Text="General"
 							   VerticalAlignment="Center"
 							   FontWeight="Bold"/>
-					<TextBlock Text="{Binding Path=GeneralIsExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
+				<TextBlock Text="{Binding Path=GeneralIsExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
 							   VerticalAlignment="Center"/>
+
+			</Grid>
+			<Grid Name="ClassAndRaceInfo"
 					
-				</Grid>
-				<Grid Name="ClassAndRaceInfo" Padding="5, 0, 5, 0"
-					  BorderThickness="2"
-					  BorderBrush="DarkGray">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="2*"/>
-						<RowDefinition Height="2*"/>
-						<RowDefinition Height="2*"/>
-					</Grid.RowDefinitions>
-					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0"
+				  HorizontalAlignment="Stretch" MinWidth="336">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="2*"/>
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Name, Mode=TwoWay}" BorderThickness="0"/>
-						<Rectangle Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Name"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
+					<TextBox Text="{Binding Path=Name, Mode=TwoWay}" />
+
+
+					<TextBlock Text="Name"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Class, Mode=TwoWay}" BorderThickness="0"/>
-						<Rectangle Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Class"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
+					<TextBox Text="{Binding Path=Class, Mode=TwoWay}" />
+
+					<TextBlock Text="Class"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Level, Mode=TwoWay}" BorderThickness="0"/>
-						<Rectangle Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Level"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
+					<TextBox Text="{Binding Path=Level, Mode=TwoWay}" />
+
+					<TextBlock Text="Level"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Race, Mode=TwoWay}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Race"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
+					<TextBox Text="{Binding Path=Race, Mode=TwoWay}" />
+
+					<TextBlock Text="Race"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Alignment, Mode=TwoWay}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Alignment"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
+					<TextBox Text="{Binding Path=Alignment, Mode=TwoWay}" />
+
+					<TextBlock Text="Alignment"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Experience, Mode=TwoWay}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Experience"/>
-					</StackPanel>
-				</Grid>
-				<Rectangle Fill="Black" Height="1"
-						   Margin="0, 10, 0, 0"/>
-				<TextBlock Text="Physical Description"
+					<TextBox Text="{Binding Path=Experience, Mode=TwoWay}" />
+
+					<TextBlock Text="Experience"/>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+		<StackPanel Orientation="Vertical" RelativePanel.Below="ClassAndRacePanel"
+					Name="PhysicalDescriptionPanel" MinWidth="360">
+
+			<TextBlock Text="Physical Description"
 						   FontWeight="Bold"/>
-				<Grid Name="PhysicalDescription"
-					   Margin="5, 0, 5, 0" MinWidth="360">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="3*"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="2*"/>
-						<RowDefinition Height="2*"/>
-						<RowDefinition Height="2*"/>
-					</Grid.RowDefinitions>
-					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" 
+			<Grid Name="PhysicalDescription"
+					 MinWidth="336">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="3*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="2*"/>
+					<RowDefinition Height="2*"/>
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" 
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Age}" BorderThickness="0"
-								 />
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Age"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
+					<TextBox Text="{Binding Path=Age}"/>
+
+					<TextBlock Text="Age"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Height}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Height"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" 
+					<TextBox Text="{Binding Path=Height}" />
+
+					<TextBlock Text="Height"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" 
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Weight}" BorderThickness="0"
-								 />
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Weight"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
+					<TextBox Text="{Binding Path=Weight}"/>
+
+					<TextBlock Text="Weight"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Eyes}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Eyes"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
+					<TextBox Text="{Binding Path=Eyes}" />
+
+					<TextBlock Text="Eyes"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Skin}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Skin"/>
-					</StackPanel>
-					<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
+					<TextBox Text="{Binding Path=Skin}" />
+
+					<TextBlock Text="Skin"/>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="5, 0, 5, 0">
-						<TextBox Text="{Binding Path=Hair}" BorderThickness="0"/>
-						<Rectangle 
-								   Height="1"
-								   Fill="Black"/>
-						<TextBlock Text="Hair"/>
-					</StackPanel>
-				</Grid>
-				<Rectangle Fill="Black" Height="1"
-						   Margin="0, 10, 0, 0"/>
-				<StackPanel Name="AbilityScoresStackPanel"
-				Orientation="Vertical" MinWidth="90">
-					<Grid Tapped="AbilityScoresHeaderTapped">
-						
-						<TextBlock Text="Ability Scores"
+					<TextBox Text="{Binding Path=Hair}" />
+
+					<TextBlock Text="Hair"/>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+		<StackPanel Name="AbilityScoresStackPanel"
+				Orientation="Vertical" MinWidth="336"
+					RelativePanel.Below="PhysicalDescriptionPanel">
+			<Grid Tapped="AbilityScoresHeaderTapped">
+
+				<TextBlock Text="Ability Scores"
 						   FontWeight="Bold"
 						    VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding Path=AbilityScoresAreExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
+				<TextBlock Text="{Binding Path=AbilityScoresAreExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
 							   VerticalAlignment="Center"/>
-						
 
-					</Grid>
-					<TextBlock Text="Strength" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+
+			</Grid>
+			<VariableSizedWrapGrid MaximumRowsOrColumns="3"
+								   Orientation="Horizontal" Margin="0" MinWidth="336"
+								   >
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Strength" VerticalAlignment="Center"/>
 					<TextBox Text="{Binding Strength, Mode=TwoWay}"/>
-					<TextBlock Text="Dexterity" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+				</StackPanel>
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Dexterity" VerticalAlignment="Center"/>
 					<TextBox Text="{Binding Dexterity, Mode=TwoWay}"/>
-					<TextBlock Text="Constitution" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+				</StackPanel>
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Constitution" VerticalAlignment="Center"/>
 					<TextBox Text="{Binding Constitution, Mode=TwoWay}"/>
-					<TextBlock Text="Inteligence" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+				</StackPanel>
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Inteligence" VerticalAlignment="Center"/>
 					<TextBox Text="{Binding Inteligence, Mode=TwoWay}"/>
-					<TextBlock Text="Wisdom" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+				</StackPanel>
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Wisdom" VerticalAlignment="Center"/>
 					<TextBox Text="{Binding Wisdom, Mode=TwoWay}"/>
-					<TextBlock Text="Charisma" VerticalAlignment="Center" MinHeight="32"></TextBlock>
+				</StackPanel>
+				
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="Charisma" VerticalAlignment="Center"/>
 					<TextBox Text="{Binding Charisma, Mode=TwoWay}"/>
 				</StackPanel>
-				<StackPanel Name="Skills">
-					
-				</StackPanel>
-			</StackPanel>
+				
+			
+		
+			
+				
+				
+			</VariableSizedWrapGrid>
 		</StackPanel>
-	</Grid>
+
+		<StackPanel Name="Skills">
+
+		</StackPanel>
+
+	</RelativePanel>
 </Page>
 
 
