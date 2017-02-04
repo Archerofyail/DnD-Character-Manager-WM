@@ -26,6 +26,12 @@ namespace TabletopRolePlayingCharacterManager
 		D100
 	}
 
+	public enum DamageType
+	{
+		Melee,
+		Ranged
+	}
+
 	public enum MessageType
 	{
 		Object
