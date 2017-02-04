@@ -24,7 +24,9 @@
 						
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Path=Bonus}"/>
+						<TextBlock Text="{Binding Path=Bonus}"
+								   Margin="8"
+								   FontSize="18"/>
 						<CheckBox IsChecked="{Binding Path=IsProficient, Mode=TwoWay}" MinWidth="32"/>
 						<TextBlock Text="{Binding Path=MainStat}" HorizontalAlignment="Right" Foreground="#FF7E7E7E" Margin="4,0,0,0"
 								  />

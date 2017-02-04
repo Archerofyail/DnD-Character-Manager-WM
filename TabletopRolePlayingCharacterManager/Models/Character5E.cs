@@ -7,7 +7,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 	//To make racial bonuses have a class with methods to add stuff to a character, like points to ability modifiers and entries to features and stuff. Then make a list of (structs maybe?) that contains the data, with the delegate. When that race is selected, call the delegate, and pass it the data
 	public class Character5E
 	{
-		
+		//TODO: Change AbilityScores to a class (Name, Value, Bonus)
 		public int id { get; set; }
 		private int _equippedArmorId;
 		public int Level { get; set; } = 1;
