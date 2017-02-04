@@ -47,35 +47,16 @@ namespace TabletopRolePlayingCharacterManager
 			await CharacterTemplateDialog.ShowAsync();
 		}
 
-		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
-		{
-
-			//await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-			 //{
-				 Frame.Navigate(typeof(CharacterSheet));
-			 //});
-		
-			//var dm = DataContext as MainPageViewModel;
-			//if (dm != null)
-			//{
-			//	if (dm.SelectedCharacterTemplate == 0)
-			//	{
-			//	}
-			//	else if (dm.SelectedCharacterTemplate == 1)
-			//	{
-
-			//	}
-			//	else
-			//	{
-			//		ApplicationData.Current.LocalSettings.Values["TemplateChosen"] = dm.SelectedCharacterTemplate - 2;
-			//		Frame.Navigate(typeof(CharacterSheet));
-			//	}
-			//}
-		}
 
 		private void SettingsClicked(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(SettingsPage));
+		}
+
+		private void CharacterTemplateList_ItemClick(object sender, ItemClickEventArgs e)
+		{
+
+			Frame.Navigate(typeof(CharacterSheet));
 		}
 	}
 }

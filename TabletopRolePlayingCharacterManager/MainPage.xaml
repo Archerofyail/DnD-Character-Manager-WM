@@ -29,7 +29,21 @@
 			<CommandBar.Content>
 				<Grid/>
 			</CommandBar.Content>
-			<AppBarButton Icon="Add" Label="New Character" Click="AddButtonClicked"/>
+			<AppBarButton Icon="Add" Label="New Character">
+				<AppBarButton.Flyout>
+					<Flyout>
+						<StackPanel>
+							<TextBlock Text="Choose A Template"
+										/>
+							<ListView ItemsSource="{Binding Path=CharacterTemplates}"
+										ItemClick="CharacterTemplateList_ItemClick"
+										Name="CharacterTemplateList"
+										SelectionMode="Single"
+						  IsItemClickEnabled="True"/>
+						</StackPanel>
+					</Flyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
 			<AppBarButton Icon="Setting" Label="Settings"
 						  Click="SettingsClicked"/>
 		</CommandBar>
@@ -52,21 +66,6 @@
 			<ColumnDefinition Width="3*"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
-
-		<ContentDialog
-			Name="CharacterTemplateDialog"
-			Grid.Row="2"
-			Grid.Column="1"
-			Grid.ColumnSpan="3">
-			<StackPanel>
-				<TextBlock Text="Choose A Template"
-										/>
-				<ListView ItemsSource="{Binding Path=CharacterTemplates}"
-										Tapped="CharacterTemplateListClicked"
-										Name="CharacterTemplateList"
-										SelectionMode="Single"/>
-			</StackPanel>
-		</ContentDialog>
 
 
 		<Hub Header="DnD Character Sheet"
