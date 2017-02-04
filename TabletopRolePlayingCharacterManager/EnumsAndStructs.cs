@@ -61,7 +61,7 @@ namespace TabletopRolePlayingCharacterManager
 	public static class Utility
 	{
 
-		public static readonly Dictionary<MainStat, string> ShorthandStatString = new Dictionary<MainStat, string>
+		public static readonly Dictionary<MainStat, string> ShorthandStatStrings = new Dictionary<MainStat, string>
 		{
 			{MainStat.Strength, "STR" },
 			{MainStat.Dexterity, "DEX" },
@@ -80,7 +80,11 @@ namespace TabletopRolePlayingCharacterManager
 
 		public static int CalculateProficiencyBonus(int level)
 		{
-			int bonus = 0;
+			int bonus = 2;
+			if (level <=4)
+			{
+				bonus = 2;
+			}
 			if (level <= 8)
 			{
 				bonus = 3;

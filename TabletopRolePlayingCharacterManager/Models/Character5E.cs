@@ -10,7 +10,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		
 		public int id { get; set; }
 		private int _equippedArmorId;
-		public int Level { get; set; }
+		public int Level { get; set; } = 1;
 		public int Experience { get; set; }
 		//Validation to occur in the text box during character creation
 		public int Speed { get; set; }
