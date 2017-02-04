@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -49,7 +50,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		
 		public Dictionary<MainStat, int> AbilityScores { get; set; } = new Dictionary<MainStat, int>();
-		public Dictionary<MainStat, int> AbilityScoreProficiencies { get; set; } = new Dictionary<MainStat, int>();
+		public Dictionary<MainStat, bool> AbilityScoreProficiencies { get; set; } = new Dictionary<MainStat, bool>();
 		#region Ignored
 		[JsonIgnore]
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
@@ -57,10 +58,12 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public Dictionary<string, int> SkillMods { get; set; }
 		#endregion
 
+		public List<Skill> Skills { get; set; } = new List<Skill>();
+
 
 		public Character5E()
 		{
-			abilityModifiers = new Dictionary<MainStat, int>
+			AbilityScores = new Dictionary<MainStat, int>
 			{
 				{ MainStat.Strength, 10 },
 				{ MainStat.Dexterity, 10 },
@@ -70,6 +73,17 @@ namespace TabletopRolePlayingCharacterManager.Models
 				{ MainStat.Charisma, 10 },
 
 			};
+			AbilityScoreProficiencies = new Dictionary<MainStat, bool>
+			{
+				{ MainStat.Strength, false },
+				{ MainStat.Dexterity, false },
+				{ MainStat.Constitution, false },
+				{ MainStat.Intelligence, false },
+				{ MainStat.Wisdom, false },
+				{ MainStat.Charisma, false },
+
+			};
+			CalculateAbilityModifiers();
 		}
 
 

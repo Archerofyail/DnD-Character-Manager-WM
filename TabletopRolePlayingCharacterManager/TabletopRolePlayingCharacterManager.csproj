@@ -105,6 +105,7 @@
     <Compile Include="Types\CharacterManager.cs" />
     <Compile Include="Types\CharacterTrait.cs" />
     <Compile Include="Types\ItemPair.cs" />
+    <Compile Include="Types\Skill.cs" />
     <Compile Include="ViewModel\CharacterSheetViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\SkillViewModel.cs" />

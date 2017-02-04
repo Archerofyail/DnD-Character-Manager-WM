@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	class SkillViewModel : ViewModelBase
+	public class SkillViewModel : ViewModelBase
 	{
 		public string Name { get; set; }
-		public string Level { get; set; }
+		public int Level { get; set; }
 		public bool IsProficient { get; set; }
+		public MainStat MainStat { get; set; }
 	}
 }

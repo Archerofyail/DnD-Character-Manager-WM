@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public CharacterSheetViewModel()
 		{
 			character = CharacterManager.CurrentCharacter;
+			if (character == null)
+			{
+				character = new Character5E();
+			}
 		}
+
 		#region General
 
 		public string Name
@@ -286,11 +292,85 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		#endregion
 
 		#region AbilityProficiencies
-		public bool StrProficiency
+		public bool StrIsProficient
 		{
-			get { return true; }
+			get { return character.AbilityScoreProficiencies[MainStat.Strength]; }
+			set
+			{
+				character.AbilityScoreProficiencies[MainStat.Strength] = value;
+				RaisePropertyChanged();
+			}
+		}
+		public bool DexIsProficient
+		{
+			get { return character.AbilityScoreProficiencies[MainStat.Dexterity]; }
+			set
+			{
+				character.AbilityScoreProficiencies[MainStat.Dexterity] = value;
+				RaisePropertyChanged();
+			}
+		}
+		public bool ConIsProficient
+		{
+			get { return character.AbilityScoreProficiencies[MainStat.Constitution]; }
+			set
+			{
+				character.AbilityScoreProficiencies[MainStat.Constitution] = value;
+				RaisePropertyChanged();
+			}
+		}
+		public bool IntIsProficient
+		{
+			get { return character.AbilityScoreProficiencies[MainStat.Intelligence]; }
+			set
+			{
+				character.AbilityScoreProficiencies[MainStat.Intelligence] = value;
+				RaisePropertyChanged();
+			}
+		}
+		public bool WisIsProficient
+		{
+			get { return character.AbilityScoreProficiencies[MainStat.Wisdom]; }
+			set
+			{
+				character.AbilityScoreProficiencies[MainStat.Wisdom] = value;
+				RaisePropertyChanged();
+			}
+		}
+		public bool ChaIsProficient
+		{
+			get { return character.AbilityScoreProficiencies[MainStat.Charisma]; }
+			set
+			{
+				character.AbilityScoreProficiencies[MainStat.Charisma] = value;
+				RaisePropertyChanged();
+			}
 		}
 		#endregion
 		#endregion
+
+		private ObservableCollection<SkillViewModel> skills = new ObservableCollection<SkillViewModel>();
+		public ObservableCollection<SkillViewModel> Skills
+		{
+			get
+			{
+				if (skills.Count == 0)
+				{
+					foreach (var skill in character.Skills)
+					{
+						skills.Add(new SkillViewModel
+						{
+							Name = skill.Name,
+							Level = skill.Bonus,
+							IsProficient = skill.IsProficient,
+							MainStat = skill.MainStat
+
+						});
+					}
+					RaisePropertyChanged();
+				}
+				return skills;
+			}
+		}
 	}
 }
