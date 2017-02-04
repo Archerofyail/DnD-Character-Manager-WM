@@ -54,8 +54,6 @@ namespace TabletopRolePlayingCharacterManager.Models
 		#region Ignored
 		[JsonIgnore]
 		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
-		[JsonIgnore]
-		public Dictionary<string, int> SkillMods { get; set; }
 		#endregion
 
 		public List<Skill> Skills { get; set; } = new List<Skill>();
@@ -84,6 +82,28 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 			};
 			CalculateAbilityModifiers();
+			Skills = new List<Skill>
+			{
+				new Skill("Acrobatics", abilityModifiers[MainStat.Dexterity], ProficiencyBonus, MainStat.Dexterity, false),
+				new Skill("Animal Handling", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
+				new Skill("Arcana", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
+				new Skill("Athletics", abilityModifiers[MainStat.Strength], ProficiencyBonus, MainStat.Strength, false),
+				new Skill("Deception", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
+				new Skill("History", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
+				new Skill("Insight", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
+				new Skill("Intimidation", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
+				new Skill("Investigation", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
+				new Skill("Medicine", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
+				new Skill("Nature", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
+				new Skill("Perception", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
+				new Skill("Performance", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
+				new Skill("Persuasion", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
+				new Skill("Religion", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
+				new Skill("Sleight of Hand", abilityModifiers[MainStat.Dexterity], ProficiencyBonus, MainStat.Dexterity, false),
+				new Skill("Stealth", abilityModifiers[MainStat.Dexterity], ProficiencyBonus, MainStat.Dexterity, false),
+				new Skill("Survival", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
+			};
+			CalculateSkillBonuses();
 		}
 
 
@@ -103,21 +123,18 @@ namespace TabletopRolePlayingCharacterManager.Models
 			}
 		}
 
-		public void CalculateSkillBonuses(bool recalculate = false)
+		public void CalculateSkillBonuses()
 		{
-			if (recalculate)
-			{
-				SkillMods.Clear();
-			}
-			if (SkillMods == null)
-			{
-				SkillMods = new Dictionary<string, int>();
-			}
+		
 			if (abilityModifiers.Count == 0 || abilityModifiers == null)
 			{
 				CalculateAbilityModifiers();
 			}
-			
+			foreach (var skill in Skills)
+			{
+				skill.CalculateBonus(abilityModifiers[skill.MainStat], ProficiencyBonus);
+
+			}
 		}
 	}
 }

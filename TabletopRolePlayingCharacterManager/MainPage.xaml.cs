@@ -41,11 +41,7 @@ namespace TabletopRolePlayingCharacterManager
 
 		}
 
-		private async void AddButtonClicked(object sender, RoutedEventArgs e)
-		{
-
-			await CharacterTemplateDialog.ShowAsync();
-		}
+		
 
 
 		private void SettingsClicked(object sender, RoutedEventArgs e)

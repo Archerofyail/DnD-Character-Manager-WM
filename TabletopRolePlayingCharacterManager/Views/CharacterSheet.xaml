@@ -18,11 +18,16 @@
 							Margin="4, 0, 4, 0"
 							BorderBrush="DarkGray"
 							BorderThickness="2">
-					<TextBlock Text="{Binding Path=SkillName}" VerticalAlignment="Center"/>
-
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Path=Level, Mode=TwoWay}"/>
+					<TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center"
+							   MinWidth="112"/>
+						
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Path=Bonus}"/>
 						<CheckBox IsChecked="{Binding Path=IsProficient, Mode=TwoWay}" MinWidth="32"/>
+						<TextBlock Text="{Binding Path=MainStat}" HorizontalAlignment="Right" Foreground="#FF7E7E7E" Margin="4,0,0,0"
+								  />
 					</StackPanel>
 				</StackPanel>
 			</DataTemplate>
@@ -37,7 +42,7 @@
 		<StackPanel Orientation="Vertical" Name="ClassAndRacePanel" MinWidth="336"
 					BorderBrush="Black"
 					BorderThickness="1">
-			<Grid Tapped="PhysicalDescriptionHeaderTapped">
+			<Grid Tapped="GeneralTapped">
 				<TextBlock Text="General"
 							   VerticalAlignment="Center"
 							   FontWeight="Bold"/>
@@ -93,7 +98,7 @@
 					Name="PhysicalDescriptionPanel" MinWidth="336"
 					BorderBrush="Black"
 					BorderThickness="1">
-			<Grid Tapped="GeneralTapped">
+			<Grid Tapped="PhysicalDescriptionHeaderTapped">
 				<TextBlock Text="Physical Description"
 						   FontWeight="Bold"/>
 				<TextBlock Text="-" FontSize="20" HorizontalAlignment="Right"

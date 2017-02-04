@@ -361,9 +361,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 						skills.Add(new SkillViewModel
 						{
 							Name = skill.Name,
-							Level = skill.Bonus,
+							Bonus = skill.Bonus,
 							IsProficient = skill.IsProficient,
-							MainStat = skill.MainStat
+							MainStat = skill.MainStat.ToString()
 
 						});
 					}
