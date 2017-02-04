@@ -9,6 +9,8 @@ using Windows.UI.Xaml.Input;
 using TabletopRolePlayingCharacterManager.Views;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.ViewModel;
+using System.Threading.Tasks;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,7 +25,7 @@ namespace TabletopRolePlayingCharacterManager
 		{
 			InitializeComponent();
 			var resourcenames = GetType().GetTypeInfo().Assembly.GetManifestResourceNames();
-			 
+
 			if (resourcenames.Length == 0)
 			{
 				Debug.WriteLine("resourceNames is empty");
@@ -33,10 +35,10 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-		
+
 			DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
-			
+
 		}
 
 		private async void AddButtonClicked(object sender, RoutedEventArgs e)
@@ -45,12 +47,14 @@ namespace TabletopRolePlayingCharacterManager
 			await CharacterTemplateDialog.ShowAsync();
 		}
 
-		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
+		private async void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
 		{
 
-
-			Frame.Navigate(typeof(CharacterSheet));
-
+			await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			 {
+				 Frame.Navigate(typeof(CharacterSheet));
+			 });
+		
 			//var dm = DataContext as MainPageViewModel;
 			//if (dm != null)
 			//{
@@ -59,7 +63,7 @@ namespace TabletopRolePlayingCharacterManager
 			//	}
 			//	else if (dm.SelectedCharacterTemplate == 1)
 			//	{
-					
+
 			//	}
 			//	else
 			//	{
