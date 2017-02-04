@@ -7,9 +7,9 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	xmlns:vm="using:TabletopRolePlayingCharacterManager.ViewModel">
-	<Page.DataContext>
+	<!--<Page.DataContext>
 		<vm:CharacterSheetViewModel/>
-	</Page.DataContext>
+	</Page.DataContext>-->
 
 	<Page.Resources>
 		<ResourceDictionary >
@@ -18,29 +18,29 @@
 							Margin="4, 0, 4, 0"
 							BorderBrush="DarkGray"
 							BorderThickness="2">
-					<TextBlock Text="{Binding SkillName}" VerticalAlignment="Center"/>
+					<!--<TextBlock Text="{Binding Path=SkillName}" VerticalAlignment="Center"/>-->
 
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Level, Mode=TwoWay}"/>
-						<CheckBox Checked="{Binding IsProficient, Mode=TwoWay}" MinWidth="32"/>
+						<!--<TextBlock Text="{Binding Path=Level, Mode=TwoWay}"/>-->
+						<!--<CheckBox Checked="{Binding Path=IsProficient, Mode=TwoWay}" MinWidth="32"/>-->
 					</StackPanel>
 				</StackPanel>
 			</DataTemplate>
-			
+
 		</ResourceDictionary>
 	</Page.Resources>
 	<RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 						
 						   MinWidth="336" Margin="0" Padding="12,0,12,0">
 
-		
+
 		<StackPanel Orientation="Vertical" Name="ClassAndRacePanel" MinWidth="336">
-			<Grid Tapped="GeneralTapped">
-				<TextBlock Text="General"
+			<Grid >
+				<!--<TextBlock Text="General"
 							   VerticalAlignment="Center"
-							   FontWeight="Bold"/>
-				<TextBlock Text="{Binding GeneralIsExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
-							   VerticalAlignment="Center"/>
+							   FontWeight="Bold"/>-->
+				<!--<TextBlock Text="{Binding GeneralIsExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
+							   VerticalAlignment="Center"/>-->
 
 			</Grid>
 			<Grid Name="ClassAndRaceInfo"
@@ -57,48 +57,48 @@
 				</Grid.RowDefinitions>
 				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0"
 								 Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Name, Mode=TwoWay}" />
+					<!--<TextBox Text="{Binding Name, Mode=TwoWay}" />-->
 
 
-					<TextBlock Text="Name"/>
+					<!--<TextBlock Text="Name"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
 								 Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Class, Mode=TwoWay}" />
+					<!--<TextBox Text="{Binding Class, Mode=TwoWay}" />-->
 
-					<TextBlock Text="Class"/>
+					<!--<TextBlock Text="Class"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
 								 Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Level, Mode=TwoWay}" />
+					<!--<TextBox Text="{Binding Level, Mode=TwoWay}" />-->
 
-					<TextBlock Text="Level"/>
+					<!--<TextBlock Text="Level"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Race, Mode=TwoWay}" />
+					<!--<TextBox Text="{Binding Race, Mode=TwoWay}" />-->
 
-					<TextBlock Text="Race"/>
+					<!--<TextBlock Text="Race"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Alignment, Mode=TwoWay}" />
+					<!--<TextBox Text="{Binding Alignment, Mode=TwoWay}" />-->
 
-					<TextBlock Text="Alignment"/>
+					<!--<TextBlock Text="Alignment"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Experience, Mode=TwoWay}" />
+					<!--<TextBox Text="{Binding Experience, Mode=TwoWay}" />-->
 
-					<TextBlock Text="Experience"/>
+					<!--<TextBlock Text="Experience"/>-->
 				</StackPanel>
 			</Grid>
 		</StackPanel>
 		<StackPanel Orientation="Vertical" RelativePanel.Below="ClassAndRacePanel"
 					Name="PhysicalDescriptionPanel" MinWidth="336">
 
-			<TextBlock Text="Physical Description"
-						   FontWeight="Bold"/>
+			<!--<TextBlock Text="Physical Description"
+						   FontWeight="Bold"/>-->
 			<Grid Name="PhysicalDescription"
 					 MinWidth="336">
 				<Grid.ColumnDefinitions>
@@ -112,123 +112,123 @@
 				</Grid.RowDefinitions>
 				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" 
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Age}"/>
+					<!--<TextBox Text="{Binding Age}"/>-->
 
-					<TextBlock Text="Age"/>
+					<!--<TextBlock Text="Age"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Height}" />
+					<!--<TextBox Text="{Binding Height}" />-->
 
-					<TextBlock Text="Height"/>
+					<!--<TextBlock Text="Height"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" 
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Weight}"/>
+					<!--<TextBox Text="{Binding Weight}"/>-->
 
-					<TextBlock Text="Weight"/>
+					<!--<TextBlock Text="Weight"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Eyes}" />
+					<!--<TextBox Text="{Binding Eyes}" />-->
 
-					<TextBlock Text="Eyes"/>
+					<!--<TextBlock Text="Eyes"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Skin}" />
+					<!--<TextBox Text="{Binding Skin}" />-->
 
-					<TextBlock Text="Skin"/>
+					<!--<TextBlock Text="Skin"/>-->
 				</StackPanel>
 				<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="4, 0, 4, 0">
-					<TextBox Text="{Binding Hair}" />
+					<!--<TextBox Text="{Binding Hair}" />-->
 
-					<TextBlock Text="Hair"/>
+					<!--<TextBlock Text="Hair"/>-->
 				</StackPanel>
 			</Grid>
 		</StackPanel>
 		<StackPanel Name="AbilityScoresStackPanel"
 					Orientation="Vertical"
 					RelativePanel.Below="PhysicalDescriptionPanel">
-			<Grid Tapped="AbilityScoresHeaderTapped">
+			<Grid>
 
-				<TextBlock Text="Ability Scores"
+				<!--<TextBlock Text="Ability Scores"
 						   FontWeight="Bold"
-						    VerticalAlignment="Center"/>
-				<TextBlock Text="{Binding AbilityScoresAreExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
-							   VerticalAlignment="Center"/>
+						    VerticalAlignment="Center"/>-->
+				<!--<TextBlock Text="{Binding AbilityScoresAreExpanded, Mode=TwoWay}" FontSize="20" HorizontalAlignment="Right"
+							   VerticalAlignment="Center"/>-->
 
 
 			</Grid>
 			<VariableSizedWrapGrid MaximumRowsOrColumns="3"
 								   Orientation="Horizontal"
 								   >
-				
+
 				<StackPanel Orientation="Vertical"
 							Margin="4, 0, 4, 0"
 							BorderBrush="DarkGray"
 							BorderThickness="2">
-					<TextBlock Text="Strength" VerticalAlignment="Center"/>
-					
+					<!--<TextBlock Text="Strength" VerticalAlignment="Center"/>-->
+
 					<StackPanel Orientation="Horizontal">
-						<TextBox Text="{Binding Strength, Mode=TwoWay}" InputScope="Number"/>
-						<CheckBox Checked="{Binding StrIsProficient, Mode=TwoWay}"/>
+						<!--<TextBox Text="{Binding Strength, Mode=TwoWay}" InputScope="Number"/>-->
+						<!--<CheckBox Checked="{Binding StrIsProficient, Mode=TwoWay}"/>-->
 					</StackPanel>
 				</StackPanel>
-				
+
 				<StackPanel Orientation="Vertical"
 							Margin="4, 0, 4, 0">
-					
+
 					<TextBlock Text="Dexterity" VerticalAlignment="Center"/>
-				
+
 					<StackPanel Orientation="Horizontal">
-						<TextBox Text="{Binding Dexterity, Mode=TwoWay}"/>
-						<CheckBox Checked="{Binding DexIsProficient, Mode=TwoWay}"/>						
+						<!--<TextBox Text="{Binding Dexterity, Mode=TwoWay}"/>-->
+						<!--<CheckBox Checked="{Binding DexIsProficient, Mode=TwoWay}"/>-->
 					</StackPanel>
 				</StackPanel>
-				
+
 				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Constitution" VerticalAlignment="Center"/>
-					
+					<!--<TextBlock Text="Constitution" VerticalAlignment="Center"/>-->
+
 					<StackPanel Orientation="Horizontal">
-						<TextBox Text="{Binding Constitution, Mode=TwoWay}"/>
-						<CheckBox Checked="{Binding ConIsProficient, Mode=TwoWay}"/>
+						<!--<TextBox Text="{Binding Constitution, Mode=TwoWay}"/>-->
+						<!--<CheckBox Checked="{Binding ConIsProficient, Mode=TwoWay}"/>-->
 					</StackPanel>
 				</StackPanel>
-				
+
 				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Inteligence" VerticalAlignment="Center"/>
-				
+					<!--<TextBlock Text="Intelligence" VerticalAlignment="Center"/>-->
+
 					<StackPanel Orientation="Horizontal">
-						<TextBox Text="{Binding Intelligence, Mode=TwoWay}"/>
-						<CheckBox Checked="{Binding IntIsProficient, Mode=TwoWay}"/>
+						<!--<TextBox Text="{Binding Intelligence, Mode=TwoWay}"/>-->
+						<!--<CheckBox Checked="{Binding IntIsProficient, Mode=TwoWay}"/>-->
 					</StackPanel>
 				</StackPanel>
-				
+
 				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Wisdom" VerticalAlignment="Center"/>
-				
+					<!--<TextBlock Text="Wisdom" VerticalAlignment="Center"/>-->
+
 					<StackPanel Orientation="Horizontal">
-						<TextBox Text="{Binding Wisdom, Mode=TwoWay}"/>
-						<CheckBox Checked="{Binding WisIsProficient, Mode=TwoWay}"/>
+						<!--<TextBox Text="{Binding Wisdom, Mode=TwoWay}"/>-->
+						<!--<CheckBox Checked="{Binding WisIsProficient, Mode=TwoWay}"/>-->
 					</StackPanel>
 				</StackPanel>
-				
+
 				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Charisma" VerticalAlignment="Center"/>
-					
+					<!--<TextBlock Text="Charisma" VerticalAlignment="Center"/>-->
+
 					<StackPanel Orientation="Horizontal">
 						<TextBox Text="{Binding Charisma, Mode=TwoWay}"/>
-						<CheckBox Checked="{Binding ChaIsProficient, Mode=TwoWay}"/>
+						<!--<CheckBox Checked="{Binding ChaIsProficient, Mode=TwoWay}"/>-->
 					</StackPanel>
 				</StackPanel>
-				
-			
-		
-			
-				
-				
+
+
+
+
+
+
 			</VariableSizedWrapGrid>
 		</StackPanel>
 
@@ -238,514 +238,3 @@
 
 	</RelativePanel>
 </Page>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
