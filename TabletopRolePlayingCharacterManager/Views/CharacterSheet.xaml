@@ -173,7 +173,7 @@
 					<TextBlock Text="Strength" VerticalAlignment="Center"/>
 					
 					<StackPanel Orientation="Horizontal">
-						<TextBox Text="{Binding Strength, Mode=TwoWay}"/>
+						<TextBox Text="{Binding Strength, Mode=TwoWay}" InputScope="Number"/>
 						<CheckBox Checked="{Binding StrIsProficient, Mode=TwoWay}" MinWidth="32"/>
 					</StackPanel>
 				</StackPanel>
