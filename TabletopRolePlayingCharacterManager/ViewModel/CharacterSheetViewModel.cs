@@ -12,7 +12,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
-		Character5E character;
+		Character5E character = new Character5E();
 
 		public CharacterSheetViewModel()
 		{
@@ -73,7 +73,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 			set
 			{
-				character.Level = int.Parse(value);
+				var result = character.Level;
+				if (int.TryParse(value, out result))
+				{
+					character.Level = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -85,7 +90,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 			set
 			{
-				character.Experience = int.Parse(value);
+				var result = character.Experience;
+				if (int.TryParse(value, out result))
+				{
+					character.Experience = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -101,7 +111,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 			set
 			{
-				character.Age = int.Parse(value);
+				var result = character.Age;
+				if (int.TryParse(value, out result))
+				{
+					character.Age = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -181,7 +196,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.AbilityScores[MainStat.Strength].ToString(); }
 			set
 			{
-				character.AbilityScores[MainStat.Strength] = int.Parse(value);
+				var result = character.AbilityScores[MainStat.Strength];
+				if (int.TryParse(value, out result))
+				{
+					character.AbilityScores[MainStat.Strength] = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -190,7 +210,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.AbilityScores[MainStat.Dexterity].ToString(); }
 			set
 			{
-				character.AbilityScores[MainStat.Dexterity] = int.Parse(value);
+
+				var result = character.AbilityScores[MainStat.Dexterity];
+				if (int.TryParse(value, out result))
+				{
+					character.AbilityScores[MainStat.Dexterity] = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -199,7 +225,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.AbilityScores[MainStat.Constitution].ToString(); }
 			set
 			{
-				character.AbilityScores[MainStat.Constitution] = int.Parse(value);
+
+				var result = character.AbilityScores[MainStat.Constitution];
+				if (int.TryParse(value, out result))
+				{
+					character.AbilityScores[MainStat.Constitution] = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -208,7 +240,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.AbilityScores[MainStat.Intelligence].ToString(); }
 			set
 			{
-				character.AbilityScores[MainStat.Intelligence] = int.Parse(value);
+
+				var result = character.AbilityScores[MainStat.Intelligence];
+				if (int.TryParse(value, out result))
+				{
+					character.AbilityScores[MainStat.Intelligence] = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -217,7 +255,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.AbilityScores[MainStat.Wisdom].ToString(); }
 			set
 			{
-				character.AbilityScores[MainStat.Wisdom] = int.Parse(value);
+
+				var result = character.AbilityScores[MainStat.Wisdom];
+				if (int.TryParse(value, out result))
+				{
+					character.AbilityScores[MainStat.Wisdom] = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}
@@ -226,7 +270,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.AbilityScores[MainStat.Charisma].ToString(); }
 			set
 			{
-				character.AbilityScores[MainStat.Charisma] = int.Parse(value);
+
+				var result = character.AbilityScores[MainStat.Charisma];
+				if (int.TryParse(value, out result))
+				{
+					character.AbilityScores[MainStat.Charisma] = result;
+				}
+
 				RaisePropertyChanged();
 			}
 		}

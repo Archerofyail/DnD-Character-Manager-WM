@@ -60,7 +60,16 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public Character5E()
 		{
-			abilityModifiers = new Dictionary<MainStat, int>();
+			abilityModifiers = new Dictionary<MainStat, int>
+			{
+				{ MainStat.Strength, 10 },
+				{ MainStat.Dexterity, 10 },
+				{ MainStat.Constitution, 10 },
+				{ MainStat.Intelligence, 10 },
+				{ MainStat.Wisdom, 10 },
+				{ MainStat.Charisma, 10 },
+
+			};
 		}
 
 

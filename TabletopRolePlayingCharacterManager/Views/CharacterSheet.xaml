@@ -10,8 +10,7 @@
 	<Page.DataContext>
 		<vm:CharacterSheetViewModel/>
 	</Page.DataContext>
-<!--TODO: Add ability score modifier to top right of ability score boxes
-	Implement the view model-->
+
 	<Page.Resources>
 		<ResourceDictionary >
 			<DataTemplate x:Key="Skill">
@@ -174,7 +173,7 @@
 					
 					<StackPanel Orientation="Horizontal">
 						<TextBox Text="{Binding Strength, Mode=TwoWay}" InputScope="Number"/>
-						<CheckBox Checked="{Binding StrIsProficient, Mode=TwoWay}" MinWidth="32"/>
+						<CheckBox Checked="{Binding StrIsProficient, Mode=TwoWay}"/>
 					</StackPanel>
 				</StackPanel>
 				
