@@ -7,7 +7,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	xmlns:vm="using:TabletopRolePlayingCharacterManager.ViewModel">
-	<Page.DataContext>
+	<!--<Page.DataContext>
 		<vm:CharacterSheetViewModel/>
 	</Page.DataContext>
 
@@ -243,5 +243,5 @@
 
 		</GridView>
 
-	</StackPanel>
+	</StackPanel>-->
 </Page>

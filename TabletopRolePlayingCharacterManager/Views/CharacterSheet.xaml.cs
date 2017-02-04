@@ -16,17 +16,17 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		public void GeneralTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
 		{
-			ClassAndRaceInfo.Visibility = ClassAndRaceInfo.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Collapsed;
+			//ClassAndRaceInfo.Visibility = ClassAndRaceInfo.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Collapsed;
 		}
 
 		private void AbilityScoresHeaderTapped(object sender, TappedRoutedEventArgs e)
 		{
-			AbilityScores.Visibility = AbilityScores.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Collapsed;
+			//AbilityScores.Visibility = AbilityScores.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Collapsed;
 		}
 
 		private void PhysicalDescriptionHeaderTapped(object sender, TappedRoutedEventArgs e)
 		{
-			PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Collapsed;
+			//PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Collapsed;
 		}
 	}
 }

@@ -47,13 +47,13 @@ namespace TabletopRolePlayingCharacterManager
 			await CharacterTemplateDialog.ShowAsync();
 		}
 
-		private async void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
+		private void CharacterTemplateListClicked(object sender, TappedRoutedEventArgs e)
 		{
 
-			await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-			 {
+			//await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+			 //{
 				 Frame.Navigate(typeof(CharacterSheet));
-			 });
+			 //});
 		
 			//var dm = DataContext as MainPageViewModel;
 			//if (dm != null)
