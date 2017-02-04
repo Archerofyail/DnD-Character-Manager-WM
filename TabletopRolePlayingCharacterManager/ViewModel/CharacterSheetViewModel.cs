@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
+	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
 		private string charName = "New Character";

@@ -10,7 +10,8 @@
 	<Page.DataContext>
 		<vm:CharacterSheetViewModel/>
 	</Page.DataContext>
-
+<!--TODO: Add ability score modifier to top right of ability score boxes
+	Implement the view model-->
 	<Page.Resources>
 		<ResourceDictionary >
 			<DataTemplate x:Key="Skill">
