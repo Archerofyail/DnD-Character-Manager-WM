@@ -1,4 +1,5 @@
 using System;
+using TabletopRolePlayingCharacterManager.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -10,6 +11,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 		public CharacterSheet ()
 		{
 			InitializeComponent();
+			
 		}
 
 		public void GeneralTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
