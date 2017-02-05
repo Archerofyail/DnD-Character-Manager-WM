@@ -26,7 +26,7 @@ namespace TabletopRolePlayingCharacterManager
 		D100
 	}
 
-	public enum DamageType
+	public enum WeaponType
 	{
 		Melee,
 		Ranged

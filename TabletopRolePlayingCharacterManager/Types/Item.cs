@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-	public class Weapon
+	class Item
 	{
 
 		public string Name { get; set; }
-		public WeaponType WeaponType { get; set; }
-		public string Damage { get; set; }
+		public string Description { get; set; }
 	}
 }

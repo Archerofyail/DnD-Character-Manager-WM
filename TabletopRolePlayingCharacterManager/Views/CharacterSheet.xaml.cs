@@ -28,5 +28,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 		{
 			PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
 		}
+
+		private void DeleteCharacterClick(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

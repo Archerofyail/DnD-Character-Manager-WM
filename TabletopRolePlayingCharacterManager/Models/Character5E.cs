@@ -106,6 +106,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 			CalculateSkillBonuses();
 		}
 
+		public Character5E(int id) : this()
+		{
+			this.id = id;
+		}
 
 		public void CalculateAbilityModifiers(bool recalculate = false)
 		{

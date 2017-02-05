@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 
@@ -13,14 +15,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
-		Character5E character = new Character5E();
+		Character5E character;
 
 		public CharacterSheetViewModel()
 		{
 			character = CharacterManager.CurrentCharacter;
 			if (character == null)
 			{
-				character = new Character5E();
+				character = CharacterManager.GetNewChar();
 			}
 		}
 
@@ -372,5 +374,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				return skills;
 			}
 		}
+
+
+
+		#region Commands
+
+
+		public ICommand SaveCharacter { get { return new RelayCommand(SaveCharacterExecute, CanRunCommand); } }
+		#region CommandFunctions
+		void SaveCharacterExecute()
+		{
+			CharacterManager.SaveCurrentCharacter();
+		}
+
+		bool CanRunCommand()
+		{
+			return true;
+		}
+		#endregion
+		#endregion
 	}
 }
