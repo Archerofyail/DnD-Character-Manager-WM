@@ -351,6 +351,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		#endregion
 		#endregion
 
+		#region Lists
 		private ObservableCollection<SkillViewModel> skills = new ObservableCollection<SkillViewModel>();
 		public ObservableCollection<SkillViewModel> Skills
 		{
@@ -360,14 +361,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					foreach (var skill in character.Skills)
 					{
-						skills.Add(new SkillViewModel
-						{
-							Name = skill.Name,
-							Bonus = skill.Bonus,
-							IsProficient = skill.IsProficient,
-							MainStat = skill.MainStat.ToString()
-
-						});
+						skills.Add(new SkillViewModel(skill));
 					}
 					RaisePropertyChanged();
 				}
@@ -375,12 +369,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-
+		#endregion
 
 		#region Commands
 
 
 		public ICommand SaveCharacter { get { return new RelayCommand(SaveCharacterExecute, CanRunCommand); } }
+		public ICommand DeleteItem => new RelayCommand<Item>(DeleteItemExecute);
+		public ICommand DeleteWeapon => new RelayCommand<Weapon>(DeleteWeaponExecute);
 		#region CommandFunctions
 		void SaveCharacterExecute()
 		{
@@ -391,6 +387,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		{
 			return true;
 		}
+
+		void DeleteItemExecute(Item param)
+		{
+			character.Inventory.Remove(param as Item);
+		}
+
+		void DeleteWeaponExecute(Weapon param)
+		{
+			character.Weapons.Remove(param);
+		}
+
 		#endregion
 		#endregion
 	}

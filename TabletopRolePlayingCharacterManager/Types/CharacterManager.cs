@@ -22,11 +22,6 @@ namespace TabletopRolePlayingCharacterManager.Types
 			LoadAllCharacters();
 		}
 
-		public async static void SaveNewCharacter()
-		{
-
-		}
-
 		public async static void LoadAllCharacters()
 		{
 			foreach(var file in await SaveFolder.GetFilesAsync())

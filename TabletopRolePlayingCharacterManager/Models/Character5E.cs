@@ -57,7 +57,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		#endregion
 
 		public List<Skill> Skills { get; set; } = new List<Skill>();
-
+		public List<Item> Inventory { get; set; }
+		public List<Weapon> Weapons { get; set; }
 
 		public Character5E()
 		{

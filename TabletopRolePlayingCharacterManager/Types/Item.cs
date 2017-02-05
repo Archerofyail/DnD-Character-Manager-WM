@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-	class Item
+	public class Item
 	{
 
 		public string Name { get; set; }
