@@ -42,20 +42,21 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		private ObservableCollection<Character5E> _characterList = new ObservableCollection<Character5E>();
+		private ObservableCollection<CharacterViewModel> _characterList = new ObservableCollection<CharacterViewModel>();
 
-		public ObservableCollection<Character5E> CharacterList
+		public ObservableCollection<CharacterViewModel> Characters
 		{
 			get
 			{
 				if (_characterList.Count == 0)
 				{
-					//foreach (var character in DbLoader.Characters)
-					//{
-					//	_characterList.Add(character);
-					//}
-
+					foreach (var character in CharacterManager.Characters)
+					{
+						_characterList.Add(new CharacterViewModel(character));
+					}
+					
 				}
+				
 				return _characterList;
 			}
 		}
@@ -71,25 +72,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		#endregion
 
 
-		public async void LoadCharactersFromFile()
-		{
-			StorageFolder roamingFolder = ApplicationData.Current.RoamingFolder;
-			StorageFolder characterFolder = await StorageFolder.GetFolderFromPathAsync(roamingFolder.Path);
-			IReadOnlyList<StorageFile> files = await characterFolder.GetFilesAsync();
-			foreach (var charFile in files)
-			{
-				try
-				{
-					string charJsonString = await FileIO.ReadTextAsync(charFile);
-
-				}
-				catch (Exception)
-				{
-
-					throw;
-				}
-			}
-		}
+		
 
 		public void CharacterTemplateListClicked()
 		{

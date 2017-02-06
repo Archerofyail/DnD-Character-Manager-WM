@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
+using TabletopRolePlayingCharacterManager.Models;
+
+namespace TabletopRolePlayingCharacterManager.ViewModel
+{
+	class CharacterViewModel : ViewModelBase
+	{
+		public CharacterViewModel(Character5E ch)
+		{
+			character = ch;
+		}
+		private Character5E character;
+		public string Name
+		{
+			get { return character.Name; }
+		}
+
+		public string ClassAndLevel
+		{
+			get { return "Level " + character.Level + " " + character.Class; }
+		}
+	}
+}

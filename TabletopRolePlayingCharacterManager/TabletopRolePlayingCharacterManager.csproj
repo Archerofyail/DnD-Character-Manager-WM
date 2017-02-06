@@ -112,8 +112,11 @@
     <Compile Include="Types\Spell.cs" />
     <Compile Include="Types\Weapon.cs" />
     <Compile Include="ViewModel\CharacterSheetViewModel.cs" />
+    <Compile Include="ViewModel\CharacterViewModel.cs" />
+    <Compile Include="ViewModel\ItemViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\SkillViewModel.cs" />
+    <Compile Include="ViewModel\WeaponViewModel.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">
       <DependentUpon>AddNewCharacter.xaml</DependentUpon>
     </Compile>
