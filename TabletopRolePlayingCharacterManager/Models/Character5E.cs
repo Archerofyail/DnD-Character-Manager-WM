@@ -17,38 +17,43 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int MaxHP { get; set; }
 		public int CurrHP { get; set; }
 		public int TempHP { get; set; }
-		
+		public int Initiative { get { return abilityModifiers[MainStat.Dexterity]; } }
+
 		public bool[] DeathSaveFails { get; set; } = new bool[3];
-		
+
 		public bool[] DeathSaveSuccesses { get; set; } = new bool[3];
-		
+
 		#region Aesthetic Featues
-		
+
 		public string Name { get; set; }
 		public string Race { get; set; }
 		public string Class { get; set; }
 		public string Alignment { get; set; }
 		public int Age { get; set; }
-		
-		
+
+
 		public string Height { get; set; }
-		
+
 		public string Weight { get; set; }
-		
+
 		public string Eyes { get; set; }
-		
+
 		public string Skin { get; set; }
-		
+
 		public string Hair { get; set; }
 		#endregion
 
-	
-		
+		public string PersonalityTraits { get; set; }
+		public string Ideals { get; set; }
+		public string Bonds { get; set; }
+		public string Flaws { get; set; }
+
+
 		public int ProficiencyBonus => Utility.CalculateProficiencyBonus(Level);
 
 		public int ArmorClass { get; set; } = 10;
 
-		
+
 		public Dictionary<MainStat, int> AbilityScores { get; set; } = new Dictionary<MainStat, int>();
 		public Dictionary<MainStat, bool> AbilityScoreProficiencies { get; set; } = new Dictionary<MainStat, bool>();
 		#region Ignored
@@ -130,7 +135,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public void CalculateSkillBonuses()
 		{
-		
+
 			if (abilityModifiers.Count == 0 || abilityModifiers == null)
 			{
 				CalculateAbilityModifiers();

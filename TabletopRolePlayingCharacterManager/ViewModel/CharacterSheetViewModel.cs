@@ -109,6 +109,81 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		#endregion
 
+		#region CombatStats
+
+		public string ArmorClass
+		{
+			get { return character.ArmorClass.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					character.ArmorClass = result;
+				}
+			}
+		}
+
+		public string Initiative
+		{
+			get { return character.Initiative.ToString(); }
+		}
+
+		public string Speed
+		{
+			get { return character.Speed.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					if (result % 5 == 0)
+					{
+						character.Speed = result;
+					}
+				}
+			}
+		}
+
+		public string CurrentHealth
+		{
+			get { return character.CurrHP.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					character.CurrHP = result;
+				}
+			}
+		}
+
+		public string MaxHealth
+		{
+			get { return character.MaxHP.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					character.MaxHP = result;
+				}
+			}
+		}
+		public string TemporaryHealth
+		{
+			get { return character.TempHP.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					character.TempHP = result;
+				}
+			}
+		}
+		#endregion
+
 		#region PhysicalTraits
 
 		public string Age
@@ -349,6 +424,30 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 		#endregion
+		#endregion
+
+		#region Personality
+
+		public string PersonalityTraits
+		{
+			get { return character.PersonalityTraits; }
+			set { character.PersonalityTraits = value; }
+		}
+		public string Ideals
+		{
+			get { return character.Ideals; }
+			set { character.Ideals = value; }
+		}
+		public string Bonds
+		{
+			get { return character.Bonds; }
+			set { character.Bonds = value; }
+		}
+		public string Flaws
+		{
+			get { return character.Flaws; }
+			set { character.Flaws = value; }
+		}
 		#endregion
 
 		#region Lists
