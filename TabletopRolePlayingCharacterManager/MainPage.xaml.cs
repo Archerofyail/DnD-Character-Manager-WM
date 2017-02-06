@@ -38,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager
 
 			DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
-
+			CharacterManager.LoadAllCharacters();
 		}
 
 		

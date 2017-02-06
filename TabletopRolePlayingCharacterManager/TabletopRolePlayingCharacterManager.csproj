@@ -95,6 +95,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TabHeader.xaml.cs">
+      <DependentUpon>TabHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EnumsAndStructs.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -106,6 +109,7 @@
     <Compile Include="Types\Item.cs" />
     <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Types\Skill.cs" />
+    <Compile Include="Types\Spell.cs" />
     <Compile Include="Types\Weapon.cs" />
     <Compile Include="ViewModel\CharacterSheetViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
@@ -147,6 +151,10 @@
     <Page Include="Assets\Dictionary1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TabHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
