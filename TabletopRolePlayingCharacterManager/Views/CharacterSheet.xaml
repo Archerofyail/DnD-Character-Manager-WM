@@ -348,6 +348,7 @@
 
 							</Grid>
 
+
 							<Grid Name="PhysicalDescription">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*"/>
@@ -396,6 +397,80 @@
 								</StackPanel>
 							</Grid>
 						</StackPanel>
+						<StackPanel Name="CharacterPersonality" Orientation="Vertical">
+							<TextBlock Text="Personality Traits"/>
+							<TextBox Height="96" Text="{Binding PersonalityTraits}"/>
+							<TextBlock Text="Ideals"/>
+							<TextBox Height="96" Text="{Binding Ideals}"/>
+							<TextBlock Text="Bonds"/>
+							<TextBox Height="96" Text="{Binding Bonds}"/>
+							<TextBlock Text="Flaws"/>
+							<TextBox Height="96" Text="{Binding Flaws}"/>
+						</StackPanel>
+
+					</StackPanel>
+				</PivotItem>
+				<PivotItem>
+
+					<PivotItem.Header>
+						<controls:TabHeader Label="Ability Scores\n&amp; Skills" Symbol="List"/>
+					</PivotItem.Header>
+					<StackPanel>
+						<Grid Name="CombatInfoPanel"
+							  Margin="0, 0, 0, 8">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="3*"/>
+								<RowDefinition Height="12"/>
+								<RowDefinition Height="3*"/>
+
+							</Grid.RowDefinitions>
+
+
+							<StackPanel Orientation="Vertical"
+								 Margin="4, 0, 4, 0">
+								<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
+								<TextBlock Text="AC" HorizontalAlignment="Center"/>
+							</StackPanel>
+							<StackPanel Orientation="Vertical" 
+								 Margin="4, 0, 4, 0" Grid.Row="0" Grid.Column="1">
+								<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
+								<TextBlock Text="Initiative" HorizontalAlignment="Center"/>
+							</StackPanel>
+							<StackPanel Orientation="Vertical"
+								 Margin="4, 0, 4, 0" Grid.Column="2">
+								<TextBox Text="{Binding Speed, Mode=TwoWay}" />
+								<TextBlock Text="Speed" HorizontalAlignment="Center"/>
+							</StackPanel>
+							<StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2"
+										>
+								<StackPanel Orientation="Horizontal"
+											Name="HealthBoxes">
+									<TextBox Name="CurrentHP" FontSize="16" PlaceholderText="HP"
+											 Text="{Binding CurrentHealth}"
+											  Margin="4, 0, 4, 0"></TextBox>
+									<TextBlock Text="/" FontSize="16"
+											   />
+									<TextBox Name="MaxHP" FontSize="16" TextAlignment="Center" IsTextPredictionEnabled="False"
+											 PlaceholderText="Max HP"
+											 Text="{Binding MaxHealth}"></TextBox>
+								</StackPanel>
+								<TextBlock Text="Hit Points" Margin="42, 0, 0, 0"/>
+							</StackPanel>
+							<StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"
+										Margin="0, 0, 4, 0">
+								<TextBox Text="{Binding TemporaryHealth}"/>
+								<TextBlock 
+									Text="Temporary Hit Points" TextWrapping="WrapWholeWords" MaxLines="1"
+									
+									Margin="-32, 0, 0, 0"
+									HorizontalAlignment="Right"/>
+							</StackPanel>
+						</Grid>
 						<StackPanel Name="AbilityScoresStackPanel"
 					Orientation="Vertical"
 					RelativePanel.Below="PhysicalDescriptionPanel"
@@ -488,7 +563,6 @@
 				  ItemsSource="{Binding Skills}">
 
 						</GridView>
-
 					</StackPanel>
 				</PivotItem>
 				<PivotItem>
