@@ -490,15 +490,33 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (spells.Count == 0)
 				{
-					foreach (var item in character.Inventory)
+					foreach (var item in character.Spells)
 					{
-						spells.Add(new SpellViewModel());
+						spells.Add(new SpellViewModel(item));
 					}
 				}
 				return spells;
 
 			}
 		}
+		private ObservableCollection<WeaponViewModel> weapons = new ObservableCollection<WeaponViewModel>();
+
+		public ObservableCollection<WeaponViewModel> Weapons
+		{
+			get
+			{
+				if (weapons.Count == 0)
+				{
+					foreach (var item in character.Weapons)
+					{
+						weapons.Add(new WeaponViewModel(item));
+					}
+				}
+				return weapons;
+
+			}
+		}
+
 
 		#region GlobalListControl
 

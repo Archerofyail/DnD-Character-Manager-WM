@@ -4,7 +4,7 @@ using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	class WeaponViewModel : ViewModelBase
+	public class WeaponViewModel : ViewModelBase
 	{
 		private Weapon weapon;
 
