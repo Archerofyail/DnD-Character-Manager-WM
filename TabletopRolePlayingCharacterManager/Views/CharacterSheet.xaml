@@ -267,6 +267,9 @@
 							  TextWrapping="WrapWholeWords"/>
 			</StackPanel>
 		</DataTemplate>
+		<Style x:Key="NoBackgroundAddButton" TargetType="Button">
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 		  Name="RootElement">
@@ -570,16 +573,99 @@
 						<controls:TabHeader Label="Inventory" Symbol="Tag"/>
 					</PivotItem.Header>
 					<StackPanel>
-						<ListView ItemsSource="{Binding Inventory}"
+						<TextBlock Text="Weapons"/>
+						<ListView ItemsSource="{Binding Weapons}"
+								  ItemTemplate="{StaticResource Weapon}"
 							  />
+						<Button Style="{StaticResource NoBackgroundAddButton}" HorizontalAlignment="Right">
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="150">
+										<TextBox PlaceholderText="Name" Margin="4"/>
+										<TextBox PlaceholderText="Damage"
+												 Margin="4"/>
+										<StackPanel Orientation="Horizontal">
+											<CheckBox Content="Also Add to Compendium"
+													  Margin="4"
+													  IsChecked="{Binding AddItemToGlobalList}"/>
+											<Button Content="+ Add Item" Margin="4"
+												Command="{Binding AddNewItem}"/>
+										</StackPanel>
+									</StackPanel>
+								</Flyout>
+							</Button.Flyout>
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add"/>
+									<TextBlock Text="Add new Weapon" Margin="4, 0, 0, 0"/>
+								</StackPanel>
+							</Button.Content>
+						</Button>
+						<TextBlock Text="Items"/>
+						<ListView ItemsSource="{Binding Inventory}"
+								  ItemTemplate="{StaticResource Item}"
+							  />
+						<Button Style="{StaticResource NoBackgroundAddButton}" HorizontalAlignment="Right">
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="150">
+										<TextBox PlaceholderText="Name" Margin="4"/>
+										<TextBox PlaceholderText="Description"
+												 Height="96"
+												 Margin="4"/>
+										<StackPanel Orientation="Horizontal">
+											<CheckBox Content="Also Add to Compendium"
+													  Margin="4"
+													  IsChecked="{Binding AddItemToGlobalList}"/>
+											<Button Content="+ Add Item" Margin="4"
+												Command="{Binding AddNewItem}"/>
+										</StackPanel>
+									</StackPanel>
+								</Flyout>
+							</Button.Flyout>
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add"/>
+									<TextBlock Text="Add new Item" Margin="4, 0, 0, 0"/>
+								</StackPanel>
+							</Button.Content>
+						</Button>
 					</StackPanel>
 				</PivotItem>
 				<PivotItem>
 					<PivotItem.Header>
 						<controls:TabHeader Label="Spells" Symbol="Library"/>
 					</PivotItem.Header>
-					<ListView ItemsSource="{Binding Spells}"
+					<StackPanel>
+						<ListView ItemsSource="{Binding Spells}"
 						  ItemTemplate="{StaticResource Spell}"/>
+						<Button Style="{StaticResource NoBackgroundAddButton}" HorizontalAlignment="Right"
+								>
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="150">
+										<TextBox PlaceholderText="Name" Margin="4"/>
+										<TextBox PlaceholderText="Description"
+												 Height="96"
+												 Margin="4"/>
+										<StackPanel Orientation="Horizontal">
+											<CheckBox Content="Also Add to Compendium"
+													  Margin="4"
+													  IsChecked="{Binding AddSpellToGlobalList}"/>
+										<Button Content="+ Add Spell" Margin="4"
+												Command="{Binding AddNewSpell}"/>
+										</StackPanel>
+									</StackPanel>
+								</Flyout>
+							</Button.Flyout>
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add"/>
+									<TextBlock Text="Add new Spell" Margin="4, 0, 0, 0"/>
+								</StackPanel>
+							</Button.Content>
+						</Button>
+					</StackPanel>
 				</PivotItem>
 			</Pivot>
 		</ScrollViewer>

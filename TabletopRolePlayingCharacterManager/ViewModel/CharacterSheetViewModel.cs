@@ -551,6 +551,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public ICommand SaveCharacter { get { return new RelayCommand(SaveCharacterExecute, CanRunCommand); } }
 		public ICommand DeleteItem => new RelayCommand<Item>(DeleteItemExecute);
 		public ICommand DeleteWeapon => new RelayCommand<Weapon>(DeleteWeaponExecute);
+		public ICommand AddNewItem => new RelayCommand(AddNewItemExecute, CanRunCommand);
+		public ICommand AddNewSpell => new RelayCommand(AddNewSpellExecute, CanRunCommand);
+		public ICommand AddNewWeapon => new RelayCommand(AddNewWeaponExecute, CanRunCommand);
 
 		#region CommandFunctions
 		void SaveCharacterExecute()
@@ -577,7 +580,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		//Then, if it's added to the global list, add it to the global list
 		//Then, add it to the characters list, then create a new viewmodel based on it and add that to the observablecollection. 
 		//Then, finally, raise property changed the collection
-		void AddNewItem()
+		void AddNewItemExecute()
 		{
 			if (AddItemToGlobalList)
 			{
@@ -585,7 +588,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		void AddNewSpell()
+		void AddNewSpellExecute()
 		{
 			if (AddSpellToGlobalList)
 			{
@@ -593,7 +596,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		void AddNewWeapon()
+		void AddNewWeaponExecute()
 		{
 			if (AddWeaponToGlobalList)
 			{

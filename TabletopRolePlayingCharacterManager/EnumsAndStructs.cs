@@ -85,6 +85,9 @@ namespace TabletopRolePlayingCharacterManager
 			{MainStat.Wisdom, "WIS" },
 			{MainStat.Charisma, "CHA" }
 		};
+
+		public static Random Rand = new Random();
+
 		public static int CalculateMainStatBonus(int mainStat)
 		{
 			int bonus = 0;
