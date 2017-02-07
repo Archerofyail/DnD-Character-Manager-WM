@@ -114,12 +114,16 @@
     <Compile Include="Types\RacialBonus.cs" />
     <Compile Include="Types\Skill.cs" />
     <Compile Include="Types\Spell.cs" />
+    <Compile Include="Types\SpellEffect.cs" />
     <Compile Include="Types\Trait.cs" />
     <Compile Include="Types\Weapon.cs" />
     <Compile Include="ViewModel\CharacterSheetViewModel.cs" />
     <Compile Include="ViewModel\CharacterViewModel.cs" />
+    <Compile Include="ViewModel\ClassViewModel.cs" />
+    <Compile Include="ViewModel\CompendiumViewModel.cs" />
     <Compile Include="ViewModel\ItemViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\RaceViewModel.cs" />
     <Compile Include="ViewModel\SkillViewModel.cs" />
     <Compile Include="ViewModel\SpellViewModel.cs" />
     <Compile Include="ViewModel\WeaponViewModel.cs" />
@@ -131,6 +135,9 @@
     </Compile>
     <Compile Include="Views\CharacterSheet.xaml.cs">
       <DependentUpon>CharacterSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Compendium.xaml.cs">
+      <DependentUpon>Compendium.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -180,6 +187,10 @@
     <Page Include="Views\CharacterSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Compendium.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>

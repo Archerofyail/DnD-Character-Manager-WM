@@ -7,7 +7,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 	{
 		public string Race { get; }
 		public List<Tuple<MainStat, int>> StatBonuses { get; } = new List<Tuple<MainStat, int>>();
-		private int speedBonus = 5;
+		private int speedBonus = 30;
 
 		public int SpeedBonus
 		{
@@ -15,6 +15,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			{
 				return speedBonus;
 			}
+			set { speedBonus = value; }
 		}
 	}
 }

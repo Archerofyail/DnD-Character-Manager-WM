@@ -48,7 +48,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			Debug.WriteLine("Roaming Folder is at: " + SaveFolder.Path);
 		}
 
-		public static async Task LoadAllCharacters()
+		public static async void LoadAllCharacters()
 		{
 			if (SaveFolder == null)
 			{
@@ -88,14 +88,13 @@ namespace TabletopRolePlayingCharacterManager.Types
 			var fileName = "Races.json";
 			var file = await GetOrCreateStorageFile(fileName);
 			RacialBonuses = LoadObjectFromJsonFile<Dictionary<string, RacialBonus>>(file);
-
-
-
 		}
 
 		public async static void SaveRaces()
 		{
-
+			var fileName = "Races.json";
+			var file = await GetOrCreateStorageFile(fileName);
+			await SaveObjectToFile(RacialBonuses, file);
 		}
 
 		public async static void LoadItems()
@@ -107,7 +106,9 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public async static void SaveItems()
 		{
-
+			var fileName = "Items.json";
+			var file = await GetOrCreateStorageFile(fileName);
+			await SaveObjectToFile(AllItems, file);
 		}
 
 		public async static void LoadClasses()
@@ -120,6 +121,9 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public async static void SaveClasses()
 		{
 
+			var fileName = "Classes.json";
+			var file = await GetOrCreateStorageFile(fileName);
+			await SaveObjectToFile(ClassBonuses, file);
 		}
 
 		public async static void LoadSpells()
@@ -131,7 +135,9 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public async static void SaveSpells()
 		{
-
+			var fileName = "Spells.json";
+			var file = await GetOrCreateStorageFile(fileName);
+			await SaveObjectToFile(AllSpells, file);
 		}
 
 		public async static void LoadWeapons()
@@ -140,15 +146,33 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 			var file = await GetOrCreateStorageFile(fileName);
 			AllWeapons = LoadObjectFromJsonFile<List<Weapon>>(file);
-
-
 		}
-
-
 
 		public async static void SaveWeapons()
 		{
+			var fileName = "Weapons.json";
 
+			var file = await GetOrCreateStorageFile(fileName);
+			await SaveObjectToFile(AllWeapons, file);
+		}
+
+		public static void LoadCompendium()
+		{
+			LoadRaces();
+			LoadClasses();
+			LoadItems();
+			LoadWeapons();
+			LoadSpells();
+			LoadAllCharacters();
+		}
+
+		public static void SaveAll()
+		{
+			SaveRaces();
+			SaveClasses();
+			SaveItems();
+			SaveWeapons();
+			SaveSpells();
 		}
 
 		public async static Task<StorageFile> GetOrCreateStorageFile(string fileName)
@@ -166,7 +190,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			return file;
 		}
 
-		private static async void SaveObjectToFile(object saveObject, StorageFile file)
+		private static async Task SaveObjectToFile(object saveObject, StorageFile file)
 		{
 			var json = JsonConvert.SerializeObject(saveObject);
 			await FileIO.WriteTextAsync(file, json);
