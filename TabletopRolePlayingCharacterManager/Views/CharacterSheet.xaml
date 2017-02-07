@@ -413,7 +413,7 @@
 				<PivotItem>
 
 					<PivotItem.Header>
-						<controls:TabHeader Label="Ability Scores\n&amp; Skills" Symbol="List"/>
+						<controls:TabHeader Label="Ability Scores&#x0a;&amp; Skills" Symbol="List"/>
 					</PivotItem.Header>
 					<StackPanel>
 						<Grid Name="CombatInfoPanel"

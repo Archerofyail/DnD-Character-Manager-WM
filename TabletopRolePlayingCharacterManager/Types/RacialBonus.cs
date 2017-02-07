@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-	class RacialBonus
+	public class RacialBonus
 	{
 		public string Race { get; }
 		public List<Tuple<MainStat, int>> StatBonuses { get; } = new List<Tuple<MainStat, int>>();

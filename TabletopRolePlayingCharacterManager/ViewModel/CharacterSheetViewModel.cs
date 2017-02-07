@@ -12,6 +12,7 @@ using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
+	//TODO: Save some values for the view to a json file (like if the global list checkboxes are checked)
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
@@ -468,6 +469,80 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		private ObservableCollection<ItemViewModel> items = new ObservableCollection<ItemViewModel>();
+
+		public ObservableCollection<ItemViewModel> Items
+		{
+			get
+			{
+				if (items.Count == 0)
+				{
+					foreach (var item in character.Inventory)
+					{
+						items.Add(new ItemViewModel(item));
+					}
+				}
+				return items;
+
+			}
+		}
+
+		private ObservableCollection<SpellViewModel> spells = new ObservableCollection<SpellViewModel>();
+
+		public ObservableCollection<SpellViewModel> Spells
+		{
+			get
+			{
+				if (spells.Count == 0)
+				{
+					foreach (var item in character.Inventory)
+					{
+						spells.Add(new SpellViewModel());
+					}
+				}
+				return spells;
+
+			}
+		}
+
+		#region GlobalListControl
+
+		private bool addSpellToGlobalList;
+
+		public bool AddSpellToGlobalList
+		{
+			get { return addSpellToGlobalList;}
+			set
+			{
+				addSpellToGlobalList = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private bool addItemToGlobalList;
+
+		public bool AddItemToGlobalList
+		{
+			get { return addItemToGlobalList; }
+			set
+			{
+				addItemToGlobalList = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private bool addWeaponToGlobalList;
+
+		public bool AddWeaponToGlobalList
+		{
+			get { return addWeaponToGlobalList; }
+			set
+			{
+				addWeaponToGlobalList = value;
+				RaisePropertyChanged();
+			}
+		}
+		#endregion
 		#endregion
 
 		#region Commands
@@ -476,6 +551,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public ICommand SaveCharacter { get { return new RelayCommand(SaveCharacterExecute, CanRunCommand); } }
 		public ICommand DeleteItem => new RelayCommand<Item>(DeleteItemExecute);
 		public ICommand DeleteWeapon => new RelayCommand<Weapon>(DeleteWeaponExecute);
+
 		#region CommandFunctions
 		void SaveCharacterExecute()
 		{
@@ -497,6 +573,33 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.Weapons.Remove(param);
 		}
 
+		//TODO: create new spell/item/weapon, based on values in flyouts that I'll make later
+		//Then, if it's added to the global list, add it to the global list
+		//Then, add it to the characters list, then create a new viewmodel based on it and add that to the observablecollection. 
+		//Then, finally, raise property changed the collection
+		void AddNewItem()
+		{
+			if (AddItemToGlobalList)
+			{
+				
+			}
+		}
+
+		void AddNewSpell()
+		{
+			if (AddSpellToGlobalList)
+			{
+				
+			}
+		}
+
+		void AddNewWeapon()
+		{
+			if (AddWeaponToGlobalList)
+			{
+				
+			}
+		}
 		#endregion
 		#endregion
 	}

@@ -8,32 +8,30 @@ using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	public class ItemViewModel : ViewModelBase
+	public class SpellViewModel : ViewModelBase
 	{
-		private Item item;
+		private Spell spell;
 
-		public ItemViewModel(Item item)
-		{
-			this.item = item;
-		}
 		public string Name
 		{
-			get { return item.Name; }
+			get { return spell.Name; }
 			set
 			{
-				item.Name = value;
+				spell.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Description
 		{
-			get { return item.Description; }
+			get { return spell.Description; }
 			set
 			{
-				item.Description = value;
+				spell.Description = value;
 				RaisePropertyChanged();
 			}
 		}
+
+
 	}
 }

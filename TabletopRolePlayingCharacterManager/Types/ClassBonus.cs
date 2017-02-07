@@ -7,8 +7,8 @@ using Windows.Devices.Bluetooth.Advertisement;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-	class ClassBonus
+	public class ClassBonus
 	{
-		public List<Tuple<int, Trait>> TraitsByLevel { get; set; } = new List<Tuple<int, Trait>>();
+		public List<Tuple<int, List<Trait>>> TraitsByLevel { get; set; } = new List<Tuple<int, List<Trait>>>();
 	}
 }

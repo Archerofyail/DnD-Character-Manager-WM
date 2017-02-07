@@ -11,6 +11,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	class WeaponViewModel : ViewModelBase
 	{
 		private Weapon weapon;
+
+		public WeaponViewModel(Weapon weap)
+		{
+			weapon = weap;
+		}
 		public string Name
 		{
 			get { return weapon.Name; }
