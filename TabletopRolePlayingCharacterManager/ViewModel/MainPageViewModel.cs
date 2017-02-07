@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Windows.Storage;
-using Windows.UI.Xaml.Controls;
-using TabletopRolePlayingCharacterManager.Models;
+﻿using System.Collections.ObjectModel;
 using TabletopRolePlayingCharacterManager.Types;
-using TabletopRolePlayingCharacterManager.Views;
 using GalaSoft.MvvmLight;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel

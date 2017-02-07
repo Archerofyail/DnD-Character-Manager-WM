@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
+	//TODO: Add a dice picker
 	public class Damage
 	{
 		//Die Dize probable shouldn't be more than a D12

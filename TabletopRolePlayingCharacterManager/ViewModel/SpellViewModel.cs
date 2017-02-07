@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
@@ -12,12 +7,31 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	{
 		private Spell spell;
 
+		public SpellViewModel(Spell sp)
+		{
+			spell = sp;
+		}
+
 		public string Name
 		{
 			get { return spell.Name; }
 			set
 			{
 				spell.Name = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public string Level
+		{
+			get { return spell.Level.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					spell.Level = result;
+				}
 				RaisePropertyChanged();
 			}
 		}

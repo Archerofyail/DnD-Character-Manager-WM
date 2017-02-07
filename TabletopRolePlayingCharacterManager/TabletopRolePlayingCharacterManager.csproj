@@ -107,6 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\CharacterManager.cs" />
     <Compile Include="Types\ClassBonus.cs" />
+    <Compile Include="Types\Damage.cs" />
     <Compile Include="Types\Item.cs" />
     <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Types\Proficiency.cs" />

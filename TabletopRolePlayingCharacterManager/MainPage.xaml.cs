@@ -1,16 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using Windows.Storage;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using TabletopRolePlayingCharacterManager.Views;
-using TabletopRolePlayingCharacterManager.Types;
-using TabletopRolePlayingCharacterManager.ViewModel;
-using System.Threading.Tasks;
-using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 

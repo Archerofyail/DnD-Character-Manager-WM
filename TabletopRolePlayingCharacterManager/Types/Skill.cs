@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TabletopRolePlayingCharacterManager.Types
+﻿namespace TabletopRolePlayingCharacterManager.Types
 {
-   public class Skill
+	public class Skill
     {
 
 		public Skill(string name, int abilityBonus, int profBonus, MainStat mStat, bool isProficient)
