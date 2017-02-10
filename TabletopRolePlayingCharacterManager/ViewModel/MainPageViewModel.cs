@@ -52,19 +52,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		private int charListIndex = -1;
+
+		public int CharListIndex
+		{
+			get { return charListIndex; }
+			set { CharacterManager.CurrentCharacter = CharacterManager.Characters[value]; }
+		}
+
+
 		public string CharListEmptyText
 			=> "You don't have any characters created yet!\nClick the add new character button in the bottom right to get started";
 
 
 		#region UIControl
 
-		
+		public bool NoCharacters
+		{
+			get { return Characters.Count == 0 ? true : false; }
+		}
 
 		#endregion
-
-
 		
-
 		public void CharacterTemplateListClicked()
 		{
 			

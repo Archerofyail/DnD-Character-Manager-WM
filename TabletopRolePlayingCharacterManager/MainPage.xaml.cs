@@ -48,5 +48,10 @@ namespace TabletopRolePlayingCharacterManager
 
 			Frame.Navigate(typeof(CharacterSheet));
 		}
+
+		private void CharacterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			Frame.Navigate(typeof(CharacterSheet));
+		}
 	}
 }

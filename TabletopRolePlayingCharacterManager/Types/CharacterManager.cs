@@ -58,7 +58,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 			{
 				if (file.FileType.ToLower().Contains("json"))
 				{
-					characters.Add(JsonConvert.DeserializeObject<Character5E>(await FileIO.ReadTextAsync(file)));
+					var character = JsonConvert.DeserializeObject<Character5E>(await FileIO.ReadTextAsync(file));
+					character.CalculateAbilityModifiers();
+					character.CalculateSkillBonuses();
+					characters.Add(character);
 				}
 			}
 		}
@@ -248,7 +251,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static
 			Character5E GetNewChar()
 		{
-			var character = new Character5E(Characters.Count);
+			var character = new Character5E(Characters.Count, true);
 			Characters.Add(character);
 			CurrentCharacter = character;
 			return character;

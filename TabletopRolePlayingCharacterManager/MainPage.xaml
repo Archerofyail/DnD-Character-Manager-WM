@@ -81,9 +81,11 @@
 
 						<ListView Name="CharacterList"  
 							  ItemTemplate="{StaticResource Character}"
-								  ItemsSource="{Binding Characters}"/>
+								  ItemsSource="{Binding Characters}"
+								  SelectedIndex="{Binding CharListIndex, Mode=TwoWay}"
+								  SelectionChanged="CharacterList_OnSelectionChanged"/>
 						<TextBlock Text="{Binding Path=CharListEmptyText}"
-								   Visibility="{Binding Characters.Count}"/>
+								   Visibility="{Binding NoCharacters}"/>
 					</Grid>
 				</DataTemplate>
 			</HubSection>
