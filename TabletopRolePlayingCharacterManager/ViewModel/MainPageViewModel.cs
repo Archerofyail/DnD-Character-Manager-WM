@@ -1,12 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using TabletopRolePlayingCharacterManager.Types;
 using GalaSoft.MvvmLight;
+using System.Threading.Tasks;
+using Windows.System.Threading;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
 	class MainPageViewModel : ViewModelBase
 	{
 
+
+		public MainPageViewModel()
+		{
+			CharacterManager.CharactersLoadedEventHandler += (sender, args) => { RaisePropertyChanged("Characters");};
+		}
 		private int _selectedCharacterTemplate;
 
 		public int SelectedCharacterTemplate
@@ -41,11 +48,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (_characterList.Count == 0)
 				{
-					CharacterManager.LoadCompendium();
+					
+					_characterList.Clear();
 					foreach (var character in CharacterManager.Characters)
 					{
 						_characterList.Add(new CharacterViewModel(character));
 					}
+					RaisePropertyChanged("NoCharacters");
 					
 				}
 				
@@ -74,11 +83,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 		#endregion
+
 		
-		public void CharacterTemplateListClicked()
-		{
-			
-		}
 
 	}
 }

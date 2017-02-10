@@ -27,6 +27,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		#region General
 
+		public string Notes
+		{
+			get { return character.Notes; }
+			set
+			{
+				character.Notes = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public string Campaign
+		{
+			get { return character.Campaign; }
+			set
+			{
+				character.Campaign = value;
+				RaisePropertyChanged();
+			}
+		}
+
 		public string Name
 		{
 			get { return character.Name; }
@@ -294,7 +314,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					character.AbilityScores[MainStatType.Strength] = result;
 				}
-
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
+				RaisePropertyChanged("Skills");
+				RaiseSkillsChanged();
+				RaisePropertyChanged("StrengthMod");
 				RaisePropertyChanged();
 			}
 		}
@@ -309,7 +333,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					character.AbilityScores[MainStatType.Dexterity] = result;
 				}
-
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
+				RaisePropertyChanged("Skills");
+				RaiseSkillsChanged();
+				RaisePropertyChanged("DexterityMod");
 				RaisePropertyChanged();
 			}
 		}
@@ -324,7 +352,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					character.AbilityScores[MainStatType.Constitution] = result;
 				}
-
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
+				RaisePropertyChanged("Skills");
+				RaiseSkillsChanged();
+				RaisePropertyChanged("ConstitutionMod");
 				RaisePropertyChanged();
 			}
 		}
@@ -339,7 +371,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					character.AbilityScores[MainStatType.Intelligence] = result;
 				}
-
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
+				RaisePropertyChanged("Skills");
+				RaiseSkillsChanged();
+				RaisePropertyChanged("IntelligenceMod");
 				RaisePropertyChanged();
 			}
 		}
@@ -354,7 +390,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					character.AbilityScores[MainStatType.Wisdom] = result;
 				}
-
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
+				RaisePropertyChanged("Skills");
+				RaiseSkillsChanged();
+				RaisePropertyChanged("WisdomMod");
 				RaisePropertyChanged();
 			}
 		}
@@ -369,13 +409,41 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					character.AbilityScores[MainStatType.Charisma] = result;
 				}
-
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
+				RaisePropertyChanged("Skills");
+				RaiseSkillsChanged();
+				RaisePropertyChanged("CharismaMod");
 				RaisePropertyChanged();
 			}
 		}
 
 		#region AbilityModifiers
 
+		public string StrengthMod
+		{
+			get { return "+" + character.abilityModifiers[MainStatType.Strength].ToString(); }
+		}
+		public string DexterityMod
+		{
+			get { return "+" + character.abilityModifiers[MainStatType.Dexterity].ToString(); }
+		}
+		public string ConstitutionMod
+		{
+			get { return "+" + character.abilityModifiers[MainStatType.Constitution].ToString(); }
+		}
+		public string IntelligenceMod
+		{
+			get { return "+" + character.abilityModifiers[MainStatType.Intelligence].ToString(); }
+		}
+		public string WisdomMod
+		{
+			get { return "+" + character.abilityModifiers[MainStatType.Wisdom].ToString(); }
+		}
+		public string CharismaMod
+		{
+			get { return "+" + character.abilityModifiers[MainStatType.Charisma].ToString(); }
+		}
 		#endregion
 
 		#region AbilityProficiencies
@@ -457,6 +525,36 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		{
 			get { return character.Flaws; }
 			set { character.Flaws = value; }
+		}
+
+		public string Backstory
+		{
+			get { return character.Backstory; }
+			set
+			{
+				character.Backstory = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public string God
+		{
+			get { return character.God; }
+			set
+			{
+				character.God = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public string Relationships
+		{
+			get { return character.RelationshipsAndAllies; }
+			set
+			{
+				character.RelationshipsAndAllies = value;
+				RaisePropertyChanged();
+			}
 		}
 		#endregion
 
@@ -770,7 +868,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		void AddNewSpellExecute()
+		async void AddNewSpellExecute()
 		{
 			Spell newSpell = new Spell();
 			newSpell.Name = newSpellName;
@@ -782,7 +880,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		void AddNewWeaponExecute()
+		async void AddNewWeaponExecute()
 		{
 			var newWep = new Weapon();
 			newWep.Name = newWepName;
@@ -798,7 +896,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			CharacterManager.SaveCurrentCharacter();
 		}
 
-		void AddNewCharTraitExecute()
+		async void AddNewCharTraitExecute()
 		{
 			var newTrait = new Trait(newTraitDesc);
 			newTraitDesc = "";
@@ -808,5 +906,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		#endregion
 		#endregion
+
+		#region MiscFunctions
+
+		void RaiseSkillsChanged()
+		{
+			foreach (var skillViewModel in Skills)
+			{
+				skillViewModel.RaiseAllPropertiesChanged();
+			}
+		}
+#endregion
 	}
 }

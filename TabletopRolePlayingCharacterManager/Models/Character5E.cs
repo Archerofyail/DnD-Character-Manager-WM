@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using TabletopRolePlayingCharacterManager.Types;
 
@@ -14,6 +15,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		as they would take up way too much space otherwise */
 		//TODO: Change AbilityScores to a class (Name, Value, Bonus)
 		public int id { get; set; }
+		public string Notes { get; set; }
 		public string Campaign { get; set; }
 		public int Level { get; set; } = 1;
 		public int Experience { get; set; }
@@ -50,6 +52,11 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Flaws { get; set; }
 		public List<Trait> Traits { get; set; } = new List<Trait>();
 
+		public string God { get; set; }
+
+		public string Backstory { get; set; }
+		public string RelationshipsAndAllies { get; set; }
+		
 
 		public int ProficiencyBonus => Utility.CalculateProficiencyBonus(Level);
 
@@ -63,6 +70,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public Dictionary<MainStatType, int> abilityModifiers { get; private set; } = new Dictionary<MainStatType, int>();
 		#endregion
 
+		public Dictionary<int, Tuple<int, int>> SpellSlots { get; set; } = new Dictionary<int, Tuple<int, int>>();
 		public List<Skill> Skills { get; set; } = new List<Skill>();
 		public List<Item> Inventory { get; set; } = new List<Item>();
 		public List<Weapon> Weapons { get; set; } = new List<Weapon>();
