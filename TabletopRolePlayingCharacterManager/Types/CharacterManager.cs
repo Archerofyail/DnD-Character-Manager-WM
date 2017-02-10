@@ -17,7 +17,12 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public static List<Character5E> Characters
 		{
-			get { return characters; }
+			get
+			{
+				if (characters.Count == 0)
+				{  }
+				return characters;
+			}
 			private set { characters = value; }
 		}
 
@@ -54,14 +59,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 			{
 				await SetFolders();
 			}
-			foreach (var file in await SaveFolder.GetFilesAsync())
+			if (Characters.Count == 0)
 			{
-				if (file.FileType.ToLower().Contains("json"))
+				foreach (var file in await SaveFolder.GetFilesAsync())
 				{
-					var character = JsonConvert.DeserializeObject<Character5E>(await FileIO.ReadTextAsync(file));
-					character.CalculateAbilityModifiers();
-					character.CalculateSkillBonuses();
-					characters.Add(character);
+					if (file.FileType.ToLower().Contains("json"))
+					{
+						var character = JsonConvert.DeserializeObject<Character5E>(await FileIO.ReadTextAsync(file));
+						character.CalculateAbilityModifiers();
+						character.CalculateSkillBonuses();
+						characters.Add(character);
+					}
 				}
 			}
 		}

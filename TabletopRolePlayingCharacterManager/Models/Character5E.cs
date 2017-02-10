@@ -24,9 +24,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int TempHP { get; set; }
 		public int Initiative { get { return abilityModifiers[MainStatType.Dexterity]; } }
 
-		public bool[] DeathSaveFails { get; set; } = new bool[3];
+		public bool[] DeathSaveFails { get; set; } = new bool[3] {false, false, false};
 
-		public bool[] DeathSaveSuccesses { get; set; } = new bool[3];
+		public bool[] DeathSaveSuccesses { get; set; } = new bool[3] {false, false, false};
 
 		#region Aesthetic Featues
 
@@ -38,13 +38,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 
 		public string Height { get; set; }
-
 		public string Weight { get; set; }
-
 		public string Eyes { get; set; }
-
 		public string Skin { get; set; }
-
 		public string Hair { get; set; }
 		#endregion
 

@@ -442,7 +442,8 @@
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="3*"/>
-								<RowDefinition Height="12"/>
+								<RowDefinition Height="14"/>
+								<RowDefinition Height="3*"/>
 								<RowDefinition Height="3*"/>
 
 							</Grid.RowDefinitions>
@@ -476,7 +477,30 @@
 											 PlaceholderText="Max HP"
 											 Text="{Binding MaxHealth}"></TextBox>
 								</StackPanel>
+
 								<TextBlock Text="Hit Points" Margin="42, 0, 0, 0"/>
+							</StackPanel>
+							<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+								<TextBlock Text="Death Saves" HorizontalAlignment="Center"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Successes"
+											   Margin="4"/>
+									<CheckBox MinWidth="18"
+											  IsChecked="{Binding DeathSaveSuccesses[0], Mode=TwoWay}"/>
+									<CheckBox MinWidth="18" 
+											   IsChecked="{Binding DeathSaveSuccesses[1], Mode=TwoWay}"/>
+									<CheckBox  MinWidth="18"
+											    IsChecked="{Binding DeathSaveSuccesses[2], Mode=TwoWay}"/>
+
+									<TextBlock Text="Fails" Margin="4"/>
+									<CheckBox  MinWidth="18"
+											    IsChecked="{Binding DeathSaveFails[0], Mode=TwoWay}"/>
+									<CheckBox  MinWidth="18"
+											   IsChecked="{Binding DeathSaveFails[1], Mode=TwoWay}"/>
+									<CheckBox  MinWidth="18"
+											   IsChecked="{Binding DeathSaveFails[2], Mode=TwoWay}"/>
+
+								</StackPanel>
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"
 										Margin="0, 0, 4, 0">
@@ -490,9 +514,7 @@
 						</Grid>
 						<StackPanel Name="AbilityScoresStackPanel"
 					Orientation="Vertical"
-					RelativePanel.Below="PhysicalDescriptionPanel"
-					RelativePanel.AlignRightWith="PhysicalDescriptionPanel"
-					RelativePanel.AlignLeftWith="PhysicalDescriptionPanel"
+					
 					BorderBrush="Black"
 					BorderThickness="1">
 
@@ -696,7 +718,7 @@
 								<Flyout>
 									<StackPanel MinWidth="150">
 										<StackPanel Orientation="Horizontal">
-										<TextBox PlaceholderText="Name" Margin="4"
+											<TextBox PlaceholderText="Name" Margin="4"
 												 Text="{Binding NewSpellName, Mode=TwoWay}"
 												 MinWidth="240"/>
 											<TextBox Text="{Binding NewSpellLevel, Mode=TwoWay}" PlaceholderText="Level" Margin="4"/>
@@ -709,7 +731,7 @@
 											<CheckBox Content="Also Add to Compendium"
 													  Margin="4"
 													  IsChecked="{Binding AddSpellToGlobalList, Mode=TwoWay}"/>
-										<Button Content="+ Add Spell" Margin="4"
+											<Button Content="+ Add Spell" Margin="4"
 												Command="{Binding AddNewSpell, Mode=TwoWay}"
 												Tapped="AddSpellButtonTapped"/>
 										</StackPanel>

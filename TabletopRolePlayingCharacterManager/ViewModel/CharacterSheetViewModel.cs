@@ -181,6 +181,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				}
 			}
 		}
+
+		public bool[] DeathSaveSuccesses
+		{
+			get { return character.DeathSaveSuccesses; }
+			set { character.DeathSaveSuccesses = value; }
+		}
+		public bool[] DeathSaveFails
+		{
+			get { return character.DeathSaveFails; }
+			set { character.DeathSaveFails = value; }
+		}
 		#endregion
 
 		#region PhysicalTraits

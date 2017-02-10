@@ -41,6 +41,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			{
 				if (_characterList.Count == 0)
 				{
+					CharacterManager.LoadCompendium();
 					foreach (var character in CharacterManager.Characters)
 					{
 						_characterList.Add(new CharacterViewModel(character));

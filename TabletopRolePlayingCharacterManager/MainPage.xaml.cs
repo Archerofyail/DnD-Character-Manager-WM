@@ -28,7 +28,7 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-			CharacterManager.LoadCompendium();
+			
 			//DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 			
