@@ -95,6 +95,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DicePicker.xaml.cs">
+      <DependentUpon>DicePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilterListView.xaml.cs">
+      <DependentUpon>FilterListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
@@ -126,6 +132,7 @@
     <Compile Include="ViewModel\RaceViewModel.cs" />
     <Compile Include="ViewModel\SkillViewModel.cs" />
     <Compile Include="ViewModel\SpellViewModel.cs" />
+    <Compile Include="ViewModel\TraitViewModel.cs" />
     <Compile Include="ViewModel\WeaponViewModel.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">
       <DependentUpon>AddNewCharacter.xaml</DependentUpon>
@@ -167,6 +174,14 @@
     <Page Include="Assets\Dictionary1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DicePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FilterListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TabHeader.xaml">
       <SubType>Designer</SubType>

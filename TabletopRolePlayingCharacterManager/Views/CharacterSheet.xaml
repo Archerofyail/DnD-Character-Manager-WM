@@ -267,6 +267,10 @@
 							  TextWrapping="WrapWholeWords"/>
 			</StackPanel>
 		</DataTemplate>
+		<DataTemplate x:Key="CharacterTrait">
+			<TextBlock Text="{Binding Description}"
+					   MinHeight="72"/>
+		</DataTemplate>
 		<Style x:Key="NoBackgroundAddButton" TargetType="Button">
 			<Setter Property="Background" Value="Transparent"/>
 		</Style>
@@ -561,11 +565,35 @@
 							</VariableSizedWrapGrid>
 						</StackPanel>
 
-						<GridView Name="Skills" RelativePanel.Below="AbilityScoresStackPanel"
+						<GridView Name="Skills"
 				  ItemTemplate="{StaticResource Skill}"
 				  ItemsSource="{Binding Skills}">
 
 						</GridView>
+						<ListView ItemsSource="{Binding CharTraits}"
+								  ItemTemplate="{StaticResource CharacterTrait}"/>
+						<Button Background="Transparent">
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add"/>
+									<TextBlock Text="Add Feature or Trait"/>
+								</StackPanel>
+							</Button.Content>
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="250">
+										<TextBox PlaceholderText="Description"
+												 Height="96"
+												 Margin="4"
+												 Text="{Binding NewTraitDesc, Mode=TwoWay}"/>
+										<StackPanel Orientation="Horizontal">
+											<Button Content="+ Add Item" Margin="4"
+												Command="{Binding AddNewCharTrait}"/>
+										</StackPanel>
+									</StackPanel>
+								</Flyout>
+							</Button.Flyout>
+						</Button>
 					</StackPanel>
 				</PivotItem>
 				<PivotItem>
@@ -581,13 +609,18 @@
 							<Button.Flyout>
 								<Flyout>
 									<StackPanel MinWidth="150">
-										<TextBox PlaceholderText="Name" Margin="4"/>
+										<TextBox PlaceholderText="Name" Margin="4"
+												 Text="{Binding NewWepName, Mode=TwoWay}"/>
 										<TextBox PlaceholderText="Damage"
-												 Margin="4"/>
+												 Margin="4"
+												 Text="{Binding NewWepDamage, Mode=TwoWay}"/>
+										<TextBox PlaceholderText="Description (Optional)"
+												 Margin="4"
+												 Text="{Binding NewWepDesc, Mode=TwoWay}"/>
 										<StackPanel Orientation="Horizontal">
 											<CheckBox Content="Also Add to Compendium"
 													  Margin="4"
-													  IsChecked="{Binding AddItemToGlobalList}"/>
+													  IsChecked="{Binding AddItemToGlobalList, Mode=TwoWay}"/>
 											<Button Content="+ Add Item" Margin="4"
 												Command="{Binding AddNewItem}"/>
 										</StackPanel>
@@ -609,14 +642,16 @@
 							<Button.Flyout>
 								<Flyout>
 									<StackPanel MinWidth="150">
-										<TextBox PlaceholderText="Name" Margin="4"/>
+										<TextBox PlaceholderText="Name" Margin="4"
+												 Text="{Binding NewItemName, Mode=TwoWay}"/>
 										<TextBox PlaceholderText="Description"
 												 Height="96"
-												 Margin="4"/>
+												 Margin="4"
+												 Text="{Binding NewItemDesc, Mode=TwoWay}"/>
 										<StackPanel Orientation="Horizontal">
 											<CheckBox Content="Also Add to Compendium"
 													  Margin="4"
-													  IsChecked="{Binding AddItemToGlobalList}"/>
+													  IsChecked="{Binding AddItemToGlobalList, Mode=TwoWay}"/>
 											<Button Content="+ Add Item" Margin="4"
 												Command="{Binding AddNewItem}"/>
 										</StackPanel>
@@ -644,16 +679,22 @@
 							<Button.Flyout>
 								<Flyout>
 									<StackPanel MinWidth="150">
-										<TextBox PlaceholderText="Name" Margin="4"/>
+										<StackPanel Orientation="Horizontal">
+										<TextBox PlaceholderText="Name" Margin="4"
+												 Text="{Binding NewSpellName, Mode=TwoWay}"
+												 MinWidth="240"/>
+											<TextBox Text="{Binding NewSpellLevel, Mode=TwoWay}" PlaceholderText="Level" Margin="4"/>
+										</StackPanel>
 										<TextBox PlaceholderText="Description"
 												 Height="96"
-												 Margin="4"/>
+												 Margin="4"
+												 Text="{Binding NewSpellDesc, Mode=TwoWay}"/>
 										<StackPanel Orientation="Horizontal">
 											<CheckBox Content="Also Add to Compendium"
 													  Margin="4"
-													  IsChecked="{Binding AddSpellToGlobalList}"/>
+													  IsChecked="{Binding AddSpellToGlobalList, Mode=TwoWay}"/>
 										<Button Content="+ Add Spell" Margin="4"
-												Command="{Binding AddNewSpell}"/>
+												Command="{Binding AddNewSpell, Mode=TwoWay}"/>
 										</StackPanel>
 									</StackPanel>
 								</Flyout>

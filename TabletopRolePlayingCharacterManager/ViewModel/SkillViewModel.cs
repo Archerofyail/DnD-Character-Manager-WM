@@ -36,7 +36,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 			set
 			{
-				MainStat result = TabletopRolePlayingCharacterManager.MainStat.Strength;
+				MainStatType result = TabletopRolePlayingCharacterManager.MainStatType.Strength;
 				if (Enum.TryParse(value, out result))
 				{
 					skill.MainStat = result;

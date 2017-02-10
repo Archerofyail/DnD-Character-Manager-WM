@@ -8,14 +8,18 @@ namespace TabletopRolePlayingCharacterManager.Types
 		//Die Dize probable shouldn't be more than a D12
 		public Dictionary<DieType, int> Dice { get; set; } = new Dictionary<DieType, int>();
 		public int Bonus { get; set; } = 0;
-		public MainStat MainStat { get; set; } = MainStat.Strength;
 
-		public Damage(MainStat mstat, int bonus)
+		public Damage(int bonus)
 		{
-			MainStat = mstat;
+			
 			Bonus = bonus;
 		}
 
+		public Damage()
+		{
+
+		}
+		//Override Bonus with bonus if it's set to a value
 		public int RollDamage()
 		{
 			int finalRoll = 0;
@@ -27,8 +31,23 @@ namespace TabletopRolePlayingCharacterManager.Types
 					finalRoll += Utility.Rand.Next(1, dieSize + 1);
 				}
 			}
+
 			finalRoll += Bonus;
+
 			return finalRoll;
+		}
+
+		public override string ToString()
+		{
+			var text = "";
+			if (Dice.Count > 0)
+			{
+				foreach (var die in Dice)
+				{
+					text += die.Value + "d" + die.Key.ToString();
+				}
+			}
+			return text;
 		}
 	}
 }

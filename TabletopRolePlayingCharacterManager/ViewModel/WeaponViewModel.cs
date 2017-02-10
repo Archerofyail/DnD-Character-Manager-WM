@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Types;
 
@@ -24,11 +26,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public string Damage
 		{
-			get { return weapon.Damage; }
+			get { return weapon.Damage.ToString(); }
 			set
 			{
-				weapon.Damage = value;
-				RaisePropertyChanged();
+				var matches = Regex.Match(value, @"(\d)(d\d{1,2})");
+				Debug.WriteLine("Matches: " + matches.Value);
+				for (int i = 0; i < matches.Groups.Count; i++)
+				{
+					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
+				}
+				if (matches.Success && matches.Groups.Count == 2)
+				{
+					var numDice = 0;
+					DieType DieType = DieType.D4;
+					if (int.TryParse(matches.Groups[0].Value, out numDice))
+					{
+						if (Enum.TryParse(matches.Groups[1].Value, out DieType))
+						{
+							weapon.Damage.Dice.Clear();
+							weapon.Damage.Dice.Add(DieType, numDice);
+						}
+					}
+				}
 			}
 		}
 

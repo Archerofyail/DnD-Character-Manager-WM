@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace TabletopRolePlayingCharacterManager
 {
 
-	public enum MainStat
+	public enum MainStatType
 	{
 		Strength,
 		Dexterity,
@@ -63,7 +63,7 @@ namespace TabletopRolePlayingCharacterManager
 	//Classes and subclasses need the same thing, but also need stuff specific to class features
 
 	//For displaying skills during character creation, you need the name, and the ability score it's associated with.
-	//For skills within the character class, you want the name{string}, the ability score{MainStat}, and whether they're proficient with it{bool}
+	//For skills within the character class, you want the name{string}, the ability score{MainStatType}, and whether they're proficient with it{bool}
 
 	
 
@@ -84,14 +84,14 @@ namespace TabletopRolePlayingCharacterManager
 	public static class Utility
 	{
 
-		public static readonly Dictionary<MainStat, string> ShorthandStatStrings = new Dictionary<MainStat, string>
+		public static readonly Dictionary<MainStatType, string> ShorthandStatStrings = new Dictionary<MainStatType, string>
 		{
-			{MainStat.Strength, "STR" },
-			{MainStat.Dexterity, "DEX" },
-			{MainStat.Constitution, "CON" },
-			{MainStat.Intelligence, "INT" },
-			{MainStat.Wisdom, "WIS" },
-			{MainStat.Charisma, "CHA" }
+			{MainStatType.Strength, "STR" },
+			{MainStatType.Dexterity, "DEX" },
+			{MainStatType.Constitution, "CON" },
+			{MainStatType.Intelligence, "INT" },
+			{MainStatType.Wisdom, "WIS" },
+			{MainStatType.Charisma, "CHA" }
 		};
 
 		public static Random Rand = new Random();

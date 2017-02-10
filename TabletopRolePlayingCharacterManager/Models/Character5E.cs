@@ -14,7 +14,6 @@ namespace TabletopRolePlayingCharacterManager.Models
 		as they would take up way too much space otherwise */
 		//TODO: Change AbilityScores to a class (Name, Value, Bonus)
 		public int id { get; set; }
-		private int _equippedArmorId;
 		public int Level { get; set; } = 1;
 		public int Experience { get; set; }
 		//Validation to occur in the text box during character creation
@@ -22,7 +21,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int MaxHP { get; set; }
 		public int CurrHP { get; set; }
 		public int TempHP { get; set; }
-		public int Initiative { get { return abilityModifiers[MainStat.Dexterity]; } }
+		public int Initiative { get { return abilityModifiers[MainStatType.Dexterity]; } }
 
 		public bool[] DeathSaveFails { get; set; } = new bool[3];
 
@@ -52,6 +51,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Ideals { get; set; }
 		public string Bonds { get; set; }
 		public string Flaws { get; set; }
+		public List<Trait> Traits { get; set; } = new List<Trait>();
 
 
 		public int ProficiencyBonus => Utility.CalculateProficiencyBonus(Level);
@@ -59,61 +59,61 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int ArmorClass { get; set; } = 10;
 
 
-		public Dictionary<MainStat, int> AbilityScores { get; set; } = new Dictionary<MainStat, int>();
-		public Dictionary<MainStat, bool> AbilityScoreProficiencies { get; set; } = new Dictionary<MainStat, bool>();
+		public Dictionary<MainStatType, int> AbilityScores { get; set; } = new Dictionary<MainStatType, int>();
+		public Dictionary<MainStatType, bool> AbilityScoreProficiencies { get; set; } = new Dictionary<MainStatType, bool>();
 		#region Ignored
 		[JsonIgnore]
-		public Dictionary<MainStat, int> abilityModifiers { get; private set; }
+		public Dictionary<MainStatType, int> abilityModifiers { get; private set; } = new Dictionary<MainStatType, int>();
 		#endregion
 
 		public List<Skill> Skills { get; set; } = new List<Skill>();
-		public List<Item> Inventory { get; set; }
-		public List<Weapon> Weapons { get; set; }
-		public List<Spell> Spells { get; set; }
+		public List<Item> Inventory { get; set; } = new List<Item>();
+		public List<Weapon> Weapons { get; set; } = new List<Weapon>();
+		public List<Spell> Spells { get; set; } = new List<Spell>();
 
 		public Character5E()
 		{
-			AbilityScores = new Dictionary<MainStat, int>
+			AbilityScores = new Dictionary<MainStatType, int>
 			{
-				{ MainStat.Strength, 10 },
-				{ MainStat.Dexterity, 10 },
-				{ MainStat.Constitution, 10 },
-				{ MainStat.Intelligence, 10 },
-				{ MainStat.Wisdom, 10 },
-				{ MainStat.Charisma, 10 },
+				{ MainStatType.Strength, 10 },
+				{ MainStatType.Dexterity, 10 },
+				{ MainStatType.Constitution, 10 },
+				{ MainStatType.Intelligence, 10 },
+				{ MainStatType.Wisdom, 10 },
+				{ MainStatType.Charisma, 10 },
 
 			};
-			AbilityScoreProficiencies = new Dictionary<MainStat, bool>
+			AbilityScoreProficiencies = new Dictionary<MainStatType, bool>
 			{
-				{ MainStat.Strength, false },
-				{ MainStat.Dexterity, false },
-				{ MainStat.Constitution, false },
-				{ MainStat.Intelligence, false },
-				{ MainStat.Wisdom, false },
-				{ MainStat.Charisma, false },
+				{ MainStatType.Strength, false },
+				{ MainStatType.Dexterity, false },
+				{ MainStatType.Constitution, false },
+				{ MainStatType.Intelligence, false },
+				{ MainStatType.Wisdom, false },
+				{ MainStatType.Charisma, false },
 
 			};
 			CalculateAbilityModifiers();
 			Skills = new List<Skill>
 			{
-				new Skill("Acrobatics", abilityModifiers[MainStat.Dexterity], ProficiencyBonus, MainStat.Dexterity, false),
-				new Skill("Animal Handling", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
-				new Skill("Arcana", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
-				new Skill("Athletics", abilityModifiers[MainStat.Strength], ProficiencyBonus, MainStat.Strength, false),
-				new Skill("Deception", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
-				new Skill("History", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
-				new Skill("Insight", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
-				new Skill("Intimidation", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
-				new Skill("Investigation", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
-				new Skill("Medicine", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
-				new Skill("Nature", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
-				new Skill("Perception", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
-				new Skill("Performance", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
-				new Skill("Persuasion", abilityModifiers[MainStat.Charisma], ProficiencyBonus, MainStat.Charisma, false),
-				new Skill("Religion", abilityModifiers[MainStat.Intelligence], ProficiencyBonus, MainStat.Intelligence, false),
-				new Skill("Sleight of Hand", abilityModifiers[MainStat.Dexterity], ProficiencyBonus, MainStat.Dexterity, false),
-				new Skill("Stealth", abilityModifiers[MainStat.Dexterity], ProficiencyBonus, MainStat.Dexterity, false),
-				new Skill("Survival", abilityModifiers[MainStat.Wisdom], ProficiencyBonus, MainStat.Wisdom, false),
+				new Skill("Acrobatics", abilityModifiers[MainStatType.Dexterity], ProficiencyBonus, MainStatType.Dexterity, false),
+				new Skill("Animal Handling", abilityModifiers[MainStatType.Wisdom], ProficiencyBonus, MainStatType.Wisdom, false),
+				new Skill("Arcana", abilityModifiers[MainStatType.Intelligence], ProficiencyBonus, MainStatType.Intelligence, false),
+				new Skill("Athletics", abilityModifiers[MainStatType.Strength], ProficiencyBonus, MainStatType.Strength, false),
+				new Skill("Deception", abilityModifiers[MainStatType.Charisma], ProficiencyBonus, MainStatType.Charisma, false),
+				new Skill("History", abilityModifiers[MainStatType.Intelligence], ProficiencyBonus, MainStatType.Intelligence, false),
+				new Skill("Insight", abilityModifiers[MainStatType.Wisdom], ProficiencyBonus, MainStatType.Wisdom, false),
+				new Skill("Intimidation", abilityModifiers[MainStatType.Charisma], ProficiencyBonus, MainStatType.Charisma, false),
+				new Skill("Investigation", abilityModifiers[MainStatType.Intelligence], ProficiencyBonus, MainStatType.Intelligence, false),
+				new Skill("Medicine", abilityModifiers[MainStatType.Wisdom], ProficiencyBonus, MainStatType.Wisdom, false),
+				new Skill("Nature", abilityModifiers[MainStatType.Intelligence], ProficiencyBonus, MainStatType.Intelligence, false),
+				new Skill("Perception", abilityModifiers[MainStatType.Wisdom], ProficiencyBonus, MainStatType.Wisdom, false),
+				new Skill("Performance", abilityModifiers[MainStatType.Charisma], ProficiencyBonus, MainStatType.Charisma, false),
+				new Skill("Persuasion", abilityModifiers[MainStatType.Charisma], ProficiencyBonus, MainStatType.Charisma, false),
+				new Skill("Religion", abilityModifiers[MainStatType.Intelligence], ProficiencyBonus, MainStatType.Intelligence, false),
+				new Skill("Sleight of Hand", abilityModifiers[MainStatType.Dexterity], ProficiencyBonus, MainStatType.Dexterity, false),
+				new Skill("Stealth", abilityModifiers[MainStatType.Dexterity], ProficiencyBonus, MainStatType.Dexterity, false),
+				new Skill("Survival", abilityModifiers[MainStatType.Wisdom], ProficiencyBonus, MainStatType.Wisdom, false),
 			};
 			CalculateSkillBonuses();
 		}
@@ -131,7 +131,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			}
 			if (abilityModifiers == null)
 			{
-				abilityModifiers = new Dictionary<MainStat, int>();
+				abilityModifiers = new Dictionary<MainStatType, int>();
 			}
 			foreach (var mainstat in AbilityScores)
 			{

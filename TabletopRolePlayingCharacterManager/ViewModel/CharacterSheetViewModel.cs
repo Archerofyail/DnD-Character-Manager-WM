@@ -1,6 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
@@ -272,13 +275,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		#region AbilityScores
 		public string Strength
 		{
-			get { return character.AbilityScores[MainStat.Strength].ToString(); }
+			get { return character.AbilityScores[MainStatType.Strength].ToString(); }
 			set
 			{
-				var result = character.AbilityScores[MainStat.Strength];
+				var result = character.AbilityScores[MainStatType.Strength];
 				if (int.TryParse(value, out result))
 				{
-					character.AbilityScores[MainStat.Strength] = result;
+					character.AbilityScores[MainStatType.Strength] = result;
 				}
 
 				RaisePropertyChanged();
@@ -286,14 +289,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		public string Dexterity
 		{
-			get { return character.AbilityScores[MainStat.Dexterity].ToString(); }
+			get { return character.AbilityScores[MainStatType.Dexterity].ToString(); }
 			set
 			{
 
-				var result = character.AbilityScores[MainStat.Dexterity];
+				var result = character.AbilityScores[MainStatType.Dexterity];
 				if (int.TryParse(value, out result))
 				{
-					character.AbilityScores[MainStat.Dexterity] = result;
+					character.AbilityScores[MainStatType.Dexterity] = result;
 				}
 
 				RaisePropertyChanged();
@@ -301,14 +304,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		public string Constitution
 		{
-			get { return character.AbilityScores[MainStat.Constitution].ToString(); }
+			get { return character.AbilityScores[MainStatType.Constitution].ToString(); }
 			set
 			{
 
-				var result = character.AbilityScores[MainStat.Constitution];
+				var result = character.AbilityScores[MainStatType.Constitution];
 				if (int.TryParse(value, out result))
 				{
-					character.AbilityScores[MainStat.Constitution] = result;
+					character.AbilityScores[MainStatType.Constitution] = result;
 				}
 
 				RaisePropertyChanged();
@@ -316,14 +319,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		public string Intelligence
 		{
-			get { return character.AbilityScores[MainStat.Intelligence].ToString(); }
+			get { return character.AbilityScores[MainStatType.Intelligence].ToString(); }
 			set
 			{
 
-				var result = character.AbilityScores[MainStat.Intelligence];
+				var result = character.AbilityScores[MainStatType.Intelligence];
 				if (int.TryParse(value, out result))
 				{
-					character.AbilityScores[MainStat.Intelligence] = result;
+					character.AbilityScores[MainStatType.Intelligence] = result;
 				}
 
 				RaisePropertyChanged();
@@ -331,14 +334,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		public string Wisdom
 		{
-			get { return character.AbilityScores[MainStat.Wisdom].ToString(); }
+			get { return character.AbilityScores[MainStatType.Wisdom].ToString(); }
 			set
 			{
 
-				var result = character.AbilityScores[MainStat.Wisdom];
+				var result = character.AbilityScores[MainStatType.Wisdom];
 				if (int.TryParse(value, out result))
 				{
-					character.AbilityScores[MainStat.Wisdom] = result;
+					character.AbilityScores[MainStatType.Wisdom] = result;
 				}
 
 				RaisePropertyChanged();
@@ -346,14 +349,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 		public string Charisma
 		{
-			get { return character.AbilityScores[MainStat.Charisma].ToString(); }
+			get { return character.AbilityScores[MainStatType.Charisma].ToString(); }
 			set
 			{
 
-				var result = character.AbilityScores[MainStat.Charisma];
+				var result = character.AbilityScores[MainStatType.Charisma];
 				if (int.TryParse(value, out result))
 				{
-					character.AbilityScores[MainStat.Charisma] = result;
+					character.AbilityScores[MainStatType.Charisma] = result;
 				}
 
 				RaisePropertyChanged();
@@ -367,55 +370,55 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		#region AbilityProficiencies
 		public bool StrIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStat.Strength]; }
+			get { return character.AbilityScoreProficiencies[MainStatType.Strength]; }
 			set
 			{
-				character.AbilityScoreProficiencies[MainStat.Strength] = value;
+				character.AbilityScoreProficiencies[MainStatType.Strength] = value;
 				RaisePropertyChanged();
 			}
 		}
 		public bool DexIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStat.Dexterity]; }
+			get { return character.AbilityScoreProficiencies[MainStatType.Dexterity]; }
 			set
 			{
-				character.AbilityScoreProficiencies[MainStat.Dexterity] = value;
+				character.AbilityScoreProficiencies[MainStatType.Dexterity] = value;
 				RaisePropertyChanged();
 			}
 		}
 		public bool ConIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStat.Constitution]; }
+			get { return character.AbilityScoreProficiencies[MainStatType.Constitution]; }
 			set
 			{
-				character.AbilityScoreProficiencies[MainStat.Constitution] = value;
+				character.AbilityScoreProficiencies[MainStatType.Constitution] = value;
 				RaisePropertyChanged();
 			}
 		}
 		public bool IntIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStat.Intelligence]; }
+			get { return character.AbilityScoreProficiencies[MainStatType.Intelligence]; }
 			set
 			{
-				character.AbilityScoreProficiencies[MainStat.Intelligence] = value;
+				character.AbilityScoreProficiencies[MainStatType.Intelligence] = value;
 				RaisePropertyChanged();
 			}
 		}
 		public bool WisIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStat.Wisdom]; }
+			get { return character.AbilityScoreProficiencies[MainStatType.Wisdom]; }
 			set
 			{
-				character.AbilityScoreProficiencies[MainStat.Wisdom] = value;
+				character.AbilityScoreProficiencies[MainStatType.Wisdom] = value;
 				RaisePropertyChanged();
 			}
 		}
 		public bool ChaIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStat.Charisma]; }
+			get { return character.AbilityScoreProficiencies[MainStatType.Charisma]; }
 			set
 			{
-				character.AbilityScoreProficiencies[MainStat.Charisma] = value;
+				character.AbilityScoreProficiencies[MainStatType.Charisma] = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -517,14 +520,30 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		private ObservableCollection<TraitViewModel> traits = new ObservableCollection<TraitViewModel>();
 
+		public ObservableCollection<TraitViewModel> CharTraits
+		{
+			get
+			{
+				if (traits.Count == 0)
+				{
+					foreach (var trait in character.Traits)
+					{
+						traits.Add(new TraitViewModel(trait));
+					}
+
+				}
+				return traits;
+			}
+		}
 		#region GlobalListControl
 
 		private bool addSpellToGlobalList;
 
 		public bool AddSpellToGlobalList
 		{
-			get { return addSpellToGlobalList;}
+			get { return addSpellToGlobalList; }
 			set
 			{
 				addSpellToGlobalList = value;
@@ -558,6 +577,144 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		#endregion
 		#endregion
 
+		#region StuffToAdd
+		#region Item
+
+		private string newItemName = "";
+		public string NewItemName
+		{
+			get { return newItemName; }
+			set
+			{
+				newItemName = value;
+				RaisePropertyChanged();
+			}
+		}
+		private string newItemDesc = "";
+		public string NewItemDesc
+		{
+			get { return newItemDesc; }
+			set
+			{
+				newItemDesc = value;
+				RaisePropertyChanged();
+			}
+		}
+		#endregion
+
+		#region  Weapon
+		private string newWepName = "";
+		public string NewWepName
+		{
+			get { return newWepName; }
+			set
+			{
+				newWepName = value;
+				RaisePropertyChanged();
+			}
+		}
+		private Damage newWepDamage = new Damage();
+
+		public string NewWepDamage
+		{
+			get
+			{
+				return newWepDamage.ToString();
+
+			}
+			set
+			{
+				var matches = Regex.Match(value, @"(\d)(d\d{1,2})");
+				Debug.WriteLine("Matches: " + matches.Value + ". groups count is " + matches.Groups.Count);
+				if (matches.Success && matches.Groups.Count >= 3)
+				{
+					var numDice = 0;
+					DieType DieType = DieType.D4;
+					if (int.TryParse(matches.Groups[1].Value, out numDice))
+					{
+						if (Enum.TryParse(matches.Groups[2].Value, out DieType))
+						{
+							newWepDamage.Dice.Clear();
+							newWepDamage.Dice.Add(DieType, numDice);
+						}
+					}
+				}
+			}
+		}
+		private string newWepDesc = "";
+		public string NewWepDesc
+		{
+			get { return newWepDesc; }
+			set
+			{
+				newWepDesc = value;
+				RaisePropertyChanged();
+			}
+		}
+		#endregion
+
+		#region Spell
+
+		private string newSpellName;
+
+		public string NewSpellName
+		{
+			get { return newSpellName; }
+			set
+			{
+				newSpellName = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private int newSpellLevel = 0;
+		public string NewSpellLevel
+		{
+			get { return newSpellLevel.ToString(); }
+			set
+			{
+				int result = 0;
+				if (int.TryParse(value, out result))
+				{
+					newSpellLevel = result;
+					RaisePropertyChanged();
+				}
+			}
+		}
+
+		private string newSpellDesc;
+
+		public string NewSpellDesc
+		{
+			get { return newSpellDesc; }
+			set
+			{
+				newSpellDesc = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		#endregion
+
+		#region Traits
+
+		private string newTraitDesc = "";
+
+		public string NewTraitDesc
+		{
+			get { return newTraitDesc; }
+			set
+			{
+				newTraitDesc = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		#endregion
+
+		#endregion
+
+
 		#region Commands
 
 
@@ -567,6 +724,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public ICommand AddNewItem => new RelayCommand(AddNewItemExecute, CanRunCommand);
 		public ICommand AddNewSpell => new RelayCommand(AddNewSpellExecute, CanRunCommand);
 		public ICommand AddNewWeapon => new RelayCommand(AddNewWeaponExecute, CanRunCommand);
+		public ICommand AddNewCharTrait => new RelayCommand(AddNewCharTraitExecute);
 
 		#region CommandFunctions
 		void SaveCharacterExecute()
@@ -597,24 +755,45 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		{
 			if (AddItemToGlobalList)
 			{
-				
+
 			}
 		}
 
 		void AddNewSpellExecute()
 		{
+			Spell newSpell = new Spell();
+			newSpell.Name = newSpellName;
+			newSpell.Description = newSpellDesc;
+			newSpell.Level = newSpellLevel;
 			if (AddSpellToGlobalList)
 			{
-				
+				CharacterManager.AllSpells.Add(newSpell);
 			}
 		}
 
 		void AddNewWeaponExecute()
 		{
+			var newWep = new Weapon();
+			newWep.Name = newWepName;
+			newWep.Damage = newWepDamage;
+			newWep.Description = newWepDesc;
 			if (AddWeaponToGlobalList)
 			{
-				
+				CharacterManager.AllWeapons.Add(newWep);
+				CharacterManager.SaveWeapons();
 			}
+			character.Weapons.Add(newWep);
+			Weapons.Add(new WeaponViewModel(newWep));
+			CharacterManager.SaveCurrentCharacter();
+		}
+
+		void AddNewCharTraitExecute()
+		{
+			var newTrait = new Trait(newTraitDesc);
+			newTraitDesc = "";
+			character.Traits.Add(newTrait);
+			CharTraits.Add(new TraitViewModel(newTrait));
+			CharacterManager.SaveCurrentCharacter();
 		}
 		#endregion
 		#endregion

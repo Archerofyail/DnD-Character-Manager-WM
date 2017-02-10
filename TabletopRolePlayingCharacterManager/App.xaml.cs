@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using TabletopRolePlayingCharacterManager.Types;
+using Windows.UI.Core;
 
 namespace TabletopRolePlayingCharacterManager
 {
@@ -69,7 +70,8 @@ namespace TabletopRolePlayingCharacterManager
 				// Ensure the current window is active
 				Window.Current.Activate();
 			}
-			CharacterManager.LoadCompendium();
+			
+			Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
 
 		}
 
@@ -95,6 +97,23 @@ namespace TabletopRolePlayingCharacterManager
 			var deferral = e.SuspendingOperation.GetDeferral();
 			//TODO: Save application state and stop any background activity
 			deferral.Complete();
+		}
+
+		private void App_BackRequested(object sender, BackRequestedEventArgs e)
+		{
+			Frame rootFrame = Window.Current.Content as Frame;
+			if (rootFrame == null)
+			{
+				return;
+			}
+
+			// Navigate back if possible, and if the event has not 
+			// already been handled .
+			if (rootFrame.CanGoBack && e.Handled == false)
+			{
+				e.Handled = true;
+				rootFrame.GoBack();
+			}
 		}
 	}
 }
