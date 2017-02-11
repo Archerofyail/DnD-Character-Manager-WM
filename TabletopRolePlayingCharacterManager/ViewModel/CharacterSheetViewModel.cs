@@ -15,7 +15,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	public class CharacterSheetViewModel : ViewModelBase
 	{
 		Character5E character;
-
+		private static ObservableCollection<string> alignments = new ObservableCollection<string>() {"Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good"};
 		public CharacterSheetViewModel()
 		{
 			character = CharacterManager.CurrentCharacter;
@@ -80,18 +80,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				RaisePropertyChanged();
 			}
 		}
-		public string Alignment
+
+		public ObservableCollection<string> Alignments
 		{
-			get
-			{
-				return character.Alignment;
-			}
+			get { return alignments; }
+		}
+
+		private int selectedAlignment = -1;
+
+		public int SelectedAlignment
+		{
+			get { return selectedAlignment; }
 			set
 			{
-				character.Alignment = value;
-				RaisePropertyChanged();
+				if (selectedAlignment < alignments.Count)
+				{
+					selectedAlignment = value;
+					character.Alignment = alignments[value];
+					RaisePropertyChanged();
+				}
 			}
 		}
+		
 		public string Level
 		{
 			get

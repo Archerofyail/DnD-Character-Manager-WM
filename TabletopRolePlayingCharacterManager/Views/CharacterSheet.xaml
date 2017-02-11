@@ -303,7 +303,8 @@
 					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
 							 MinWidth="96"
 							 Margin="0, 0, 0, 4"/>
-					<TextBox Text="{Binding Path=Level, Mode=TwoWay}"
+					<ComboBox ItemsSource="{Binding Path=Levels}"
+							  SelectedIndex="{Binding SelectedLevel}"
 							 MinWidth="96"/>
 				</StackPanel>
 				<StackPanel Margin="4, 0">
@@ -395,8 +396,10 @@
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="4, 0, 4, 0">
-									<TextBox Text="{Binding Alignment, Mode=TwoWay}" />
-									<TextBlock Text="Alignment"/>
+									<ComboBox ItemsSource="{Binding Alignments}"
+											  SelectedIndex="{Binding SelectedAlignment}" 
+											  HorizontalAlignment="Stretch"
+											  PlaceholderText="Alignment"/>
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="3"
 								Margin="4, 0, 4, 0">

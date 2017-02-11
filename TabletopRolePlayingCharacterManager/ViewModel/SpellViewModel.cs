@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
@@ -6,7 +7,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	public class SpellViewModel : ViewModelBase
 	{
 		private Spell spell;
-
+		private static ObservableCollection<string> levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 		public SpellViewModel(Spell sp)
 		{
 			spell = sp;
@@ -22,18 +23,31 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		public string Level
+		private int selectedLevel = -1;
+
+		public int SelectedLevel
 		{
-			get { return spell.Level.ToString(); }
+			get { return selectedLevel; }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (value < levels.Count)
 				{
-					spell.Level = result;
+					selectedLevel = value;
+					if (levels[value] == "Cantrip")
+					{
+						spell.Level = 0;
+						RaisePropertyChanged();
+						return;
+					}
+					spell.Level = int.Parse(levels[value]);
+					RaisePropertyChanged();
+
 				}
-				RaisePropertyChanged();
 			}
+		}
+		public ObservableCollection<string> Levels
+		{
+			get { return levels; }
 		}
 
 		public string Description
@@ -48,7 +62,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public bool HasVerbalComponent
 		{
-			get { return spell.HasVerbalComponent;}
+			get { return spell.HasVerbalComponent; }
 			set
 			{
 				spell.HasVerbalComponent = value;
