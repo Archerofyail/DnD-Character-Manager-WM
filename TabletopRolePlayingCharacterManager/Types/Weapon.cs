@@ -9,9 +9,9 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public WeaponType WeaponType { get; set; }
 		public Damage Damage { get; set; } = new Damage();
 		public string Description { get; set; }
-		public Tuple<MainStatType, int> MainStat { get; set; } = new Tuple<MainStatType, int>(MainStatType.Strength, 10);
+		public MainStatType MainStat { get; set; } = MainStatType.Strength;
 		public int AttackBonus { get; set; }
-		public int RollAttack()
+		public int RollAttack(int AbilityScoreBonus)
 		{
 			var attack = 0;
 			attack += Utility.Rand.Next(1, 21);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
@@ -9,10 +10,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	public class WeaponViewModel : ViewModelBase
 	{
 		private Weapon weapon;
-
+		private static ObservableCollection<MainStatType> mainStat = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
+		private static  ObservableCollection<WeaponType> weaponTypes = new ObservableCollection<WeaponType>() {TabletopRolePlayingCharacterManager.WeaponType.Melee, TabletopRolePlayingCharacterManager.WeaponType.Ranged};
 		public WeaponViewModel(Weapon weap)
 		{
 			weapon = weap;
+
 		}
 		public string Name
 		{
@@ -51,19 +54,65 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		public string WeaponType
+		public ObservableCollection<MainStatType> MainStat
 		{
-			get { return weapon.WeaponType.ToString(); }
+			get { return mainStat; }
+		}
+
+		private int selectedMainStat = -1;
+
+		public int SelectedMainStat
+		{
+			get { return selectedMainStat; }
 			set
 			{
-				WeaponType type = TabletopRolePlayingCharacterManager.WeaponType.Melee;
-				if (Enum.TryParse(value, out type))
+				if (value < mainStat.Count && mainStat.Count >= 0)
 				{
-					weapon.WeaponType = type;
-
+					selectedMainStat = value;
+					weapon.MainStat = mainStat[selectedMainStat];
+					RaisePropertyChanged();
 				}
-				RaisePropertyChanged();
 			}
 		}
+
+		public string AttackBonus
+		{
+			get { return weapon.AttackBonus.ToString(); }
+			set
+			{
+				var result = 0;
+				if (int.TryParse(value, out result))
+				{
+					weapon.AttackBonus = result;
+					RaisePropertyChanged();
+				}
+			}
+		}
+
+		private int selectedWeaponType = -1;
+
+		public int SelectedWeaponType
+		{
+			get { return selectedWeaponType; }
+			set { selectedWeaponType = value; }
+		}
+		public ObservableCollection<WeaponType> WeaponTypes
+		{
+			get { return weaponTypes; }
+		}
+
+		
+
+		public string Description
+		{
+			get { return weapon.Description; }
+			set
+			{
+				weapon.Description = value; 
+				RaisePropertyChanged();
+			}
+
+		}
+
 	}
 }

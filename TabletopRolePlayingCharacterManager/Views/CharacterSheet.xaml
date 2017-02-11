@@ -256,50 +256,72 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Item">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition/>
-				</Grid.RowDefinitions>
-				<TextBox Text="{Binding Path=Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="0"/>
+			<StackPanel Margin="4"
+						MinWidth="150">
+				<TextBox Text="{Binding Path=Name, Mode=TwoWay}" Margin="0, 4"/>
 				<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
 							  TextWrapping="Wrap"
-						 Grid.Column="1"/>
+						MinHeight="48"
+						 AcceptsReturn="True"
+						 />
+			</StackPanel>
 
-			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="Weapon">
-			<Grid MinWidth="250">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition/>
-				</Grid.RowDefinitions>
+			<StackPanel Margin="4">
+				<StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
+							 Margin="0,0, 4, 0"
+						 MinWidth="96"/>
+					<TextBox Text="{Binding Path=Damage, Mode=TwoWay}"
+							 Margin="0, 0, 4, 0"
+						 PlaceholderText="1d6, 1d8, etc."/>
+					<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
+							 PlaceholderText="Attack Bonus"/>
 
-				<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
-							 Grid.Row="0" Grid.Column="0"/>
-				<TextBox Text="{Binding Path=Damage, Mode=TwoWay}"
-							 Grid.Row="0" Grid.Column="1"/>
-				<TextBox Text="{Binding Path=WeaponType, Mode=TwoWay}"
-							 Grid.Row="0" Grid.Column="2"/>
 
-			</Grid>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+					<ComboBox ItemsSource="{Binding MainStat}"
+							  SelectedIndex="{Binding SelectedMainStat, Mode=TwoWay}"
+							  Margin="0, 0, 4, 0"/>
+					<ComboBox ItemsSource="{Binding WeaponTypes}"
+						  SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}"/>
+				</StackPanel>
+				<TextBox Text="{Binding Description, Mode=TwoWay}"
+						 PlaceholderText="Description"
+						 AcceptsReturn="True"
+						 MinHeight="48"
+						 Margin="0, 4, 0, 0"
+						 TextWrapping="Wrap"/>
+			</StackPanel>
 		</DataTemplate>
 		<DataTemplate x:Key="Spell">
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal"
+						Margin="0, 4" BorderThickness="1" BorderBrush="#FF666666">
 				<StackPanel>
-					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"/>
-					<TextBox Text="{Binding Path=Level, Mode=TwoWay}"/>
+					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
+							 MinWidth="96"
+							 Margin="0, 0, 0, 4"/>
+					<TextBox Text="{Binding Path=Level, Mode=TwoWay}"
+							 MinWidth="96"/>
+				</StackPanel>
+				<StackPanel Margin="4, 0">
+					<StackPanel Orientation="Horizontal">
+						<CheckBox Content="V"
+							  IsChecked="{Binding HasVerbalComponent}"
+							  MinWidth="40"/>
+						<CheckBox Content="S"
+							  IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
+							  MinWidth="40"/>
+					</StackPanel>
+					<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
+							 PlaceholderText="Material"/>
 				</StackPanel>
 				<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
-							  TextWrapping="Wrap"/>
+							  TextWrapping="Wrap"
+							 MinWidth="120"
+						 AcceptsReturn="True"/>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate x:Key="CharacterTrait">
@@ -856,10 +878,21 @@
 												 MinWidth="240"/>
 											<TextBox Text="{Binding NewSpellLevel, Mode=TwoWay}" PlaceholderText="Level" Margin="4"/>
 										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<CheckBox IsChecked="{Binding NSpellHasV}"
+													  Content="V" MinWidth="40"/>
+											<CheckBox IsChecked="{Binding NSpellHasS}"
+													  Content="V" MinWidth="44"/>
+											<TextBox Text="{Binding NSpellMat}"
+													 PlaceholderText="Material"
+													 MinWidth="120"/>
+										</StackPanel>
 										<TextBox PlaceholderText="Description"
 												 Height="96"
 												 Margin="4"
-												 Text="{Binding NewSpellDesc, Mode=TwoWay}"/>
+												 Text="{Binding NewSpellDesc, Mode=TwoWay}"
+												 AcceptsReturn="True"
+												 TextWrapping="Wrap"/>
 										<StackPanel Orientation="Horizontal">
 											<CheckBox Content="Also Add to Compendium"
 													  Margin="4"

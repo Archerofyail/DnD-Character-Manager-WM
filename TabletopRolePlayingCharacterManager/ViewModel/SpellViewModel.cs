@@ -46,6 +46,32 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		public bool HasVerbalComponent
+		{
+			get { return spell.HasVerbalComponent;}
+			set
+			{
+				spell.HasVerbalComponent = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public bool HasSomaticComponent
+		{
+			get { return spell.HasSomaticComponent; }
+			set
+			{
+				spell.HasSomaticComponent = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public string MaterialComponent
+		{
+			get { return spell.MaterialComponent; }
+			set { spell.MaterialComponent = value; }
+		}
+
 
 	}
 }

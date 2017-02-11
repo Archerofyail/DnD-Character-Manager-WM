@@ -803,6 +803,44 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		private bool nSpellHasV = false;
+
+		public bool NSpellHasV
+		{
+			get { return nSpellHasV; }
+			set
+			{
+				nSpellHasV = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private bool nSpellHasS = false;
+
+		public bool NSpellHasS
+		{
+			get { return nSpellHasS; }
+			set
+			{
+				nSpellHasS = value;
+				RaisePropertyChanged();
+			}
+		}
+
+
+		private string nSpellMat = "";
+
+		public string NSpellMat
+		{
+			get { return nSpellMat; }
+			set
+			{
+				nSpellMat = value;
+				RaisePropertyChanged();
+			}
+		}
+
+
 		#endregion
 
 		#region Traits
