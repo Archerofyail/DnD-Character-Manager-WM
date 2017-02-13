@@ -51,5 +51,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 		{
 			AddTraitButton.Flyout.Hide();
 		}
+
+		private void AddNewLangTapped(object sender, TappedRoutedEventArgs e)
+		{
+			AddNewLangButton.Flyout.Hide();
+		}
 	}
 }

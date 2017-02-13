@@ -469,6 +469,31 @@
 								</StackPanel>
 							</Grid>
 						</StackPanel>
+						<StackPanel Name="LanguageStackPAnel">
+							<TextBlock Text="Languages Known"/>
+							<GridView ItemsSource="{Binding Languages}"/>
+							<Button Style="{StaticResource NoBackgroundAddButton}"
+									Name="AddNewLangButton">
+								<Button.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="Add"/>
+										<TextBlock Text="Add Language"/>
+									</StackPanel>
+								</Button.Content>
+								<Button.Flyout>
+									<Flyout>
+										<StackPanel>
+											<TextBlock Text="Language"/>
+											<TextBox Name="NewLanguageBox"/>
+											<Button Command="{Binding Add}"
+													CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
+													Tapped="AddNewLangTapped"/>
+										</StackPanel>
+									</Flyout>
+								</Button.Flyout>
+							</Button>
+						</StackPanel>
+
 						<StackPanel Name="CharacterPersonality" Orientation="Vertical">
 							<TextBlock Text="Personality Traits"/>
 							<TextBox Height="96" Text="{Binding PersonalityTraits, Mode=TwoWay}" 
@@ -941,4 +966,5 @@
 		</ScrollViewer>
 	</Grid>
 </Page>
+	
 	

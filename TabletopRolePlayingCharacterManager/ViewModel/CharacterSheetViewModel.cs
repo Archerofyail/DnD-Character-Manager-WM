@@ -26,6 +26,23 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		}
 
 		#region General
+		private ObservableCollection<string> languages = new ObservableCollection<string>();
+		public ObservableCollection<string> Languages
+		{
+			get
+			{
+				if (languages.Count == 0)
+				{
+
+					foreach (var language in character.Languages)
+					{
+						languages.Add(language);
+					}
+					
+				}
+				return languages;
+			}
+		}
 
 		public string Notes
 		{
@@ -882,7 +899,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public ICommand AddNewSpell => new RelayCommand(AddNewSpellExecute, CanRunCommand);
 		public ICommand AddNewWeapon => new RelayCommand(AddNewWeaponExecute, CanRunCommand);
 		public ICommand AddNewCharTrait => new RelayCommand(AddNewCharTraitExecute);
-
+		public ICommand AddNewLang => new RelayCommand<string>(AddNewLanguageExecute);
 		#region CommandFunctions
 		void SaveCharacterExecute()
 		{
@@ -951,6 +968,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			character.Traits.Add(newTrait);
 			CharTraits.Add(new TraitViewModel(newTrait));
 			CharacterManager.SaveCurrentCharacter();
+		}
+
+		void AddNewLanguageExecute(string newLang)
+		{
+			Languages.Add(newLang);
+			character.Languages.Add(newLang);
+			RaisePropertyChanged("Languages");
 		}
 		#endregion
 		#endregion
