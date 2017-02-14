@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager
@@ -70,9 +71,10 @@ namespace TabletopRolePlayingCharacterManager
 	public interface IStatIncrease
 	{
 		Character5E character { get; set; }
-
+		int Bonus { get; set; }
 		void AddBonus();
-		
+		void RemoveBonus();
+
 	}
 	public class Message<T>
 	{
