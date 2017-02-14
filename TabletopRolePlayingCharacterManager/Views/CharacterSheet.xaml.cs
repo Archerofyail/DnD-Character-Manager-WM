@@ -1,6 +1,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace TabletopRolePlayingCharacterManager.Views
 {
@@ -55,6 +56,12 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void AddNewLangTapped(object sender, TappedRoutedEventArgs e)
 		{
 			AddNewLangButton.Flyout.Hide();
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			SaveButton.Command.Execute(SaveButton);
+			base.OnNavigatedFrom(e);
 		}
 	}
 }

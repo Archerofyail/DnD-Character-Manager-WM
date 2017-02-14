@@ -122,6 +122,7 @@
     <Compile Include="Types\Skill.cs" />
     <Compile Include="Types\Spell.cs" />
     <Compile Include="Types\SpellEffect.cs" />
+    <Compile Include="Types\Subclass.cs" />
     <Compile Include="Types\Trait.cs" />
     <Compile Include="Types\Weapon.cs" />
     <Compile Include="ViewModel\CharacterSheetViewModel.cs" />

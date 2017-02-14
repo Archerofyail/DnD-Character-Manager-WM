@@ -16,7 +16,8 @@
 	<Page.BottomAppBar>
 		<CommandBar>
 			<AppBarButton Icon="Save" Label="Save"
-						  Command="{Binding SaveCharacter}"/>
+						  Command="{Binding SaveCharacter}"
+						  Name="SaveButton"/>
 			<AppBarButton Icon="Delete" Label="Delete"
 						  Click="DeleteCharacterClick">
 				<AppBarButton.Flyout>
@@ -947,18 +948,18 @@
 					</PivotItem.Header>
 					<StackPanel>
 						<TextBlock Text="Backstory" />
-						<TextBox Height="192" Text="{Binding Backstory, Mode=TwoWay}" 
+						<TextBox MinHeight="192" Text="{Binding Backstory, Mode=TwoWay}" 
 									 TextWrapping="Wrap" AcceptsReturn="True"/>
 						<TextBlock Text="Religion"/>
 						<TextBox Text="{Binding God}"
 								 PlaceholderText="God(s)"/>
 						<TextBlock Text="Relationships/Allies"/>
 						<TextBox Text="{Binding Relationships}"
-								 Height="96"
+								 MinHeight="96"
 								 AcceptsReturn="True" TextWrapping="Wrap"/>
 						<TextBlock Text="Other Notes"/>
 						<TextBox Text="{Binding Notes}"
-								 Height="96"
+								 MinHeight="96"
 								 AcceptsReturn="True" TextWrapping="Wrap"/>
 					</StackPanel>
 				</PivotItem>

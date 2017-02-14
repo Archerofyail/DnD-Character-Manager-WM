@@ -673,6 +673,57 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				return traits;
 			}
 		}
+
+		private ObservableCollection<string> weaponProficiencies = new ObservableCollection<string>();
+
+		public ObservableCollection<string> WeaponProficiencies
+		{
+			get
+			{
+				if (weaponProficiencies.Count == 0)
+				{
+					foreach (var proficiency in character.WeaponProficiencies)
+					{
+						weaponProficiencies.Add(proficiency);
+					}
+				}
+				return weaponProficiencies;
+			}
+		}
+
+		private ObservableCollection<string> armorProficiencies = new ObservableCollection<string>();
+
+		public ObservableCollection<string> ArmorProficiencies
+		{
+			get
+			{
+				if (armorProficiencies.Count == 0)
+				{
+					foreach (var proficiency in character.ArmorProficiencies)
+					{
+						armorProficiencies.Add(proficiency);
+					}
+					
+				}
+				return armorProficiencies;
+			}
+		}
+		private ObservableCollection<string> proficiencies = new ObservableCollection<string>();
+
+		public ObservableCollection<string> Proficiencies
+		{
+			get
+			{
+				if (proficiencies.Count == 0)
+				{
+					foreach (var proficiency in character.Proficiencies)
+					{
+						proficiencies.Add(proficiency);
+					}
+				}
+				return proficiencies;
+			}
+		}
 		#region GlobalListControl
 
 		private bool addSpellToGlobalList;

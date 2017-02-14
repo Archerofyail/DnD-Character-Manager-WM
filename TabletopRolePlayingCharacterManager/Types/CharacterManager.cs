@@ -31,7 +31,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static List<Item> AllItems { get; set; } = new List<Item>();
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
-
+		public static List<string> AllLanguages { get; set; } = new List<string>();
 		private static StorageFolder SaveFolder { get; set; }
 		private static StorageFolder RoamingFolder { get; set; }
 
@@ -199,6 +199,24 @@ namespace TabletopRolePlayingCharacterManager.Types
 			if (file != null)
 			{
 				await SaveObjectToFile(AllWeapons, file);
+			}
+		}
+
+		public async static Task LoadLanguagues()
+		{
+			var fileName = "Languages.json";
+
+			var file = await GetOrCreateStorageFile(fileName);
+			if (file != null)
+			{
+				AllLanguages = await LoadObjectFromJsonFile<List<string>>(file);
+				if (AllLanguages.Count == 0)
+				{
+					AllLanguages.Add("Common");
+					AllLanguages.Add("Elvish");
+					AllLanguages.Add("Dwarvish");
+					AllLanguages.Add("Goblin");
+				}
 			}
 		}
 
