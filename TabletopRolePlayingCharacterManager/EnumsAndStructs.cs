@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager
 {
@@ -65,8 +66,14 @@ namespace TabletopRolePlayingCharacterManager
 	//For displaying skills during character creation, you need the name, and the ability score it's associated with.
 	//For skills within the character class, you want the name{string}, the ability score{MainStatType}, and whether they're proficient with it{bool}
 
-	
 
+	public interface IStatIncrease
+	{
+		Character5E character { get; set; }
+
+		void AddBonus();
+		
+	}
 	public class Message<T>
 	{
 		public MessageType MessageType { get; private set; }
