@@ -40,10 +40,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				var text = "";
 				foreach (var levelTrait in classBonus.TraitsByLevel)
 				{
-					text += "Level " + levelTrait.Item1 + ":\n";
-					foreach (var trait in levelTrait.Item2)
+					text += "Level " + levelTrait.Key + ":\n";
+					foreach (var traitList in levelTrait.Value)
 					{
-						text += trait.Description + "\n";
+						foreach (var trait in traitList)
+						{
+							text += trait.Description + "\n";
+						}
+						
 					}
 				}
 				return text;

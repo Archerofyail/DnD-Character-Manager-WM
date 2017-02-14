@@ -206,12 +206,23 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+
+		<DataTemplate x:Key="RaceTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Pivot>
 			<PivotItem>
 				<PivotItem.Header>
-					<controls:TabHeader Label="Races and Classes" Symbol="ContactInfo"/>
+					<controls:TabHeader Label="Races" Symbol="ContactInfo"/>
+				</PivotItem.Header>
+			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="Classes" Symbol="ContactInfo"/>
 				</PivotItem.Header>
 			</PivotItem>
 			<PivotItem>

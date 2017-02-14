@@ -24,7 +24,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return name; }
 			set
 			{
-				name = value; 
+				name = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -34,9 +34,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get
 			{
 				var text = "";
-				foreach (var bonus in racialBonuses.StatBonuses)
+				foreach (var bonusList in racialBonuses.StatBonuses)
 				{
-					text += "+" + bonus.Item2 + bonus.Item1.ToString() + ", ";
+					foreach (var bonus in bonusList)
+					{
+
+						text += "+" + bonus.Item2 + bonus.Item1.ToString() + ", ";
+
+
+					}
+
 				}
 				text.Substring(0, text.Length - 2);
 				return text;

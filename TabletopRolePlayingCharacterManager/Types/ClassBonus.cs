@@ -21,7 +21,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public List<string> WeaponProficiencies { get; set; } = new List<string>();
 		public List<string> Proficiencies { get; set; } = new List<string>();
 		public Dictionary<int, List<MainStatType>> SavingThrowProficiencies { get; set; } = new Dictionary<int, List<MainStatType>>();
-		public List<Dictionary<int, List<Trait>>> TraitsByLevel { get; set; } = new List<Dictionary<int, List<Trait>>>();
+		public Dictionary<int, List<List<Trait>>> TraitsByLevel { get; set; } = new Dictionary<int, List<List<Trait>>>();
 		public List<Skill> Skills { get; set; }
 		public Dictionary<int, int> AbilityScoreImprovements { get; set; } = new Dictionary<int, int>();
 
@@ -30,6 +30,6 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		public Dictionary<int, int> Expertise { get; set; } = new Dictionary<int, int>();
 		public List<Subclass> SubClasses { get; set; } = new List<Subclass>();
-		public Dictionary<int, List<Spell>> SpellsLearned { get; set; } = new Dictionary<int, List<Spell>>();
+		
 	}
 }
