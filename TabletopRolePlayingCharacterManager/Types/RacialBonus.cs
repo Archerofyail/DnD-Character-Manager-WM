@@ -6,7 +6,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 {
 	public class RacialBonus
 	{
-		public string Race { get; }
+		public string Race { get; set; }
 		//Can be empty if no parent race exists 
 		public string ParentRace { get; set; } = "";
 		public MainStatType SpellStat { get; set; } = MainStatType.Intelligence;

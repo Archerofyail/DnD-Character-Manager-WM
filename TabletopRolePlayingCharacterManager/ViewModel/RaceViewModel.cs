@@ -13,18 +13,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		private string name;
 		private RacialBonus racialBonuses;
 
-		public RaceViewModel(string name, RacialBonus raceBonuses)
+		public RaceViewModel(RacialBonus raceBonuses)
 		{
-			this.name = name;
 			racialBonuses = raceBonuses;
 		}
 
 		public string Name
 		{
-			get { return name; }
+			get { return racialBonuses.Race; }
 			set
 			{
-				name = value;
+				racialBonuses.Race = value;
 				RaisePropertyChanged();
 			}
 		}

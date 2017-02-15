@@ -21,7 +21,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					foreach (var race in CharacterManager.RacialBonuses)
 					{
-						races.Add(new RaceViewModel(race.Key, race.Value));
+						races.Add(new RaceViewModel(race));
 					}
 				}
 				return races;
@@ -38,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					foreach (var cl in CharacterManager.ClassBonuses)
 					{
-						classes.Add(new ClassViewModel(cl.Key, cl.Value));
+						classes.Add(new ClassViewModel(cl));
 					}
 				}
 				return classes;

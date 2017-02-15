@@ -32,10 +32,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				if (_characterTemplates.Count != 0) return _characterTemplates;
 				_characterTemplates.Add("Fifth Edition Character");
 				_characterTemplates.Add("Generic Character");
-				//foreach (var characterTemplate in DbLoader.CharacterTemplates)
-				//{
-				//	_characterTemplates.Add(characterTemplate.TemplateName);
-				//}
 				return _characterTemplates;
 			}
 		}

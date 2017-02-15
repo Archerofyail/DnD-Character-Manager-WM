@@ -26,8 +26,8 @@ namespace TabletopRolePlayingCharacterManager.Types
 			private set { characters = value; }
 		}
 
-		public static Dictionary<string, RacialBonus> RacialBonuses { get; set; } = new Dictionary<string, RacialBonus>();
-		public static Dictionary<string, ClassBonus> ClassBonuses { get; set; } = new Dictionary<string, ClassBonus>();
+		public static List<RacialBonus> RacialBonuses { get; set; } = new List<RacialBonus>();
+		public static List<ClassBonus> ClassBonuses { get; set; } = new List<ClassBonus>();
 		public static List<Item> AllItems { get; set; } = new List<Item>();
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
@@ -105,7 +105,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				RacialBonuses = await LoadObjectFromJsonFile<Dictionary<string, RacialBonus>>(file);
+				RacialBonuses = await LoadObjectFromJsonFile<List<RacialBonus>>(file);
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				ClassBonuses = await LoadObjectFromJsonFile<Dictionary<string, ClassBonus>>(file);
+				ClassBonuses = await LoadObjectFromJsonFile<List<ClassBonus>>(file);
 			}
 		}
 

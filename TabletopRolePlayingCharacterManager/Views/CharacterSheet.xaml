@@ -33,26 +33,30 @@
 
 		</CommandBar>
 	</Page.BottomAppBar>
-	<Page.Resources>
 
-		<Style x:Key="TabsStylePivotStyle" TargetType="Pivot">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Pivot">
-						<Grid x:Name="RootElement"
+	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Assets/TemplateDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<Style x:Key="TabsStylePivotStyle" TargetType="Pivot">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="Pivot">
+							<Grid x:Name="RootElement"
 							HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
 							VerticalAlignment="{TemplateBinding VerticalAlignment}"
 							Background="{TemplateBinding Background}">
 
-							<Grid.Resources>
-								<Style x:Key="BaseContentControlStyle" TargetType="ContentControl">
-									<Setter Property="FontFamily" Value="Segoe UI" />
-									<Setter Property="FontWeight" Value="SemiBold" />
-									<Setter Property="FontSize" Value="15" />
-									<Setter Property="Template">
-										<Setter.Value>
-											<ControlTemplate TargetType="ContentControl">
-												<ContentPresenter
+								<Grid.Resources>
+									<Style x:Key="BaseContentControlStyle" TargetType="ContentControl">
+										<Setter Property="FontFamily" Value="Segoe UI" />
+										<Setter Property="FontWeight" Value="SemiBold" />
+										<Setter Property="FontSize" Value="15" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="ContentControl">
+													<ContentPresenter
 													Margin="{TemplateBinding Padding}"
 													HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 													VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -60,66 +64,66 @@
 													ContentTemplate="{TemplateBinding ContentTemplate}"
 													ContentTransitions="{TemplateBinding ContentTransitions}"
 													OpticalMarginAlignment="TrimSideBearings" />
-											</ControlTemplate>
-										</Setter.Value>
-									</Setter>
-								</Style>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+									</Style>
 
-								<Style x:Key="TitleContentControlStyle" BasedOn="{StaticResource BaseContentControlStyle}" TargetType="ContentControl">
-									<Setter Property="FontWeight" Value="SemiLight" />
-									<Setter Property="FontSize" Value="24" />
-								</Style>
+									<Style x:Key="TitleContentControlStyle" BasedOn="{StaticResource BaseContentControlStyle}" TargetType="ContentControl">
+										<Setter Property="FontWeight" Value="SemiLight" />
+										<Setter Property="FontSize" Value="24" />
+									</Style>
 
-								<!-- While used here to remove the spacing between header items, the 
+									<!-- While used here to remove the spacing between header items, the 
 								template can also be used to
 								display custom 'selected' visuals -->
-								<Style TargetType="PivotHeaderItem">
-									<Setter Property="Padding" Value="0" />
-									<Setter Property="BorderBrush" Value="{StaticResource SystemAccentColor}"/>
-									<Setter Property="BorderThickness" Value="0, 0, 0, 8"/>
-									<!--<Setter Property="Margin" Value="0, 0, 0, 8"/>-->
-									<Setter Property="Height" Value="52"/>
-								</Style>
-							</Grid.Resources>
+									<Style TargetType="PivotHeaderItem">
+										<Setter Property="Padding" Value="0" />
+										<Setter Property="BorderBrush" Value="{StaticResource SystemAccentColor}"/>
+										<Setter Property="BorderThickness" Value="0, 0, 0, 8"/>
+										<!--<Setter Property="Margin" Value="0, 0, 0, 8"/>-->
+										<Setter Property="Height" Value="52"/>
+									</Style>
+								</Grid.Resources>
 
-							<VisualStateManager.VisualStateGroups>
-								<VisualStateGroup x:Name="Orientation">
-									<VisualState x:Name="Portrait">
-										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TitleContentControl" Storyboard.TargetProperty="Margin">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotPortraitThemePadding}" />
-											</ObjectAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-									<VisualState x:Name="Landscape">
-										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TitleContentControl" Storyboard.TargetProperty="Margin">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotLandscapeThemePadding}" />
-											</ObjectAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-								</VisualStateGroup>
+								<VisualStateManager.VisualStateGroups>
+									<VisualStateGroup x:Name="Orientation">
+										<VisualState x:Name="Portrait">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TitleContentControl" Storyboard.TargetProperty="Margin">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotPortraitThemePadding}" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+										<VisualState x:Name="Landscape">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TitleContentControl" Storyboard.TargetProperty="Margin">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotLandscapeThemePadding}" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+									</VisualStateGroup>
 
-								<VisualStateGroup x:Name="HeaderStates">
-									<VisualState x:Name="HeaderDynamic" />
-									<VisualState x:Name="HeaderStatic">
-										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header" Storyboard.TargetProperty="Visibility">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
-											</ObjectAnimationUsingKeyFrames>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaticHeader" Storyboard.TargetProperty="Visibility">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
-											</ObjectAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-								</VisualStateGroup>
-							</VisualStateManager.VisualStateGroups>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="*" />
-							</Grid.RowDefinitions>
+									<VisualStateGroup x:Name="HeaderStates">
+										<VisualState x:Name="HeaderDynamic" />
+										<VisualState x:Name="HeaderStatic">
+											<Storyboard>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header" Storyboard.TargetProperty="Visibility">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+												</ObjectAnimationUsingKeyFrames>
+												<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaticHeader" Storyboard.TargetProperty="Visibility">
+													<DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+												</ObjectAnimationUsingKeyFrames>
+											</Storyboard>
+										</VisualState>
+									</VisualStateGroup>
+								</VisualStateManager.VisualStateGroups>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
 
-							<ContentControl x:Name="TitleContentControl"
+								<ContentControl x:Name="TitleContentControl"
 								Margin="{StaticResource PivotPortraitThemePadding}"
 								Content="{TemplateBinding Title}"
 								ContentTemplate="{TemplateBinding TitleTemplate}"
@@ -127,28 +131,28 @@
 								Style="{StaticResource TitleContentControlStyle}"
 								Visibility="Collapsed" />
 
-							<Grid Grid.Row="1">
+								<Grid Grid.Row="1">
 
-								<Grid.Resources>
-									<ResourceDictionary>
-										<ResourceDictionary.ThemeDictionaries>
-											<ResourceDictionary x:Key="Default">
-												<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-												<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-											</ResourceDictionary>
-											<ResourceDictionary x:Key="Light">
-												<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-												<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-											</ResourceDictionary>
-											<ResourceDictionary x:Key="HighContrast">
-												<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemColorWindowColor}" />
-												<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
-											</ResourceDictionary>
-										</ResourceDictionary.ThemeDictionaries>
-									</ResourceDictionary>
-								</Grid.Resources>
+									<Grid.Resources>
+										<ResourceDictionary>
+											<ResourceDictionary.ThemeDictionaries>
+												<ResourceDictionary x:Key="Default">
+													<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
+													<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
+												</ResourceDictionary>
+												<ResourceDictionary x:Key="Light">
+													<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
+													<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
+												</ResourceDictionary>
+												<ResourceDictionary x:Key="HighContrast">
+													<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemColorWindowColor}" />
+													<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+												</ResourceDictionary>
+											</ResourceDictionary.ThemeDictionaries>
+										</ResourceDictionary>
+									</Grid.Resources>
 
-								<ScrollViewer x:Name="ScrollViewer"
+									<ScrollViewer x:Name="ScrollViewer"
 									Margin="{TemplateBinding Padding}"
 									VerticalContentAlignment="Stretch"
 									BringIntoViewOnFocusChange="False"
@@ -160,179 +164,82 @@
 									VerticalScrollMode="Disabled"
 									VerticalSnapPointsType="None"
 									ZoomMode="Disabled">
-									<PivotPanel x:Name="Panel" VerticalAlignment="Stretch">
-										<Grid x:Name="PivotLayoutElement" >
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="*" />
-											</Grid.RowDefinitions>
+										<PivotPanel x:Name="Panel" VerticalAlignment="Stretch">
+											<Grid x:Name="PivotLayoutElement" >
+												<Grid.RowDefinitions>
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="*" />
+												</Grid.RowDefinitions>
 
-											<!-- By setting the column definitions to *,Auto,* allows the tabs to be centered by default -->
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*" />
-												<ColumnDefinition Width="Auto" />
-												<ColumnDefinition Width="*" />
-											</Grid.ColumnDefinitions>
-											<Grid.RenderTransform>
-												<CompositeTransform x:Name="PivotLayoutElementTranslateTransform" />
-											</Grid.RenderTransform>
+												<!-- By setting the column definitions to *,Auto,* allows the tabs to be centered by default -->
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*" />
+													<ColumnDefinition Width="Auto" />
+													<ColumnDefinition Width="*" />
+												</Grid.ColumnDefinitions>
+												<Grid.RenderTransform>
+													<CompositeTransform x:Name="PivotLayoutElementTranslateTransform" />
+												</Grid.RenderTransform>
 
-											<!--  This border is used as a backplate for the header area  -->
-											<Border
+												<!--  This border is used as a backplate for the header area  -->
+												<Border
 												Grid.ColumnSpan="3"
 												Background="{ThemeResource SystemControlPageBackgroundChromeMediumBrush}"
 												BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
 												BorderThickness="0,0,0,1" />
 
-											<ContentPresenter x:Name="LeftHeaderPresenter"
+												<ContentPresenter x:Name="LeftHeaderPresenter"
 												HorizontalAlignment="Stretch"
 												VerticalAlignment="Stretch"
 												Content="{TemplateBinding LeftHeader}"
 												ContentTemplate="{TemplateBinding LeftHeaderTemplate}" />
-											<ContentControl x:Name="HeaderClipper"
+												<ContentControl x:Name="HeaderClipper"
 												Grid.Column="1"
 												HorizontalContentAlignment="Stretch"
 												UseSystemFocusVisuals="True">
-												<ContentControl.Clip>
-													<RectangleGeometry x:Name="HeaderClipperGeometry" />
-												</ContentControl.Clip>
-												<Grid Background="Transparent">
-													<PivotHeaderPanel x:Name="StaticHeader" Visibility="Visible" />
-													<PivotHeaderPanel x:Name="Header">
-														<PivotHeaderPanel.RenderTransform>
-															<TransformGroup>
-																<CompositeTransform x:Name="HeaderTranslateTransform" />
-																<CompositeTransform x:Name="HeaderOffsetTranslateTransform" />
-															</TransformGroup>
-														</PivotHeaderPanel.RenderTransform>
-													</PivotHeaderPanel>
-												</Grid>
-											</ContentControl>
+													<ContentControl.Clip>
+														<RectangleGeometry x:Name="HeaderClipperGeometry" />
+													</ContentControl.Clip>
+													<Grid Background="Transparent">
+														<PivotHeaderPanel x:Name="StaticHeader" Visibility="Visible" />
+														<PivotHeaderPanel x:Name="Header">
+															<PivotHeaderPanel.RenderTransform>
+																<TransformGroup>
+																	<CompositeTransform x:Name="HeaderTranslateTransform" />
+																	<CompositeTransform x:Name="HeaderOffsetTranslateTransform" />
+																</TransformGroup>
+															</PivotHeaderPanel.RenderTransform>
+														</PivotHeaderPanel>
+													</Grid>
+												</ContentControl>
 
-											<ContentPresenter x:Name="RightHeaderPresenter"
+												<ContentPresenter x:Name="RightHeaderPresenter"
 												Grid.Column="2"
 												HorizontalAlignment="Stretch"
 												VerticalAlignment="Stretch"
 												Content="{TemplateBinding RightHeader}"
 												ContentTemplate="{TemplateBinding RightHeaderTemplate}" />
-											<ItemsPresenter x:Name="PivotItemPresenter" Grid.Row="1" Grid.ColumnSpan="3">
-												<ItemsPresenter.RenderTransform>
-													<TransformGroup>
-														<TranslateTransform x:Name="ItemsPresenterTranslateTransform" />
-														<CompositeTransform x:Name="ItemsPresenterCompositeTransform" />
-													</TransformGroup>
-												</ItemsPresenter.RenderTransform>
-											</ItemsPresenter>
-										</Grid>
-									</PivotPanel>
-								</ScrollViewer>
+												<ItemsPresenter x:Name="PivotItemPresenter" Grid.Row="1" Grid.ColumnSpan="3">
+													<ItemsPresenter.RenderTransform>
+														<TransformGroup>
+															<TranslateTransform x:Name="ItemsPresenterTranslateTransform" />
+															<CompositeTransform x:Name="ItemsPresenterCompositeTransform" />
+														</TransformGroup>
+													</ItemsPresenter.RenderTransform>
+												</ItemsPresenter>
+											</Grid>
+										</PivotPanel>
+									</ScrollViewer>
+								</Grid>
 							</Grid>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-
-
-		<DataTemplate x:Key="Skill">
-			<StackPanel Orientation="Vertical"
-							Margin="4, 0, 4, 0"
-							BorderBrush="DarkGray"
-							BorderThickness="2">
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding Path=Name, Mode=TwoWay}" VerticalAlignment="Center"
-							   MinWidth="112"/>
-
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding Path=Bonus, Mode=TwoWay}"
-								   Margin="8"
-								   FontSize="18"/>
-					<CheckBox IsChecked="{Binding Path=IsProficient, Mode=TwoWay}" MinWidth="32"/>
-					<TextBlock Text="{Binding Path=MainStat, Mode=TwoWay}" HorizontalAlignment="Right" Foreground="#FF7E7E7E" Margin="4,0,0,0"
-								  />
-				</StackPanel>
-			</StackPanel>
-		</DataTemplate>
-
-		<DataTemplate x:Key="Item">
-			<StackPanel Margin="4"
-						MinWidth="150">
-				<TextBox Text="{Binding Path=Name, Mode=TwoWay}" Margin="0, 4"/>
-				<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
-							  TextWrapping="Wrap"
-						MinHeight="48"
-						 AcceptsReturn="True"
-						 />
-			</StackPanel>
-
-		</DataTemplate>
-		<DataTemplate x:Key="Weapon">
-			<StackPanel Margin="4">
-				<StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
-							 Margin="0,0, 4, 0"
-						 MinWidth="96"/>
-					<TextBox Text="{Binding Path=Damage, Mode=TwoWay}"
-							 Margin="0, 0, 4, 0"
-						 PlaceholderText="1d6, 1d8, etc."/>
-					<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
-							 PlaceholderText="Attack Bonus"/>
-
-
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-					<ComboBox ItemsSource="{Binding MainStat}"
-							  SelectedIndex="{Binding SelectedMainStat, Mode=TwoWay}"
-							  Margin="0, 0, 4, 0"/>
-					<ComboBox ItemsSource="{Binding WeaponTypes}"
-						  SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}"/>
-				</StackPanel>
-				<TextBox Text="{Binding Description, Mode=TwoWay}"
-						 PlaceholderText="Description"
-						 AcceptsReturn="True"
-						 MinHeight="48"
-						 Margin="0, 4, 0, 0"
-						 TextWrapping="Wrap"/>
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="Spell">
-			<StackPanel Orientation="Horizontal"
-						Margin="0, 4" BorderThickness="1" BorderBrush="#FF666666">
-				<StackPanel>
-					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
-							 MinWidth="96"
-							 Margin="0, 0, 0, 4"/>
-					<ComboBox ItemsSource="{Binding Path=Levels}"
-							  SelectedIndex="{Binding SelectedLevel}"
-							 MinWidth="96"/>
-				</StackPanel>
-				<StackPanel Margin="4, 0">
-					<StackPanel Orientation="Horizontal">
-						<CheckBox Content="V"
-							  IsChecked="{Binding HasVerbalComponent}"
-							  MinWidth="40"/>
-						<CheckBox Content="S"
-							  IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
-							  MinWidth="40"/>
-					</StackPanel>
-					<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
-							 PlaceholderText="Material"/>
-				</StackPanel>
-				<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
-							  TextWrapping="Wrap"
-							 MinWidth="120"
-						 AcceptsReturn="True"/>
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="CharacterTrait">
-			<TextBlock Text="{Binding Description, Mode=TwoWay}"
-					   MinHeight="72"/>
-		</DataTemplate>
-		<Style x:Key="NoBackgroundAddButton" TargetType="Button">
-			<Setter Property="Background" Value="Transparent"/>
-		</Style>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="NoBackgroundAddButton" TargetType="Button">
+				<Setter Property="Background" Value="Transparent"/>
+			</Style>
+		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 		  Name="RootElement">

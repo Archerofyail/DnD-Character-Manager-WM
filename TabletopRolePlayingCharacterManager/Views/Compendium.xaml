@@ -6,8 +6,11 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	xmlns:controls="using:TabletopRolePlayingCharacterManager.Controls">
-
+	xmlns:controls="using:TabletopRolePlayingCharacterManager.Controls"
+	xmlns:vms="using:TabletopRolePlayingCharacterManager.ViewModel">
+<Page.DataContext>
+	<vms:CompendiumViewModel/>
+</Page.DataContext>
 	<Page.Resources>
 		<Style x:Key="TabsStylePivotStyle" TargetType="Pivot">
 			<Setter Property="Template">
@@ -212,6 +215,26 @@
 				<TextBlock Text="{Binding Name}"/>
 			</StackPanel>
 		</DataTemplate>
+		<DataTemplate x:Key="ClassTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="ItemTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="WeaponTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="SpellTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Pivot>
@@ -219,6 +242,8 @@
 				<PivotItem.Header>
 					<controls:TabHeader Label="Races" Symbol="ContactInfo"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Races}"
+						  ItemTemplate="{StaticResource RaceTemplate}"/>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>

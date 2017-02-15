@@ -12,21 +12,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	public class ClassViewModel : ViewModelBase
 	{
 
-		private string name;
 		private ClassBonus classBonus;
 
-		public ClassViewModel(string name, ClassBonus cl)
+		public ClassViewModel(ClassBonus cl)
 		{
-			this.name = name;
 			classBonus = cl;
 		}
 
 		public string Name
 		{
-			get { return name; }
+			get { return classBonus.ClassName; }
 			set
 			{
-				name = value;
+				classBonus.ClassName = value;
 				RaisePropertyChanged();
 			}
 		}
