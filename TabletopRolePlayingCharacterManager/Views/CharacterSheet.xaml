@@ -390,12 +390,16 @@
 								</Button.Content>
 								<Button.Flyout>
 									<Flyout>
-										<StackPanel>
-											<TextBlock Text="Language"/>
-											<TextBox Name="NewLanguageBox"/>
+										<StackPanel MinWidth="96">
+											
+											<TextBox Name="NewLanguageBox"
+													 Margin="4"
+													 PlaceholderText="Language"
+													 />
 											<Button Command="{Binding Add}"
 													CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
-													Tapped="AddNewLangTapped"/>
+													Tapped="AddNewLangTapped"
+													Content="Add Language"/>
 										</StackPanel>
 									</Flyout>
 								</Button.Flyout>
@@ -710,9 +714,15 @@
 												 Margin="4"
 												 Text="{Binding NewTraitDesc, Mode=TwoWay}"/>
 										<StackPanel Orientation="Horizontal">
+										<ComboBox ItemsSource="{Binding TraitStatBonuses}"/>
+											<TextBox Text="{Binding NewTraitStatBonus}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
 											<Button Content="+ Add Trait" Margin="4"
-												Command="{Binding AddNewCharTrait}"
+													Command="{Binding AddNewCharTrait}"
 													Tapped="AddTraitTapped"/>
+											<CheckBox Content="Has Context-based stat bonus"
+													  Name="NewTraitHasStatBonusCheckbox"></CheckBox>
 										</StackPanel>
 									</StackPanel>
 								</Flyout>
