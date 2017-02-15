@@ -70,7 +70,8 @@ namespace TabletopRolePlayingCharacterManager
 
 	public interface IStatIncrease
 	{
-		Character5E character { get; set; }
+		Character5E Character { get; set; }
+		string BonusName { get; }
 		int Bonus { get; set; }
 		void AddBonus();
 		void RemoveBonus();

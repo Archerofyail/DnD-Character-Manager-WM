@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using TabletopRolePlayingCharacterManager.Models;
 using Windows.Storage;
@@ -32,11 +34,26 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
 		public static List<string> AllLanguages { get; set; } = new List<string>();
+		public static readonly List<IStatIncrease> StatBonuses;
 		private static StorageFolder SaveFolder { get; set; }
 		private static StorageFolder RoamingFolder { get; set; }
 
 		public static EventHandler CharactersLoadedEventHandler;
 
+
+		static CharacterManager()
+		{
+			var statIncType = typeof(IStatIncrease);
+			var allStatIncTypes = statIncType.GetTypeInfo()
+				.Assembly.GetTypes()
+				.Where((Type) => { return Type.GetTypeInfo().IsClass && Type.GetTypeInfo().IsSubclassOf(statIncType); });
+			foreach (var type in allStatIncTypes)
+			{
+				
+				StatBonuses.Add((IStatIncrease) Activator.CreateInstance(type));
+
+			}
+		}
 
 		public static async Task SetFolders()
 		{
@@ -279,13 +296,22 @@ namespace TabletopRolePlayingCharacterManager.Types
 			return temp;
 		}
 
-		public static
-			Character5E GetNewChar()
+		public static Character5E GetNewChar()
 		{
 			var character = new Character5E(Characters.Count, true);
 			Characters.Add(character);
 			CurrentCharacter = character;
 			return character;
+		}
+
+		public static IStatIncrease GetStatIncrease(string name)
+		{
+			IStatIncrease statInc;
+
+			var statIncType = StatBonuses.Find((increase => increase.BonusName == name)).GetType();
+			statInc = (IStatIncrease)Activator.CreateInstance(statIncType);
+
+			return statInc;
 		}
 
 	}

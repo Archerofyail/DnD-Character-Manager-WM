@@ -15,7 +15,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	public class CharacterSheetViewModel : ViewModelBase
 	{
 		Character5E character;
-		private static ObservableCollection<string> alignments = new ObservableCollection<string>() {"Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good"};
+		private static ObservableCollection<string> alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
 		public CharacterSheetViewModel()
 		{
 			character = CharacterManager.CurrentCharacter;
@@ -38,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 					{
 						languages.Add(language);
 					}
-					
+
 				}
 				return languages;
 			}
@@ -118,7 +118,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				}
 			}
 		}
-		
+
 		public string Level
 		{
 			get
@@ -703,7 +703,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 					{
 						armorProficiencies.Add(proficiency);
 					}
-					
+
 				}
 				return armorProficiencies;
 			}
@@ -935,6 +935,22 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
+		private ObservableCollection<string> traitStatBonuses = new ObservableCollection<string>();
+		public ObservableCollection<string> TraitStatBonuses
+		{
+			get
+			{
+				if (traitStatBonuses.Count == 0)
+				{
+					foreach (var bonus in CharacterManager.StatBonuses)
+					{
+						traitStatBonuses.Add(bonus.BonusName);
+					}
+				}
+				return traitStatBonuses;
+			}
+		}
+
 		#endregion
 
 		#endregion
@@ -1039,6 +1055,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				skillViewModel.RaiseAllPropertiesChanged();
 			}
 		}
-#endregion
+		#endregion
 	}
 }
