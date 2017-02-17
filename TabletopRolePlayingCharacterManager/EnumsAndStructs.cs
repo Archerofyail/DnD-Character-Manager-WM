@@ -68,15 +68,6 @@ namespace TabletopRolePlayingCharacterManager
 	//For skills within the character class, you want the name{string}, the ability score{MainStatType}, and whether they're proficient with it{bool}
 
 
-	public interface IStatIncrease
-	{
-		Character5E Character { get; set; }
-		string BonusName { get; }
-		int Bonus { get; set; }
-		void AddBonus();
-		void RemoveBonus();
-
-	}
 	public class Message<T>
 	{
 		public MessageType MessageType { get; private set; }
