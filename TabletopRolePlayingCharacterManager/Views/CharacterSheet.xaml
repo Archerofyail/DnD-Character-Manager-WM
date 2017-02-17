@@ -278,7 +278,8 @@
 							 Margin="0, 0, 4, 0"
 						 PlaceholderText="1d6, 1d8, etc."/>
 					<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
-							 PlaceholderText="Attack Bonus"/>
+							 PlaceholderText="Attack Bonus"
+							 InputScope="Number"/>
 
 
 				</StackPanel>
@@ -387,7 +388,8 @@
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="3"
 								 Margin="4, 0, 4, 0">
-									<TextBox Text="{Binding Level, Mode=TwoWay}" />
+									<TextBox Text="{Binding Level, Mode=TwoWay}" 
+											 InputScope="Number"/>
 									<TextBlock Text="Level"/>
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
@@ -404,7 +406,8 @@
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="3"
 								Margin="4, 0, 4, 0">
-									<TextBox Text="{Binding Experience, Mode=TwoWay}" />
+									<TextBox Text="{Binding Experience, Mode=TwoWay}"
+											  InputScope="Number"/>
 									<TextBlock Text="Experience"/>
 								</StackPanel>
 							</Grid>
@@ -537,17 +540,18 @@
 
 							<StackPanel Orientation="Vertical"
 								 Margin="4, 0, 4, 0">
-								<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
+								<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" 
+										  InputScope="Number"/>
 								<TextBlock Text="AC" HorizontalAlignment="Center"/>
 							</StackPanel>
 							<StackPanel Orientation="Vertical" 
 								 Margin="4, 0, 4, 0" Grid.Row="0" Grid.Column="1">
-								<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
+								<TextBlock Text="{Binding Initiative}" />
 								<TextBlock Text="Initiative" HorizontalAlignment="Center"/>
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
 								 Margin="4, 0, 4, 0" Grid.Column="2">
-								<TextBox Text="{Binding Speed, Mode=TwoWay}" />
+								<TextBox Text="{Binding Speed, Mode=TwoWay}"  InputScope="Number"/>
 								<TextBlock Text="Speed" HorizontalAlignment="Center"/>
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2"
@@ -556,12 +560,14 @@
 											Name="HealthBoxes">
 									<TextBox Name="CurrentHP" FontSize="16" PlaceholderText="HP"
 											 Text="{Binding CurrentHealth, Mode=TwoWay}"
-											  Margin="4, 0, 4, 0"></TextBox>
+											  Margin="4, 0, 4, 0"
+											  InputScope="Number"/>
 									<TextBlock Text="/" FontSize="16"
 											   />
 									<TextBox Name="MaxHP" FontSize="16" TextAlignment="Center" IsTextPredictionEnabled="False"
 											 PlaceholderText="Max HP"
-											 Text="{Binding MaxHealth, Mode=TwoWay}"></TextBox>
+											 Text="{Binding MaxHealth, Mode=TwoWay}"
+											  InputScope="Number"/>
 								</StackPanel>
 
 								<TextBlock Text="Hit Points" Margin="42, 0, 0, 0"/>
@@ -590,7 +596,8 @@
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"
 										Margin="0, 0, 4, 0">
-								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"/>
+								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"
+										  InputScope="Number"/>
 								<TextBlock 
 									Text="Temporary Hit Points" TextWrapping="Wrap" MaxLines="1"
 									
