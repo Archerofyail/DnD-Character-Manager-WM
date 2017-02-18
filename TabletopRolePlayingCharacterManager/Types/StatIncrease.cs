@@ -18,10 +18,13 @@ namespace TabletopRolePlayingCharacterManager.Types
 		}
 
 		public int Bonus { get; set; }
-		public void AddBonus()
-		{ }
 
-		public void RemoveBonus()
+		public virtual void AddBonus()
+		{
+			
+		}
+
+		public virtual void RemoveBonus()
 		{
 			
 		}

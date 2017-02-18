@@ -8,7 +8,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 {
 	public class Subclass
 	{
-		public string Name { get; set; }
+		public string Name { get; set; } 
 		public int NumOfSkillsProficiency { get; set; }
 
 		public Dictionary<int, List<Skill>> SkillProficiencies { get; set; } = new Dictionary<int, List<Skill>>();

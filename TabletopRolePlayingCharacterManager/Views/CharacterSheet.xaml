@@ -294,7 +294,8 @@
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="3"
 								 Margin="4, 0, 4, 0">
-									<TextBox Text="{Binding Level, Mode=TwoWay}" />
+									<TextBox Text="{Binding Level, Mode=TwoWay}"
+											 InputScope="Number"/>
 									<TextBlock Text="Level"/>
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
@@ -311,7 +312,8 @@
 								</StackPanel>
 								<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="3"
 								Margin="4, 0, 4, 0">
-									<TextBox Text="{Binding Experience, Mode=TwoWay}" />
+									<TextBox Text="{Binding Experience, Mode=TwoWay}" 
+											 InputScope="Number"/>
 									<TextBlock Text="Experience"/>
 								</StackPanel>
 							</Grid>
@@ -341,7 +343,8 @@
 								</Grid.RowDefinitions>
 								<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" 
 								Margin="4, 0, 4, 0">
-									<TextBox Text="{Binding Age, Mode=TwoWay}"/>
+									<TextBox Text="{Binding Age, Mode=TwoWay}"
+											 InputScope="Number"/>
 
 									<TextBlock Text="Age"/>
 								</StackPanel>

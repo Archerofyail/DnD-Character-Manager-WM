@@ -115,6 +115,7 @@
     <Compile Include="Types\ArmorClassBonus.cs" />
     <Compile Include="Types\Background.cs" />
     <Compile Include="Types\CharacterManager.cs" />
+    <Compile Include="Types\EquipmentChoice.cs" />
     <Compile Include="Types\ClassBonus.cs" />
     <Compile Include="Types\Damage.cs" />
     <Compile Include="Types\Item.cs" />

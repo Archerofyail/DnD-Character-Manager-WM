@@ -2,6 +2,7 @@
 using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.Views;
 
@@ -50,6 +51,11 @@ namespace TabletopRolePlayingCharacterManager
 		}
 
 		private void CharacterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			Frame.Navigate(typeof(CharacterSheet));
+		}
+
+		private void AddNewCharacterTapped(object sender, TappedRoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(CharacterSheet));
 		}

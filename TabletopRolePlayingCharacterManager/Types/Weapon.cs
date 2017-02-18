@@ -2,15 +2,19 @@
 using TabletopRolePlayingCharacterManager;
 namespace TabletopRolePlayingCharacterManager.Types
 {
-	public class Weapon
+	public class Weapon : Item
 	{
 
-		public string Name { get; set; }
 		public WeaponType WeaponType { get; set; }
 		public Damage Damage { get; set; } = new Damage();
-		public string Description { get; set; }
 		public MainStatType MainStat { get; set; } = MainStatType.Strength;
 		public int AttackBonus { get; set; }
+
+		public Weapon()
+		{
+			ItemType = ItemType.Weapon;
+		}
+
 		public int RollAttack(int AbilityScoreBonus)
 		{
 			var attack = 0;

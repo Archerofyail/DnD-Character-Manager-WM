@@ -34,7 +34,27 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
 		public static List<string> AllLanguages { get; set; } = new List<string>();
-		public static readonly List<StatIncrease> StatBonuses;
+		private static List<StatIncrease> statBonuses = new List<StatIncrease>();
+		public static List<StatIncrease> StatBonuses
+		{
+			get
+			{
+				if (statBonuses.Count == 0)
+				{
+					var statIncType = typeof(StatIncrease);
+					var allStatIncTypes = statIncType.GetTypeInfo()
+						.Assembly.GetTypes()
+						.Where((Type) => { return Type.GetTypeInfo().IsClass && Type.GetTypeInfo().IsSubclassOf(statIncType); });
+					foreach (var type in allStatIncTypes)
+					{
+
+						statBonuses.Add((StatIncrease) Activator.CreateInstance(type));
+
+					}
+				}
+				return statBonuses;
+			}
+		}
 		private static StorageFolder SaveFolder { get; set; }
 		private static StorageFolder RoamingFolder { get; set; }
 
@@ -43,16 +63,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		static CharacterManager()
 		{
-			var statIncType = typeof(StatIncrease);
-			var allStatIncTypes = statIncType.GetTypeInfo()
-				.Assembly.GetTypes()
-				.Where((Type) => { return Type.GetTypeInfo().IsClass && Type.GetTypeInfo().IsSubclassOf(statIncType); });
-			foreach (var type in allStatIncTypes)
-			{
-				
-				StatBonuses.Add((StatIncrease) Activator.CreateInstance(type));
-
-			}
+			
 		}
 
 		public static async Task SetFolders()

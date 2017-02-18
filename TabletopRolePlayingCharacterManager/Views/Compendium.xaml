@@ -7,6 +7,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	xmlns:controls="using:TabletopRolePlayingCharacterManager.Controls"
+	xmlns:TKCtrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
 	xmlns:vms="using:TabletopRolePlayingCharacterManager.ViewModel">
 <Page.DataContext>
 	<vms:CompendiumViewModel/>
@@ -220,9 +221,16 @@
 						  SelectedIndex="{Binding SelectedStat, Mode=TwoWay}"/>
 			</StackPanel>
 		</DataTemplate>
-		
-		
-		<DataTemplate x:Key="RaceTemplate">
+
+		<DataTemplate x:Key="TraitTemplate">
+			<StackPanel>
+				<TextBox Text="{Binding Description, Mode=TwoWay}"
+						 PlaceholderText="Trait"/>
+				
+			</StackPanel>
+		</DataTemplate>
+
+			<DataTemplate x:Key="RaceTemplate">
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="{Binding Name}"
 						   Margin="8"/>
@@ -241,6 +249,8 @@
 										  ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
 										  Margin="4"/>
 								
+								<TKCtrls:BladeView ItemsSource="{Binding Traits}"
+												   ItemTemplate="{StaticResource TraitTemplate}"/>
 							</StackPanel>
 						</Flyout>
 					</Button.Flyout>

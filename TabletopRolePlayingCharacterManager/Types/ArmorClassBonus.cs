@@ -7,24 +7,11 @@ using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
-	class ArmorClassBonus : IStatIncrease
+	class ArmorClassBonus : StatIncrease
 	{
 		private int bonus = 1;
 		private static string bonusName = "AC";
 		private Character5E character;
-		public int Bonus
-		{
-			get { return bonus; }
-
-			set { bonus = value; }
-		}
-
-		public string BonusName
-		{
-			get { return bonusName; }
-
-			
-		}
 
 		public Character5E Character
 		{
@@ -33,12 +20,12 @@ namespace TabletopRolePlayingCharacterManager.Types
 			set { character = value; }
 		}
 
-		public void AddBonus()
+		public override void AddBonus()
 		{
 			character.ArmorClass += bonus;
 		}
 
-		public void RemoveBonus()
+		public override void RemoveBonus()
 		{
 			character.ArmorClass -= bonus;
 		}
