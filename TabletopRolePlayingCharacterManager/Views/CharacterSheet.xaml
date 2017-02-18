@@ -634,7 +634,8 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBox Text="{Binding Strength, Mode=TwoWay}"
-											 Grid.Column="0" Grid.Row="0"/>
+											 Grid.Column="0" Grid.Row="0"
+											 InputScope="Number"/>
 									<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
 											  Grid.Row="0" Grid.Column="1"
 											  MinWidth="28"
@@ -663,7 +664,8 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBox Text="{Binding Dexterity, Mode=TwoWay}"
-											 Grid.Column="0" Grid.Row="0"/>
+											 Grid.Column="0" Grid.Row="0"
+											  InputScope="Number"/>
 									<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
 											  Grid.Row="0" Grid.Column="1"
 											 MinWidth="28"
@@ -688,7 +690,8 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBox Text="{Binding Constitution, Mode=TwoWay}"
-											 Grid.Column="0" Grid.Row="0"/>
+											 Grid.Column="0" Grid.Row="0"
+											  InputScope="Number"/>
 									<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
 											  Grid.Row="0" Grid.Column="1"
 											 MinWidth="28"
@@ -714,7 +717,8 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBox Text="{Binding Intelligence, Mode=TwoWay}"
-											 Grid.Column="0" Grid.Row="0"/>
+											 Grid.Column="0" Grid.Row="0"
+											  InputScope="Number"/>
 									<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
 											  Grid.Row="0" Grid.Column="1"
 											  MinWidth="28"
@@ -739,7 +743,8 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBox Text="{Binding Wisdom, Mode=TwoWay}"
-											 Grid.Column="0" Grid.Row="0"/>
+											 Grid.Column="0" Grid.Row="0"
+											  InputScope="Number"/>
 									<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
 											  Grid.Row="0" Grid.Column="1"
 											 MinWidth="28"
@@ -765,7 +770,8 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBox Text="{Binding Charisma, Mode=TwoWay}"
-											 Grid.Column="0" Grid.Row="0"/>
+											 Grid.Column="0" Grid.Row="0"
+											  InputScope="Number"/>
 									<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
 											  Grid.Row="0" Grid.Column="1"
 											  MinWidth="28"
