@@ -27,26 +27,9 @@
 	</Page.Resources>
 	<Page.BottomAppBar>
 		<CommandBar>
-			<CommandBar.SecondaryCommands>
-
-			</CommandBar.SecondaryCommands>
-			<CommandBar.Content>
-				<Grid/>
-			</CommandBar.Content>
-			<AppBarButton Icon="Add" Label="New Character">
-				<AppBarButton.Flyout>
-					<Flyout>
-						<StackPanel>
-							<TextBlock Text="Choose A Template"
-										/>
-							<ListView ItemsSource="{Binding Path=CharacterTemplates}"
-										ItemClick="CharacterTemplateList_ItemClick"
-										Name="CharacterTemplateList"
-										SelectionMode="Single"
-						  IsItemClickEnabled="True"/>
-						</StackPanel>
-					</Flyout>
-				</AppBarButton.Flyout>
+			<AppBarButton Icon="Add" Label="Add a New Character"
+						  Tapped="AddNewCharacterTapped">
+				<!-- TODO: Add flyout for selecting a character type when multiple games are supported-->
 			</AppBarButton>
 			<AppBarButton Icon="Setting" Label="Settings"
 						  Click="SettingsClicked"/>
