@@ -210,9 +210,41 @@
 			</Setter>
 		</Style>
 
+		
+		<DataTemplate x:Key="AbilityScoreBonusTemplate">
+			<StackPanel>
+				
+				<TextBox Text="{Binding Bonus, Mode=TwoWay}"
+						 InputScope="Number"/>
+				<ComboBox ItemsSource="{Binding MainStat}"
+						  SelectedIndex="{Binding SelectedStat, Mode=TwoWay}"/>
+			</StackPanel>
+		</DataTemplate>
+		
+		
 		<DataTemplate x:Key="RaceTemplate">
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Name}"/>
+				<TextBlock Text="{Binding Name}"
+						   Margin="8"/>
+				<Button Content="Edit" Margin="4">
+					<Button.Flyout>
+						<Flyout>
+							<StackPanel MinWidth="150">
+								<TextBox Text="{Binding Name, Mode=TwoWay}"
+										 PlaceholderText="Name"
+										 Margin="4"/>
+								<TextBox Text="{Binding Speed, Mode=TwoWay}"
+										 InputScope="Number"
+										 PlaceholderText="Speed"
+										 Margin="4"/>
+								<ListView ItemsSource="{Binding AbilityScoreBonuses}"
+										  ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
+										  Margin="4"/>
+								
+							</StackPanel>
+						</Flyout>
+					</Button.Flyout>
+				</Button>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate x:Key="ClassTemplate">
@@ -244,6 +276,7 @@
 				</PivotItem.Header>
 				<ListView ItemsSource="{Binding Races}"
 						  ItemTemplate="{StaticResource RaceTemplate}"/>
+				
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
