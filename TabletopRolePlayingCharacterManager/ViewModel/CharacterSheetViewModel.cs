@@ -110,7 +110,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return selectedAlignment; }
 			set
 			{
-				if (selectedAlignment < alignments.Count)
+				if (selectedAlignment < alignments.Count && selectedAlignment >= 0)
 				{
 					selectedAlignment = value;
 					character.Alignment = alignments[value];
