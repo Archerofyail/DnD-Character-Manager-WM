@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 	{
 		private Weapon weapon;
 		private static ObservableCollection<MainStatType> mainStat = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
-		private static  ObservableCollection<WeaponType> weaponTypes = new ObservableCollection<WeaponType>() {TabletopRolePlayingCharacterManager.WeaponType.Melee, TabletopRolePlayingCharacterManager.WeaponType.Ranged};
+		private static  ObservableCollection<WeaponRangeType> weaponTypes = new ObservableCollection<WeaponRangeType>() {TabletopRolePlayingCharacterManager.WeaponRangeType.Melee, TabletopRolePlayingCharacterManager.WeaponRangeType.Ranged};
 		public WeaponViewModel(Weapon weap)
 		{
 			weapon = weap;
@@ -96,7 +96,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return selectedWeaponType; }
 			set { selectedWeaponType = value; }
 		}
-		public ObservableCollection<WeaponType> WeaponTypes
+		public ObservableCollection<WeaponRangeType> WeaponTypes
 		{
 			get { return weaponTypes; }
 		}

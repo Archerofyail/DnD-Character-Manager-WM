@@ -121,6 +121,7 @@
     <Compile Include="Types\Item.cs" />
     <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Types\Proficiency.cs" />
+    <Compile Include="Types\ProficiencyChoice.cs" />
     <Compile Include="Types\RacialBonus.cs" />
     <Compile Include="Types\Skill.cs" />
     <Compile Include="Types\Spell.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="ViewModel\CompendiumViewModel.cs" />
     <Compile Include="ViewModel\ItemViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\ProficiencyViewModel.cs" />
     <Compile Include="ViewModel\RaceViewModel.cs" />
     <Compile Include="ViewModel\SkillViewModel.cs" />
     <Compile Include="ViewModel\SpellViewModel.cs" />

@@ -15,6 +15,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public List<List<Skill>> Skills { get; set; } = new List<List<Skill>>();
 		public List<List<string>> Languages { get; set; } = new List<List<string>>();
 		public Dictionary<int, List<Spell>> Spells { get; set; } = new Dictionary<int, List<Spell>>();
+		public List<List<Proficiency>> Proficiencies { get; set; } = new List<List<Proficiency>>();
 		private int speedBonus = 30;
 
 		public int SpeedBonus

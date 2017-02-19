@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 {
 	public class RaceViewModel : ViewModelBase
 	{
-		private string name;
 		private RacialBonus racialBonuses;
 
 		public RaceViewModel(RacialBonus raceBonuses)
@@ -27,6 +27,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				RaisePropertyChanged();
 			}
 		}
+
+		#region Lists
+
+		#region Proficiencies
+
+		public ObservableCollection<List<Proficiency>> WeaponProficiencies
+		{
+			get
+			{
+				var profs = new ObservableCollection<List<Proficiency>>();
+				foreach (var proficiency in racialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Weapon))
+				{
+					profs.Add(proficiency);
+				}
+				return profs;
+			}
+		}
+
+		#endregion
+
+		#endregion
+		#region VisualOnly
 
 		public string StatBonuses
 		{
@@ -65,6 +87,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				}
 			}
 		}
+
+		#endregion
+
 
 	}
 }

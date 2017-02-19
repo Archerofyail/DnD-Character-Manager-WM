@@ -231,10 +231,21 @@
 				
 			</StackPanel>
 		</DataTemplate>
-		
 		<DataTemplate x:Key="ProficiencyTemplate">
 			<StackPanel Orientation="Horizontal">
 				<TextBox Text="{Binding Name}"/>
+				<Button Command="{Binding Remove}">
+					<Button.Content>
+						<SymbolIcon Symbol="Delete"/>
+					</Button.Content>
+				</Button>
+			</StackPanel>
+		</DataTemplate>
+		
+		<DataTemplate x:Key="ProficiencyChoiceTemplate">
+			<StackPanel Orientation="Horizontal">
+				<ListView ItemsSource="{Binding ProficiencyChoices}"
+						  ItemTemplate="{StaticResource ProficiencyTemplate}"/>
 				<Button Command="{Binding Remove}">
 					<Button.Content>
 						<SymbolIcon Symbol="Delete"/>
@@ -260,7 +271,8 @@
 										 Margin="4"/>
 								<ListView ItemsSource="{Binding AbilityScoreBonuses}"
 										  ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
-										  Margin="4"/>
+										  Margin="4"
+										  />
 								<Button Command="{Binding AddAbilityScoreBonus}">
 									<Button.Content>
 										<StackPanel Orientation="Horizontal">
@@ -280,8 +292,12 @@
 										</StackPanel>
 									</Button.Content>
 								</Button>
-								<TKCtrls:BladeView ItemsSource="{Binding Proficiencies}"
-												   />
+								<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+								<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+								<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
 							</StackPanel>
 						</Flyout>
 					</Button.Flyout>

@@ -28,10 +28,16 @@ namespace TabletopRolePlayingCharacterManager
 		D100
 	}
 
-	public enum WeaponType
+	public enum WeaponRangeType
 	{
 		Melee,
 		Ranged
+	}
+
+	public enum WeaponType
+	{
+		Simple,
+		Martial
 	}
 
 	public enum MessageType
@@ -62,6 +68,14 @@ namespace TabletopRolePlayingCharacterManager
 		Item,
 		Armor,
 		Weapon
+	}
+
+	public enum ProficiencyType
+	{
+		Weapon,
+		Armor,
+		Tool,
+		Vehicle
 	}
 
 	//TODO: Give the user the option of saving the custom items during character creation.

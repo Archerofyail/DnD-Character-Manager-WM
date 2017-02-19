@@ -8,6 +8,6 @@ namespace TabletopRolePlayingCharacterManager.Types
 {
 	class ProficiencyChoice
 	{
-		public List<string> ProficiencyChoices { get; set; } = new List<string>();
+		public List<Proficiency> ProficiencyChoices { get; set; } = new List<Proficiency>();
 	}
 }

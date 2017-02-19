@@ -5,7 +5,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 	public class Weapon : Item
 	{
 
-		public WeaponType WeaponType { get; set; }
+		public WeaponRangeType WeaponRangeType { get; set; }
 		public Damage Damage { get; set; } = new Damage();
 		public MainStatType MainStat { get; set; } = MainStatType.Strength;
 		public int AttackBonus { get; set; }
