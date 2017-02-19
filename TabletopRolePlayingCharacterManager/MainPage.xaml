@@ -32,6 +32,9 @@
 						  Tapped="AddNewCharacterTapped">
 				
 			</AppBarButton>
+			<AppBarButton Icon="Library"
+						  Label="Compendium"
+						  Tapped="CompendiumTapped"/>
 			<AppBarButton Icon="Setting" Label="Settings"
 						  Click="SettingsClicked"/>
 		</CommandBar>

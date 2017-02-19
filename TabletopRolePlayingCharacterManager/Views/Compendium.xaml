@@ -225,8 +225,21 @@
 		<DataTemplate x:Key="TraitTemplate">
 			<StackPanel>
 				<TextBox Text="{Binding Description, Mode=TwoWay}"
-						 PlaceholderText="Trait"/>
+						 PlaceholderText="Trait"
+						 MinHeight="96"
+						 AcceptsReturn="True"/>
 				
+			</StackPanel>
+		</DataTemplate>
+		
+		<DataTemplate x:Key="ProficiencyTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBox Text="{Binding Name}"/>
+				<Button Command="{Binding Remove}">
+					<Button.Content>
+						<SymbolIcon Symbol="Delete"/>
+					</Button.Content>
+				</Button>
 			</StackPanel>
 		</DataTemplate>
 
@@ -248,9 +261,27 @@
 								<ListView ItemsSource="{Binding AbilityScoreBonuses}"
 										  ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
 										  Margin="4"/>
-								
-								<TKCtrls:BladeView ItemsSource="{Binding Traits}"
+								<Button Command="{Binding AddAbilityScoreBonus}">
+									<Button.Content>
+										<StackPanel Orientation="Horizontal">
+											<SymbolIcon Symbol="Add"/>
+											<TextBlock Text="Add Bonus"/>
+										</StackPanel>
+									</Button.Content>
+								</Button>
+									<TKCtrls:BladeView ItemsSource="{Binding Traits}"
 												   ItemTemplate="{StaticResource TraitTemplate}"/>
+								<Button
+									Command="{Binding AddTrait}">
+									<Button.Content>
+										<StackPanel Orientation="Horizontal">
+											<SymbolIcon Symbol="Add"/>
+											<TextBlock Text="Add Trait"/>
+										</StackPanel>
+									</Button.Content>
+								</Button>
+								<TKCtrls:BladeView ItemsSource="{Binding Proficiencies}"
+												   />
 							</StackPanel>
 						</Flyout>
 					</Button.Flyout>
