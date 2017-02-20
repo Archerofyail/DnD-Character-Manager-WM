@@ -8,13 +8,18 @@ using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	public class TraitViewModel : ViewModelBase
+	public class TraitViewModel : GenericItemViewModel
 	{
 		private Trait trait;
 		
 		public TraitViewModel(Trait trait)
 		{
-			this.trait= trait;
+			this.trait = trait;
+		}
+
+		public TraitViewModel()
+		{
+			trait = item as Trait;
 		}
 
 		public bool IsActive

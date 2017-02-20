@@ -25,7 +25,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public List<Skill> Skills { get; set; }
 		public Dictionary<int, int> AbilityScoreImprovements { get; set; } = new Dictionary<int, int>();
 
-		public List<EquipmentChoice> EquipmentChoices { get; set; } = new List<EquipmentChoice>();
+		public List<List<Item>> EquipmentChoices { get; set; } = new List<List<Item>>();
 		public Dictionary<int, int> Expertise { get; set; } = new Dictionary<int, int>();
 		public List<Subclass> SubClasses { get; set; } = new List<Subclass>();
 		

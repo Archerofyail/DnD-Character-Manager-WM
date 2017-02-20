@@ -47,6 +47,23 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		#endregion
 
+		private ObservableCollection<ChoiceViewModel<List<Trait>, TraitViewModel>> traits = new ObservableCollection<ChoiceViewModel<List<Trait>, TraitViewModel>>();
+
+		public ObservableCollection<ChoiceViewModel<List<Trait>, TraitViewModel>> Traits
+		{
+			get
+			{
+				if (traits.Count == 0)
+				{
+					foreach (var traitList in racialBonuses.Traits)
+					{
+						traits.Add(new ChoiceViewModel<List<Trait>, TraitViewModel>(traitList));
+					}
+				}
+				return traits;
+			}
+		}
+
 		#endregion
 		#region VisualOnly
 

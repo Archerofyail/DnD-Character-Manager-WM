@@ -24,6 +24,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 						races.Add(new RaceViewModel(race));
 					}
 				}
+				races.Add(new RaceViewModel(new RacialBonus()));
 				return races;
 			}
 		}
