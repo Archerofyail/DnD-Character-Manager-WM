@@ -40,9 +40,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				}
 				if (matches.Success && matches.Groups.Count == 2)
 				{
-					var numDice = 0;
 					DieType DieType = DieType.D4;
-					if (int.TryParse(matches.Groups[0].Value, out numDice))
+					if (int.TryParse(matches.Groups[0].Value, out int numDice))
 					{
 						if (Enum.TryParse(matches.Groups[1].Value, out DieType))
 						{
@@ -80,8 +79,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return weapon.AttackBonus.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					weapon.AttackBonus = result;
 					RaisePropertyChanged();

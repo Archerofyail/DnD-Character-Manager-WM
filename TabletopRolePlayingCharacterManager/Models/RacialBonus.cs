@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Windows.ApplicationModel.Contacts;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {

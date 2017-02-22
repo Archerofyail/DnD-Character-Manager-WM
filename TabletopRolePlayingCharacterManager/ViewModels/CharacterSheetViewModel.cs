@@ -127,8 +127,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 			set
 			{
-				var result = character.Level;
-				if (int.TryParse(value, out result))
+				
+				if (int.TryParse(value, out int result))
 				{
 					character.Level = result;
 				}
@@ -162,8 +162,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.ArmorClass.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.ArmorClass = result;
 				}
@@ -180,8 +179,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.Speed.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					if (result % 5 == 0)
 					{
@@ -196,8 +194,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.CurrHP.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.CurrHP = result;
 				}
@@ -209,8 +206,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.MaxHP.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.MaxHP = result;
 				}
@@ -221,8 +217,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return character.TempHP.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.TempHP = result;
 				}
@@ -815,9 +810,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				Debug.WriteLine("Matches: " + matches.Value + ". groups count is " + matches.Groups.Count);
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
-					var numDice = 0;
 					DieType DieType = DieType.D4;
-					if (int.TryParse(matches.Groups[1].Value, out numDice))
+					if (int.TryParse(matches.Groups[1].Value, out int numDice))
 					{
 						if (Enum.TryParse(matches.Groups[2].Value, out DieType))
 						{
@@ -860,8 +854,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return newSpellLevel.ToString(); }
 			set
 			{
-				int result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					newSpellLevel = result;
 					RaisePropertyChanged();
@@ -1002,10 +995,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		async void AddNewSpellExecute()
 		{
-			Spell newSpell = new Spell();
-			newSpell.Name = newSpellName;
-			newSpell.Description = newSpellDesc;
-			newSpell.Level = newSpellLevel;
+			Spell newSpell = new Spell()
+			{
+				Name = newSpellName,
+				Description = newSpellDesc,
+				Level = newSpellLevel
+			};
 			if (AddSpellToGlobalList)
 			{
 				CharacterManager.AllSpells.Add(newSpell);
@@ -1014,10 +1009,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		async void AddNewWeaponExecute()
 		{
-			var newWep = new Weapon();
-			newWep.Name = newWepName;
-			newWep.Damage = newWepDamage;
-			newWep.Description = newWepDesc;
+			var newWep = new Weapon()
+			{
+				Name = newWepName,
+				Damage = newWepDamage,
+				Description = newWepDesc
+			};
 			if (AddWeaponToGlobalList)
 			{
 				CharacterManager.AllWeapons.Add(newWep);

@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using TabletopRolePlayingCharacterManager.Types;
 using GalaSoft.MvvmLight;
-using System.Threading.Tasks;
-using Windows.System.Threading;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {

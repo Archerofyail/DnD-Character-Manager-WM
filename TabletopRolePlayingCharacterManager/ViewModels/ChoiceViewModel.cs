@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
@@ -44,9 +38,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				{
 					foreach (var item in items)
 					{
-						var itm = new T2();
-						itm.item = item;
-						
+						var itm = new T2()
+						{
+							item = item
+						};
 						choices.Add(itm);	
 					}
 				}

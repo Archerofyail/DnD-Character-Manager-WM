@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
@@ -16,6 +14,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 		public RaceViewModel(RacialBonus raceBonuses)
 		{
 			racialBonuses = raceBonuses;
+		}
+
+		public RaceViewModel()
+		{
+			
 		}
 
 		public string Name
@@ -85,21 +88,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			}
 		}
 
-		public ObservableCollection<ChoiceViewModel<Proficiency, ProficiencyViewModel>> VehicleProficiencies
-		{
-			get
-			{
-				var profs = new ObservableCollection<ChoiceViewModel<Proficiency, ProficiencyViewModel>>();
-				foreach (var profChoice in racialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Vehicle))
-				{
-					profs.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>(profChoice));
-				}
-				return profs;
-			}
-		}
-
-
-
 		#endregion
 
 		private ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> traits = new ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>>();
@@ -148,8 +136,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			get { return racialBonuses.SpeedBonus.ToString(); }
 			set
 			{
-				var result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					if (result % 5 == 0)
 					{
@@ -162,6 +149,23 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		#endregion
 
+		#region Commands
+
+		public ICommand AddTrait => new RelayCommand(AddTraitExecute );
+		public ICommand AddAbilityScoreBonus => new RelayCommand(AddAbilityScoreBonusExec);
+
+		void AddAbilityScoreBonusExec()
+		{
+			
+		}
+
+		void AddTraitExecute()
+		{
+			
+		}
+		
+
+		#endregion
 
 	}
 }

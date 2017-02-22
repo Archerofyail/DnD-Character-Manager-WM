@@ -1,6 +1,4 @@
-﻿using System;
-using TabletopRolePlayingCharacterManager;
-namespace TabletopRolePlayingCharacterManager.Types
+﻿namespace TabletopRolePlayingCharacterManager.Types
 {
 	public class Weapon : Item
 	{
