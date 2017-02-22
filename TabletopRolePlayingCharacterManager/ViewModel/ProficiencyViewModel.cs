@@ -4,11 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	public class ProficiencyViewModel : ViewModelBase
+	public class ProficiencyViewModel : GenericItemViewModel
 	{
-		public string Name { get; set; }
+		private Proficiency proficiency;
+		public ProficiencyViewModel()
+		{
+			proficiency = item as Proficiency;
+		}
+
+		public string Name
+		{
+			get { return proficiency.Name; }
+			set
+			{
+				proficiency.Name = value;
+				RaisePropertyChanged();
+			}
+		}
 	}
 }

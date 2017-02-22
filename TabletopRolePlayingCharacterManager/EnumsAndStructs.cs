@@ -75,7 +75,8 @@ namespace TabletopRolePlayingCharacterManager
 		Weapon,
 		Armor,
 		Tool,
-		Vehicle
+		Vehicle,
+		Language
 	}
 
 	//TODO: Give the user the option of saving the custom items during character creation.

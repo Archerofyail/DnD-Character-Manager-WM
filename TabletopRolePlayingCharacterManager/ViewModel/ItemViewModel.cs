@@ -3,30 +3,36 @@ using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModel
 {
-	public class ItemViewModel : ViewModelBase
+	public class ItemViewModel : GenericItemViewModel
 	{
-		private Item item;
+		private Item Item;
 
 		public ItemViewModel(Item item)
 		{
-			this.item = item;
+			this.Item = item;
 		}
+
+		public ItemViewModel()
+		{
+			Item = item as Item;
+		}
+
 		public string Name
 		{
-			get { return item.Name; }
+			get { return Item.Name; }
 			set
 			{
-				item.Name = value;
+				Item.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Description
 		{
-			get { return item.Description; }
+			get { return Item.Description; }
 			set
 			{
-				item.Description = value;
+				Item.Description = value;
 				RaisePropertyChanged();
 			}
 		}

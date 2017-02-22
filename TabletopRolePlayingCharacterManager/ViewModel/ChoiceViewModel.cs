@@ -13,14 +13,25 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 	public class ChoiceViewModel<T, T2> : ViewModelBase 
 		where T2 : GenericItemViewModel, new()
-		where T : IEnumerable
 	{
-		private T items;
+		private List<T> items;
 		
-		public ChoiceViewModel(T items)
+		public ChoiceViewModel(List<T> items)
 		{
 			this.items = items;
 			
+		}
+
+		private int selectedIndex = -1;
+
+		public int SelectedIndex
+		{
+			get { return selectedIndex; }
+			set
+			{
+				selectedIndex = value;
+				RaisePropertyChanged();
+			}
 		}
 
 		private ObservableCollection<T2> choices = new ObservableCollection<T2>();
@@ -42,6 +53,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 				return choices;
 			}
 			
+		}
+
+		public T SelectedItem
+		{
+			get { return items[selectedIndex]; }
 		}
 	}
 }

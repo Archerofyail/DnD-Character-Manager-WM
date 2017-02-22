@@ -13,7 +13,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 
 		public GenericItemViewModel(object itm)
 		{
-			itm = item;
+			item = itm;
 		}
 
 		public GenericItemViewModel()
