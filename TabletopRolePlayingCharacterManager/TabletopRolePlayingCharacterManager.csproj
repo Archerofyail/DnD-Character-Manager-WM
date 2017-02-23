@@ -137,6 +137,7 @@
     <Compile Include="ViewModels\GenericItemViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\ProficiencyChoiceViewModel.cs" />
     <Compile Include="ViewModels\ProficiencyViewModel.cs" />
     <Compile Include="ViewModels\RaceViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />

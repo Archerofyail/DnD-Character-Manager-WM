@@ -7,7 +7,11 @@ using GalaSoft.MvvmLight.Command;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
-
+	/// <summary>
+	/// A class to display and deal with picking one or multiple items from a list
+	/// </summary>
+	/// <typeparam name="T">The type of the items</typeparam>
+	/// <typeparam name="T2">The ViewModel type of the items</typeparam>
 	public class ChoiceViewModel<T, T2> : ViewModelBase 
 		where T2 : GenericItemViewModel, new()
 		where T : new()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.Types
 {
@@ -9,7 +10,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		//Can be empty if no parent race exists 
 		public string ParentRace { get; set; } = "";
 		public MainStatType SpellStat { get; set; } = MainStatType.Intelligence;
-		public List<List<Tuple<MainStatType, int>>> StatBonuses { get; } = new List<List<Tuple<MainStatType, int>>>();
+		public List<List<AbilityScoreBonusModel>> StatBonuses { get; } = new List<List<AbilityScoreBonusModel>>();
 		public List<List<Trait>> Traits { get; set; } = new List<List<Trait>>();
 		public List<List<Skill>> Skills { get; set; } = new List<List<Skill>>();
 		public List<List<string>> Languages { get; set; } = new List<List<string>>();

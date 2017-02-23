@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
@@ -33,6 +34,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 
 		#region Lists
+		
+		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> AbilityScoreBonuses
+		{
+			get
+			{
+				var bonuses = new ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>>();
+				foreach (var statBonuses in racialBonuses.StatBonuses)
+				{
+					bonuses.Add(new ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>(statBonuses));
+				}
+				return bonuses;
+			}
+		}
 
 		#region Proficiencies
 
@@ -120,10 +134,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var bonus in bonusList)
 					{
-
-						text += "+" + bonus.Item2 + bonus.Item1 + ", ";
-
-
+						text += "+" + bonus.Bonus + bonus.Stat + ", ";
 					}
 
 				}
@@ -153,16 +164,18 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region Commands
 
 		public ICommand AddTrait => new RelayCommand(AddTraitExecute);
+		public ICommand AddProficiency => new RelayCommand<ProficiencyType>(AddProficiencyExec);
 		public ICommand AddAbilityScoreBonus => new RelayCommand(AddAbilityScoreBonusExec);
 
 		void AddAbilityScoreBonusExec()
 		{
 
+
 		}
 
 		void AddTraitExecute()
 		{
-
+			Traits.Add(new ChoiceViewModel<Trait, TraitViewModel>());
 		}
 
 		void AddProficiencyExec(ProficiencyType type)
@@ -172,13 +185,27 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				case ProficiencyType.Weapon:
 				{
 					WeaponProficiencies.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>(new List<Proficiency>()));
+					RaisePropertyChanged("WeaponProficiencies");
 				}
 				break;
 				case ProficiencyType.Armor:
 				{
 					ArmorProficiencies.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>());
+					RaisePropertyChanged("ArmorProficiencies");
 				}
-					break;
+				break;
+				case ProficiencyType.Tool:
+				{
+					ToolProficiencies.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>());
+					RaisePropertyChanged("ToolProficiencies");
+				}
+				break;
+				case ProficiencyType.Language:
+				{
+					LanguageProficiencies.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>());
+					RaisePropertyChanged("LanguageProficiencies");
+				}
+				break;
 			}
 		}
 
