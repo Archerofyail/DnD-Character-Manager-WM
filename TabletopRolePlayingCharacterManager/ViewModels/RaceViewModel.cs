@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -18,7 +19,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public RaceViewModel()
 		{
-			
+			racialBonuses = new RacialBonus();
 		}
 
 		public string Name
@@ -151,19 +152,36 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Commands
 
-		public ICommand AddTrait => new RelayCommand(AddTraitExecute );
+		public ICommand AddTrait => new RelayCommand(AddTraitExecute);
 		public ICommand AddAbilityScoreBonus => new RelayCommand(AddAbilityScoreBonusExec);
 
 		void AddAbilityScoreBonusExec()
 		{
-			
+
 		}
 
 		void AddTraitExecute()
 		{
-			
+
 		}
-		
+
+		void AddProficiencyExec(ProficiencyType type)
+		{
+			switch (type)
+			{
+				case ProficiencyType.Weapon:
+				{
+					WeaponProficiencies.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>(new List<Proficiency>()));
+				}
+				break;
+				case ProficiencyType.Armor:
+				{
+					ArmorProficiencies.Add(new ChoiceViewModel<Proficiency, ProficiencyViewModel>());
+				}
+					break;
+			}
+		}
+
 
 		#endregion
 

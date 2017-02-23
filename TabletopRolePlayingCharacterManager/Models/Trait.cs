@@ -12,5 +12,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			Description = desc;
 		}
+
+		public Trait()
+		{
+			
+		}
 	}
 }

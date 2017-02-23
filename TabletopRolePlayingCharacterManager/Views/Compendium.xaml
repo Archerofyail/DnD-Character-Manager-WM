@@ -226,6 +226,8 @@
 			</StackPanel>
 		</DataTemplate>
 
+
+
 		<DataTemplate x:Key="TraitTemplate">
 			<StackPanel>
 				<TextBox Text="{Binding Description, Mode=TwoWay}"
@@ -235,6 +237,19 @@
 
 			</StackPanel>
 		</DataTemplate>
+
+		<DataTemplate x:Key="TraitChoiceTemplate">
+			<StackPanel Orientation="Horizontal">
+				<ListView ItemsSource="{Binding Choices}"
+						  ItemTemplate="{StaticResource TraitTemplate}"
+						  SelectionMode="None"
+						  />
+				<StackPanel>
+					<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay}"/>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
+
 		<DataTemplate x:Key="ProficiencyTemplate">
 			<StackPanel Orientation="Horizontal">
 				<TextBox Text="{Binding Name}"/>
@@ -248,10 +263,11 @@
 
 		<DataTemplate x:Key="ProficiencyChoiceTemplate">
 			<StackPanel Orientation="Horizontal">
-				
+
 				<StackPanel>
 					<ListView ItemsSource="{Binding Choices}"
-						  ItemTemplate="{StaticResource ProficiencyTemplate}"/>
+						  ItemTemplate="{StaticResource ProficiencyTemplate}"
+							  SelectionMode="None"/>
 					<Button>
 						<Button.Content>
 							<StackPanel Orientation="Horizontal">
@@ -308,7 +324,7 @@
 									</Button.Content>
 								</Button>
 								<TKCtrls:BladeView ItemsSource="{Binding Traits}"
-												   ItemTemplate="{StaticResource TraitTemplate}"/>
+												   ItemTemplate="{StaticResource TraitChoiceTemplate}"/>
 								<Button
 									Command="{Binding AddTrait}">
 									<Button.Content>
