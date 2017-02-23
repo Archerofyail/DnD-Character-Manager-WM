@@ -1,5 +1,5 @@
 ﻿
-namespace TabletopRolePlayingCharacterManager.Types
+namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class Trait
 	{

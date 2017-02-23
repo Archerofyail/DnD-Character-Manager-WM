@@ -1,6 +1,4 @@
-﻿using TabletopRolePlayingCharacterManager.Models;
-
-namespace TabletopRolePlayingCharacterManager.Types
+﻿namespace TabletopRolePlayingCharacterManager.Models
 {
 	class ArmorClassBonus : StatIncrease
 	{

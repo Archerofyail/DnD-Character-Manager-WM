@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TabletopRolePlayingCharacterManager.Types
+namespace TabletopRolePlayingCharacterManager.Models
 {
 	//TODO: Add a dice picker
 	public class Damage

@@ -1,4 +1,5 @@
-﻿using TabletopRolePlayingCharacterManager.Types;
+﻿using TabletopRolePlayingCharacterManager.Models;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {

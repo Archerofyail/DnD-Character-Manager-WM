@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TabletopRolePlayingCharacterManager.Types
+namespace TabletopRolePlayingCharacterManager.Models
 {
 	//TODO: Implement weight for the UI
 	public class Item

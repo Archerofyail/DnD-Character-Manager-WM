@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using TabletopRolePlayingCharacterManager.Models;
+﻿using System.Collections.Generic;
 
-namespace TabletopRolePlayingCharacterManager.Types
+namespace TabletopRolePlayingCharacterManager.Models
 {
 	public class RacialBonus
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TabletopRolePlayingCharacterManager.Types
+namespace TabletopRolePlayingCharacterManager.Models
 {
 	//todo: possibly make a "Pack" class that contain weapons, items, and armor
 	public class ClassBonus
