@@ -1,17 +1,10 @@
 ﻿namespace TabletopRolePlayingCharacterManager.Models
 {
-	class ArmorClassBonus : StatIncrease
+	public class ArmorClassBonus : StatIncrease
 	{
 		private int bonus = 1;
 		private static string bonusName = "AC";
 		private Character5E character;
-
-		public Character5E Character
-		{
-			get { return character; }
-
-			set { character = value; }
-		}
 
 		public override void AddBonus()
 		{

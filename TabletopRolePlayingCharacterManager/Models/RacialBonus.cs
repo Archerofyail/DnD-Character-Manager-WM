@@ -8,7 +8,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		//Can be empty if no parent race exists 
 		public string ParentRace { get; set; } = "";
 		public MainStatType SpellStat { get; set; } = MainStatType.Intelligence;
-		public List<List<AbilityScoreBonusModel>> StatBonuses { get; } = new List<List<AbilityScoreBonusModel>>();
+		public List<List<AbilityScoreBonusModel>> StatBonuses { get; set; } = new List<List<AbilityScoreBonusModel>>();
 		public List<List<Trait>> Traits { get; set; } = new List<List<Trait>>();
 		public List<List<Skill>> Skills { get; set; } = new List<List<Skill>>();
 		public List<List<string>> Languages { get; set; } = new List<List<string>>();

@@ -71,7 +71,7 @@
 					<ListView ItemsSource="{Binding Choices}"
 						  ItemTemplate="{StaticResource ProficiencyTemplate}"
 							  SelectionMode="None"/>
-					<Button>
+					<Button Command="{Binding AddItem}">
 						<Button.Content>
 							<StackPanel Orientation="Horizontal">
 								<SymbolIcon Symbol="Add"/>
@@ -89,7 +89,7 @@
 					<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay
 											, Converter={StaticResource BoolToSelectionModeConverter}}"
 							  Content="Select Multiple?"/>
-					<TextBox Text="{Binding TotalBonus, Mode=TwoWay}"
+					<TextBox Text="{Binding Path=TotalBonus, Mode=TwoWay}"
 							 PlaceholderText="Total Bonus"/>
 				</StackPanel>
 			</StackPanel>
@@ -137,10 +137,20 @@
 										</StackPanel>
 									</Button.Content>
 								</Button>
+								<TextBlock Text="Language Proficiencies"/>
+								<TKCtrls:BladeView ItemsSource="{Binding LanguageProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
+												   Name="LangProfList"/>
+								<TextBlock Text="No Language proficiencies"
+										    Visibility="{Binding ElementName=LangProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 								<TextBlock Text="Weapon Proficiencies"/>
 								<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
 												   Name="WeapProfsList"/>
+								<TextBlock Text="No weapon proficiencies"
+										   Visibility="{Binding ElementName=WeapProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 								<Button Command="{Binding AddProficiency}">
 									<Button.CommandParameter>
 										<types:ProficiencyType>Weapon</types:ProficiencyType>
@@ -153,13 +163,14 @@
 									</Button.Content>
 								</Button>
 
-								<TextBlock Text="You have no weapon proficiencies"
-										   Visibility="{Binding ElementName=WeapProfsList, 
-														Path=Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+								
 								<TextBlock Text="Armor Proficiencies"/>
 								<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
 												   Name="ArmorProfsList"/>
+								<TextBlock Text="No weapon proficiencies"
+										   Visibility="{Binding ElementName=ArmorProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 								<Button Command="{Binding AddProficiency}">
 									<Button.CommandParameter>
 										<types:ProficiencyType>Armor</types:ProficiencyType>
@@ -171,13 +182,15 @@
 										</StackPanel>
 									</Button.Content>
 								</Button>
-								<TextBlock Text="You have no weapon proficiencies"
-										   Visibility="{Binding ElementName=ArmorProfsList, 
-														Path=Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+								
 								<TextBlock Text="Tool Proficiencies"/>
 								<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
-												   Name="ToolProfsList"/>
+												   Name="ToolProfsList"
+												   />
+								<TextBlock Text="No weapon proficiencies"
+										   Visibility="{Binding ElementName=ToolProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 								<Button Command="{Binding AddProficiency}">
 									<Button.CommandParameter>
 										<types:ProficiencyType>Tool</types:ProficiencyType>
@@ -189,9 +202,7 @@
 										</StackPanel>
 									</Button.Content>
 								</Button>
-								<TextBlock Text="You have no weapon proficiencies"
-										   Visibility="{Binding ElementName=ToolProfsList, 
-														Path=Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						
 
 							</StackPanel>
 						</Flyout>

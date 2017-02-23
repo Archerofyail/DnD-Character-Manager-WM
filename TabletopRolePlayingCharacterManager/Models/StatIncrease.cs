@@ -12,14 +12,8 @@
 
 		public int Bonus { get; set; }
 
-		public virtual void AddBonus()
-		{
-			
-		}
+		public virtual void AddBonus() { }
 
-		public virtual void RemoveBonus()
-		{
-			
-		}
+		public virtual void RemoveBonus() { }
 	}
 }

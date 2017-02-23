@@ -6,9 +6,21 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class ProficiencyViewModel : GenericItemViewModel
 	{
 		private Proficiency proficiency;
+
+		public ProficiencyViewModel(Proficiency prof)
+		{
+			item = prof;
+			proficiency = prof;
+		}
+
 		public ProficiencyViewModel()
 		{
 			proficiency = item as Proficiency;
+			if (item == null)
+			{
+				proficiency = new Proficiency();
+				item = proficiency;
+			}
 		}
 
 		public string Name

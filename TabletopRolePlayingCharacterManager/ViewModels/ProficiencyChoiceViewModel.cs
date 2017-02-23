@@ -11,20 +11,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class ProficiencyChoiceViewModel : ChoiceViewModel<Proficiency, ProficiencyViewModel>
 	{
 		private ProficiencyType type;
-		
-		public ProficiencyChoiceViewModel(List<Proficiency> profs, int totalBonus, bool canSelectMultiple, ProficiencyType type) : base(profs)
+
+		public ProficiencyChoiceViewModel(ProficiencyType type, List<Proficiency> profs = null, int totalBonus = 1, bool canSelectMultiple = false) : base(profs)
 		{
 			this.type = type;
-			foreach (var prof in profs)
+			if (profs != null)
 			{
-				prof.Type = type;
+				
+				foreach (var prof in profs)
+				{
+					prof.Type = type;
+					Choices.Add(new ProficiencyViewModel(prof));
+				}
+			
 			}
 		}
 
 		protected override void AddItemExec()
 		{
 
-			var newProf = new Proficiency {Type = type};
+			var newProf = new Proficiency { Type = type };
 			AddModifiedItem(newProf);
 		}
 	}

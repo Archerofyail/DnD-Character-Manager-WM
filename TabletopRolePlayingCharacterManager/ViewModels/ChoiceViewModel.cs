@@ -28,13 +28,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ChoiceViewModel(List<T> items)
 		{
-			this.items = items;
-			
+			if (items != null)
+			{
+				this.items = items;
+			}
+
 		}
 
 		public ChoiceViewModel()
 		{
-			
+			items.Add(new T());
 		}
 
 		public int TotalBonus
@@ -80,6 +83,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				}
 				return choices;
 			}
+
+			protected set { choices = value; }
 			
 		}
 
@@ -99,6 +104,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		protected void AddModifiedItem(T modItem)
 		{
 			items.Add(modItem);
+			choices.Add(new T2{item = modItem});
 		}
 	}
 }

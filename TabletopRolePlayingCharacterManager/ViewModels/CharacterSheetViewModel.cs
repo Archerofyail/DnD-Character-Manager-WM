@@ -444,27 +444,27 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string StrengthMod
 		{
-			get { return "+" + character.abilityModifiers[MainStatType.Strength].ToString(); }
+			get { return "+" + character.AbilityModifiers[MainStatType.Strength].ToString(); }
 		}
 		public string DexterityMod
 		{
-			get { return "+" + character.abilityModifiers[MainStatType.Dexterity].ToString(); }
+			get { return "+" + character.AbilityModifiers[MainStatType.Dexterity].ToString(); }
 		}
 		public string ConstitutionMod
 		{
-			get { return "+" + character.abilityModifiers[MainStatType.Constitution].ToString(); }
+			get { return "+" + character.AbilityModifiers[MainStatType.Constitution].ToString(); }
 		}
 		public string IntelligenceMod
 		{
-			get { return "+" + character.abilityModifiers[MainStatType.Intelligence].ToString(); }
+			get { return "+" + character.AbilityModifiers[MainStatType.Intelligence].ToString(); }
 		}
 		public string WisdomMod
 		{
-			get { return "+" + character.abilityModifiers[MainStatType.Wisdom].ToString(); }
+			get { return "+" + character.AbilityModifiers[MainStatType.Wisdom].ToString(); }
 		}
 		public string CharismaMod
 		{
-			get { return "+" + character.abilityModifiers[MainStatType.Charisma].ToString(); }
+			get { return "+" + character.AbilityModifiers[MainStatType.Charisma].ToString(); }
 		}
 		#endregion
 
