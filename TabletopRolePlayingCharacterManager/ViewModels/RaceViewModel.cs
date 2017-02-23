@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class RaceViewModel : ViewModelBase
 	{
-		private RacialBonus racialBonuses;
+		public RacialBonus racialBonuses { get; }
 
 		public RaceViewModel(RacialBonus raceBonuses)
 		{

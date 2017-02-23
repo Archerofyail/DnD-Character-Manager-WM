@@ -6,7 +6,9 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	DataContext="AddNewCharacterPageViewModel">
+	DataContext="AddNewCharacterPageViewModel"
+	xmlns:converters="using:TabletopRolePlayingCharacterManager.Converters"
+	xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 	<Page.BottomAppBar>
 		<CommandBar>
 			<AppBarButton Icon="Accept" Click="SaveButtonClick"/>
@@ -14,7 +16,7 @@
 	</Page.BottomAppBar>
 	<Page.Resources>
 		<ResourceDictionary>
-
+			<converters:SelectedIndexToVisibility x:Key="IndexToVisibilityConverter"/>
 			<DataTemplate x:Key="ComboBoxItem">
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="{Binding Path=Name}" />
@@ -74,10 +76,15 @@
 						 PlaceholderText="Enter your character's name here" Margin="0, 10, 0, 0"
 						 Text="{Binding Path=CharName, Mode=TwoWay}"/>
 					<ComboBox PlaceholderText="Choose your race" Margin="0, 10, 0, 0"
-						  Name="RaceTextBox" HorizontalAlignment="Stretch"
+						  HorizontalAlignment="Stretch"
 						  ItemsSource="{Binding Path=Races}"
 						  ItemTemplate="{StaticResource ComboBoxItem}"
-						  SelectedIndex="{Binding Path=SelectedRace, Mode=TwoWay}"/>
+						  SelectedIndex="{Binding Path=SelectedRace, Mode=TwoWay}"
+							  Name="RaceSelection"/>
+					<StackPanel Visibility="{Binding ElementName=RaceSelection, Path=SelectedIndex,
+											Converter={StaticResource IndexToVisibilityConverter}}">
+						<controls:BladeView />
+					</StackPanel>
 					<ComboBox Visibility="Collapsed" Name="SubraceTextBox" Margin="50, 0, 0, 0"
 						  PlaceholderText="Choose your subrace"
 						   ItemTemplate="{StaticResource ComboBoxItem}"
