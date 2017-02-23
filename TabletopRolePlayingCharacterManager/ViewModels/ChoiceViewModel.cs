@@ -1,19 +1,50 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
 
-namespace TabletopRolePlayingCharacterManager.ViewModel
+namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 
 	public class ChoiceViewModel<T, T2> : ViewModelBase 
 		where T2 : GenericItemViewModel, new()
 	{
-		private List<T> items;
-		
+		private List<T> items = new List<T>();
+		private int totalBonus = 1;
+		private bool canSelectMultiple = false;
+
+		public ChoiceViewModel(List<T> items, int totalBonus, bool canSelectMultiple)
+		{
+			this.items = items;
+			this.totalBonus = totalBonus;
+			this.canSelectMultiple = canSelectMultiple;
+		}
+
 		public ChoiceViewModel(List<T> items)
 		{
 			this.items = items;
 			
+		}
+
+		public ChoiceViewModel()
+		{
+			
+		}
+
+		public int TotalBonus
+		{
+			get { return totalBonus; }
+			set
+			{
+				totalBonus = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public bool CanSelectMultiple
+		{
+			get { return canSelectMultiple; }
+			set { canSelectMultiple = value; }
 		}
 
 		private int selectedIndex = -1;
@@ -50,10 +81,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModel
 			
 		}
 
-		public T SelectedItem
-		{
-			get { return items[selectedIndex]; }
-		}
+		public T SelectedItem => items[selectedIndex];
 	}
 }
 

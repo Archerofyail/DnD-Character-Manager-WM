@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using TabletopRolePlayingCharacterManager.Types;
 using GalaSoft.MvvmLight;
+using TabletopRolePlayingCharacterManager.Types;
 
-namespace TabletopRolePlayingCharacterManager.ViewModel
+namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	class MainPageViewModel : ViewModelBase
 	{

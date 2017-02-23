@@ -1,6 +1,6 @@
 ﻿using TabletopRolePlayingCharacterManager.Types;
 
-namespace TabletopRolePlayingCharacterManager.ViewModel
+namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class TraitViewModel : GenericItemViewModel
 	{

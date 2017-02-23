@@ -1,14 +1,14 @@
 ﻿using System;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 
-namespace TabletopRolePlayingCharacterManager.ViewModel
+namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	//TODO: Save some values for the view to a json file (like if the global list checkboxes are checked)
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.

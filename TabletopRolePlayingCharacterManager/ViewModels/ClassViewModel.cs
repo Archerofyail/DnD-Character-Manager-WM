@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Types;
 
-namespace TabletopRolePlayingCharacterManager.ViewModel
+namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	//TODO: Figure out how to update the class and race libraries if the names are changed
 	public class ClassViewModel : ViewModelBase

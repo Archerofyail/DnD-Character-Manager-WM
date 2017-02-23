@@ -105,6 +105,7 @@
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToSelectionMode.cs" />
     <Compile Include="Converters\CountToVisibilityConverter.cs" />
     <Compile Include="EnumsAndStructs.cs" />
     <Compile Include="IItem.cs" />

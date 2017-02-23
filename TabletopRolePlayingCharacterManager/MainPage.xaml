@@ -5,10 +5,10 @@
 	xmlns:local="using:TabletopRolePlayingCharacterManager"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d"
-	xmlns:vm="using:TabletopRolePlayingCharacterManager.ViewModel">
+	xmlns:viewModels="using:TabletopRolePlayingCharacterManager.ViewModels"
+	mc:Ignorable="d">
 <Page.DataContext>
-	<vm:MainPageViewModel/>
+	<viewModels:MainPageViewModel/>
 </Page.DataContext>
 	<Page.Resources>
 		<ResourceDictionary>

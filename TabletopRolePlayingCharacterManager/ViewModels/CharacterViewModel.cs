@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Models;
 
-namespace TabletopRolePlayingCharacterManager.ViewModel
+namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	class CharacterViewModel : ViewModelBase
 	{
