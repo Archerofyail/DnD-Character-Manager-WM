@@ -12,47 +12,47 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			CharacterManager.CharactersLoadedEventHandler += (sender, args) => { RaisePropertyChanged("Characters");};
 		}
-		private int _selectedCharacterTemplate;
+		private int selectedCharacterTemplate;
 
 		public int SelectedCharacterTemplate
 		{
 			get
-			{ return _selectedCharacterTemplate; }
-			set { _selectedCharacterTemplate = value; RaisePropertyChanged(); }
+			{ return selectedCharacterTemplate; }
+			set { selectedCharacterTemplate = value; RaisePropertyChanged(); }
 		}
 
-		private ObservableCollection<string> _characterTemplates = new ObservableCollection<string>();
+		private ObservableCollection<string> characterTemplates = new ObservableCollection<string>();
 
 		public ObservableCollection<string> CharacterTemplates
 		{
 			get
 			{
-				if (_characterTemplates.Count != 0) return _characterTemplates;
-				_characterTemplates.Add("Fifth Edition Character");
-				_characterTemplates.Add("Generic Character");
-				return _characterTemplates;
+				if (characterTemplates.Count != 0) return characterTemplates;
+				characterTemplates.Add("Fifth Edition Character");
+				characterTemplates.Add("Generic Character");
+				return characterTemplates;
 			}
 		}
 
-		private ObservableCollection<CharacterViewModel> _characterList = new ObservableCollection<CharacterViewModel>();
+		private ObservableCollection<CharacterViewModel> characterList = new ObservableCollection<CharacterViewModel>();
 
 		public ObservableCollection<CharacterViewModel> Characters
 		{
 			get
 			{
-				if (_characterList.Count == 0)
+				if (characterList.Count == 0)
 				{
 					
-					_characterList.Clear();
+					characterList.Clear();
 					foreach (var character in CharacterManager.Characters)
 					{
-						_characterList.Add(new CharacterViewModel(character));
+						characterList.Add(new CharacterViewModel(character));
 					}
 					RaisePropertyChanged("NoCharacters");
 					
 				}
 				
-				return _characterList;
+				return characterList;
 			}
 		}
 

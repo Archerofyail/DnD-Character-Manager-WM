@@ -76,7 +76,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					{
 						var itm = new T2
 						{
-							item = item
+							Item = item
 						};
 						choices.Add(itm);	
 					}
@@ -104,7 +104,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		protected void AddModifiedItem(T modItem)
 		{
 			items.Add(modItem);
-			choices.Add(new T2{item = modItem});
+			choices.Add(new T2{Item = modItem});
 		}
 	}
 }

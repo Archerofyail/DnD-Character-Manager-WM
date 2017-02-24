@@ -3,7 +3,7 @@
 	public class ArmorClassBonus : StatIncrease
 	{
 		private int bonus = 1;
-		private static string bonusName = "AC";
+		private static string _bonusName = "AC";
 		private Character5E character;
 
 		public override void AddBonus()

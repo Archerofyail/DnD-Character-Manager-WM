@@ -14,7 +14,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	internal class AddNewCharacterPageViewModel : ViewModelBase
 	{
-		private readonly Random _randd6 = new Random();
+		private readonly Random randd6 = new Random();
 		private Character5E character = new Character5E();
 
 		#region CharacterData
@@ -179,65 +179,65 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
-		private int _selectedSubClassId;
+		private int selectedSubClassId;
 		public int SelectedSubClass
 		{
-			get { return _selectedSubClassId; }
+			get { return selectedSubClassId; }
 			set
 			{
-				_selectedSubClassId = value;
+				selectedSubClassId = value;
 				RaisePropertyChanged();
 			}
 		}
 	
 		#endregion
 		#region Lists
-		private readonly ObservableCollection<Skill> _skills = new ObservableCollection<Skill>();
+		private readonly ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
 
 		public ObservableCollection<Skill> Skills
 		{
 			get
 			{
-				if (_skills.Count == 0)
+				if (skills.Count == 0)
 				{
 					foreach (var skill in character.Skills)
 					{
 						Debug.WriteLine("Added skill to list: " + skill.Name);
-						_skills.Add(skill);
+						skills.Add(skill);
 					}
 				}
-				return _skills;
+				return skills;
 			}
 		}
 
-		private ObservableCollection<RaceViewModel> _races = new ObservableCollection<RaceViewModel>();
+		private ObservableCollection<RaceViewModel> races = new ObservableCollection<RaceViewModel>();
 
 		public ObservableCollection<RaceViewModel> Races
 		{
 			get
 			{
-				if (_races.Count == 0)
+				if (races.Count == 0)
 				{
 					foreach (var race in CharacterManager.RacialBonuses)
 					{
 						if (race.ParentRace == "")
 						{
-							_races.Add(new RaceViewModel(race));
+							races.Add(new RaceViewModel(race));
 						}
 					}
 				}
-				return _races;
+				return races;
 			}
 		}
 
-		private int _selectedRaceId;
+		private int selectedRaceId;
 
 		public int SelectedRaceIndex
 		{
-			get { return _selectedRaceId; }
+			get { return selectedRaceId; }
 			set
 			{
-				_selectedRaceId = value;
+				selectedRaceId = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("SelectedRace");
 			}
@@ -265,52 +265,52 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int _selectedSubRaceId;
+		private int selectedSubRaceId;
 
 		public int SelectedSubRace
 		{
-			get { return _selectedSubRaceId; }
+			get { return selectedSubRaceId; }
 			set
 			{
-				_selectedSubRaceId = value;
+				selectedSubRaceId = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private ObservableCollection<ClassViewModel> _classes = new ObservableCollection<ClassViewModel>();
+		private ObservableCollection<ClassViewModel> classes = new ObservableCollection<ClassViewModel>();
 
 		public ObservableCollection<ClassViewModel> Classes
 		{
 			get
 			{
-				if (_classes.Count == 0)
+				if (classes.Count == 0)
 				{
 					foreach (var cl in CharacterManager.ClassBonuses)
 					{
-						_classes.Add(new ClassViewModel(cl));
+						classes.Add(new ClassViewModel(cl));
 					}
 				}
-				return _classes;
+				return classes;
 			}
 		}
 
-		private int _selectedClassId;
+		private int selectedClassId;
 
 		public int SelectedClass
 		{
-			get { return _selectedClassId; }
+			get { return selectedClassId; }
 			set
 			{
-				_selectedClassId = value;
+				selectedClassId = value;
 				RaisePropertyChanged();
 			}
 		}
 
 
 
-		private static ObservableCollection<string> alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
+		private static ObservableCollection<string> _alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
 
-		public ObservableCollection<string> Alignments => alignments;
+		public ObservableCollection<string> Alignments => _alignments;
 
 		public int SelectedAlignment { get; set; } = -1;
 
@@ -321,32 +321,32 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#endregion
 
 
-		private string _subclassChoiceStatement = "Choose your subclass{default}";
+		private string subclassChoiceStatement = "Choose your subclass{default}";
 
-		public string SubclassChoiceStatement => _subclassChoiceStatement;
+		public string SubclassChoiceStatement => subclassChoiceStatement;
 
 
-		private ObservableCollection<string> _rolledAbilityScores = new ObservableCollection<string>();
+		private ObservableCollection<string> rolledAbilityScores = new ObservableCollection<string>();
 
-		public ObservableCollection<string> RolledAbilityScores => _rolledAbilityScores;
+		public ObservableCollection<string> RolledAbilityScores => rolledAbilityScores;
 
 		public void RollAbilityScores()
 		{
 
-			_rolledAbilityScores.Clear();
+			rolledAbilityScores.Clear();
 			for (var i = 0; i < 6; i++)
 			{
 				int final;
 				var rolls = new List<int>
 				{
-					_randd6.Next(1, 7),
-					_randd6.Next(1, 7),
-					_randd6.Next(1, 7),
-					_randd6.Next(1, 7)
+					randd6.Next(1, 7),
+					randd6.Next(1, 7),
+					randd6.Next(1, 7),
+					randd6.Next(1, 7)
 				};
 				rolls.Sort();
 				final = rolls[1] + rolls[2] + rolls[3];
-				_rolledAbilityScores.Add(final + "");
+				rolledAbilityScores.Add(final + "");
 
 
 			}
@@ -360,7 +360,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				if (_rolledAbilityScores.Count > 0)
+				if (rolledAbilityScores.Count > 0)
 				{
 					return Visibility.Visible;
 				}

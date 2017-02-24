@@ -14,7 +14,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public TraitViewModel()
 		{
-			trait = item as Trait;
+			trait = Item as Trait;
 		}
 
 		public bool IsActive

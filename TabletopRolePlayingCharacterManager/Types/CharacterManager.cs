@@ -15,17 +15,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 	{
 		public static Character5E CurrentCharacter { get; set; }
 
-		private static List<Character5E> characters = new List<Character5E>();
+		private static List<Character5E> _characters = new List<Character5E>();
 
 		public static List<Character5E> Characters
 		{
 			get
 			{
-				if (characters.Count == 0)
+				if (_characters.Count == 0)
 				{  }
-				return characters;
+				return _characters;
 			}
-			private set { characters = value; }
+			private set { _characters = value; }
 		}
 
 		public static List<RacialBonus> RacialBonuses { get; set; } = new List<RacialBonus>();
@@ -34,25 +34,25 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
 		public static List<string> AllLanguages { get; set; } = new List<string>();
-		private static List<StatIncrease> statBonuses = new List<StatIncrease>();
+		private static List<StatIncrease> _statBonuses = new List<StatIncrease>();
 		public static List<StatIncrease> StatBonuses
 		{
 			get
 			{
-				if (statBonuses.Count == 0)
+				if (_statBonuses.Count == 0)
 				{
 					var statIncType = typeof(StatIncrease);
 					var allStatIncTypes = statIncType.GetTypeInfo()
 						.Assembly.GetTypes()
-						.Where((Type) => { return Type.GetTypeInfo().IsClass && Type.GetTypeInfo().IsSubclassOf(statIncType); });
-					foreach (var type in allStatIncTypes)
+						.Where((type) => { return type.GetTypeInfo().IsClass && type.GetTypeInfo().IsSubclassOf(statIncType); });
+					foreach (var statType in allStatIncTypes)
 					{
 
-						statBonuses.Add((StatIncrease) Activator.CreateInstance(type));
+						_statBonuses.Add((StatIncrease) Activator.CreateInstance(statType));
 
 					}
 				}
-				return statBonuses;
+				return _statBonuses;
 			}
 		}
 		private static StorageFolder SaveFolder { get; set; }
@@ -100,7 +100,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 						var character = JsonConvert.DeserializeObject<Character5E>(json);
 						character.CalculateAbilityModifiers();
 						character.CalculateSkillBonuses();
-						characters.Add(character);
+						_characters.Add(character);
 					}
 				}
 			}

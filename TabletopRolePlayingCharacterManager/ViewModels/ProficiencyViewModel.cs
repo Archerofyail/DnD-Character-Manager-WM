@@ -9,17 +9,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ProficiencyViewModel(Proficiency prof)
 		{
-			item = prof;
+			Item = prof;
 			proficiency = prof;
 		}
 
 		public ProficiencyViewModel()
 		{
-			proficiency = item as Proficiency;
-			if (item == null)
+			proficiency = Item as Proficiency;
+			if (Item == null)
 			{
 				proficiency = new Proficiency();
-				item = proficiency;
+				Item = proficiency;
 			}
 		}
 

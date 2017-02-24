@@ -5,7 +5,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class ItemViewModel : GenericItemViewModel
 	{
-		private Item Item;
+		public new Item Item { get; }
 
 		public ItemViewModel(Item item)
 		{
@@ -14,7 +14,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ItemViewModel()
 		{
-			Item = item as Item;
+			Item = base.Item as Item;
 		}
 
 		public string Name

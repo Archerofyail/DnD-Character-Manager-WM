@@ -11,8 +11,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class WeaponViewModel : ViewModelBase
 	{
 		private Weapon weapon;
-		private static ObservableCollection<MainStatType> mainStat = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
-		private static  ObservableCollection<WeaponRangeType> weaponTypes = new ObservableCollection<WeaponRangeType>() {TabletopRolePlayingCharacterManager.WeaponRangeType.Melee, TabletopRolePlayingCharacterManager.WeaponRangeType.Ranged};
+		private static ObservableCollection<MainStatType> _mainStat = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
+		private static  ObservableCollection<WeaponRangeType> _weaponTypes = new ObservableCollection<WeaponRangeType>() {TabletopRolePlayingCharacterManager.WeaponRangeType.Melee, TabletopRolePlayingCharacterManager.WeaponRangeType.Ranged};
 		public WeaponViewModel(Weapon weap)
 		{
 			weapon = weap;
@@ -41,13 +41,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				}
 				if (matches.Success && matches.Groups.Count == 2)
 				{
-					DieType DieType = DieType.D4;
+					DieType dieType = DieType.D4;
 					if (int.TryParse(matches.Groups[0].Value, out int numDice))
 					{
-						if (Enum.TryParse(matches.Groups[1].Value, out DieType))
+						if (Enum.TryParse(matches.Groups[1].Value, out dieType))
 						{
 							weapon.Damage.Dice.Clear();
-							weapon.Damage.Dice.Add(DieType, numDice);
+							weapon.Damage.Dice.Add(dieType, numDice);
 						}
 					}
 				}
@@ -56,7 +56,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ObservableCollection<MainStatType> MainStat
 		{
-			get { return mainStat; }
+			get { return _mainStat; }
 		}
 
 		private int selectedMainStat = -1;
@@ -66,10 +66,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return selectedMainStat; }
 			set
 			{
-				if (value < mainStat.Count && mainStat.Count >= 0)
+				if (value < _mainStat.Count && _mainStat.Count >= 0)
 				{
 					selectedMainStat = value;
-					weapon.MainStat = mainStat[selectedMainStat];
+					weapon.MainStat = _mainStat[selectedMainStat];
 					RaisePropertyChanged();
 				}
 			}
@@ -97,7 +97,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public ObservableCollection<WeaponRangeType> WeaponTypes
 		{
-			get { return weaponTypes; }
+			get { return _weaponTypes; }
 		}
 
 		

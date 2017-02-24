@@ -15,7 +15,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class CharacterSheetViewModel : ViewModelBase
 	{
 		Character5E character;
-		private static ObservableCollection<string> alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
+		private static ObservableCollection<string> _alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
 		public CharacterSheetViewModel()
 		{
 			character = CharacterManager.CurrentCharacter;
@@ -100,7 +100,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ObservableCollection<string> Alignments
 		{
-			get { return alignments; }
+			get { return _alignments; }
 		}
 
 		private int selectedAlignment = -1;
@@ -110,10 +110,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return selectedAlignment; }
 			set
 			{
-				if (selectedAlignment < alignments.Count)
+				if (selectedAlignment < _alignments.Count)
 				{
 					selectedAlignment = value;
-					character.Alignment = alignments[value];
+					character.Alignment = _alignments[value];
 					RaisePropertyChanged();
 				}
 			}
@@ -810,13 +810,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				Debug.WriteLine("Matches: " + matches.Value + ". groups count is " + matches.Groups.Count);
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
-					DieType DieType = DieType.D4;
+					DieType dieType = DieType.D4;
 					if (int.TryParse(matches.Groups[1].Value, out int numDice))
 					{
-						if (Enum.TryParse(matches.Groups[2].Value, out DieType))
+						if (Enum.TryParse(matches.Groups[2].Value, out dieType))
 						{
 							newWepDamage.Dice.Clear();
-							newWepDamage.Dice.Add(DieType, numDice);
+							newWepDamage.Dice.Add(dieType, numDice);
 						}
 					}
 				}

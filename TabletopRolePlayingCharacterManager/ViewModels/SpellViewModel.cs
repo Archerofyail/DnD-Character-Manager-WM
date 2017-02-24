@@ -8,7 +8,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class SpellViewModel : ViewModelBase
 	{
 		private Spell spell;
-		private static ObservableCollection<string> levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+		private static ObservableCollection<string> _levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 		public SpellViewModel(Spell sp)
 		{
 			spell = sp;
@@ -31,16 +31,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return selectedLevel; }
 			set
 			{
-				if (value < levels.Count)
+				if (value < _levels.Count)
 				{
 					selectedLevel = value;
-					if (levels[value] == "Cantrip")
+					if (_levels[value] == "Cantrip")
 					{
 						spell.Level = 0;
 						RaisePropertyChanged();
 						return;
 					}
-					spell.Level = int.Parse(levels[value]);
+					spell.Level = int.Parse(_levels[value]);
 					RaisePropertyChanged();
 
 				}
@@ -48,7 +48,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public ObservableCollection<string> Levels
 		{
-			get { return levels; }
+			get { return _levels; }
 		}
 
 		public string Description

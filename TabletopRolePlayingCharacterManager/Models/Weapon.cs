@@ -13,7 +13,7 @@
 			ItemType = ItemType.Weapon;
 		}
 
-		public int RollAttack(int AbilityScoreBonus)
+		public int RollAttack(int abilityScoreBonus)
 		{
 			var attack = 0;
 			attack += Utility.Rand.Next(1, 21);
