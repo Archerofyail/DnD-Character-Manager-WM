@@ -406,6 +406,10 @@ namespace TabletopRolePlayingCharacterManager.Types
 					new List<Proficiency>()
 					{
 						new Proficiency(ProficiencyType.Armor, "Light Armor"),
+						
+					},
+					new List<Proficiency>()
+					{
 						new Proficiency(ProficiencyType.Armor, "Medium Armor")
 					}
 				}

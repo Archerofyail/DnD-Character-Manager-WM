@@ -10,14 +10,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			character = ch;
 		}
 		private Character5E character;
-		public string Name
-		{
-			get { return character.Name; }
-		}
+		public string Name => character.Name;
 
-		public string ClassAndLevel
-		{
-			get { return "Level " + character.Level + " " + character.Class; }
-		}
+		public string ClassAndLevel => "Level " + character.Level + " " + character.Class;
 	}
 }

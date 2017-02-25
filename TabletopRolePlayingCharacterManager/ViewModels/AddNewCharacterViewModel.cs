@@ -245,37 +245,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region SelectedRace
 
-		private RaceViewModel SelectedRace
-		{
-			get { return (SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count)  ? Races[SelectedRaceIndex] : new RaceViewModel(); }
-		}
+		private RaceViewModel SelectedRace => (SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count)  ? Races[SelectedRaceIndex] : new RaceViewModel();
 
 
-		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedRaceAbilityScoreBonuses
-		{
-			get { return SelectedRace.AbilityScoreBonuses; }
-		}
+		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedRaceAbilityScoreBonuses => SelectedRace.AbilityScoreBonuses;
 
-		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceLanguageProfs
-		{
-			get { return SelectedRace.LanguageProficiencies; }
-		}
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceLanguageProfs => SelectedRace.LanguageProficiencies;
 
-		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceWeaponProfs
-		{
-			get { return SelectedRace.WeaponProficiencies; }
-		}
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceWeaponProfs => SelectedRace.WeaponProficiencies;
 
-		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceArmorProfs
-		{
-			get { return SelectedRace.ArmorProficiencies; }
-		}
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceArmorProfs => SelectedRace.ArmorProficiencies;
 
-		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceToolProfs
-		{
-			get { return SelectedRace.ToolProficiencies; }
-		}
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceToolProfs => SelectedRace.ToolProficiencies;
 
+		public ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> SelectedRaceTraits => SelectedRace.Traits;
 
 		void RaiseAllSelectedRaceChanged()
 		{
@@ -284,11 +267,53 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			RaisePropertyChanged("SelectedRaceWeaponProfs");
 			RaisePropertyChanged("SelectedRaceArmorProfs");
 			RaisePropertyChanged("SelectedRaceToolProfs");
+			RaisePropertyChanged("Subraces");
+			RaisePropertyChanged("SelectedRaceTraits");
 		}
 		#endregion
 
 		#region SelectedSubrace
 
+		private int selectedSubRaceIndex = -1;
+
+		public int SelectedSubRaceIndex
+		{
+			get { return selectedSubRaceIndex; }
+			set
+			{
+				selectedSubRaceIndex = value;
+				RaisePropertyChanged();
+				RaiseAllSelectedSubraceChanged();
+			}
+		}
+
+		#endregion
+
+		private RaceViewModel SelectedSubrace => (selectedSubRaceIndex >= 0 && selectedSubRaceIndex < Subraces.Count) ? Subraces[selectedSubRaceIndex] : new RaceViewModel();
+
+
+		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedSubraceAbilityScoreBonuses => SelectedSubrace.AbilityScoreBonuses;
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedSubraceLanguageProfs => SelectedSubrace.LanguageProficiencies;
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedSubraceWeaponProfs => SelectedSubrace.WeaponProficiencies;
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedSubraceArmorProfs => SelectedSubrace.ArmorProficiencies;
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedSubraceToolProfs => SelectedSubrace.ToolProficiencies;
+
+		public ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> SelectedSubraceTraits => SelectedSubrace.Traits;
+
+		void RaiseAllSelectedSubraceChanged()
+		{
+			RaisePropertyChanged("SelectedSubrace");
+			RaisePropertyChanged("SelectedSubraceAbilityScoreBonuses");
+			RaisePropertyChanged("SelectedSubraceLanguageProfs");
+			RaisePropertyChanged("SelectedSubraceWeaponProfs");
+			RaisePropertyChanged("SelectedSubraceArmorProfs");
+			RaisePropertyChanged("SelectedSubraceToolProfs");
+			RaisePropertyChanged("SelectedSubraceTraits");
+		}
 		#endregion
 
 
@@ -308,19 +333,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int selectedSubRaceIndex = -1;
-
-		public int SelectedSubRace
-		{
-			get { return selectedSubRaceIndex; }
-			set
-			{
-				selectedSubRaceIndex = value;
-				RaisePropertyChanged();
-			}
-		}
-
-		#endregion
+		
 
 		private ObservableCollection<ClassViewModel> classes = new ObservableCollection<ClassViewModel>();
 
@@ -339,14 +352,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int selectedClassId;
+		private int selectedClassIndex;
 
-		public int SelectedClass
+		public int SelectedClassIndex
 		{
-			get { return selectedClassId; }
+			get { return selectedClassIndex; }
 			set
 			{
-				selectedClassId = value;
+				selectedClassIndex = value;
 				RaisePropertyChanged();
 			}
 		}

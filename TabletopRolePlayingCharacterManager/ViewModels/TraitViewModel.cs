@@ -5,16 +5,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class TraitViewModel : GenericItemViewModel
 	{
-		private Trait trait;
-		
+		public override object Item { get; set; } = new Trait();
+		private Trait trait => Item as Trait;
+
 		public TraitViewModel(Trait trait)
 		{
-			this.trait = trait;
+			Item = trait;
 		}
 
 		public TraitViewModel()
 		{
-			trait = Item as Trait;
+			
 		}
 
 		public bool IsActive
@@ -28,7 +29,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public string Trait
+		public string Description
 		{
 			get { return trait.Description; }
 			set

@@ -71,10 +71,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region UIControl
 
-		public bool NoCharacters
-		{
-			get { return Characters.Count == 0 ? true : false; }
-		}
+		public bool NoCharacters => Characters.Count == 0 ? true : false;
 
 		#endregion
 

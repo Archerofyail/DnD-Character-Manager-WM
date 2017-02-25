@@ -46,10 +46,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				}
 			}
 		}
-		public ObservableCollection<string> Levels
-		{
-			get { return _levels; }
-		}
+		public ObservableCollection<string> Levels => _levels;
 
 		public string Description
 		{

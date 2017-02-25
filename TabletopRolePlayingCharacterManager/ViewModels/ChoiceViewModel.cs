@@ -53,7 +53,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool CanSelectMultiple { get; set; } = false;
 
-		private int selectedIndex = -1;
+		private int selectedIndex = 0;
 
 		public int SelectedIndex
 		{

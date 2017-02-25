@@ -98,10 +98,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public ObservableCollection<string> Alignments
-		{
-			get { return _alignments; }
-		}
+		public ObservableCollection<string> Alignments => _alignments;
 
 		private int selectedAlignment = -1;
 
@@ -169,10 +166,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public string Initiative
-		{
-			get { return character.Initiative.ToString(); }
-		}
+		public string Initiative => character.Initiative.ToString();
 
 		public string Speed
 		{
@@ -442,30 +436,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region AbilityModifiers
 
-		public string StrengthMod
-		{
-			get { return "+" + character.AbilityModifiers[MainStatType.Strength].ToString(); }
-		}
-		public string DexterityMod
-		{
-			get { return "+" + character.AbilityModifiers[MainStatType.Dexterity].ToString(); }
-		}
-		public string ConstitutionMod
-		{
-			get { return "+" + character.AbilityModifiers[MainStatType.Constitution].ToString(); }
-		}
-		public string IntelligenceMod
-		{
-			get { return "+" + character.AbilityModifiers[MainStatType.Intelligence].ToString(); }
-		}
-		public string WisdomMod
-		{
-			get { return "+" + character.AbilityModifiers[MainStatType.Wisdom].ToString(); }
-		}
-		public string CharismaMod
-		{
-			get { return "+" + character.AbilityModifiers[MainStatType.Charisma].ToString(); }
-		}
+		public string StrengthMod => "+" + character.AbilityModifiers[MainStatType.Strength].ToString();
+		public string DexterityMod => "+" + character.AbilityModifiers[MainStatType.Dexterity].ToString();
+
+		public string ConstitutionMod => "+" + character.AbilityModifiers[MainStatType.Constitution].ToString();
+
+		public string IntelligenceMod => "+" + character.AbilityModifiers[MainStatType.Intelligence].ToString();
+
+		public string WisdomMod => "+" + character.AbilityModifiers[MainStatType.Wisdom].ToString();
+		public string CharismaMod => "+" + character.AbilityModifiers[MainStatType.Charisma].ToString();
+
 		#endregion
 
 		#region AbilityProficiencies
@@ -952,7 +932,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region Commands
 
 
-		public ICommand SaveCharacter { get { return new RelayCommand(SaveCharacterExecute, CanRunCommand); } }
+		public ICommand SaveCharacter => new RelayCommand(SaveCharacterExecute, CanRunCommand);
 		public ICommand DeleteItem => new RelayCommand<Item>(DeleteItemExecute);
 		public ICommand DeleteWeapon => new RelayCommand<Weapon>(DeleteWeaponExecute);
 		public ICommand AddNewItem => new RelayCommand(AddNewItemExecute, CanRunCommand);

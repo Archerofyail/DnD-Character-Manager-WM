@@ -2,18 +2,19 @@
 {
 	public class ArmorClassBonus : StatIncrease
 	{
-		private int bonus = 1;
-		private static string _bonusName = "AC";
-		private Character5E character;
-
+		public ArmorClassBonus(int bonus, Character5E character)
+		{
+			Bonus = bonus;
+			Character = character;
+		}
 		public override void AddBonus()
 		{
-			character.ArmorClass += bonus;
+			Character.ArmorClass += Bonus;
 		}
 
 		public override void RemoveBonus()
 		{
-			character.ArmorClass -= bonus;
+			Character.ArmorClass -= Bonus;
 		}
 	}
 }

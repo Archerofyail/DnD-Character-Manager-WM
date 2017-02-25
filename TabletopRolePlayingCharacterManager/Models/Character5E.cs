@@ -24,7 +24,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int MaxHP { get; set; }
 		public int CurrHP { get; set; }
 		public int TempHP { get; set; }
-		public int Initiative { get { return AbilityModifiers[MainStatType.Dexterity]; } }
+		public int Initiative => AbilityModifiers[MainStatType.Dexterity];
 
 		public bool[] DeathSaveFails { get; set; } = new bool[3] {false, false, false};
 

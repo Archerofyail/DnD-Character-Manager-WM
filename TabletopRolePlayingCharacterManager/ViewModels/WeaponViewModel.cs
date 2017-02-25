@@ -54,10 +54,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public ObservableCollection<MainStatType> MainStat
-		{
-			get { return _mainStat; }
-		}
+		public ObservableCollection<MainStatType> MainStat => _mainStat;
 
 		private int selectedMainStat = -1;
 
@@ -95,12 +92,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return selectedWeaponType; }
 			set { selectedWeaponType = value; }
 		}
-		public ObservableCollection<WeaponRangeType> WeaponTypes
-		{
-			get { return _weaponTypes; }
-		}
+		public ObservableCollection<WeaponRangeType> WeaponTypes => _weaponTypes;
 
-		
 
 		public string Description
 		{
