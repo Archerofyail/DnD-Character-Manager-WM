@@ -57,7 +57,7 @@ namespace TabletopRolePlayingCharacterManager
 
 		private void AddNewCharacterTapped(object sender, TappedRoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(CharacterSheet));
+			Frame.Navigate(typeof(AddNewCharacter));
 		}
 
 		private void CompendiumTapped(object sender, TappedRoutedEventArgs e)

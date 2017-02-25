@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace TabletopRolePlayingCharacterManager.Views
 {
@@ -53,6 +54,11 @@ namespace TabletopRolePlayingCharacterManager.Views
 		{
 			
 
+		}
+
+		private void ClearScores_OnTapped(object sender, TappedRoutedEventArgs e)
+		{
+			Debug.WriteLine("Clear Tapped");
 		}
 	}
 }

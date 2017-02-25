@@ -6,27 +6,47 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	DataContext="AddNewCharacterPageViewModel"
+	xmlns:vms="using:TabletopRolePlayingCharacterManager.ViewModels"
 	xmlns:converters="using:TabletopRolePlayingCharacterManager.Converters"
 	xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+
+	<Page.DataContext>
+		<vms:AddNewCharacterPageViewModel></vms:AddNewCharacterPageViewModel>
+	</Page.DataContext>
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton Icon="Accept" Click="SaveButtonClick"/>
+			<CommandBar.PrimaryCommands>
+				<AppBarButton Icon="Accept"
+							  Label="Finish"
+							  Command="{Binding EndCharacterCreation}"/>
+			</CommandBar.PrimaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>
 	<Page.Resources>
 		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Assets/ColorDict.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+
+			<converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+
 			<converters:SelectedIndexToVisibility x:Key="IndexToVisibilityConverter"/>
 			<DataTemplate x:Key="ComboBoxItem">
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="{Binding Path=Name}" />
 				</StackPanel>
 			</DataTemplate>
+
+			<DataTemplate x:Key="RaceComboBoxItem">
+				<StackPanel>
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
 			<DataTemplate x:Key="Skill">
 				<StackPanel Orientation="Horizontal">
 					<CheckBox Content="{Binding Path=Name}" 
 							  />
-					<TextBlock Text="{Binding Path=MainStatType}" />
+					<TextBlock Text="{Binding Path=MainStat}" />
 					<Button Visibility="Collapsed">
 						<Button.Content>
 							<SymbolIcon Symbol="Remove" />
@@ -61,14 +81,44 @@
 				</StackPanel>
 			</DataTemplate>
 
+			<!--
+			ChoiceViewModelDataTemplates start here
+			-->
+			<DataTemplate x:Key="ProficiencyTemplate">
+				<StackPanel>
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="ProficiencyChoiceTemplate">
+				<StackPanel>
+					<ListView ItemsSource="{Binding Choices}"
+							  ItemTemplate="{StaticResource ProficiencyTemplate}"
+							  SelectedIndex="{Binding SelectedIndex}"/>
+				</StackPanel>
+			</DataTemplate>
+
+			<DataTemplate x:Key="AbilityScoreBonusTemplate">
+				<StackPanel>
+					<TextBlock Text="{Binding BonusString}"/>
+				</StackPanel>
+			</DataTemplate>
+
+			<DataTemplate x:Key="AbilityScoreBonusChoiceTemplate">
+				<StackPanel>
+					<ListView
+						ItemsSource="{Binding Choices}"
+						ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
+						SelectedIndex="{Binding SelectedIndex}"/>
+				</StackPanel>
+			</DataTemplate>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<Grid Background="{StaticResource BackgroundThemeBrush}">
 		<StackPanel>
 			<ScrollViewer HorizontalScrollMode="Disabled"
 					  Visibility="{Binding Path=Show5ECharacterCreator, Mode=TwoWay}"
 					  Name="FifthEditionCreator">
-				<StackPanel Margin="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+				<StackPanel Margin="8" Background="{StaticResource BackgroundThemeBrush}"
 					Orientation="Vertical" Name="StackPanelMain">
 					<TextBlock x:Name="TextBlock" TextWrapping="Wrap" 
 						   Text="To get started with your new character, choose your name, race and class here.&#x0a;You can leave anything blank to fill out later if you're not sure about it yet." />
@@ -78,29 +128,46 @@
 					<ComboBox PlaceholderText="Choose your race" Margin="0, 10, 0, 0"
 						  HorizontalAlignment="Stretch"
 						  ItemsSource="{Binding Path=Races}"
-						  ItemTemplate="{StaticResource ComboBoxItem}"
-						  SelectedIndex="{Binding Path=SelectedRace, Mode=TwoWay}"
+						  ItemTemplate="{StaticResource RaceComboBoxItem}"
+						  SelectedIndex="{Binding Path=SelectedRaceIndex, Mode=TwoWay}"
 							  Name="RaceSelection"/>
 					<StackPanel Visibility="{Binding ElementName=RaceSelection, Path=SelectedIndex,
-											Converter={StaticResource IndexToVisibilityConverter}}">
-						<controls:BladeView />
+											Converter={StaticResource IndexToVisibilityConverter}}"
+								Name="RaceProfsPanel">
+						<controls:BladeView 
+							Name="RacialAbilityScoreBonuses"
+							ItemsSource="{Binding SelectedRaceAbilityScoreBonuses}"
+							ItemTemplate="{StaticResource AbilityScoreBonusChoiceTemplate}"/>
+						<controls:BladeView 
+							ItemsSource="{Binding SelectedRaceLanguageProfs}"
+							ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+						<controls:BladeView 
+							ItemsSource="{Binding SelectedRaceArmorProfs}"
+							ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+						<controls:BladeView 
+							ItemsSource="{Binding SelectedRaceWeaponProfs}"
+							ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+						<controls:BladeView 
+							Name="RacialToolProfs"
+							ItemsSource="{Binding SelectedRaceToolProfs}"
+							ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
 					</StackPanel>
-					<ComboBox Visibility="Collapsed" Name="SubraceTextBox" Margin="50, 0, 0, 0"
+					<ComboBox Visibility="{Binding ElementName=RaceSelection, Path=SelectedIndex, Converter={StaticResource IndexToVisibilityConverter}}" 
+							  Name="SubraceSelectionBox" Margin="4"
 						  PlaceholderText="Choose your subrace"
-						   ItemTemplate="{StaticResource ComboBoxItem}"
+						   ItemTemplate="{StaticResource RaceComboBoxItem}"
 						  ItemsSource="{Binding Path=Subraces}"
-						  SelectedIndex="{Binding Path=SelectedSubRace, Mode=TwoWay}"/>
+						  SelectedIndex="{Binding Path=SelectedSubRace, Mode=TwoWay}"
+							  HorizontalAlignment="Stretch"
+							  
+							  />
 					<ComboBox Margin="0, 10, 0, 0" HorizontalAlignment="Stretch" 
 						  PlaceholderText="Choose your class"
 						   ItemTemplate="{StaticResource ComboBoxItem}"
 						  ItemsSource="{Binding Path=Classes}"
-						  SelectedIndex="{Binding Path=SelectedClass, Mode=TwoWay}"/>
-					<ComboBox Visibility="Collapsed" Name="SubclassTextBox" 
-						  PlaceholderText="{Binding Path=SubclassChoiceStatement}" 
-						  Margin="50, 0, 0, 0"
-						   ItemTemplate="{StaticResource ComboBoxItem}"
-						  ItemsSource="{Binding Path=Subclasses}"
-						  SelectedIndex="{Binding Path=SelectedSubClass, Mode=TwoWay}"/>
+						  SelectedIndex="{Binding Path=SelectedClass, Mode=TwoWay}"
+							  Name="ClassSelectionBox"/>
+
 
 
 					<ComboBox 
@@ -136,8 +203,8 @@
 							 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
 									 Text="{Binding Path=StrengthStat, Mode=TwoWay}"/>
 								<Button x:Name="SelectStrengthButton" Margin="15, 10, 0, 0" 
-									Padding="5, 2, 5, 2" Visibility="{Binding Path=RolledScoresExist}"
-									Click="SelectAbilityToAssign">
+									Padding="5, 2, 5, 2" Visibility="{Binding ElementName=RolledAbilityScoresList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"
+									>
 									<Button.Content>
 										<SymbolIcon Symbol="Add"/>
 									</Button.Content>
@@ -151,8 +218,8 @@
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
 									 Text="{Binding Path=DexterityStat, Mode=TwoWay}"/>
 								<Button x:Name="SelectDexterityButton" Margin="15, 10, 0, 0" 
-							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
-									Visibility="{Binding Path=RolledScoresExist}">
+							Padding="5, 2, 5, 2"
+									 Visibility="{Binding ElementName=RolledAbilityScoresList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}">
 									<Button.Content>
 										<SymbolIcon Symbol="Add"/>
 									</Button.Content>
@@ -166,8 +233,8 @@
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
 									 Text="{Binding Path=ConstitutionStat, Mode=TwoWay}"/>
 								<Button x:Name="SelectConstButton" Margin="15, 10, 0, 0" 
-							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
-									Visibility="{Binding Path=RolledScoresExist}">
+							Padding="5, 2, 5, 2" 
+									 Visibility="{Binding ElementName=RolledAbilityScoresList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}">
 									<Button.Content>
 										<SymbolIcon Symbol="Add"/>
 									</Button.Content>
@@ -181,8 +248,8 @@
 							 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
 									 Text="{Binding Path=IntelligenceStat, Mode=TwoWay}"/>
 								<Button x:Name="SelectIntelligenceButton" Margin="15, 10, 0, 0" 
-							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
-									Visibility="{Binding Path=RolledScoresExist}">
+							Padding="5, 2, 5, 2" 
+									 Visibility="{Binding ElementName=RolledAbilityScoresList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}">
 									<Button.Content>
 										<SymbolIcon Symbol="Add"/>
 									</Button.Content>
@@ -196,8 +263,8 @@
 									 HorizontalAlignment="Left" Margin="15, 10, 0, 0"
 									 Text="{Binding Path=WisdomStat, Mode=TwoWay}"/>
 								<Button x:Name="SelectWisdomButton" Margin="15, 10, 0, 0" 
-							Padding="5, 2, 5, 2" Click="SelectAbilityToAssign" 
-									Visibility="{Binding Path=RolledScoresExist}">
+							Padding="5, 2, 5, 2" 
+									 Visibility="{Binding ElementName=RolledAbilityScoresList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}">
 									<Button.Content>
 										<SymbolIcon Symbol="Add"/>
 									</Button.Content>
@@ -212,8 +279,8 @@
 									 Text="{Binding Path=CharismaStat, Mode=TwoWay}"/>
 								<Button x:Name="SelectCharismaButton" Margin="15, 10, 0, 0" 
 									Padding="5, 2, 5, 2"  
-									Visibility="{Binding Path=RolledScoresExist}" 
-									Click="SelectAbilityToAssign">
+									 Visibility="{Binding ElementName=RolledAbilityScoresList, Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}" 
+									>
 									<Button.Content>
 										<SymbolIcon Symbol="Add"/>
 									</Button.Content>
@@ -225,12 +292,13 @@
 							  Name="RolledAbilityScoresList"/>
 					</StackPanel>
 					<Grid Width="{Binding Width, ElementName=StackPanelMain}">
-						<Button x:Name="ClearScores" Click="ClearScoresClick" 
+						<Button x:Name="ClearScores" 
 							Content="Clear All" Margin="0, 10, 0, 0" 
-							Padding="20, 0" VerticalAlignment="Stretch"/>
+							Padding="20, 0" VerticalAlignment="Stretch"
+								Tapped="ClearScores_OnTapped"/>
 						<Button x:Name="RollAbilityScores" Content="Roll"
 							HorizontalAlignment="Right" VerticalAlignment="Stretch" 
-							Margin="0,10,0,0" Click="RollAbilityScoresClick" Width="120"/>
+							Margin="0,10,0,0" Width="120"/>
 					</Grid>
 					<TextBlock Text="Now select the skills you're proficient in"/>
 					<ListView ItemTemplate="{StaticResource Skill}" 
@@ -255,75 +323,6 @@
 					<TextBox Margin="0, 10, 0, 0"  PlaceholderText="Ideal"/>
 					<TextBox Margin="0, 10, 0, 0" PlaceholderText="Bond"/>
 					<TextBox Margin="0, 10, 0, 0" PlaceholderText="Flaw"/>
-					<TextBlock Margin="0, 10, 0, 0" Text="Fill in your proficiencies here"/>
-					<TextBlock Text="Weapons"/>
-					<ListView ItemTemplate="{StaticResource CharTrait}" 
-						  ItemsSource="{Binding Path=WeaponProficiencies}"
-						  HorizontalAlignment="Left"
-						  HorizontalContentAlignment="Left" 
-						  Name="WeaponProfList"
-						  Width="{Binding Width, ElementName=StackPanelMain}"
-						  SelectionMode="None"
-						  IsTemplateFocusTarget="True"
-						  MaxWidth="500"
-						  >
-						<ListView.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapGrid HorizontalAlignment="Left" 
-									  Width="{Binding Width, ElementName=StackPanelMain}"
-									  Orientation="Horizontal" />
-							</ItemsPanelTemplate>
-						</ListView.ItemsPanel>
-					</ListView>
-					<Button Content="+ Add new Weapon" Click="WeaponAddClick" 
-						HorizontalAlignment="Right" Background="Transparent"/>
-					<TextBlock Text="Armor"/>
-					<ListView ItemTemplate="{StaticResource CharTrait}"
-						  ItemsSource="{Binding Path=ArmorProficiencies}"
-						  HorizontalAlignment="Left"
-						  HorizontalContentAlignment="Left" 
-						  Name="ArmorProfList"
-						  Width="{Binding Width, ElementName=StackPanelMain}"
-						  SelectionMode="None"
-						  IsTemplateFocusTarget="True"
-						  MaxWidth="500">
-						<ListView.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapGrid HorizontalAlignment="Left" 
-									  Width="{Binding Width, ElementName=StackPanelMain}"
-									  Orientation="Horizontal" />
-							</ItemsPanelTemplate>
-						</ListView.ItemsPanel>
-					</ListView>
-					<Button Content="+ Add new Armor" Click="ArmorAddClick" 
-						HorizontalAlignment="Right" Background="Transparent"/>
-					<TextBlock Text="Languages"/>
-					<ListView  
-						ItemTemplate="{StaticResource Language}"
-						  ItemsSource="{Binding Path=Languages}"
-						  HorizontalAlignment="Left"
-						  HorizontalContentAlignment="Left" 
-						  Name="LanguagesList"
-						  Width="{Binding Width, ElementName=StackPanelMain}"
-						  SelectionMode="None"
-						  IsTemplateFocusTarget="True"
-						  MaxWidth="500">
-						<ListView.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapGrid HorizontalAlignment="Left" 
-									  Width="{Binding Width, ElementName=StackPanelMain}"
-									  Orientation="Horizontal" />
-							</ItemsPanelTemplate>
-						</ListView.ItemsPanel>
-					</ListView>
-					<Button Content="+ Add new Language" Click="LanguageAddClick" 
-						Background="Transparent" Margin="0"
-						/>
-					<StackPanel>
-						<TextBox PlaceholderText="Language name" Visibility="Collapsed"
-						 Name="LanguageAddNameTextBox"/>
-						<Button Content="Add" />
-					</StackPanel>
 					<TextBlock Text="Now Enter your character's physical appearance" />
 					<TextBox PlaceholderText="Age"
 						 Name="AgeTextBox" Margin="0, 10, 0, 0"
@@ -346,3 +345,4 @@
 		</StackPanel>
 	</Grid>
 </Page>
+

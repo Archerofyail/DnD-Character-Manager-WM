@@ -4,7 +4,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class GenericItemViewModel : ViewModelBase
 	{ 
-		public object Item;
+		public virtual object Item { get; set; }
 
 		public GenericItemViewModel(object itm)
 		{

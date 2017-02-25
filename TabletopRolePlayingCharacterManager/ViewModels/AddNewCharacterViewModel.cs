@@ -15,10 +15,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	internal class AddNewCharacterPageViewModel : ViewModelBase
 	{
 		private readonly Random randd6 = new Random();
-		private Character5E character = new Character5E();
+		private Character5E character = CharacterManager.GetNewChar();
+
+		public AddNewCharacterPageViewModel()
+		{
+			CharacterManager.AppendToLists();
+		}
 
 		#region CharacterData
-		
+
 
 		public string CharName
 		{
@@ -30,7 +35,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 			}
 		}
-
 
 		public string Age
 		{
@@ -61,8 +65,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		
-
 		public string Weight
 		{
 			get
@@ -75,8 +77,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
-
-		
 
 		public string Hair
 		{
@@ -91,8 +91,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		
-
 		public string Skin
 		{
 			get
@@ -105,7 +103,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
-
 
 		public string Eye
 		{
@@ -189,7 +186,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
-	
+
 		#endregion
 		#region Lists
 		private readonly ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
@@ -230,23 +227,69 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int selectedRaceId;
+
+		#region Race
+		private int selectedRaceIndex = -1;
 
 		public int SelectedRaceIndex
 		{
-			get { return selectedRaceId; }
+			get { return selectedRaceIndex; }
 			set
 			{
-				selectedRaceId = value;
+				selectedRaceIndex = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("SelectedRace");
+				RaiseAllSelectedRaceChanged();
 			}
 		}
 
+		#region SelectedRace
+
 		private RaceViewModel SelectedRace
 		{
-			get { return Races[SelectedRaceIndex]; }
+			get { return (SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count)  ? Races[SelectedRaceIndex] : new RaceViewModel(); }
 		}
+
+
+		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedRaceAbilityScoreBonuses
+		{
+			get { return SelectedRace.AbilityScoreBonuses; }
+		}
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceLanguageProfs
+		{
+			get { return SelectedRace.LanguageProficiencies; }
+		}
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceWeaponProfs
+		{
+			get { return SelectedRace.WeaponProficiencies; }
+		}
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceArmorProfs
+		{
+			get { return SelectedRace.ArmorProficiencies; }
+		}
+
+		public ObservableCollection<ProficiencyChoiceViewModel> SelectedRaceToolProfs
+		{
+			get { return SelectedRace.ToolProficiencies; }
+		}
+
+
+		void RaiseAllSelectedRaceChanged()
+		{
+			RaisePropertyChanged("SelectedRaceAbilityScoreBonuses");
+			RaisePropertyChanged("SelectedRaceLanguageProfs");
+			RaisePropertyChanged("SelectedRaceWeaponProfs");
+			RaisePropertyChanged("SelectedRaceArmorProfs");
+			RaisePropertyChanged("SelectedRaceToolProfs");
+		}
+		#endregion
+
+		#region SelectedSubrace
+
+		#endregion
 
 
 		public ObservableCollection<RaceViewModel> Subraces
@@ -254,28 +297,30 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get
 			{
 				var subraces = new ObservableCollection<RaceViewModel>();
-					foreach (var race in CharacterManager.RacialBonuses)
+				foreach (var race in CharacterManager.RacialBonuses)
+				{
+					if (race.ParentRace == SelectedRace.racialBonuses.Race)
 					{
-						if (race.ParentRace == SelectedRace.racialBonuses.Race)
-						{
-							subraces.Add(new RaceViewModel(race));
-						}
+						subraces.Add(new RaceViewModel(race));
 					}
+				}
 				return subraces;
 			}
 		}
 
-		private int selectedSubRaceId;
+		private int selectedSubRaceIndex = -1;
 
 		public int SelectedSubRace
 		{
-			get { return selectedSubRaceId; }
+			get { return selectedSubRaceIndex; }
 			set
 			{
-				selectedSubRaceId = value;
+				selectedSubRaceIndex = value;
 				RaisePropertyChanged();
 			}
 		}
+
+		#endregion
 
 		private ObservableCollection<ClassViewModel> classes = new ObservableCollection<ClassViewModel>();
 
@@ -314,7 +359,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedAlignment { get; set; } = -1;
 
-		
+
 
 
 
@@ -356,26 +401,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 
 
-		public Visibility RolledScoresExist
-		{
-			get
-			{
-				if (rolledAbilityScores.Count > 0)
-				{
-					return Visibility.Visible;
-				}
-				return Visibility.Collapsed;
-			}
-		}
+
 		#endregion
 
 		public async void CreateCharacter()
 		{
-		
-		}
 
-		public AddNewCharacterPageViewModel()
-		{
 		}
 	}
 }

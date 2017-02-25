@@ -12,7 +12,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	{
 		private ProficiencyType type;
 
-		public ProficiencyChoiceViewModel(ProficiencyType type, List<Proficiency> profs = null, int totalBonus = 1, bool canSelectMultiple = false) : base(profs)
+
+		public ProficiencyChoiceViewModel(ProficiencyType type, List<Proficiency> profs = null, int totalBonus = 1, bool canSelectMultiple = false)
 		{
 			this.type = type;
 			if (profs != null)
@@ -21,8 +22,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				foreach (var prof in profs)
 				{
 					prof.Type = type;
-					Choices.Add(new ProficiencyViewModel(prof));
+					
 				}
+				items.AddRange(profs);
 			
 			}
 		}

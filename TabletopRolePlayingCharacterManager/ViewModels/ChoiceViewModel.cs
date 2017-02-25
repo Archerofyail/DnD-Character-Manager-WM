@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
@@ -14,9 +15,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	/// <typeparam name="T2">The ViewModel type of the items</typeparam>
 	public class ChoiceViewModel<T, T2> : ViewModelBase 
 		where T2 : GenericItemViewModel, new()
-		where T : new()
+		where T : class, new()
 	{
-		private List<T> items = new List<T>();
+		protected List<T> items = new List<T>();
 		private int totalBonus = 1;
 
 		public ChoiceViewModel(List<T> items, int totalBonus, bool canSelectMultiple)
@@ -37,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ChoiceViewModel()
 		{
-			items.Add(new T());
+			
 		}
 
 		public int TotalBonus
@@ -64,6 +65,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		private ObservableCollection<T2> selectedItems = new ObservableCollection<T2>();
+		public ObservableCollection<T2> SelectedItems
+		{
+			get { return selectedItems; }
+			set { selectedItems = value; }
+		}
+
 		private ObservableCollection<T2> choices = new ObservableCollection<T2>();
 
 		public ObservableCollection<T2> Choices
@@ -88,6 +96,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			
 		}
 
+		#region  Commands
+
 		public T SelectedItem => items[selectedIndex];
 
 		public ICommand AddItem => new RelayCommand(AddItemExec);
@@ -104,8 +114,23 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		protected void AddModifiedItem(T modItem)
 		{
 			items.Add(modItem);
-			choices.Add(new T2{Item = modItem});
+			choices.Add(new T2 { Item = modItem });
 		}
+
+		#endregion
+
+		public List<T> GetSelectedItems()
+		{
+			if (CanSelectMultiple)
+			{
+				return SelectedItems.Select<T2, T>(x => { return x.Item as T; }).ToList();
+			}
+			else
+			{
+				return new List<T>(new [] {SelectedItem});
+			}
+		}
+
 	}
 }
 

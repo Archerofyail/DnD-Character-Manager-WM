@@ -5,30 +5,25 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class ProficiencyViewModel : GenericItemViewModel
 	{
-		private Proficiency proficiency;
-
+		//private Proficiency proficiency;
+		public override object Item { get; set; } = new Proficiency();
 		public ProficiencyViewModel(Proficiency prof)
 		{
 			Item = prof;
-			proficiency = prof;
+			
 		}
 
 		public ProficiencyViewModel()
 		{
-			proficiency = Item as Proficiency;
-			if (Item == null)
-			{
-				proficiency = new Proficiency();
-				Item = proficiency;
-			}
+			//Item = new Proficiency();
 		}
 
 		public string Name
 		{
-			get { return proficiency.Name; }
+			get { return ((Proficiency)Item).Name; }
 			set
 			{
-				proficiency.Name = value;
+				((Proficiency)Item).Name = value;
 				RaisePropertyChanged();
 			}
 		}
