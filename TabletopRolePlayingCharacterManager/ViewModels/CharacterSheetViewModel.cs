@@ -26,8 +26,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 
 		#region General
-		private ObservableCollection<string> languages = new ObservableCollection<string>();
-		public ObservableCollection<string> Languages
+		private ObservableCollection<ProficiencyViewModel> languages = new ObservableCollection<ProficiencyViewModel>();
+		public ObservableCollection<ProficiencyViewModel> Languages
 		{
 			get
 			{
@@ -36,7 +36,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 					foreach (var language in character.Languages)
 					{
-						languages.Add(language);
+						languages.Add(new ProficiencyViewModel(language));
 					}
 
 				}
@@ -649,9 +649,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private ObservableCollection<string> weaponProficiencies = new ObservableCollection<string>();
+		private ObservableCollection<ProficiencyViewModel> weaponProficiencies = new ObservableCollection<ProficiencyViewModel>();
 
-		public ObservableCollection<string> WeaponProficiencies
+		public ObservableCollection<ProficiencyViewModel> WeaponProficiencies
 		{
 			get
 			{
@@ -659,16 +659,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.WeaponProficiencies)
 					{
-						weaponProficiencies.Add(proficiency);
+						weaponProficiencies.Add(new ProficiencyViewModel(proficiency));
 					}
 				}
 				return weaponProficiencies;
 			}
 		}
 
-		private ObservableCollection<string> armorProficiencies = new ObservableCollection<string>();
+		private ObservableCollection<ProficiencyViewModel> armorProficiencies = new ObservableCollection<ProficiencyViewModel>();
 
-		public ObservableCollection<string> ArmorProficiencies
+		public ObservableCollection<ProficiencyViewModel> ArmorProficiencies
 		{
 			get
 			{
@@ -676,16 +676,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.ArmorProficiencies)
 					{
-						armorProficiencies.Add(proficiency);
+						armorProficiencies.Add(new ProficiencyViewModel(proficiency));
 					}
 
 				}
 				return armorProficiencies;
 			}
 		}
-		private ObservableCollection<string> proficiencies = new ObservableCollection<string>();
+		private ObservableCollection<ProficiencyViewModel> proficiencies = new ObservableCollection<ProficiencyViewModel>();
 
-		public ObservableCollection<string> Proficiencies
+		public ObservableCollection<ProficiencyViewModel> Proficiencies
 		{
 			get
 			{
@@ -693,7 +693,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.Proficiencies)
 					{
-						proficiencies.Add(proficiency);
+						proficiencies.Add(new ProficiencyViewModel(proficiency));
 					}
 				}
 				return proficiencies;
@@ -939,11 +939,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ICommand AddNewSpell => new RelayCommand(AddNewSpellExecute, CanRunCommand);
 		public ICommand AddNewWeapon => new RelayCommand(AddNewWeaponExecute, CanRunCommand);
 		public ICommand AddNewCharTrait => new RelayCommand(AddNewCharTraitExecute);
-		public ICommand AddNewLang => new RelayCommand<string>(AddNewLanguageExecute);
+		public ICommand AddNewLanguage => new RelayCommand<string>(AddNewLanguageExecute);
+		public ICommand DeleteCharacter => new RelayCommand(DeleteCharacterExec);
 		#region CommandFunctions
-		void SaveCharacterExecute()
+		async void SaveCharacterExecute()
 		{
-			CharacterManager.SaveCurrentCharacter();
+			await CharacterManager.SaveCurrentCharacter();
+		}
+
+		void DeleteCharacterExec()
+		{
+			CharacterManager.Characters.Remove(CharacterManager.CurrentCharacter);
 		}
 
 		bool CanRunCommand()
@@ -984,7 +990,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			if (AddSpellToGlobalList)
 			{
 				CharacterManager.AllSpells.Add(newSpell);
+				await CharacterManager.SaveSpells();
 			}
+			character.Spells.Add(newSpell);
+			Spells.Add(new SpellViewModel(newSpell));
+			RaisePropertyChanged("Spells");
+			await CharacterManager.SaveCurrentCharacter();
 		}
 
 		async void AddNewWeaponExecute()
@@ -998,11 +1009,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			if (AddWeaponToGlobalList)
 			{
 				CharacterManager.AllWeapons.Add(newWep);
-				CharacterManager.SaveWeapons();
+				await CharacterManager.SaveWeapons();
 			}
 			character.Weapons.Add(newWep);
 			Weapons.Add(new WeaponViewModel(newWep));
-			CharacterManager.SaveCurrentCharacter();
+			RaisePropertyChanged("Weapons");
+			await CharacterManager.SaveCurrentCharacter();
 		}
 
 		async void AddNewCharTraitExecute()
@@ -1011,14 +1023,21 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			newTraitDesc = "";
 			character.Traits.Add(newTrait);
 			CharTraits.Add(new TraitViewModel(newTrait));
-			CharacterManager.SaveCurrentCharacter();
+			RaisePropertyChanged("CharTraits");
+			await CharacterManager.SaveCurrentCharacter();
 		}
 
 		void AddNewLanguageExecute(string newLang)
 		{
-			Languages.Add(newLang);
-			character.Languages.Add(newLang);
+			var newProf = new Proficiency(ProficiencyType.Language, newLang);
+			Languages.Add(new ProficiencyViewModel(newProf));
+			character.Languages.Add(newProf);
 			RaisePropertyChanged("Languages");
+		}
+
+		void AddNewProficiency()
+		{
+			
 		}
 		#endregion
 		#endregion

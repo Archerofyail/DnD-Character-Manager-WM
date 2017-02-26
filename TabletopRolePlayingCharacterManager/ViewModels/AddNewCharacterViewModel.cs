@@ -8,7 +8,10 @@ using Windows.UI.Xaml;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 using System.Diagnostics;
+using System.Windows.Input;
+using Windows.Gaming.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -245,7 +248,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region SelectedRace
 
-		private RaceViewModel SelectedRace => (SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count)  ? Races[SelectedRaceIndex] : new RaceViewModel();
+		private RaceViewModel SelectedRace => (SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count) ? Races[SelectedRaceIndex] : new RaceViewModel();
 
 
 		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedRaceAbilityScoreBonuses => SelectedRace.AbilityScoreBonuses;
@@ -333,7 +336,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		
+
 
 		private ObservableCollection<ClassViewModel> classes = new ObservableCollection<ClassViewModel>();
 
@@ -410,16 +413,87 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		#region UIControls
+		#region Commands
 
+		public ICommand EndCharacterCreation => new RelayCommand(FinishedCharacterCreation);
+		
+		public void FinishedCharacterCreation()
+		{
+			foreach (var trait in SelectedRaceTraits)
+			{
 
+				character.Traits.AddRange(trait.GetSelectedItems());
 
+			}
+			foreach (var bonus in SelectedRaceAbilityScoreBonuses)
+			{
+				foreach (var bonus1 in bonus.GetSelectedItems())
+				{
+					character.AbilityScores[bonus1.Stat] += bonus1.Bonus;
+				}
+			}
+
+			foreach (var prof in SelectedRaceLanguageProfs)
+			{
+				character.Languages.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedRaceWeaponProfs)
+			{
+				character.WeaponProficiencies.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedRaceArmorProfs)
+			{
+				character.ArmorProficiencies.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedRaceToolProfs)
+			{
+				character.Proficiencies.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedRaceToolProfs)
+			{
+				character.Proficiencies.AddRange(prof.GetSelectedItems());
+			}
+
+			foreach (var trait in SelectedSubraceTraits)
+			{
+
+				character.Traits.AddRange(trait.GetSelectedItems());
+
+			}
+			foreach (var bonus in SelectedSubraceAbilityScoreBonuses)
+			{
+				foreach (var bonus1 in bonus.GetSelectedItems())
+				{
+					character.AbilityScores[bonus1.Stat] += bonus1.Bonus;
+				}
+			}
+
+			foreach (var prof in SelectedSubraceLanguageProfs)
+			{
+				character.Languages.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedSubraceWeaponProfs)
+			{
+				character.WeaponProficiencies.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedSubraceArmorProfs)
+			{
+				character.ArmorProficiencies.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedSubraceToolProfs)
+			{
+				character.Proficiencies.AddRange(prof.GetSelectedItems());
+			}
+			foreach (var prof in SelectedSubraceToolProfs)
+			{
+				character.Proficiencies.AddRange(prof.GetSelectedItems());
+			}
+		}
 
 		#endregion
 
-		public async void CreateCharacter()
-		{
 
-		}
+
+
 	}
 }

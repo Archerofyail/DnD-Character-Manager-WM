@@ -338,11 +338,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 						new AbilityScoreBonusModel{Bonus = 2, Stat = MainStatType.Constitution}
 					}
 				},
-				Languages = new List<List<string>>
-				{
-					new List<string> {"Dwarvish"},
-					new List<string> {"Common"}
-				},
+			
 				Proficiencies = new List<List<Proficiency>>
 				{
 					new List<Proficiency>
@@ -352,7 +348,9 @@ namespace TabletopRolePlayingCharacterManager.Types
 					new List<Proficiency> {new Proficiency(ProficiencyType.Weapon, "Warhammer") },
 					new List<Proficiency> {new Proficiency(ProficiencyType.Weapon, "Throwing Hammer")},
 					new List<Proficiency> {new Proficiency(ProficiencyType.Weapon, "Handaxe")},
-					new List<Proficiency> {new Proficiency(ProficiencyType.Tool, "Smith's Tools"), new Proficiency(ProficiencyType.Tool, "Brewer's Supplies"), new Proficiency(ProficiencyType.Tool, "Mason's Tools") }
+					new List<Proficiency> {new Proficiency(ProficiencyType.Tool, "Smith's Tools"), new Proficiency(ProficiencyType.Tool, "Brewer's Supplies"), new Proficiency(ProficiencyType.Tool, "Mason's Tools") },
+					new List<Proficiency> {new Proficiency(ProficiencyType.Language, "Dwarvish")},
+					new List<Proficiency> {new Proficiency(ProficiencyType.Language, "Common")}
 				},
 				Traits = new List<List<Trait>>
 				{

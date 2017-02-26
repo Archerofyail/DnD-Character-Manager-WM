@@ -34,33 +34,44 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void AddSpellButtonTapped(object sender, TappedRoutedEventArgs e)
 		{
-			AddSpellButton.Flyout.Hide();
+			AddSpellButton.Flyout?.Hide();
 		}
 
 		private void AddItemButtonTapped(object sender, TappedRoutedEventArgs e)
 		{
-			AddItemButton.Flyout.Hide();
+			AddItemButton.Flyout?.Hide();
 		}
 
 		private void AddWeaponButtonTapped(object sender, TappedRoutedEventArgs e)
 		{
-			AddWeaponButton.Flyout.Hide();
+			AddWeaponButton.Flyout?.Hide();
 		}
 
 		private void AddTraitTapped(object sender, TappedRoutedEventArgs e)
 		{
-			AddTraitButton.Flyout.Hide();
+			AddTraitButton.Flyout?.Hide();
 		}
 
 		private void AddNewLangTapped(object sender, TappedRoutedEventArgs e)
 		{
-			AddNewLangButton.Flyout.Hide();
+			AddNewLangButton.Flyout?.Hide();
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{
-			SaveButton.Command.Execute(SaveButton);
+			SaveButton.Command?.Execute(SaveButton);
 			base.OnNavigatedFrom(e);
+		}
+
+
+		private void DeleteCharacterTapped(object sender, TappedRoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(MainPage));
+		}
+
+		private void AddNewProficiencyTapped(object sender, TappedRoutedEventArgs e)
+		{
+			AddNewProficiencyButton.Flyout?.Hide();
 		}
 	}
 }

@@ -11,7 +11,6 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<List<AbilityScoreBonusModel>> StatBonuses { get; set; } = new List<List<AbilityScoreBonusModel>>();
 		public List<List<Trait>> Traits { get; set; } = new List<List<Trait>>();
 		public List<List<Skill>> Skills { get; set; } = new List<List<Skill>>();
-		public List<List<string>> Languages { get; set; } = new List<List<string>>();
 		public Dictionary<int, List<Spell>> Spells { get; set; } = new Dictionary<int, List<Spell>>();
 		public List<List<Proficiency>> Proficiencies { get; set; } = new List<List<Proficiency>>();
 		private int speedBonus = 30;

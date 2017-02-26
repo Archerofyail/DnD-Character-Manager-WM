@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -29,15 +30,18 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-			CharacterManager.LoadCompendium();
+			Task.Run(() => { LoadCompendium(); });
 			//DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 
 
 		}
 
-		
 
+		async void LoadCompendium()
+		{
+			await CharacterManager.LoadCompendium();
+		}
 
 		private void SettingsClicked(object sender, RoutedEventArgs e)
 		{

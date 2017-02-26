@@ -22,6 +22,12 @@
 			</StackPanel>
 		</StackPanel>
 	</DataTemplate>
+	
+	<DataTemplate x:Key="ProficiencyTemplate">
+		<StackPanel>
+			<TextBlock Text="{Binding Name}"/>
+		</StackPanel>
+	</DataTemplate>
 
 	<DataTemplate x:Key="Item">
 		<StackPanel Margin="4"

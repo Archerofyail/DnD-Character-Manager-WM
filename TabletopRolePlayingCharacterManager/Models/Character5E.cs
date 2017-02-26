@@ -75,10 +75,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<Item> Inventory { get; set; } = new List<Item>();
 		public List<Weapon> Weapons { get; set; } = new List<Weapon>();
 		public List<Spell> Spells { get; set; } = new List<Spell>();
-		public List<string> WeaponProficiencies { get; set; } = new List<string>();
-		public List<string> ArmorProficiencies { get; set; } = new List<string>();
-		public List<string> Proficiencies { get; set; } = new List<string>();
-		public List<string> Languages { get; set;  } = new List<string>();
+		public List<Proficiency> WeaponProficiencies { get; set; } = new List<Proficiency>();
+		public List<Proficiency> ArmorProficiencies { get; set; } = new List<Proficiency>();
+		public List<Proficiency> Proficiencies { get; set; } = new List<Proficiency>();
+		public List<Proficiency> Languages { get; set;  } = new List<Proficiency>();
 
 		public Character5E()
 		{

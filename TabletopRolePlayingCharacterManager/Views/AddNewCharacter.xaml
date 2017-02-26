@@ -18,7 +18,8 @@
 			<CommandBar.PrimaryCommands>
 				<AppBarButton Icon="Accept"
 							  Label="Finish"
-							  Command="{Binding EndCharacterCreation}"/>
+							  Command="{Binding EndCharacterCreation}"
+							  Tapped="FinishCharCreationTapped"/>
 			</CommandBar.PrimaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>

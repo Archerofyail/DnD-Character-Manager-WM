@@ -60,5 +60,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 		{
 			Debug.WriteLine("Clear Tapped");
 		}
+
+		private void FinishCharCreationTapped(object sender, TappedRoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(CharacterSheet));
+		}
 	}
 }
