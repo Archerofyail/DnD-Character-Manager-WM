@@ -13,6 +13,12 @@
 			this.profBonus = profBonus;
 		}
 
+		public Skill()
+		{
+			
+		}
+
+
 		private int abilityBonus;
 		private int profBonus;
 		public string Name { get; set; }

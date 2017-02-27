@@ -299,12 +299,12 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await FileIO.WriteTextAsync(file, json);
 		}
 
-		private static async Task<T> LoadObjectFromJsonFile<T>(StorageFile file)
+		private static async Task<T> LoadObjectFromJsonFile<T>(StorageFile file) where T : class, new()
 		{
 			T temp;
 			var json = await FileIO.ReadTextAsync(file);
 			temp = JsonConvert.DeserializeObject<T>(json);
-			return temp;
+			return temp ?? new T();
 		}
 
 		public static Character5E GetNewChar()

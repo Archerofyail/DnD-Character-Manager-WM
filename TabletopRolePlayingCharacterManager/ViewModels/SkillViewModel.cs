@@ -4,14 +4,20 @@ using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
-	public class SkillViewModel : ViewModelBase
+	public class SkillViewModel : GenericItemViewModel
 	{
 
 		public SkillViewModel(Skill skill)
 		{
-			this.skill = skill;
+			Item = skill;
 		}
-		private Skill skill;
+
+		public SkillViewModel()
+		{
+
+		}
+
+		private Skill skill => Item as Skill;
 		public string Name
 		{
 			get { return skill.Name; }
