@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -24,7 +23,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			this.items = items;
 			this.totalBonus = totalBonus;
-			this.CanSelectMultiple = canSelectMultiple;
+			CanSelectMultiple = canSelectMultiple;
 		}
 
 		public ChoiceViewModel(List<T> items)
@@ -51,9 +50,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public bool CanSelectMultiple { get; set; } = false;
+		public bool CanSelectMultiple { get; set; }
 
-		private int selectedIndex = 0;
+		private int selectedIndex;
 
 		public int SelectedIndex
 		{

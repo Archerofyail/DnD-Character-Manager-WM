@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TabletopRolePlayingCharacterManager.Models;
 using Windows.Storage;
-using TabletopRolePlayingCharacterManager.ViewModels;
 
 
 namespace TabletopRolePlayingCharacterManager.Types

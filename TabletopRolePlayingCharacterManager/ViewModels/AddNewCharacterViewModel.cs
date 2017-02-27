@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Windows.UI.Xaml;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 using System.Diagnostics;
 using System.Windows.Input;
-using Windows.Gaming.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 

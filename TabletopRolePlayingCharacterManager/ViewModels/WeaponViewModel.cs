@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Models;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -12,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	{
 		private Weapon weapon;
 		private static ObservableCollection<MainStatType> _mainStat = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
-		private static  ObservableCollection<WeaponRangeType> _weaponTypes = new ObservableCollection<WeaponRangeType>() {TabletopRolePlayingCharacterManager.WeaponRangeType.Melee, TabletopRolePlayingCharacterManager.WeaponRangeType.Ranged};
+		private static  ObservableCollection<WeaponRangeType> _weaponTypes = new ObservableCollection<WeaponRangeType>() {WeaponRangeType.Melee, WeaponRangeType.Ranged};
 		public WeaponViewModel(Weapon weap)
 		{
 			weapon = weap;

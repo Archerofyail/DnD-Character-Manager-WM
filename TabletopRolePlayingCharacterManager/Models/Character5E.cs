@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -26,9 +25,9 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int TempHP { get; set; }
 		public int Initiative => AbilityModifiers[MainStatType.Dexterity];
 
-		public bool[] DeathSaveFails { get; set; } = new bool[3] {false, false, false};
+		public bool[] DeathSaveFails { get; set; } = {false, false, false};
 
-		public bool[] DeathSaveSuccesses { get; set; } = new bool[3] {false, false, false};
+		public bool[] DeathSaveSuccesses { get; set; } = {false, false, false};
 
 		#region Aesthetic Featues
 

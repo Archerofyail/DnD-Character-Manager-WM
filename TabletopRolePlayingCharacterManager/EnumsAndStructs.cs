@@ -120,7 +120,7 @@ namespace TabletopRolePlayingCharacterManager
 
 		public static int CalculateMainStatBonus(int mainStat)
 		{
-			int bonus = 0;
+			int bonus;
 			mainStat -= 10;
 			bonus = mainStat / 2;
 			return bonus;

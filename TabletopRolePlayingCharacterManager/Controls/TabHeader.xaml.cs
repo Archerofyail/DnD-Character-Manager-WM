@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace TabletopRolePlayingCharacterManager.Controls
 {
-	public sealed partial class TabHeader : UserControl
+	public sealed partial class TabHeader
 	{
 		public static readonly DependencyProperty GlyphProperty = DependencyProperty.Register("Symbol", typeof(Symbol), typeof(TabHeader), null);
 
@@ -35,8 +35,8 @@ namespace TabletopRolePlayingCharacterManager.Controls
 
 		public TabHeader()
 		{
-			this.InitializeComponent();
-			this.DataContext = this;
+			InitializeComponent();
+			DataContext = this;
 		}
 	}
 }

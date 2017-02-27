@@ -7,7 +7,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 	{
 		//Die Dize probable shouldn't be more than a D12
 		public Dictionary<DieType, int> Dice { get; set; } = new Dictionary<DieType, int>();
-		public int Bonus { get; set; } = 0;
+		public int Bonus { get; set; }
 
 		public Damage(int bonus)
 		{

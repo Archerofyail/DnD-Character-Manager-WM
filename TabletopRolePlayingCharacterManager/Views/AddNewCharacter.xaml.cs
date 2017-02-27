@@ -14,32 +14,6 @@ namespace TabletopRolePlayingCharacterManager.Views
 			Debug.WriteLine("added data context");
 		}
 
-		private void LanguageAddClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void ArmorAddClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void WeaponAddClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-
-		private void RollAbilityScoresClick(object sender, RoutedEventArgs e)
-		{
-			
-		}
-
-		private void SelectAbilityToAssign(object sender, RoutedEventArgs e)
-		{
-			
-		}
-
 		private void ClearScoresClick(object sender, RoutedEventArgs e)
 		{
 			StrengthTextBox.Text = "";
@@ -48,12 +22,6 @@ namespace TabletopRolePlayingCharacterManager.Views
 			IntelligenceTextBox.Text = "";
 			WisdomTextBox.Text = "";
 			CharismaTextBox.Text = "";
-		}
-
-		private void SaveButtonClick(object sender, RoutedEventArgs e)
-		{
-			
-
 		}
 
 		private void ClearScores_OnTapped(object sender, TappedRoutedEventArgs e)

@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 	{
 		public Compendium()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 	}
 }

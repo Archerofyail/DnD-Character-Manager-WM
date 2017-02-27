@@ -18,7 +18,7 @@
 			var attack = 0;
 			attack += Utility.Rand.Next(1, 21);
 			attack += AttackBonus;
-			return 10;
+			return attack;
 		}
 	}
 }

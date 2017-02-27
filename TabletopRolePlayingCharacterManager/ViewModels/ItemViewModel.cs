@@ -1,5 +1,4 @@
 ﻿using TabletopRolePlayingCharacterManager.Models;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -9,7 +8,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ItemViewModel(Item item)
 		{
-			this.Item = item;
+			Item = item;
 		}
 
 		public ItemViewModel()

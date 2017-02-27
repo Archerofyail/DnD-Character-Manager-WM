@@ -4,11 +4,11 @@
 
 namespace TabletopRolePlayingCharacterManager.Controls
 {
-	public sealed partial class FilterListView : UserControl
+	public sealed partial class FilterListView
 	{
 		public FilterListView()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 
 

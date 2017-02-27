@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Models;
-using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
