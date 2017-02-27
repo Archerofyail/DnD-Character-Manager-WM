@@ -124,7 +124,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 			set
 			{
-				
+
 				if (int.TryParse(value, out int result))
 				{
 					character.Level = result;
@@ -924,6 +924,37 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public int NewStatIncreaseBonus
+		{
+			get
+			{
+				return selectedStatIncrease?.Bonus ?? 1;
+			}
+			set
+			{
+				if (selectedStatIncrease != null)
+				{
+					selectedStatIncrease.Bonus = value;
+				}
+			}
+		}
+
+		private StatIncrease selectedStatIncrease = new StatIncrease();
+		private int selectedStatBonus = -1;
+
+		public int SelectedStatBonus
+		{
+			get { return selectedStatBonus; }
+			set
+			{
+				selectedStatBonus = value;
+				selectedStatIncrease = StatIncrease.GetNewByName(traitStatBonuses[selectedStatBonus]);
+				selectedStatIncrease.Bonus = NewStatIncreaseBonus;
+			}
+		}
+
+
+
 		#endregion
 
 		#endregion
@@ -941,6 +972,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ICommand AddNewCharTrait => new RelayCommand(AddNewCharTraitExecute);
 		public ICommand AddNewLanguage => new RelayCommand<string>(AddNewLanguageExecute);
 		public ICommand DeleteCharacter => new RelayCommand(DeleteCharacterExec);
+		public ICommand AddNewProficiency => new RelayCommand(AddNewProficiencyExec);
 		#region CommandFunctions
 		async void SaveCharacterExecute()
 		{
@@ -1035,9 +1067,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			RaisePropertyChanged("Languages");
 		}
 
-		void AddNewProficiency()
+		void AddNewProficiencyExec()
 		{
-			
+
 		}
 		#endregion
 		#endregion

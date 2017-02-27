@@ -30,7 +30,7 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-			Task.Run(() => { LoadCompendium(); });
+			LoadCompendium();
 			//DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 
@@ -46,12 +46,6 @@ namespace TabletopRolePlayingCharacterManager
 		private void SettingsClicked(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(SettingsPage));
-		}
-
-		private void CharacterTemplateList_ItemClick(object sender, ItemClickEventArgs e)
-		{
-
-			Frame.Navigate(typeof(CharacterSheet));
 		}
 
 		private void CharacterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

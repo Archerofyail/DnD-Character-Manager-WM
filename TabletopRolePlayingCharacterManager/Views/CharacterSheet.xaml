@@ -508,12 +508,13 @@
 								<TextBlock Text="Initiative" HorizontalAlignment="Center"/>
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
-								 Margin="4, 0, 4, 0" Grid.Column="2">
+								 Margin="4, 0, 4, 0" Grid.Column="2"
+										Grid.Row="0">
 								<TextBox Text="{Binding Speed, Mode=TwoWay}" />
 								<TextBlock Text="Speed" HorizontalAlignment="Center"/>
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2"
-										>
+										Grid.Column="0">
 								<StackPanel Orientation="Horizontal"
 											Name="HealthBoxes">
 									<TextBox Name="CurrentHP" FontSize="16" PlaceholderText="HP"
@@ -550,7 +551,7 @@
 
 								</StackPanel>
 							</StackPanel>
-							<StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2"
+							<StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2"
 										Margin="0, 0, 4, 0">
 								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"/>
 								<TextBlock 
@@ -765,8 +766,9 @@
 												 Margin="4"
 												 Text="{Binding NewTraitDesc, Mode=TwoWay}"/>
 										<StackPanel Orientation="Horizontal">
-											<ComboBox ItemsSource="{Binding TraitStatBonuses}"/>
-											<TextBox Text="{Binding NewTraitStatBonus}"/>
+											<ComboBox ItemsSource="{Binding TraitStatBonuses}"
+													  SelectedIndex="{Binding SelectedStatBonus, Mode=TwoWay}"/>
+											<TextBox Text="{Binding NewStatIncreaseBonus, Mode=TwoWay}"/>
 										</StackPanel>
 										<StackPanel Orientation="Horizontal">
 											<Button Content="+ Add Trait" Margin="4"

@@ -17,7 +17,7 @@
 								   Margin="8"
 								   FontSize="18"/>
 				<CheckBox IsChecked="{Binding Path=IsProficient, Mode=TwoWay}" MinWidth="32"/>
-				<TextBlock Text="{Binding Path=MainStat, Mode=TwoWay}" HorizontalAlignment="Right" Foreground="#FF7E7E7E" Margin="4,0,0,0"
+				<TextBlock Text="{Binding Path=MainStat}" HorizontalAlignment="Right" Foreground="#FF7E7E7E" Margin="4,0,0,0"
 								  />
 			</StackPanel>
 		</StackPanel>
@@ -101,7 +101,8 @@
 	</DataTemplate>
 	<DataTemplate x:Key="CharacterTrait">
 		<TextBlock Text="{Binding Description, Mode=TwoWay}"
-					   MinHeight="72"/>
+					   MinHeight="72"
+				   TextWrapping="WrapWholeWords"/>
 	</DataTemplate>
 </ResourceDictionary>
 

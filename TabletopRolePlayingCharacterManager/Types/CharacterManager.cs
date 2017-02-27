@@ -45,7 +45,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					var statIncType = typeof(StatIncrease);
 					var allStatIncTypes = statIncType.GetTypeInfo()
 						.Assembly.GetTypes()
-						.Where((type) => { return type.GetTypeInfo().IsClass && type.GetTypeInfo().IsSubclassOf(statIncType); });
+						.Where((type) => type.GetTypeInfo().IsClass && type.GetTypeInfo().IsSubclassOf(statIncType));
 					foreach (var statType in allStatIncTypes)
 					{
 
