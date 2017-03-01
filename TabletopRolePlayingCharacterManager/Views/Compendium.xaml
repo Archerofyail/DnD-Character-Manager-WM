@@ -98,9 +98,6 @@
 		<DataTemplate x:Key="RaceTemplate">
 
 			<StackPanel Orientation="Horizontal">
-				<StackPanel.DataContext>
-					<viewModels:RaceViewModel/>
-				</StackPanel.DataContext>
 				<TextBlock Text="{Binding Name}"
 						   Margin="8"/>
 				<Button Content="Edit" Margin="4">

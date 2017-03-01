@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
 using GalaSoft.MvvmLight;
 using TabletopRolePlayingCharacterManager.Models;
 
@@ -120,19 +121,78 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				classBonus.SpellcastingStat = (MainStatType) Enum.Parse(typeof(MainStatType), MainStatsList[value]);
 			}
 		}
-		private ObservableCollection<PrimitiveListViewModel<int>> spellSlotIncreasesByLevel = new ObservableCollection<PrimitiveListViewModel<int>>();
-		public ObservableCollection<PrimitiveListViewModel<int>> SpellSlotIncreasesByLevel
+		private ObservableCollection<PrimitiveListViewModel<int>> spellSlotsByLevel = new ObservableCollection<PrimitiveListViewModel<int>>();
+		public ObservableCollection<PrimitiveListViewModel<int>> SpellSlotsByLevel
 		{
 			get
 			{
-				if (spellSlotIncreasesByLevel.Count == 0)
+				if (spellSlotsByLevel.Count == 0)
 				{
-					foreach (var level in classBonus.SpellSlotIncreasesByLevel)
+					foreach (var level in classBonus.SpellSlotsByLevel)
 					{
-						spellSlotIncreasesByLevel.Add(new PrimitiveListViewModel<int>(level));
+						spellSlotsByLevel.Add(new PrimitiveListViewModel<int>(level));
 					}
 				}
-				return spellSlotIncreasesByLevel;
+				return spellSlotsByLevel;
+			}
+		}
+		private PrimitiveListViewModel<int> spellsKnownByLevel = new PrimitiveListViewModel<int>();
+		public PrimitiveListViewModel<int> SpellsKnownByLevel
+		{
+			get
+			{
+				if (spellsKnownByLevel.Count == 0)
+				{
+					spellsKnownByLevel.AddRange(classBonus.SpellsKnownByLevel);
+				}
+				return spellsKnownByLevel;
+			}
+		}
+
+		private PrimitiveListViewModel<int> cantripsKnownByLevel = new PrimitiveListViewModel<int>();
+		public PrimitiveListViewModel<int> CantripsKnownByLevel
+		{
+			get
+			{
+				if (spellsKnownByLevel.Count == 0)
+				{
+					spellsKnownByLevel.AddRange(classBonus.SpellsKnownByLevel);
+				}
+				return spellsKnownByLevel;
+			}
+		}
+
+		private ObservableCollection<Proficiency> proficiencies = new ObservableCollection<Proficiency>();
+
+		public ObservableCollection<Proficiency> Proficiencies
+		{
+			get
+			{
+				if (proficiencies.Count == 0)
+				{
+					foreach (var prof in classBonus.Proficiencies)
+					{
+						proficiencies.Add(prof);
+					}
+				}
+				return proficiencies;
+			}
+		}
+
+		private ObservableCollection<MainStatType> savingThrowProficiencies = new ObservableCollection<MainStatType>();
+
+		public ObservableCollection<MainStatType> SavingThrowProficiiencies
+		{
+			get
+			{
+				if (savingThrowProficiencies.Count == 0)
+				{
+					foreach (var proficiency in classBonus.SavingThrowProficiencies)
+					{
+						savingThrowProficiencies.Add(proficiency);
+					}
+				}
+				return savingThrowProficiencies;
 			}
 		}
 

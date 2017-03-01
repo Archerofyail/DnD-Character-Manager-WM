@@ -14,12 +14,11 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public int MinHPPerLevel { get; set; }
 		public int NumberOfSkills { get; set; }
 		public MainStatType SpellcastingStat { get; set; } = MainStatType.Intelligence;
-		public List<List<int>> SpellSlotIncreasesByLevel { get; set; } = new List<List<int>>();
-		public Dictionary<int, int> SpellsKnownByLevel { get; set; }
-		public Dictionary<int, int> CantripsKnownByLevel { get; set; }
-		public List<Proficiency> WeaponProficiencies { get; set; } = new List<Proficiency>();
+		public List<List<int>> SpellSlotsByLevel { get; set; } = new List<List<int>>();
+		public List<int> SpellsKnownByLevel { get; set; } = new List<int>();
+		public List<int> CantripsKnownByLevel { get; set; } = new List<int>();
 		public List<Proficiency> Proficiencies { get; set; } = new List<Proficiency>();
-		public Dictionary<int, List<MainStatType>> SavingThrowProficiencies { get; set; } = new Dictionary<int, List<MainStatType>>();
+		public List<MainStatType> SavingThrowProficiencies { get; set; } = new List<MainStatType>();
 		public Dictionary<int, List<List<Trait>>> TraitsByLevel { get; set; } = new Dictionary<int, List<List<Trait>>>();
 		public List<Skill> Skills { get; set; }
 		public Dictionary<int, int> AbilityScoreImprovements { get; set; } = new Dictionary<int, int>();
@@ -32,11 +31,16 @@ namespace TabletopRolePlayingCharacterManager.Models
 		{
 			for (int i = 0; i < 20; i++)
 			{
-				SpellSlotIncreasesByLevel.Add(new List<int>());
+				SpellSlotsByLevel.Add(new List<int>());
 				for (int j = 0; j < 9; j++)
 				{
-					SpellSlotIncreasesByLevel[i].Add(0);
+					SpellSlotsByLevel[i].Add(0);
 				}
+			}
+			for (int i = 0; i < 9; i++)
+			{
+				SpellsKnownByLevel.Add(0);
+				CantripsKnownByLevel.Add(0);
 			}
 		}
 		

@@ -3,6 +3,7 @@ using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.Views;
 
@@ -30,6 +31,7 @@ namespace TabletopRolePlayingCharacterManager
 
 			}
 			LoadCompendium();
+			NavigationCacheMode = NavigationCacheMode.Required;
 			//DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 
