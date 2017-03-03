@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
     <Compile Include="ViewModels\ChoiceViewModel.cs" />
+    <Compile Include="ViewModels\SubclassViewModel.cs" />
     <Compile Include="ViewModels\TraitViewModel.cs" />
     <Compile Include="ViewModels\WeaponViewModel.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">

@@ -14,6 +14,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
+
 		Character5E character;
 		private static ObservableCollection<string> _alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
 		public CharacterSheetViewModel()

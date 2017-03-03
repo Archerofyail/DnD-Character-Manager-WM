@@ -17,6 +17,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			classBonus = cl;
 		}
 
+		public ClassViewModel()
+		{
+			classBonus = new ClassBonus();
+		}
+
 		public string Name
 		{
 			get { return classBonus.ClassName; }
@@ -64,7 +69,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 				selectedHitDieIndex = value;
-				classBonus.HitDie = (DieType) Enum.Parse(typeof(DieType), DieTypes[selectedHitDieIndex]);
+				classBonus.HitDie = (DieType)Enum.Parse(typeof(DieType), DieTypes[selectedHitDieIndex]);
 			}
 		}
 
@@ -118,7 +123,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 				selectedMainSpellcastingStatIndex = value;
-				classBonus.SpellcastingStat = (MainStatType) Enum.Parse(typeof(MainStatType), MainStatsList[value]);
+				classBonus.SpellcastingStat = (MainStatType)Enum.Parse(typeof(MainStatType), MainStatsList[value]);
 			}
 		}
 		private ObservableCollection<PrimitiveListViewModel<int>> spellSlotsByLevel = new ObservableCollection<PrimitiveListViewModel<int>>();
@@ -193,6 +198,68 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					}
 				}
 				return savingThrowProficiencies;
+			}
+		}
+
+		private PrimitiveListViewModel<int> abilityScoreImprovementsByLevel = new PrimitiveListViewModel<int>();
+
+		public PrimitiveListViewModel<int> AbilityScoreImprovementsByLevel
+		{
+			get
+			{
+				if (abilityScoreImprovementsByLevel.Count == 0)
+				{
+					abilityScoreImprovementsByLevel.AddRange(classBonus.AbilityScoreImprovements);
+				}
+				return abilityScoreImprovementsByLevel;
+			}
+		}
+
+		private ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> equipmentChoices = new ObservableCollection<ChoiceViewModel<Item, ItemViewModel>>();
+
+		public ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> EquipmentChoices
+		{
+			get
+			{
+				if (equipmentChoices.Count == 0)
+				{
+					foreach (var choice in classBonus.EquipmentChoices)
+					{
+						equipmentChoices.Add(new ChoiceViewModel<Item, ItemViewModel>(choice));
+					}
+				}
+				return equipmentChoices;
+			}
+		}
+
+		private PrimitiveListViewModel<int> expertise = new PrimitiveListViewModel<int>();
+
+		public PrimitiveListViewModel<int> Expertise
+		{
+			get
+			{
+				if (expertise.Count == 0)
+				{
+					expertise.AddRange(classBonus.Expertise);
+				}
+				return expertise;
+			}
+		}
+
+		private ObservableCollection<SubclassViewModel> subclasses = new ObservableCollection<SubclassViewModel>();
+
+		public ObservableCollection<SubclassViewModel> Subclasses
+		{
+			get
+			{
+				if (subclasses.Count == 0)
+				{
+					foreach (var subClass in classBonus.SubClasses)
+					{
+						subclasses.Add(new SubclassViewModel(subClass));
+					}
+				}
+				return subclasses;
 			}
 		}
 

@@ -12,7 +12,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	{
 		public List<T> Items { get; set; } = new List<T>();
 		public int Count => Items.Count;
-
+		public int SelectionCount { get; set; } = 1;
+		public bool CanSelectMultiple { get; set; }
 		public PrimitiveListViewModel()
 		{
 			
@@ -20,7 +21,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public PrimitiveListViewModel(List<T> items)
 		{
-			Items = items;
+			if (items != null)
+			{
+				Items = items;
+			}
+		}
+
+
+		public PrimitiveListViewModel( int selectionCount, bool canSelectMultiple, List<T> items = null) : this(items)
+		{
+			SelectionCount = selectionCount;
+			CanSelectMultiple = canSelectMultiple;
 		}
 
 		public void Add(T item)

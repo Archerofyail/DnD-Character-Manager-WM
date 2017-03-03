@@ -209,7 +209,33 @@
 		</DataTemplate>
 		<DataTemplate x:Key="ClassTemplate">
 			<StackPanel Orientation="Horizontal">
+				<StackPanel.DataContext>
+					<viewModels:ClassViewModel/>
+				</StackPanel.DataContext>
 				<TextBlock Text="{Binding Name}"/>
+				<Button Content="Edit">
+					<Button.Flyout>
+						<Flyout>
+							<StackPanel>
+								<TextBox Text="{Binding Name, Mode=TwoWay}" PlaceholderText="Name"/>
+								<TextBox Text="{Binding SubclassName, Mode=TwoWay}"
+										 PlaceholderText="Archetype, College, Path, etc."/>
+								<TextBlock Text="The level you can pick your subclass"/>
+								<TextBox Text="{Binding SubclassLevel, Mode=TwoWay}" InputScope="Number"/>
+								<ComboBox ItemsSource="{Binding DieTypes}"
+										  Header="Hit Die"
+										  SelectedIndex="{Binding SelectedHitDieIndex, Mode=TwoWay}"/>
+								<TextBlock Text="InitialHP"/>
+								<TextBox Text="{Binding StartingHP, Mode=TwoWay}"/>
+								<TextBlock Text="Min. HP per level"/>
+								<TextBox Text="{Binding MinHPPerLevel, Mode=TwoWay}"/>
+								<TextBlock Text="Number of Start skills"/>
+								<TextBox Text="{Binding NumberofStartingSkills, Mode=TwoWay}"
+										 PlaceholderText="Usually 2"/>
+							</StackPanel>
+						</Flyout>
+					</Button.Flyout>
+				</Button>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate x:Key="ItemTemplate">

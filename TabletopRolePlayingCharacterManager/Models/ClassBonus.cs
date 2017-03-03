@@ -21,10 +21,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<MainStatType> SavingThrowProficiencies { get; set; } = new List<MainStatType>();
 		public Dictionary<int, List<List<Trait>>> TraitsByLevel { get; set; } = new Dictionary<int, List<List<Trait>>>();
 		public List<Skill> Skills { get; set; }
-		public Dictionary<int, int> AbilityScoreImprovements { get; set; } = new Dictionary<int, int>();
+		public List<int> AbilityScoreImprovements { get; set; } = new List<int>();
 
 		public List<List<Item>> EquipmentChoices { get; set; } = new List<List<Item>>();
-		public Dictionary<int, int> Expertise { get; set; } = new Dictionary<int, int>();
+		public List<int> Expertise { get; set; } = new List<int>();
 		public List<Subclass> SubClasses { get; set; } = new List<Subclass>();
 
 		public ClassBonus()
@@ -32,17 +32,15 @@ namespace TabletopRolePlayingCharacterManager.Models
 			for (int i = 0; i < 20; i++)
 			{
 				SpellSlotsByLevel.Add(new List<int>());
+				AbilityScoreImprovements.Add((i + 1) % 4 == 0 ? 4 : 0);
+				SpellsKnownByLevel.Add(0);
+				CantripsKnownByLevel.Add(0);
 				for (int j = 0; j < 9; j++)
 				{
 					SpellSlotsByLevel[i].Add(0);
 				}
 			}
-			for (int i = 0; i < 9; i++)
-			{
-				SpellsKnownByLevel.Add(0);
-				CantripsKnownByLevel.Add(0);
-			}
 		}
-		
+
 	}
 }

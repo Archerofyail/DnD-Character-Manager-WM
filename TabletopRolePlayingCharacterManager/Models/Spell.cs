@@ -8,5 +8,6 @@
 		public bool HasSomaticComponent { get; set; }
 		public string MaterialComponent { get; set; }
 		public string Description { get; set; }
+		public bool CanBeRitual { get; set; }
 	}
 }
