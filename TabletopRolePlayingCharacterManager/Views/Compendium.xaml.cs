@@ -13,5 +13,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 		{
 			InitializeComponent();
 		}
+
+		private void AllSkillsSelection_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			(sender as Button)?.Flyout?.Hide();
+		}
 	}
 }

@@ -11,248 +11,310 @@
 	xmlns:TKCtrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
 	xmlns:converters="using:TabletopRolePlayingCharacterManager.Converters"
 	xmlns:viewModels="using:TabletopRolePlayingCharacterManager.ViewModels"
-	xmlns:types1="using:TabletopRolePlayingCharacterManager.Types">
+	xmlns:types1="using:TabletopRolePlayingCharacterManager.Types"
+	xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core">
 	<Page.DataContext>
 		<viewModels:CompendiumViewModel/>
 	</Page.DataContext>
 	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Assets/ColorDict.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+			<converters:BoolToSelectionMode x:Key="BoolToSelectionModeConverter"/>
+			<DataTemplate x:Key="AbilityScoreBonusTemplate">
+				<StackPanel>
 
-		<converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
-		<converters:BoolToSelectionMode x:Key="BoolToSelectionModeConverter"/>
-		<DataTemplate x:Key="AbilityScoreBonusTemplate">
-			<StackPanel>
-
-				<TextBox Text="{Binding Bonus, Mode=TwoWay}"
+					<TextBox Text="{Binding Bonus, Mode=TwoWay}"
 						 InputScope="Number"/>
-				<ComboBox ItemsSource="{Binding MainStat}"
+					<ComboBox ItemsSource="{Binding MainStat}"
 						  SelectedIndex="{Binding SelectedStat, Mode=TwoWay}"/>
-			</StackPanel>
-		</DataTemplate>
+				</StackPanel>
+			</DataTemplate>
 
 
 
-		<DataTemplate x:Key="TraitTemplate">
-			<StackPanel>
-				<TextBox Text="{Binding Description, Mode=TwoWay}"
+			<DataTemplate x:Key="TraitTemplate">
+				<StackPanel>
+					<TextBox Text="{Binding Description, Mode=TwoWay}"
 						 PlaceholderText="Trait"
 						 MinHeight="56"
 						 AcceptsReturn="True"/>
 
-			</StackPanel>
-		</DataTemplate>
+				</StackPanel>
+			</DataTemplate>
 
-		<DataTemplate x:Key="TraitChoiceTemplate">
-			<StackPanel Orientation="Horizontal">
-				<ListView ItemsSource="{Binding Choices}"
+			<DataTemplate x:Key="TraitChoiceTemplate">
+				<StackPanel Orientation="Horizontal">
+					<ListView ItemsSource="{Binding Choices}"
 						  ItemTemplate="{StaticResource TraitTemplate}"
 						  SelectionMode="None"
 						  />
-				<StackPanel>
-					<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay}"/>
+					<StackPanel>
+						<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay}"/>
+					</StackPanel>
 				</StackPanel>
-			</StackPanel>
-		</DataTemplate>
+			</DataTemplate>
 
-		<DataTemplate x:Key="ProficiencyTemplate">
-			<StackPanel Orientation="Horizontal">
-				<TextBox Text="{Binding Name}"/>
-				<Button Command="{Binding Remove}">
-					<Button.Content>
-						<SymbolIcon Symbol="Delete"/>
-					</Button.Content>
-				</Button>
-			</StackPanel>
-		</DataTemplate>
-
-		<DataTemplate x:Key="ProficiencyChoiceTemplate">
-			<StackPanel Orientation="Horizontal">
-
-				<StackPanel>
-					<ListView ItemsSource="{Binding Choices}"
-						  ItemTemplate="{StaticResource ProficiencyTemplate}"
-							  SelectionMode="None"/>
-					<Button Command="{Binding AddItem}">
-						<Button.Content>
-							<StackPanel Orientation="Horizontal">
-								<SymbolIcon Symbol="Add"/>
-								<TextBlock Text="Add Choice"/>
-							</StackPanel>
-						</Button.Content>
-					</Button>
+			<DataTemplate x:Key="ProficiencyTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBox Text="{Binding Name}"/>
 					<Button Command="{Binding Remove}">
 						<Button.Content>
 							<SymbolIcon Symbol="Delete"/>
 						</Button.Content>
 					</Button>
 				</StackPanel>
-				<StackPanel>
-					<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay
+			</DataTemplate>
+
+			<DataTemplate x:Key="ProficiencyChoiceTemplate">
+				<StackPanel Orientation="Horizontal">
+
+					<StackPanel>
+						<ListView ItemsSource="{Binding Choices}"
+						  ItemTemplate="{StaticResource ProficiencyTemplate}"
+							  SelectionMode="None"/>
+						<Button Command="{Binding AddItem}">
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add"/>
+									<TextBlock Text="Add Choice"/>
+								</StackPanel>
+							</Button.Content>
+						</Button>
+						<Button Command="{Binding Remove}">
+							<Button.Content>
+								<SymbolIcon Symbol="Delete"/>
+							</Button.Content>
+						</Button>
+					</StackPanel>
+					<StackPanel>
+						<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay
 											, Converter={StaticResource BoolToSelectionModeConverter}}"
 							  Content="Select Multiple?"/>
-					<TextBox Text="{Binding Path=TotalBonus, Mode=TwoWay}"
+						<TextBox Text="{Binding Path=TotalBonus, Mode=TwoWay}"
 							 PlaceholderText="Total Bonus"/>
+					</StackPanel>
 				</StackPanel>
-			</StackPanel>
-		</DataTemplate>
+			</DataTemplate>
 
-		<DataTemplate x:Key="RaceTemplate">
+			<DataTemplate x:Key="RaceTemplate">
 
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Name}"
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"
 						   Margin="8"/>
-				<Button Content="Edit" Margin="4">
-					<Button.Flyout>
-						<Flyout>
-							<StackPanel MinWidth="150">
-								<TextBox Text="{Binding Name, Mode=TwoWay}"
+					<Button Content="Edit" Margin="4">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel MinWidth="150">
+									<TextBox Text="{Binding Name, Mode=TwoWay}"
 										 PlaceholderText="Name"
 										 Margin="4"/>
-								<TextBox Text="{Binding Speed, Mode=TwoWay}"
+									<TextBox Text="{Binding Speed, Mode=TwoWay}"
 										 InputScope="Number"
 										 PlaceholderText="Speed"
 										 Margin="4"/>
-								<ListView ItemsSource="{Binding AbilityScoreBonuses}"
+									<ListView ItemsSource="{Binding AbilityScoreBonuses}"
 										  ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
 										  Margin="4"
 										  />
-								<Button Command="{Binding AddAbilityScoreBonus}">
-									<Button.Content>
-										<StackPanel Orientation="Horizontal">
-											<SymbolIcon Symbol="Add"/>
-											<TextBlock Text="Add Bonus"/>
-										</StackPanel>
-									</Button.Content>
-								</Button>
-								<TKCtrls:BladeView ItemsSource="{Binding Traits}"
+									<Button Command="{Binding AddAbilityScoreBonus}">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Bonus"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<TKCtrls:BladeView ItemsSource="{Binding Traits}"
 												   ItemTemplate="{StaticResource TraitChoiceTemplate}"/>
-								<Button
+									<Button
 									Command="{Binding AddTrait}">
-									<Button.Content>
-										<StackPanel Orientation="Horizontal">
-											<SymbolIcon Symbol="Add"/>
-											<TextBlock Text="Add Trait"/>
-										</StackPanel>
-									</Button.Content>
-								</Button>
-								<TextBlock Text="Language Proficiencies"/>
-								<TKCtrls:BladeView ItemsSource="{Binding LanguageProficiencies}"
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Trait"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<TextBlock Text="Language Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding LanguageProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
 												   Name="LangProfList"/>
-								<TextBlock Text="No Language proficiencies"
+									<TextBlock Text="No Language proficiencies"
 										    Visibility="{Binding ElementName=LangProfsList, 
 														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-								<TextBlock Text="Weapon Proficiencies"/>
-								<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"
+									<TextBlock Text="Weapon Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
 												   Name="WeapProfsList"/>
-								<TextBlock Text="No weapon proficiencies"
+									<TextBlock Text="No weapon proficiencies"
 										   Visibility="{Binding ElementName=WeapProfsList, 
 														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-								<Button Command="{Binding AddProficiency}">
-									<Button.CommandParameter>
-										<types:ProficiencyType>Weapon</types:ProficiencyType>
-									</Button.CommandParameter>
-									<Button.Content>
-										<StackPanel Orientation="Horizontal">
-											<SymbolIcon Symbol="Add"/>
-											<TextBlock Text="Add Weapon Proficiency Option"/>
-										</StackPanel>
-									</Button.Content>
-								</Button>
+									<Button Command="{Binding AddProficiency}">
+										<Button.CommandParameter>
+											<types:ProficiencyType>Weapon</types:ProficiencyType>
+										</Button.CommandParameter>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Weapon Proficiency Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
 
-								
-								<TextBlock Text="Armor Proficiencies"/>
-								<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"
+
+									<TextBlock Text="Armor Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
 												   Name="ArmorProfsList"/>
-								<TextBlock Text="No weapon proficiencies"
+									<TextBlock Text="No weapon proficiencies"
 										   Visibility="{Binding ElementName=ArmorProfsList, 
 														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-								<Button Command="{Binding AddProficiency}">
-									<Button.CommandParameter>
-										<types:ProficiencyType>Armor</types:ProficiencyType>
-									</Button.CommandParameter>
-									<Button.Content>
-										<StackPanel Orientation="Horizontal">
-											<SymbolIcon Symbol="Add"/>
-											<TextBlock Text="Add Armor Proficiency Option"/>
-										</StackPanel>
-									</Button.Content>
-								</Button>
-								
-								<TextBlock Text="Tool Proficiencies"/>
-								<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"
+									<Button Command="{Binding AddProficiency}">
+										<Button.CommandParameter>
+											<types:ProficiencyType>Armor</types:ProficiencyType>
+										</Button.CommandParameter>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Armor Proficiency Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+
+									<TextBlock Text="Tool Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"
 												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
 												   Name="ToolProfsList"
 												   />
-								<TextBlock Text="No weapon proficiencies"
+									<TextBlock Text="No weapon proficiencies"
 										   Visibility="{Binding ElementName=ToolProfsList, 
 														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-								<Button Command="{Binding AddProficiency}">
-									<Button.CommandParameter>
-										<types:ProficiencyType>Tool</types:ProficiencyType>
-									</Button.CommandParameter>
-									<Button.Content>
-										<StackPanel Orientation="Horizontal">
-											<SymbolIcon Symbol="Add"/>
-											<TextBlock Text="Add Tool Proficiency Option"/>
-										</StackPanel>
-									</Button.Content>
-								</Button>
-						
+									<Button Command="{Binding AddProficiency}">
+										<Button.CommandParameter>
+											<types:ProficiencyType>Tool</types:ProficiencyType>
+										</Button.CommandParameter>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Tool Proficiency Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
 
-							</StackPanel>
-						</Flyout>
-					</Button.Flyout>
-				</Button>
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="ClassTemplate">
-			<StackPanel Orientation="Horizontal">
-				<StackPanel.DataContext>
-					<viewModels:ClassViewModel/>
-				</StackPanel.DataContext>
-				<TextBlock Text="{Binding Name}"/>
-				<Button Content="Edit">
-					<Button.Flyout>
-						<Flyout>
-							<StackPanel>
-								<TextBox Text="{Binding Name, Mode=TwoWay}" PlaceholderText="Name"/>
-								<TextBox Text="{Binding SubclassName, Mode=TwoWay}"
+
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+			
+			<DataTemplate x:Key="PrimitiveTextBox">
+				<StackPanel>
+					<TextBox Text="{Binding .}"/>
+				</StackPanel>
+			</DataTemplate>
+			
+			<DataTemplate x:Key="SpellSlotLevel">
+				<StackPanel>
+					<ListView ItemsSource="{Binding Items}"
+							  ItemTemplate="{StaticResource PrimitiveTextBox}"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="ClassTemplate">
+				<StackPanel Orientation="Horizontal">
+					<StackPanel.DataContext>
+						<viewModels:ClassViewModel/>
+					</StackPanel.DataContext>
+					<TextBlock Text="{Binding Name}"/>
+					<Button Content="Edit">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel>
+									<TextBox Text="{Binding Name, Mode=TwoWay}" PlaceholderText="Name"/>
+									<TextBox Text="{Binding SubclassName, Mode=TwoWay}"
 										 PlaceholderText="Archetype, College, Path, etc."/>
-								<TextBlock Text="The level you can pick your subclass"/>
-								<TextBox Text="{Binding SubclassLevel, Mode=TwoWay}" InputScope="Number"/>
-								<ComboBox ItemsSource="{Binding DieTypes}"
+									<TextBlock Text="The level you can pick your subclass"/>
+									<TextBox Text="{Binding SubclassLevel, Mode=TwoWay}" InputScope="Number"/>
+									<ComboBox ItemsSource="{Binding DieTypes}"
 										  Header="Hit Die"
 										  SelectedIndex="{Binding SelectedHitDieIndex, Mode=TwoWay}"/>
-								<TextBlock Text="InitialHP"/>
-								<TextBox Text="{Binding StartingHP, Mode=TwoWay}"/>
-								<TextBlock Text="Min. HP per level"/>
-								<TextBox Text="{Binding MinHPPerLevel, Mode=TwoWay}"/>
-								<TextBlock Text="Number of Start skills"/>
-								<TextBox Text="{Binding NumberofStartingSkills, Mode=TwoWay}"
+									<TextBlock Text="InitialHP"/>
+									<TextBox Text="{Binding StartingHP, Mode=TwoWay}"/>
+									<TextBlock Text="Min. HP per level"/>
+									<TextBox Text="{Binding MinHPPerLevel, Mode=TwoWay}"/>
+									<TextBlock Text="Number of Start skills"/>
+									<TextBox Text="{Binding NumberofStartingSkills, Mode=TwoWay}"
 										 PlaceholderText="Usually 2"/>
-							</StackPanel>
-						</Flyout>
-					</Button.Flyout>
-				</Button>
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="ItemTemplate">
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Name}"/>
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="WeaponTemplate">
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Name}"/>
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="SpellTemplate">
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Name}"/>
-			</StackPanel>
-		</DataTemplate>
+									<TKCtrls:BladeView ItemsSource="{Binding SkillChoice.Choices}"></TKCtrls:BladeView>
+									<Button Command="{Binding AddSkillOption}"
+										Name="AddSkillButton">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add A Skill Option"/>
+											</StackPanel>
+
+										</Button.Content>
+										<Button.Flyout>
+											<Flyout>
+												<StackPanel>
+													<ListView ItemsSource="{Binding AllSkills}"
+														  Name="AllSkillsSelection"
+														  SelectionChanged="AllSkillsSelection_OnSelectionChanged">
+
+														<i:BehaviorCollection >
+															<core:EventTriggerBehavior EventName="SelectionChanged">
+																<core:InvokeCommandAction Command="{Binding AddSkillOption}"
+																					  CommandParameter="{Binding ElementName=AllSkillsSelection, Path=SelectedItem}">
+
+																</core:InvokeCommandAction>
+															</core:EventTriggerBehavior>
+														</i:BehaviorCollection>
+													</ListView>
+												</StackPanel>
+											</Flyout>
+										</Button.Flyout>
+									</Button>
+									<TextBlock Text="Magic"/>
+									<ComboBox ItemsSource="{Binding MainStatsList}"
+											  SelectedIndex="{Binding SelectedMainSpellcastingStatIndex}"
+											  Header="Spellcasting Ability"/>
+									<ListView ItemsSource="{Binding SpellSlotsByLevel}"
+											  ItemTemplate="{StaticResource SpellSlotLevel}"
+											  Header="SpellSlots"/>
+									<ListView ItemsSource="{Binding SpellsKnownByLevel}"
+											  ItemTemplate="{StaticResource PrimitiveTextBox}"
+											  Header="Spells Known"/>
+									<ListView ItemsSource="{Binding SpellSlotsByLevel}"
+											  ItemTemplate="{StaticResource PrimitiveTextBox}"
+											  Header="Spell Slots"/>
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="ItemTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="WeaponTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="SpellTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Pivot>
@@ -268,6 +330,8 @@
 				<PivotItem.Header>
 					<controls:TabHeader Label="Classes" Symbol="ContactInfo"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Classes}"
+						  ItemTemplate="{StaticResource ClassTemplate}"/>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
@@ -287,3 +351,6 @@
 		</Pivot>
 	</Grid>
 </Page>
+
+
+

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+using System.Xml;
 using System.Xml.Linq;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -95,22 +100,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				classBonus.NumberOfSkills = value;
 				if (skillChoice != null)
 				{
-					skillChoice.TotalBonus = classBonus.NumberOfSkills;
+					skillChoice.SelectionCount = classBonus.NumberOfSkills;
 				}
 			}
 		}
 
-		private ChoiceViewModel<Skill, SkillViewModel> skillChoice;
+		private PrimitiveListViewModel<string> skillChoice;
 
-		public ChoiceViewModel<Skill, SkillViewModel> SkillChoice
+		public PrimitiveListViewModel<string> SkillChoice => skillChoice ??
+		                                                     (skillChoice = new PrimitiveListViewModel<string>(classBonus.NumberOfSkills, true, classBonus.Skills));
+
+		public ObservableCollection<string> AllSkills
 		{
 			get
 			{
-				if (skillChoice == null)
+				ObservableCollection<string> allskills = new ObservableCollection<string>();
+				foreach (var skill in CharacterManager.AllSkills)
 				{
-					skillChoice = new ChoiceViewModel<Skill, SkillViewModel>(classBonus.Skills, classBonus.NumberOfSkills, true);
+					allskills.Add(skill.Name);
 				}
-				return skillChoice;
+				return allskills;
 			}
 		}
 
@@ -181,6 +190,46 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					}
 				}
 				return proficiencies;
+			}
+		}
+
+		public ObservableCollection<Proficiency> WeaponProficiencies
+		{
+			get
+			{
+				ObservableCollection<Proficiency> profs = 
+					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Weapon));
+				return profs;
+			}
+		}
+
+		public ObservableCollection<Proficiency> ArmorProficiencies
+		{
+			get
+			{
+				ObservableCollection<Proficiency> profs =
+					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Armor));
+				return profs;
+			}
+		}
+
+		public ObservableCollection<Proficiency> LanguageProficiencies
+		{
+			get
+			{
+				ObservableCollection<Proficiency> profs =
+					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Language));
+				return profs;
+			}
+		}
+
+		public ObservableCollection<Proficiency> ToolProficiencies
+		{
+			get
+			{
+				ObservableCollection<Proficiency> profs =
+					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Tool));
+				return profs;
 			}
 		}
 
@@ -283,5 +332,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				return text;
 			}
 		}
+
+		#region Commands
+
+		public ICommand AddSkillOption => new RelayCommand<string>(AddSkillOptionExec);
+		#region Functions
+
+		void AddSkillOptionExec(string skillName)
+		{
+			skillChoice.Add(skillName ?? "");
+		}
+
+		
+
+		#endregion
+		#endregion
 	}
 }

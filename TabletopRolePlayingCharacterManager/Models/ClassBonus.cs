@@ -20,7 +20,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public List<Proficiency> Proficiencies { get; set; } = new List<Proficiency>();
 		public List<MainStatType> SavingThrowProficiencies { get; set; } = new List<MainStatType>();
 		public Dictionary<int, List<List<Trait>>> TraitsByLevel { get; set; } = new Dictionary<int, List<List<Trait>>>();
-		public List<Skill> Skills { get; set; }
+		public List<string> Skills { get; set; }
 		public List<int> AbilityScoreImprovements { get; set; } = new List<int>();
 
 		public List<List<Item>> EquipmentChoices { get; set; } = new List<List<Item>>();

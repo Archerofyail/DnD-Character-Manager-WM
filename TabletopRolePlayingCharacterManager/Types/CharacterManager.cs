@@ -34,6 +34,27 @@ namespace TabletopRolePlayingCharacterManager.Types
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
 		public static List<string> AllLanguages { get; set; } = new List<string>();
+		public static List<Skill> AllSkills { get; set; } = new List<Skill>
+				{
+					new Skill("Acrobatics", 1, 1, MainStatType.Dexterity, false),
+					new Skill("Animal Handling", 1, 1, MainStatType.Wisdom, false),
+					new Skill("Arcana", 1, 1, MainStatType.Intelligence, false),
+					new Skill("Athletics", 1 , 1, MainStatType.Strength, false),
+					new Skill("Deception", 1 , 1, MainStatType.Charisma, false),
+					new Skill("History", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Insight", 1 , 1, MainStatType.Wisdom, false),
+					new Skill("Intimidation", 1 , 1, MainStatType.Charisma, false),
+					new Skill("Investigation", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Medicine", 1 , 1, MainStatType.Wisdom, false),
+					new Skill("Nature", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Perception", 1 , 1, MainStatType.Wisdom, false),
+					new Skill("Performance", 1 , 1, MainStatType.Charisma, false),
+					new Skill("Persuasion", 1 , 1, MainStatType.Charisma, false),
+					new Skill("Religion", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Sleight of Hand", 1 , 1, MainStatType.Dexterity, false),
+					new Skill("Stealth", 1 , 1, MainStatType.Dexterity, false),
+					new Skill("Survival", 1 , 1, MainStatType.Wisdom, false),
+				};
 		private static List<StatIncrease> _statBonuses = new List<StatIncrease>();
 		public static List<StatIncrease> StatBonuses
 		{
@@ -256,7 +277,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await LoadItems();
 			await LoadWeapons();
 			await LoadSpells();
-			
+
 		}
 
 		public static async void SaveAll()
@@ -337,7 +358,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 						new AbilityScoreBonusModel{Bonus = 2, Stat = MainStatType.Constitution}
 					}
 				},
-			
+
 				Proficiencies = new List<List<Proficiency>>
 				{
 					new List<Proficiency>
@@ -403,7 +424,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 					new List<Proficiency>()
 					{
 						new Proficiency(ProficiencyType.Armor, "Light Armor"),
-						
+
 					},
 					new List<Proficiency>()
 					{
