@@ -178,6 +178,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public ObservableCollection<string> ProficiencyTypes => new ObservableCollection<string>(Enum.GetNames(typeof(ProficiencyType)));
+		public int SelectedNewProfTypeIndex { get; set; } = -1;
 		private ObservableCollection<Proficiency> proficiencies = new ObservableCollection<Proficiency>();
 
 		public ObservableCollection<Proficiency> Proficiencies
@@ -338,6 +340,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region Commands
 
 		public ICommand AddSkillOption => new RelayCommand<string>(AddSkillOptionExec);
+		public ICommand AddProficiency => new RelayCommand<string>(AddProficiencyExec);
 		#region Functions
 
 		void AddSkillOptionExec(string skillName)
@@ -345,7 +348,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			skillChoice.Add(skillName ?? "");
 		}
 
-		
+		void AddProficiencyExec(string prof)
+		{
+			proficiencies.Add(new Proficiency((ProficiencyType)Enum.Parse(typeof(ProficiencyType), ProficiencyTypes[SelectedNewProfTypeIndex]), prof));
+			SelectedNewProfTypeIndex = -1;
+			RaisePropertyChanged("SelectedNewProfTypeIndex");
+		}
 
 		#endregion
 		#endregion

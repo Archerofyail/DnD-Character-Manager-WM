@@ -1,4 +1,6 @@
-﻿namespace TabletopRolePlayingCharacterManager.Types
+﻿using System.Diagnostics;
+
+namespace TabletopRolePlayingCharacterManager.Types
 {
 	public class ItemPair <T, TK>
 	{
@@ -15,5 +17,25 @@
 			Item1 = item1;
 			Item2 = item2;
 		} 
+	}
+
+	public class StringPair
+	{
+		private string item1;
+		private string item2;
+		public string Item1
+		{
+			get { return item1; }
+			set { item1 = value ?? ""; }
+		}
+		public string Item2
+		{
+			get { return item2; }
+			set { item2 = value ?? ""; }
+		}
+		public StringPair()
+		{
+			Debug.WriteLine("Stringpair made");
+		}
 	}
 }

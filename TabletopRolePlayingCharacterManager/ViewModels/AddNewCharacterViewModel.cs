@@ -17,7 +17,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public AddNewCharacterPageViewModel()
 		{
-			CharacterManager.AppendToLists();
+			
 		}
 
 		#region CharacterData

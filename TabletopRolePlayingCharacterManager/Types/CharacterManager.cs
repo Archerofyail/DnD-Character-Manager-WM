@@ -277,7 +277,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await LoadItems();
 			await LoadWeapons();
 			await LoadSpells();
-
+			AppendToLists();
 		}
 
 		public static async void SaveAll()

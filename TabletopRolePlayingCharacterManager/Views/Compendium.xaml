@@ -13,7 +13,8 @@
 	xmlns:viewModels="using:TabletopRolePlayingCharacterManager.ViewModels"
 	xmlns:types1="using:TabletopRolePlayingCharacterManager.Types"
 	xmlns:i="using:Microsoft.Xaml.Interactivity"
-	xmlns:core="using:Microsoft.Xaml.Interactions.Core">
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:system="using:System">
 	<Page.DataContext>
 		<viewModels:CompendiumViewModel/>
 	</Page.DataContext>
@@ -26,7 +27,6 @@
 			<converters:BoolToSelectionMode x:Key="BoolToSelectionModeConverter"/>
 			<DataTemplate x:Key="AbilityScoreBonusTemplate">
 				<StackPanel>
-
 					<TextBox Text="{Binding Bonus, Mode=TwoWay}"
 						 InputScope="Number"/>
 					<ComboBox ItemsSource="{Binding MainStat}"
@@ -223,7 +223,7 @@
 				<StackPanel>
 					<ListView ItemsSource="{Binding Items}"
 							  ItemTemplate="{StaticResource PrimitiveTextBox}"
-							  >
+							  SelectionMode="None">
 						<ListView.ItemsPanel>
 							<ItemsPanelTemplate>
 								<StackPanel Orientation="Horizontal">
@@ -257,6 +257,40 @@
 									<TextBlock Text="Min. HP per level"/>
 									<TextBox Text="{Binding MinHPPerLevel, Mode=TwoWay}"/>
 									<TextBlock Text="Number of Start skills"/>
+									
+									<TextBlock Text="Proficiencies"/>
+									<TextBlock Text="Armor"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"/>
+									<TextBlock Text="Weapons"/>
+									<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"/>
+									<TextBlock Text="Tools"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"/>
+									<Button>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Proficiency"/>
+											</StackPanel>
+										</Button.Content>
+										<Button.Flyout>
+											<Flyout>
+												<StackPanel>
+													
+													<TextBox Header="Name"
+															 Name="NewProfTextBox"/>
+													<ComboBox Header="Proficiency Type"
+															  ItemsSource="{Binding ProficiencyTypes}"
+															  Name="ProficiencyTypeComboBox"
+															  SelectedIndex="{Binding SelectedNewProfTypeIndex, Mode=TwoWay}"/>
+													<Button Content="Add Proficiency" 
+															Command="{Binding AddProficiency}"
+															CommandParameter="{Binding ElementName=NewProfTextBox, Path=Text}">
+											
+													</Button>
+												</StackPanel>
+											</Flyout>
+										</Button.Flyout>
+									</Button>
 									<TextBox Text="{Binding NumberofStartingSkills, Mode=TwoWay}"
 										 PlaceholderText="Usually 2"/>
 									<TKCtrls:BladeView ItemsSource="{Binding SkillChoice.Choices}"></TKCtrls:BladeView>
@@ -297,7 +331,9 @@
 									<StackPanel>
 										<StackPanel Orientation="Horizontal">
 											<TextBlock Text="Level"></TextBlock>
-											<ListView ItemsSource="{Binding Levels}">
+											<ListView ItemsSource="{Binding Levels}"
+													  SelectionMode="None">
+												
 												<ListView.ItemsPanel>
 													<ItemsPanelTemplate>
 														<StackPanel Orientation="Horizontal"></StackPanel>
@@ -307,7 +343,7 @@
 										</StackPanel>
 										<ListView ItemsSource="{Binding SpellSlotsByLevel}"
 											  ItemTemplate="{StaticResource SpellSlotLevel}"
-											  />
+											  SelectionMode="None"/>
 									</StackPanel>
 									<ListView ItemsSource="{Binding SpellsKnownByLevel}"
 											  ItemTemplate="{StaticResource PrimitiveTextBox}"
@@ -348,6 +384,16 @@
 					<ListView ItemsSource="{Binding Races}"
 						  ItemTemplate="{StaticResource RaceTemplate}"/>
 
+
+					<Button Command="{Binding AddNewRace}">
+						<Button.Content>
+							<StackPanel>
+								<SymbolIcon Symbol="Add"/>
+								<TextBlock Text="Add Race"/>
+							</StackPanel>
+						</Button.Content>
+
+					</Button>
 				</StackPanel>
 			</PivotItem>
 			<PivotItem>
@@ -386,6 +432,10 @@
 		</Pivot>
 	</Grid>
 </Page>
+
+
+
+
 
 
 

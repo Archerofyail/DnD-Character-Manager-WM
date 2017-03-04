@@ -97,6 +97,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public ICommand AddNewRace => new RelayCommand(AddNewRaceExec);
+
+		void AddNewRaceExec()
+		{
+			RacialBonus newRace = new RacialBonus();
+			CharacterManager.RacialBonuses.Add(newRace);
+			Races.Add(new RaceViewModel(newRace));
+			RaisePropertyChanged("Races");
+		}
+
 		public ICommand AddNewClass => new RelayCommand(AddNewClassExec);
 
 		void AddNewClassExec()
