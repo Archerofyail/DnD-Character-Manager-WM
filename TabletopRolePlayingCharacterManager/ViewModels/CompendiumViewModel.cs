@@ -1,11 +1,16 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class CompendiumViewModel : ViewModelBase
 	{
+	
+
 		private ObservableCollection<RaceViewModel> races = new ObservableCollection<RaceViewModel>();
 
 		public ObservableCollection<RaceViewModel> Races
@@ -90,6 +95,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				}
 				return spells;
 			}
+		}
+
+		public ICommand AddNewClass => new RelayCommand(AddNewClassExec);
+
+		void AddNewClassExec()
+		{
+			ClassBonus newClass = new ClassBonus();
+			CharacterManager.ClassBonuses.Add(newClass);
+			Classes.Add(new ClassViewModel(newClass));
+			RaisePropertyChanged("Classes");
 		}
 	}
 }

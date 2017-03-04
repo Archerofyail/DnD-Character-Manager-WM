@@ -15,6 +15,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class ClassViewModel : ViewModelBase
 	{
 
+		public ObservableCollection<int> Levels => new ObservableCollection<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+
 		private ClassBonus classBonus;
 
 		public ClassViewModel(ClassBonus cl)

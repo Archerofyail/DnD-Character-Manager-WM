@@ -212,17 +212,26 @@
 					</Button>
 				</StackPanel>
 			</DataTemplate>
-			
+
 			<DataTemplate x:Key="PrimitiveTextBox">
 				<StackPanel>
-					<TextBox Text="{Binding .}"/>
+					<TextBox Text="{Binding}"/>
 				</StackPanel>
 			</DataTemplate>
-			
+
 			<DataTemplate x:Key="SpellSlotLevel">
 				<StackPanel>
 					<ListView ItemsSource="{Binding Items}"
-							  ItemTemplate="{StaticResource PrimitiveTextBox}"/>
+							  ItemTemplate="{StaticResource PrimitiveTextBox}"
+							  >
+						<ListView.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal">
+
+								</StackPanel>
+							</ItemsPanelTemplate>
+						</ListView.ItemsPanel>
+					</ListView>
 				</StackPanel>
 			</DataTemplate>
 			<DataTemplate x:Key="ClassTemplate">
@@ -284,15 +293,28 @@
 									<ComboBox ItemsSource="{Binding MainStatsList}"
 											  SelectedIndex="{Binding SelectedMainSpellcastingStatIndex}"
 											  Header="Spellcasting Ability"/>
-									<ListView ItemsSource="{Binding SpellSlotsByLevel}"
+									<TextBlock Text="Spell Slots"/>
+									<StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Level"></TextBlock>
+											<ListView ItemsSource="{Binding Levels}">
+												<ListView.ItemsPanel>
+													<ItemsPanelTemplate>
+														<StackPanel Orientation="Horizontal"></StackPanel>
+													</ItemsPanelTemplate>
+												</ListView.ItemsPanel>
+											</ListView>
+										</StackPanel>
+										<ListView ItemsSource="{Binding SpellSlotsByLevel}"
 											  ItemTemplate="{StaticResource SpellSlotLevel}"
-											  Header="SpellSlots"/>
+											  />
+									</StackPanel>
 									<ListView ItemsSource="{Binding SpellsKnownByLevel}"
 											  ItemTemplate="{StaticResource PrimitiveTextBox}"
 											  Header="Spells Known"/>
-									<ListView ItemsSource="{Binding SpellSlotsByLevel}"
+									<ListView ItemsSource="{Binding CantripsKnownByLevel}"
 											  ItemTemplate="{StaticResource PrimitiveTextBox}"
-											  Header="Spell Slots"/>
+											  Header="Cantrips Known"/>
 								</StackPanel>
 							</Flyout>
 						</Button.Flyout>
@@ -322,16 +344,29 @@
 				<PivotItem.Header>
 					<controls:TabHeader Label="Races" Symbol="ContactInfo"/>
 				</PivotItem.Header>
-				<ListView ItemsSource="{Binding Races}"
+				<StackPanel>
+					<ListView ItemsSource="{Binding Races}"
 						  ItemTemplate="{StaticResource RaceTemplate}"/>
 
+				</StackPanel>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Classes" Symbol="ContactInfo"/>
 				</PivotItem.Header>
-				<ListView ItemsSource="{Binding Classes}"
+				<StackPanel>
+					<ListView ItemsSource="{Binding Classes}"
 						  ItemTemplate="{StaticResource ClassTemplate}"/>
+					<Button Command="{Binding AddNewClass}">
+						<Button.Content>
+							<StackPanel>
+								<SymbolIcon Symbol="Add"/>
+								<TextBlock Text="Add Class"/>
+							</StackPanel>
+						</Button.Content>
+
+					</Button>
+				</StackPanel>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
