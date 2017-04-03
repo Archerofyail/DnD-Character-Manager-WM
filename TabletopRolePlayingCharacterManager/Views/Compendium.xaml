@@ -310,14 +310,14 @@
 														  Name="AllSkillsSelection"
 														  SelectionChanged="AllSkillsSelection_OnSelectionChanged">
 
-														<i:BehaviorCollection >
+														<i:Interaction.Behaviors >
 															<core:EventTriggerBehavior EventName="SelectionChanged">
 																<core:InvokeCommandAction Command="{Binding AddSkillOption}"
 																					  CommandParameter="{Binding ElementName=AllSkillsSelection, Path=SelectedItem}">
 
 																</core:InvokeCommandAction>
 															</core:EventTriggerBehavior>
-														</i:BehaviorCollection>
+														</i:Interaction.Behaviors>
 													</ListView>
 												</StackPanel>
 											</Flyout>
@@ -344,6 +344,7 @@
 										<ListView ItemsSource="{Binding SpellSlotsByLevel}"
 											  ItemTemplate="{StaticResource SpellSlotLevel}"
 											  SelectionMode="None"/>
+										
 									</StackPanel>
 									<ListView ItemsSource="{Binding SpellsKnownByLevel}"
 											  ItemTemplate="{StaticResource PrimitiveTextBox}"
@@ -351,6 +352,77 @@
 									<ListView ItemsSource="{Binding CantripsKnownByLevel}"
 											  ItemTemplate="{StaticResource PrimitiveTextBox}"
 											  Header="Cantrips Known"/>
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="BackgroundTemplate">
+				<StackPanel>
+					<TextBlock Text="{Binding Name}"/>
+					<Button Content="Edit">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel>
+									<TextBox Text="{Binding Name}"/>
+									<TextBox Text="{Binding BackgroundFeatureName}"/>
+									<ListView ItemsSource="{Binding Skills}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Skill"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<TKCtrls:BladeView ItemsSource="{Binding Proficiencies}"
+													   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+									<ListView ItemsSource="{Binding BackgroundFeature}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Ideals}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Bonds}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Flaws}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Traits}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
 								</StackPanel>
 							</Flyout>
 						</Button.Flyout>
@@ -387,7 +459,7 @@
 
 					<Button Command="{Binding AddNewRace}">
 						<Button.Content>
-							<StackPanel>
+							<StackPanel Orientation="Horizontal">
 								<SymbolIcon Symbol="Add"/>
 								<TextBlock Text="Add Race"/>
 							</StackPanel>
@@ -405,7 +477,7 @@
 						  ItemTemplate="{StaticResource ClassTemplate}"/>
 					<Button Command="{Binding AddNewClass}">
 						<Button.Content>
-							<StackPanel>
+							<StackPanel Orientation="Horizontal">
 								<SymbolIcon Symbol="Add"/>
 								<TextBlock Text="Add Class"/>
 							</StackPanel>
@@ -416,18 +488,30 @@
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
-					<controls:TabHeader Label="Items" Symbol="Tag"/>
+					<controls:TabHeader Label="Background" Symbol="Contact"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Background}"></ListView>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
-					<controls:TabHeader Label="Weapons" Symbol="Tag"/>
+					<controls:TabHeader Label="Items" Symbol="Tag"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Items}"
+						  ItemTemplate="{StaticResource ItemTemplate}"></ListView>
+			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="Weapons &amp; Armor" Symbol="Tag"/>
+				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Weapons}"
+						  ItemTemplate="{StaticResource WeaponTemplate}"></ListView>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Spells" Symbol="Library"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Spells}"
+						  ItemTemplate="{StaticResource SpellTemplate}"></ListView>
 			</PivotItem>
 		</Pivot>
 	</Grid>

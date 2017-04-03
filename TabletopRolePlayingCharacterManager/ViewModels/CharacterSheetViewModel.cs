@@ -125,8 +125,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 			set
 			{
-
-				if (int.TryParse(value, out int result))
+				int result;
+				if (int.TryParse(value, out result))
 				{
 					character.Level = result;
 				}
@@ -160,7 +160,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return character.ArmorClass.ToString(); }
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result;
+				if (int.TryParse(value, out result))
 				{
 					character.ArmorClass = result;
 				}
@@ -174,7 +175,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return character.Speed.ToString(); }
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result;
+
+				if (int.TryParse(value, out result))
 				{
 					if (result % 5 == 0)
 					{
@@ -189,7 +192,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return character.CurrHP.ToString(); }
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result;
+				if (int.TryParse(value, out result))
 				{
 					character.CurrHP = result;
 				}
@@ -201,7 +205,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return character.MaxHP.ToString(); }
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result;
+				if (int.TryParse(value, out result))
 				{
 					character.MaxHP = result;
 				}
@@ -212,7 +217,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return character.TempHP.ToString(); }
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result;
+				if (int.TryParse(value, out result))
 				{
 					character.TempHP = result;
 				}
@@ -792,7 +798,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
 					DieType dieType;
-					if (int.TryParse(matches.Groups[1].Value, out int numDice))
+					int numDice;
+					if (int.TryParse(matches.Groups[1].Value, out numDice))
 					{
 						if (Enum.TryParse(matches.Groups[2].Value, out dieType))
 						{
@@ -835,7 +842,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return newSpellLevel.ToString(); }
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result;
+				if (int.TryParse(value, out result))
 				{
 					newSpellLevel = result;
 					RaisePropertyChanged();

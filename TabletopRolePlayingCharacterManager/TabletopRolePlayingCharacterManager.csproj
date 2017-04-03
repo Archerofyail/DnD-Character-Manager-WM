@@ -134,6 +134,7 @@
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="ViewModels\AbilityScoreBonusViewModel.cs" />
     <Compile Include="ViewModels\AddNewCharacterViewModel.cs" />
+    <Compile Include="ViewModels\BackgroundViewModel.cs" />
     <Compile Include="ViewModels\CharacterSheetViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\ClassViewModel.cs" />

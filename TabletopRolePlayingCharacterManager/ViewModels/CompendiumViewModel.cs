@@ -46,6 +46,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		private ObservableCollection<BackgroundViewModel> background = new ObservableCollection<BackgroundViewModel>();
+
 		private ObservableCollection<ItemViewModel> items = new ObservableCollection<ItemViewModel>();
 
 		public ObservableCollection<ItemViewModel> Items

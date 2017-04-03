@@ -42,7 +42,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 			set
 			{
-				if (int.TryParse(value, out int result))
+				int result = 0;
+				if (int.TryParse(value, out result))
 				{
 					character.Age = result;
 				}
