@@ -68,9 +68,11 @@
 						<Grid Tapped="GeneralTapped">
 							<TextBlock Text="General"
 							   VerticalAlignment="Center"
-							   FontWeight="Bold"/>
+							   FontWeight="Bold"
+									   Margin="4"/>
 							<TextBlock Text="-" FontSize="20" HorizontalAlignment="Right"
-							   VerticalAlignment="Center"/>
+							   VerticalAlignment="Center"
+									   Margin="4, 0, 4, 0"/>
 
 						</Grid>
 						<Grid Name="ClassAndRaceInfo"
@@ -87,42 +89,53 @@
 								<RowDefinition Height="2*"/>
 							</Grid.RowDefinitions>
 							<StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-								<TextBox Text="{Binding Campaign, Mode=TwoWay}"/>
-								<TextBlock Text="Campaign"/>
+								<TextBlock Text="Campaign"
+								           Margin="4"/>
+								<TextBox Text="{Binding Campaign, Mode=TwoWay}"
+										 Margin="4"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="4, 0, 4, 0">
-								<TextBox Text="{Binding Name, Mode=TwoWay}" />
 								<TextBlock Text="Name"/>
+								<TextBox Text="{Binding Name, Mode=TwoWay}" />
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								 Margin="4, 0, 4, 0">
-								<TextBox Text="{Binding Class, Mode=TwoWay}" />
 								<TextBlock Text="Class"/>
+								<TextBox Text="{Binding Class, Mode=TwoWay}" />
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="3"
 								 Margin="4, 0, 4, 0">
+								<TextBlock Text="Level"/>
 								<TextBox Text="{Binding Level, Mode=TwoWay}"
 											 InputScope="Number"/>
-								<TextBlock Text="Level"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2"
 								 Margin="4, 0, 4, 0">
-								<TextBox Text="{Binding Race, Mode=TwoWay}" />
 								<TextBlock Text="Race"/>
+								<TextBox Text="{Binding Race, Mode=TwoWay}" />
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="4, 0, 4, 0">
-								<ComboBox ItemsSource="{Binding Alignments}"
+
+								<TextBlock Text="Alignment"></TextBlock>
+									<ComboBox ItemsSource="{Binding Alignments}"
 											  SelectedIndex="{Binding SelectedAlignment}" 
 											  HorizontalAlignment="Stretch"
-											  PlaceholderText="Alignment"/>
+											  PlaceholderText="Alignment"
+										 />
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="3"
 								Margin="4, 0, 4, 0">
+								<TextBlock Text="Experience"/>
 								<TextBox Text="{Binding Experience, Mode=TwoWay}" 
 											 InputScope="Number"/>
-								<TextBlock Text="Experience"/>
+								
 							</StackPanel>
 						</Grid>
 					</StackPanel>
@@ -151,40 +164,46 @@
 							</Grid.RowDefinitions>
 							<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" 
 								Margin="4, 0, 4, 0">
+								<TextBlock Text="Age"/>
 								<TextBox Text="{Binding Age, Mode=TwoWay}"
 											 InputScope="Number"/>
 
-								<TextBlock Text="Age"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"
 								 Margin="4, 0, 4, 0">
+								<TextBlock Text="Height"/>
 								<TextBox Text="{Binding Height, Mode=TwoWay}" />
 
-								<TextBlock Text="Height"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" 
 								Margin="4, 0, 4, 0">
+								<TextBlock Text="Weight"/>
 								<TextBox Text="{Binding Weight, Mode=TwoWay}"/>
 
-								<TextBlock Text="Weight"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0"
 								Margin="4, 0, 4, 0">
+								<TextBlock Text="Eyes"/>
 								<TextBox Text="{Binding Eyes, Mode=TwoWay}" />
 
-								<TextBlock Text="Eyes"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1"
 								Margin="4, 0, 4, 0">
+								<TextBlock Text="Skin"/>
 								<TextBox Text="{Binding Skin, Mode=TwoWay}" />
 
-								<TextBlock Text="Skin"/>
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"
 								Margin="4, 0, 4, 0">
+								<TextBlock Text="Hair"/>
 								<TextBox Text="{Binding Hair, Mode=TwoWay}" />
 
-								<TextBlock Text="Hair"/>
+								
 							</StackPanel>
 						</Grid>
 					</StackPanel>
@@ -220,7 +239,7 @@
 						</StackPanel>
 						<StackPanel>
 							<TextBlock Text="Proficiencies"/>
-							<GridView ItemsSource="{Binding Languages}"
+							<GridView ItemsSource="{Binding Proficiencies}"
 									  ItemTemplate="{StaticResource ProficiencyTemplate}"/>
 							<Button Style="{StaticResource NoBackgroundAddButton}"
 									Name="AddNewProficiencyButton">
@@ -296,22 +315,26 @@
 
 						<StackPanel Orientation="Vertical"
 								 Margin="4, 0, 4, 0">
-							<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
 							<TextBlock Text="AC" HorizontalAlignment="Center"/>
+							<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
+							
 						</StackPanel>
 						<StackPanel Orientation="Vertical" 
 								 Margin="4, 0, 4, 0" Grid.Row="0" Grid.Column="1">
-							<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
 							<TextBlock Text="Initiative" HorizontalAlignment="Center"/>
+							<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
+							
 						</StackPanel>
 						<StackPanel Orientation="Vertical"
 								 Margin="4, 0, 4, 0" Grid.Column="2"
 										Grid.Row="0">
-							<TextBox Text="{Binding Speed, Mode=TwoWay}" />
 							<TextBlock Text="Speed" HorizontalAlignment="Center"/>
+							<TextBox Text="{Binding Speed, Mode=TwoWay}" />
+							
 						</StackPanel>
 						<StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="2"
 										Grid.Column="0">
+							<TextBlock Text="Hit Points" Margin="42, 0, 0, 0"/>
 							<StackPanel Orientation="Horizontal"
 											Name="HealthBoxes">
 								<TextBox Name="CurrentHP" FontSize="16" PlaceholderText="HP"
@@ -324,11 +347,15 @@
 											 Text="{Binding MaxHealth, Mode=TwoWay}"></TextBox>
 							</StackPanel>
 
-							<TextBlock Text="Hit Points" Margin="42, 0, 0, 0"/>
+							
 						</StackPanel>
-						<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+						<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch">
 							<TextBlock Text="Death Saves" HorizontalAlignment="Center"/>
-							<StackPanel Orientation="Horizontal">
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+								<StackPanel Orientation="Horizontal"
+											BorderBrush="Gray"
+											BorderThickness="2" HorizontalAlignment="Left"
+											Margin="4">
 								<TextBlock Text="Successes"
 											   Margin="4"/>
 								<CheckBox MinWidth="18"
@@ -337,7 +364,10 @@
 											   IsChecked="{Binding DeathSaveSuccesses[1], Mode=TwoWay}"/>
 								<CheckBox  MinWidth="18"
 											    IsChecked="{Binding DeathSaveSuccesses[2], Mode=TwoWay}"/>
-
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" BorderThickness="2"
+											BorderBrush="Gray" Margin="4" HorizontalAlignment="Right">
+									
 								<TextBlock Text="Fails" Margin="4"/>
 								<CheckBox  MinWidth="18"
 											    IsChecked="{Binding DeathSaveFails[0], Mode=TwoWay}"/>
@@ -345,17 +375,18 @@
 											   IsChecked="{Binding DeathSaveFails[1], Mode=TwoWay}"/>
 								<CheckBox  MinWidth="18"
 											   IsChecked="{Binding DeathSaveFails[2], Mode=TwoWay}"/>
-
+								</StackPanel>
 							</StackPanel>
 						</StackPanel>
 						<StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2"
 										Margin="0, 0, 4, 0">
-							<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"/>
 							<TextBlock 
-									Text="Temporary Hit Points" TextWrapping="Wrap" MaxLines="1"
+								Text="Temporary Hit Points" TextWrapping="Wrap" MaxLines="1"
 									
-									Margin="-32, 0, 0, 0"
-									HorizontalAlignment="Right"/>
+								Margin="-32, 0, 0, 0"
+								HorizontalAlignment="Right"/>
+							<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"/>
+							
 						</StackPanel>
 					</Grid>
 					<StackPanel Name="AbilityScoresStackPanel"
@@ -372,11 +403,13 @@
 							   VerticalAlignment="Center"/>
 
 						</Grid>
-						<VariableSizedWrapGrid MaximumRowsOrColumns="3"
-								   Orientation="Horizontal"
-								   Name="AbilityScores">
-
-							<Grid Margin="8">
+						<VariableSizedWrapGrid Name="AbilityScores"
+											   MaximumRowsOrColumns="3"
+											   ColumnSpan="2">
+							
+								<Grid Margin="4" BorderBrush="{ThemeResource AccentColorBrush}"
+								  BorderThickness="1"
+								  Padding="4">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
@@ -405,7 +438,9 @@
 
 
 
-							<Grid Margin="8">
+							<Grid Margin="8" BorderBrush="{ThemeResource AccentColorBrush}"
+							      BorderThickness="1"
+							      Padding="4">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
@@ -430,7 +465,9 @@
 											   Grid.Row="1" Grid.Column="1"/>
 
 							</Grid>
-							<Grid Margin="8">
+							<Grid Margin="8" BorderBrush="{ThemeResource AccentColorBrush}"
+							      BorderThickness="1"
+							      Padding="4">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
@@ -456,7 +493,9 @@
 
 							</Grid>
 
-							<Grid Margin="8">
+							<Grid Margin="8" BorderBrush="{ThemeResource AccentColorBrush}"
+							      BorderThickness="1"
+							      Padding="4">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
@@ -481,7 +520,9 @@
 											   Grid.Row="1" Grid.Column="1"/>
 
 							</Grid>
-							<Grid Margin="8">
+							<Grid Margin="8" BorderBrush="{ThemeResource AccentColorBrush}"
+							      BorderThickness="1"
+							      Padding="4">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
@@ -507,7 +548,9 @@
 
 							</Grid>
 
-							<Grid Margin="8">
+							<Grid Margin="8" BorderBrush="{ThemeResource AccentColorBrush}"
+							      BorderThickness="1"
+							      Padding="4">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>

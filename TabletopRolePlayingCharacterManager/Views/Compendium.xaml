@@ -448,7 +448,7 @@
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Pivot>
-			<PivotItem>
+			<!--<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Races" Symbol="ContactInfo"/>
 				</PivotItem.Header>
@@ -491,7 +491,7 @@
 					<controls:TabHeader Label="Background" Symbol="Contact"/>
 				</PivotItem.Header>
 				<ListView ItemsSource="{Binding Background}"></ListView>
-			</PivotItem>
+			</PivotItem>-->
 			<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Items" Symbol="Tag"/>
