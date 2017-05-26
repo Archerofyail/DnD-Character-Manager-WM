@@ -19,7 +19,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return ((Proficiency)Item).Name; }
+			get => ((Proficiency)Item).Name;
 			set
 			{
 				((Proficiency)Item).Name = value;

@@ -20,7 +20,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private Skill skill => Item as Skill;
 		public string Name
 		{
-			get { return skill.Name; }
+			get => skill.Name;
 			set
 			{
 				skill.Name = value;
@@ -29,7 +29,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public int Bonus
 		{
-			get { return skill.Bonus; }
+			get => skill.Bonus;
 			set
 			{
 				skill.Bonus = value;
@@ -38,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public bool IsProficient
 		{
-			get { return skill.IsProficient; }
+			get => skill.IsProficient;
 			set
 			{
 				skill.IsProficient = value;
@@ -57,10 +57,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string MainStat
 		{
-			get
-			{
-				return skill.MainStat.ToString().Substring(0, 3);
-			}
+			get => skill.MainStat.ToString().Substring(0, 3);
 
 			set
 			{

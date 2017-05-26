@@ -25,26 +25,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return Subclass.Name; }
-			set { Subclass.Name = value; }
+			get => Subclass.Name;
+			set => Subclass.Name = value;
 		}
 
 		public int NumOfSkillsProficiency
 		{
-			get { return Subclass.NumOfSkillsProficiency; }
-			set { Subclass.NumOfSkillsProficiency = value; }
+			get => Subclass.NumOfSkillsProficiency;
+			set => Subclass.NumOfSkillsProficiency = value;
 		}
 
 		public bool EnablesMagic
 		{
-			get { return Subclass.EnablesMagic; }
-			set { Subclass.EnablesMagic = value; }
+			get => Subclass.EnablesMagic;
+			set => Subclass.EnablesMagic = value;
 		}
 
 		public int MagicStartLevel
 		{
-			get { return Subclass.MagicStartLevel; }
-			set { Subclass.MagicStartLevel = value; }
+			get => Subclass.MagicStartLevel;
+			set => Subclass.MagicStartLevel = value;
 		}
 
 		private ObservableCollection<PrimitiveListViewModel<string>> skillChoices;

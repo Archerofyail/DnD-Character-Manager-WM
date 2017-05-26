@@ -23,7 +23,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return racialBonuses.Race; }
+			get => racialBonuses.Race;
 			set
 			{
 				racialBonuses.Race = value;
@@ -157,7 +157,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Speed
 		{
-			get { return racialBonuses.SpeedBonus.ToString(); }
+			get => racialBonuses.SpeedBonus.ToString();
 			set
 			{
 				int result;

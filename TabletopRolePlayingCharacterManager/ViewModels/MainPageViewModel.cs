@@ -16,8 +16,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedCharacterTemplate
 		{
-			get
-			{ return selectedCharacterTemplate; }
+			get => selectedCharacterTemplate;
 			set { selectedCharacterTemplate = value; RaisePropertyChanged(); }
 		}
 
@@ -60,8 +59,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int CharListIndex
 		{
-			get { return charListIndex; }
-			set { CharacterManager.CurrentCharacter = CharacterManager.Characters[value]; }
+			get => charListIndex;
+			set => CharacterManager.CurrentCharacter = CharacterManager.Characters[value];
 		}
 
 

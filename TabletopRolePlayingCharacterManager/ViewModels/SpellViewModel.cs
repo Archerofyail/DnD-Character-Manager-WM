@@ -15,7 +15,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return spell.Name; }
+			get => spell.Name;
 			set
 			{
 				spell.Name = value;
@@ -49,7 +49,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Description
 		{
-			get { return spell.Description; }
+			get => spell.Description;
 			set
 			{
 				spell.Description = value;
@@ -59,7 +59,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool HasVerbalComponent
 		{
-			get { return spell.HasVerbalComponent; }
+			get => spell.HasVerbalComponent;
 			set
 			{
 				spell.HasVerbalComponent = value;
@@ -69,7 +69,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool HasSomaticComponent
 		{
-			get { return spell.HasSomaticComponent; }
+			get => spell.HasSomaticComponent;
 			set
 			{
 				spell.HasSomaticComponent = value;
@@ -79,8 +79,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string MaterialComponent
 		{
-			get { return spell.MaterialComponent; }
-			set { spell.MaterialComponent = value; }
+			get => spell.MaterialComponent;
+			set => spell.MaterialComponent = value;
 		}
 
 

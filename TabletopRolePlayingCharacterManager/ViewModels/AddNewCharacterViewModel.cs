@@ -25,7 +25,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string CharName
 		{
-			get { return character.Name; }
+			get => character.Name;
 			set
 			{
 				character.Name = value;
@@ -36,10 +36,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Age
 		{
-			get
-			{
-				return character.Age.ToString();
-			}
+			get => character.Age.ToString();
 			set
 			{
 				int result = 0;
@@ -53,10 +50,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Height
 		{
-			get
-			{
-				return character.Height;
-			}
+			get => character.Height;
 			set
 			{
 				character.Height = value;
@@ -66,10 +60,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Weight
 		{
-			get
-			{
-				return character.Weight;
-			}
+			get => character.Weight;
 			set
 			{
 				character.Weight = value;
@@ -79,10 +70,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Hair
 		{
-			get
-			{
-				return character.Hair;
-			}
+			get => character.Hair;
 			set
 			{
 				character.Hair = value;
@@ -92,10 +80,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Skin
 		{
-			get
-			{
-				return character.Skin;
-			}
+			get => character.Skin;
 			set
 			{
 				character.Skin = value;
@@ -105,10 +90,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Eye
 		{
-			get
-			{
-				return character.Eyes;
-			}
+			get => character.Eyes;
 			set
 			{
 				character.Eyes = value;
@@ -118,7 +100,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int StrengthStat
 		{
-			get { return character.AbilityScores[MainStatType.Strength]; }
+			get => character.AbilityScores[MainStatType.Strength];
 			set
 			{
 				character.AbilityScores[MainStatType.Strength] = value;
@@ -128,7 +110,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int DexterityStat
 		{
-			get { return character.AbilityScores[MainStatType.Dexterity]; }
+			get => character.AbilityScores[MainStatType.Dexterity];
 			set
 			{
 				character.AbilityScores[MainStatType.Dexterity] = value;
@@ -138,7 +120,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int ConstitutionStat
 		{
-			get { return character.AbilityScores[MainStatType.Constitution]; }
+			get => character.AbilityScores[MainStatType.Constitution];
 			set
 			{
 				character.AbilityScores[MainStatType.Constitution] = value;
@@ -148,7 +130,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int IntelligenceStat
 		{
-			get { return character.AbilityScores[MainStatType.Intelligence]; }
+			get => character.AbilityScores[MainStatType.Intelligence];
 			set
 			{
 				character.AbilityScores[MainStatType.Intelligence] = value;
@@ -158,7 +140,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int WisdomStat
 		{
-			get { return character.AbilityScores[MainStatType.Wisdom]; }
+			get => character.AbilityScores[MainStatType.Wisdom];
 			set
 			{
 				character.AbilityScores[MainStatType.Wisdom] = value;
@@ -168,7 +150,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int CharismaStat
 		{
-			get { return character.AbilityScores[MainStatType.Charisma]; }
+			get => character.AbilityScores[MainStatType.Charisma];
 			set
 			{
 				character.AbilityScores[MainStatType.Charisma] = value;
@@ -178,7 +160,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private int selectedSubClassId;
 		public int SelectedSubClass
 		{
-			get { return selectedSubClassId; }
+			get => selectedSubClassId;
 			set
 			{
 				selectedSubClassId = value;
@@ -232,7 +214,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedRaceIndex
 		{
-			get { return selectedRaceIndex; }
+			get => selectedRaceIndex;
 			set
 			{
 				selectedRaceIndex = value;
@@ -277,7 +259,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedSubRaceIndex
 		{
-			get { return selectedSubRaceIndex; }
+			get => selectedSubRaceIndex;
 			set
 			{
 				selectedSubRaceIndex = value;
@@ -355,7 +337,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedClassIndex
 		{
-			get { return selectedClassIndex; }
+			get => selectedClassIndex;
 			set
 			{
 				selectedClassIndex = value;

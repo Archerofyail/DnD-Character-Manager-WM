@@ -11,25 +11,16 @@ namespace TabletopRolePlayingCharacterManager.Controls
 
 		public Symbol Symbol
 		{
-			get
-			{
-				//Symbol result = Symbol.Accept;
-				//if (Enum.TryParse(GetValue(GlyphProperty), out result))
-				//{
-				//	Debug.WriteLine("Result is " + result);
-				//	return result;
-				//}
-				return (Symbol)GetValue(GlyphProperty);
-			}
-			set { SetValue(GlyphProperty, value); }
+			get => (Symbol)GetValue(GlyphProperty);
+			set => SetValue(GlyphProperty, value);
 		}
 
 		public static readonly DependencyProperty LabelProperty = DependencyProperty.Register("Label", typeof(string), typeof(TabHeader), null);
 
 		public string Label
 		{
-			get { return GetValue(LabelProperty) as string; }
-			set { SetValue(LabelProperty, value); }
+			get => GetValue(LabelProperty) as string;
+			set => SetValue(LabelProperty, value);
 		}
 
 

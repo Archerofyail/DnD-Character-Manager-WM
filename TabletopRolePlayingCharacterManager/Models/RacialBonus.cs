@@ -17,11 +17,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public int SpeedBonus
 		{
-			get
-			{
-				return speedBonus;
-			}
-			set { speedBonus = value; }
+			get => speedBonus;
+			set => speedBonus = value;
 		}
 	}
 }

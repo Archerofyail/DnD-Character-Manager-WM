@@ -25,13 +25,13 @@ namespace TabletopRolePlayingCharacterManager.Types
 		private string item2;
 		public string Item1
 		{
-			get { return item1; }
-			set { item1 = value ?? ""; }
+			get => item1;
+			set => item1 = value ?? "";
 		}
 		public string Item2
 		{
-			get { return item2; }
-			set { item2 = value ?? ""; }
+			get => item2;
+			set => item2 = value ?? "";
 		}
 		public StringPair()
 		{

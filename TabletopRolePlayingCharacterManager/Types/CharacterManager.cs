@@ -25,7 +25,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 				{ }
 				return _characters;
 			}
-			private set { _characters = value; }
+			private set => _characters = value;
 		}
 
 		public static List<RacialBonus> RacialBonuses { get; set; } = new List<RacialBonus>();

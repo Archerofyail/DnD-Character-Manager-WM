@@ -14,7 +14,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public Background background { get; private set; } = new Background();
 		public string Name
 		{
-			get { return background.Name; }
+			get => background.Name;
 			set
 			{
 				background.Name = value;
@@ -24,7 +24,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string BackgroundFeatureName
 		{
-			get { return background.BackgroundFeatureName; }
+			get => background.BackgroundFeatureName;
 			set
 			{
 				background.BackgroundFeatureName = value;

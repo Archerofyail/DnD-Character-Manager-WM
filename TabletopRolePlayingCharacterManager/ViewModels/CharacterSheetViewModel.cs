@@ -47,7 +47,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Notes
 		{
-			get { return character.Notes; }
+			get => character.Notes;
 			set
 			{
 				character.Notes = value;
@@ -57,7 +57,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Campaign
 		{
-			get { return character.Campaign; }
+			get => character.Campaign;
 			set
 			{
 				character.Campaign = value;
@@ -67,7 +67,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return character.Name; }
+			get => character.Name;
 			set
 			{
 				character.Name = value;
@@ -76,10 +76,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Race
 		{
-			get
-			{
-				return character.Race;
-			}
+			get => character.Race;
 			set
 			{
 				character.Race = value;
@@ -88,10 +85,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Class
 		{
-			get
-			{
-				return character.Class;
-			}
+			get => character.Class;
 			set
 			{
 				character.Class = value;
@@ -119,10 +113,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Level
 		{
-			get
-			{
-				return character.Level.ToString();
-			}
+			get => character.Level.ToString();
 			set
 			{
 				int result;
@@ -136,10 +127,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Experience
 		{
-			get
-			{
-				return character.Experience.ToString();
-			}
+			get => character.Experience.ToString();
 			set
 			{
 				int result;
@@ -157,7 +145,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string ArmorClass
 		{
-			get { return character.ArmorClass.ToString(); }
+			get => character.ArmorClass.ToString();
 			set
 			{
 				int result;
@@ -172,7 +160,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Speed
 		{
-			get { return character.Speed.ToString(); }
+			get => character.Speed.ToString();
 			set
 			{
 				int result;
@@ -189,7 +177,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string CurrentHealth
 		{
-			get { return character.CurrHP.ToString(); }
+			get => character.CurrHP.ToString();
 			set
 			{
 				int result;
@@ -202,7 +190,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string MaxHealth
 		{
-			get { return character.MaxHP.ToString(); }
+			get => character.MaxHP.ToString();
 			set
 			{
 				int result;
@@ -214,7 +202,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string TemporaryHealth
 		{
-			get { return character.TempHP.ToString(); }
+			get => character.TempHP.ToString();
 			set
 			{
 				int result;
@@ -227,13 +215,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool[] DeathSaveSuccesses
 		{
-			get { return character.DeathSaveSuccesses; }
-			set { character.DeathSaveSuccesses = value; }
+			get => character.DeathSaveSuccesses;
+			set => character.DeathSaveSuccesses = value;
 		}
 		public bool[] DeathSaveFails
 		{
-			get { return character.DeathSaveFails; }
-			set { character.DeathSaveFails = value; }
+			get => character.DeathSaveFails;
+			set => character.DeathSaveFails = value;
 		}
 		#endregion
 
@@ -241,10 +229,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Age
 		{
-			get
-			{
-				return character.Age.ToString();
-			}
+			get => character.Age.ToString();
 			set
 			{
 				int result;
@@ -259,10 +244,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Height
 		{
-			get
-			{
-				return character.Height;
-			}
+			get => character.Height;
 			set
 			{
 				character.Height = value;
@@ -273,10 +255,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Weight
 		{
-			get
-			{
-				return character.Weight;
-			}
+			get => character.Weight;
 			set
 			{
 				character.Weight = value;
@@ -286,10 +265,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Eyes
 		{
-			get
-			{
-				return character.Eyes;
-			}
+			get => character.Eyes;
 			set
 			{
 				character.Eyes = value;
@@ -299,10 +275,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Skin
 		{
-			get
-			{
-				return character.Skin;
-			}
+			get => character.Skin;
 			set
 			{
 				character.Skin = value;
@@ -312,10 +285,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Hair
 		{
-			get
-			{
-				return character.Hair;
-			}
+			get => character.Hair;
 			set
 			{
 				character.Hair = value;
@@ -329,7 +299,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region AbilityScores
 		public string Strength
 		{
-			get { return character.AbilityScores[MainStatType.Strength].ToString(); }
+			get => character.AbilityScores[MainStatType.Strength].ToString();
 			set
 			{
 				int result;
@@ -347,7 +317,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Dexterity
 		{
-			get { return character.AbilityScores[MainStatType.Dexterity].ToString(); }
+			get => character.AbilityScores[MainStatType.Dexterity].ToString();
 			set
 			{
 
@@ -366,7 +336,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Constitution
 		{
-			get { return character.AbilityScores[MainStatType.Constitution].ToString(); }
+			get => character.AbilityScores[MainStatType.Constitution].ToString();
 			set
 			{
 
@@ -385,7 +355,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Intelligence
 		{
-			get { return character.AbilityScores[MainStatType.Intelligence].ToString(); }
+			get => character.AbilityScores[MainStatType.Intelligence].ToString();
 			set
 			{
 
@@ -404,7 +374,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Wisdom
 		{
-			get { return character.AbilityScores[MainStatType.Wisdom].ToString(); }
+			get => character.AbilityScores[MainStatType.Wisdom].ToString();
 			set
 			{
 
@@ -423,7 +393,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Charisma
 		{
-			get { return character.AbilityScores[MainStatType.Charisma].ToString(); }
+			get => character.AbilityScores[MainStatType.Charisma].ToString();
 			set
 			{
 
@@ -458,7 +428,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region AbilityProficiencies
 		public bool StrIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStatType.Strength]; }
+			get => character.AbilityScoreProficiencies[MainStatType.Strength];
 			set
 			{
 				character.AbilityScoreProficiencies[MainStatType.Strength] = value;
@@ -467,7 +437,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public bool DexIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStatType.Dexterity]; }
+			get => character.AbilityScoreProficiencies[MainStatType.Dexterity];
 			set
 			{
 				character.AbilityScoreProficiencies[MainStatType.Dexterity] = value;
@@ -476,7 +446,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public bool ConIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStatType.Constitution]; }
+			get => character.AbilityScoreProficiencies[MainStatType.Constitution];
 			set
 			{
 				character.AbilityScoreProficiencies[MainStatType.Constitution] = value;
@@ -485,7 +455,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public bool IntIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStatType.Intelligence]; }
+			get => character.AbilityScoreProficiencies[MainStatType.Intelligence];
 			set
 			{
 				character.AbilityScoreProficiencies[MainStatType.Intelligence] = value;
@@ -494,7 +464,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public bool WisIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStatType.Wisdom]; }
+			get => character.AbilityScoreProficiencies[MainStatType.Wisdom];
 			set
 			{
 				character.AbilityScoreProficiencies[MainStatType.Wisdom] = value;
@@ -503,7 +473,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public bool ChaIsProficient
 		{
-			get { return character.AbilityScoreProficiencies[MainStatType.Charisma]; }
+			get => character.AbilityScoreProficiencies[MainStatType.Charisma];
 			set
 			{
 				character.AbilityScoreProficiencies[MainStatType.Charisma] = value;
@@ -517,28 +487,28 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string PersonalityTraits
 		{
-			get { return character.PersonalityTraits; }
-			set { character.PersonalityTraits = value; }
+			get => character.PersonalityTraits;
+			set => character.PersonalityTraits = value;
 		}
 		public string Ideals
 		{
-			get { return character.Ideals; }
-			set { character.Ideals = value; }
+			get => character.Ideals;
+			set => character.Ideals = value;
 		}
 		public string Bonds
 		{
-			get { return character.Bonds; }
-			set { character.Bonds = value; }
+			get => character.Bonds;
+			set => character.Bonds = value;
 		}
 		public string Flaws
 		{
-			get { return character.Flaws; }
-			set { character.Flaws = value; }
+			get => character.Flaws;
+			set => character.Flaws = value;
 		}
 
 		public string Backstory
 		{
-			get { return character.Backstory; }
+			get => character.Backstory;
 			set
 			{
 				character.Backstory = value;
@@ -548,7 +518,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string God
 		{
-			get { return character.God; }
+			get => character.God;
 			set
 			{
 				character.God = value;
@@ -558,7 +528,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Relationships
 		{
-			get { return character.RelationshipsAndAllies; }
+			get => character.RelationshipsAndAllies;
 			set
 			{
 				character.RelationshipsAndAllies = value;
@@ -712,7 +682,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool AddSpellToGlobalList
 		{
-			get { return addSpellToGlobalList; }
+			get => addSpellToGlobalList;
 			set
 			{
 				addSpellToGlobalList = value;
@@ -724,7 +694,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool AddItemToGlobalList
 		{
-			get { return addItemToGlobalList; }
+			get => addItemToGlobalList;
 			set
 			{
 				addItemToGlobalList = value;
@@ -736,7 +706,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool AddWeaponToGlobalList
 		{
-			get { return addWeaponToGlobalList; }
+			get => addWeaponToGlobalList;
 			set
 			{
 				addWeaponToGlobalList = value;
@@ -752,7 +722,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private string newItemName = "";
 		public string NewItemName
 		{
-			get { return newItemName; }
+			get => newItemName;
 			set
 			{
 				newItemName = value;
@@ -762,7 +732,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private string newItemDesc = "";
 		public string NewItemDesc
 		{
-			get { return newItemDesc; }
+			get => newItemDesc;
 			set
 			{
 				newItemDesc = value;
@@ -775,7 +745,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private string newWepName = "";
 		public string NewWepName
 		{
-			get { return newWepName; }
+			get => newWepName;
 			set
 			{
 				newWepName = value;
@@ -786,14 +756,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string NewWepDamage
 		{
-			get
-			{
-				return newWepDamage.ToString();
-
-			}
+			get => newWepDamage.ToString();
 			set
 			{
-				var matches = Regex.Match(value, @"(\d)(d\d{1,2})");
+				var matches = Regex.Match(value, @"(\d)(d\d{1,3})");
 				Debug.WriteLine("Matches: " + matches.Value + ". groups count is " + matches.Groups.Count);
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
@@ -810,10 +776,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				}
 			}
 		}
+
+		private int newWepAttackBonus = 0;
+
+		public string NewWepAttackBonus
+		{
+			get => newWepAttackBonus.ToString();
+			set
+			{
+				if (int.TryParse(value, out int result))
+				{
+					newWepAttackBonus = result;
+				}
+			}
+		}
 		private string newWepDesc = "";
 		public string NewWepDesc
 		{
-			get { return newWepDesc; }
+			get => newWepDesc;
 			set
 			{
 				newWepDesc = value;
@@ -828,7 +808,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string NewSpellName
 		{
-			get { return newSpellName; }
+			get => newSpellName;
 			set
 			{
 				newSpellName = value;
@@ -839,7 +819,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private int newSpellLevel;
 		public string NewSpellLevel
 		{
-			get { return newSpellLevel.ToString(); }
+			get => newSpellLevel.ToString();
 			set
 			{
 				int result;
@@ -855,7 +835,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string NewSpellDesc
 		{
-			get { return newSpellDesc; }
+			get => newSpellDesc;
 			set
 			{
 				newSpellDesc = value;
@@ -867,7 +847,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool NSpellHasV
 		{
-			get { return nSpellHasV; }
+			get => nSpellHasV;
 			set
 			{
 				nSpellHasV = value;
@@ -879,7 +859,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool NSpellHasS
 		{
-			get { return nSpellHasS; }
+			get => nSpellHasS;
 			set
 			{
 				nSpellHasS = value;
@@ -892,7 +872,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string NSpellMat
 		{
-			get { return nSpellMat; }
+			get => nSpellMat;
 			set
 			{
 				nSpellMat = value;
@@ -909,7 +889,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string NewTraitDesc
 		{
-			get { return newTraitDesc; }
+			get => newTraitDesc;
 			set
 			{
 				newTraitDesc = value;
@@ -953,7 +933,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedStatBonus
 		{
-			get { return selectedStatBonus; }
+			get => selectedStatBonus;
 			set
 			{
 				selectedStatBonus = value;
@@ -1053,7 +1033,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				await CharacterManager.SaveWeapons();
 			}
 			character.Weapons.Add(newWep);
-			Weapons.Add(new WeaponViewModel(newWep));
+			//Weapons.Add(new WeaponViewModel(newWep));
 			RaisePropertyChanged("Weapons");
 			await CharacterManager.SaveCurrentCharacter();
 		}

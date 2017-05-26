@@ -7,7 +7,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private AbilityScoreBonusModel bonusModel = new AbilityScoreBonusModel();
 		public int Bonus
 		{
-			get { return bonusModel.Bonus; }
+			get => bonusModel.Bonus;
 			set
 			{
 				bonusModel.Bonus = value; 
@@ -18,8 +18,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public MainStatType MainStat
 		{
-			get { return ((AbilityScoreBonusModel)Item).Stat; }
-			set { ((AbilityScoreBonusModel)Item).Stat = value; }
+			get => ((AbilityScoreBonusModel)Item).Stat;
+			set => ((AbilityScoreBonusModel)Item).Stat = value;
 		}
 
 		public string BonusString => "+" + Bonus + " " + MainStat;

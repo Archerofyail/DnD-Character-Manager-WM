@@ -19,7 +19,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool IsActive
 		{
-			get { return trait.IsActive; }
+			get => trait.IsActive;
 			set
 			{
 				trait.IsActive = value;
@@ -30,7 +30,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Description
 		{
-			get { return trait.Description; }
+			get => trait.Description;
 			set
 			{
 				trait.Description = value; 
@@ -42,7 +42,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string BonusButtonText
 		{
-			get { return bonusButtonText; }
+			get => bonusButtonText;
 			set
 			{
 				bonusButtonText = value;

@@ -18,7 +18,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return Item.Name; }
+			get => Item.Name;
 			set
 			{
 				Item.Name = value;
@@ -28,7 +28,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Description
 		{
-			get { return Item.Description; }
+			get => Item.Description;
 			set
 			{
 				Item.Description = value;

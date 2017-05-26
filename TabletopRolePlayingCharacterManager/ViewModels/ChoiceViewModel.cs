@@ -42,7 +42,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int TotalBonus
 		{
-			get { return totalBonus; }
+			get => totalBonus;
 			set
 			{
 				totalBonus = value;
@@ -56,7 +56,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedIndex
 		{
-			get { return selectedIndex; }
+			get => selectedIndex;
 			set
 			{
 				selectedIndex = value;
@@ -67,8 +67,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private ObservableCollection<T2> selectedItems = new ObservableCollection<T2>();
 		public ObservableCollection<T2> SelectedItems
 		{
-			get { return selectedItems; }
-			set { selectedItems = value; }
+			get => selectedItems;
+			set => selectedItems = value;
 		}
 
 		private ObservableCollection<T2> choices = new ObservableCollection<T2>();
@@ -91,8 +91,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				return choices;
 			}
 
-			protected set { choices = value; }
-			
+			protected set => choices = value;
 		}
 
 		#region  Commands

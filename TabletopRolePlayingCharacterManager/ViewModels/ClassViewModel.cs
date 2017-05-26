@@ -31,7 +31,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Name
 		{
-			get { return classBonus.ClassName; }
+			get => classBonus.ClassName;
 			set
 			{
 				classBonus.ClassName = value;
@@ -41,7 +41,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string SubclassName
 		{
-			get { return classBonus.SubclassTitle; }
+			get => classBonus.SubclassTitle;
 			set
 			{
 				classBonus.SubclassTitle = value;
@@ -51,8 +51,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SubclassLevel
 		{
-			get { return classBonus.SubclassLevel; }
-			set { classBonus.SubclassLevel = value; }
+			get => classBonus.SubclassLevel;
+			set => classBonus.SubclassLevel = value;
 		}
 
 		public ObservableCollection<string> DieTypes
@@ -72,7 +72,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedHitDieIndex
 		{
-			get { return selectedHitDieIndex; }
+			get => selectedHitDieIndex;
 			set
 			{
 				selectedHitDieIndex = value;
@@ -84,19 +84,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int StartingHP
 		{
-			get { return classBonus.StartingHP; }
-			set { classBonus.StartingHP = value; }
+			get => classBonus.StartingHP;
+			set => classBonus.StartingHP = value;
 		}
 
 		public int MinHPPerLevel
 		{
-			get { return classBonus.MinHPPerLevel; }
-			set { classBonus.MinHPPerLevel = value; }
+			get => classBonus.MinHPPerLevel;
+			set => classBonus.MinHPPerLevel = value;
 		}
 
 		public int NumberofStartingSkills
 		{
-			get { return classBonus.NumberOfSkills; }
+			get => classBonus.NumberOfSkills;
 			set
 			{
 				classBonus.NumberOfSkills = value;
@@ -130,7 +130,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private int selectedMainSpellcastingStatIndex = -1;
 		public int SelectedMainSpellcastingStatIndex
 		{
-			get { return selectedMainSpellcastingStatIndex; }
+			get => selectedMainSpellcastingStatIndex;
 			set
 			{
 				selectedMainSpellcastingStatIndex = value;

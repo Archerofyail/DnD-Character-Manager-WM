@@ -19,7 +19,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		public string Name
 		{
-			get { return weapon.Name; }
+			get => weapon.Name;
 			set
 			{
 				weapon.Name = value;
@@ -29,7 +29,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Damage
 		{
-			get { return weapon.Damage.ToString(); }
+			get => weapon.Damage.ToString();
 			set
 			{
 				var matches = Regex.Match(value, @"(\d)(d\d{1,2})");
@@ -74,7 +74,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string AttackBonus
 		{
-			get { return weapon.AttackBonus.ToString(); }
+			get => weapon.AttackBonus.ToString();
 			set
 			{
 				int result;
@@ -86,19 +86,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int selectedWeaponType = -1;
+		public int SelectedWeaponType { get; set; } = -1;
 
-		public int SelectedWeaponType
-		{
-			get { return selectedWeaponType; }
-			set { selectedWeaponType = value; }
-		}
 		public ObservableCollection<WeaponRangeType> WeaponTypes => _weaponTypes;
 
 
 		public string Description
 		{
-			get { return weapon.Description; }
+			get => weapon.Description;
 			set
 			{
 				weapon.Description = value; 
