@@ -68,6 +68,15 @@
 						 MinHeight="48"
 						 Margin="0, 4, 0, 0"
 						 TextWrapping="Wrap"/>
+			<Button Command="{Binding RemoveWeapon}"
+					CommandParameter="{Binding}"
+					Margin="0, 4">
+				<Button.Content>
+					<StackPanel>
+						<SymbolIcon Symbol="Delete"/>
+					</StackPanel>
+				</Button.Content>
+			</Button>
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="Spell">

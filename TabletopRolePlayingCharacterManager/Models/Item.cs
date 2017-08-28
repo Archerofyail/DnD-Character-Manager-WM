@@ -8,6 +8,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public string Name { get; set; }
 		public string Description { get; set; }
+		public int Quantity { get; set; }
 		public int Weight { get; set; }
 		public List<Item> ContainedItems { get; set; } = new List<Item>();
 		public ItemType ItemType { get; set; } = ItemType.Item;
@@ -17,11 +18,12 @@ namespace TabletopRolePlayingCharacterManager.Models
 			
 		}
 
-		public Item(string name, string description = "", ItemType type = ItemType.Item)
+		public Item(string name, string description = "", ItemType type = ItemType.Item, int quantity = 1)
 		{
 			Name = name;
 			ItemType = type;
 			Description = description;
+			Quantity = quantity;
 		}
 
 		public Item(ItemType type)

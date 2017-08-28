@@ -16,7 +16,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	{
 
 		Character5E character;
-		private static ObservableCollection<string> _alignments = new ObservableCollection<string>() { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
+		private static ObservableCollection<string> _alignments = new ObservableCollection<string> { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
 		public CharacterSheetViewModel()
 		{
 			character = CharacterManager.CurrentCharacter;
@@ -600,7 +600,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var item in character.Weapons)
 					{
-						weapons.Add(new WeaponViewModel(item));
+						weapons.Add(new WeaponViewModel(item, removeWeaponRelay));
 					}
 				}
 				return weapons;
@@ -759,7 +759,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => newWepDamage.ToString();
 			set
 			{
-				var matches = Regex.Match(value, @"(\d)(d\d{1,3})");
+				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
 				Debug.WriteLine("Matches: " + matches.Value + ". groups count is " + matches.Groups.Count);
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
@@ -769,6 +769,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					{
 						if (Enum.TryParse(matches.Groups[2].Value, out dieType))
 						{
+							newWepDamage = new Damage();
 							newWepDamage.Dice.Clear();
 							newWepDamage.Dice.Add(dieType, numDice);
 						}
@@ -800,6 +801,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
+
+		public ObservableCollection<WeaponRangeType> WeaponRanges => WeaponViewModel.WeaponRanges;
+		public ObservableCollection<MainStatType> WeaponMainStats => WeaponViewModel.MainStatTypes;
+
+		public int NewWepSelectedMainStat { get; set; } = -1;
+		public int NewWepSelectedType { get; set; } = -1;
 		#endregion
 
 		#region Spell
@@ -962,7 +969,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ICommand AddNewLanguage => new RelayCommand<string>(AddNewLanguageExecute);
 		public ICommand DeleteCharacter => new RelayCommand(DeleteCharacterExec);
 		public ICommand AddNewProficiency => new RelayCommand(AddNewProficiencyExec);
+		private RelayCommand<WeaponViewModel> removeWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
 		#region CommandFunctions
+
+		async void RemoveWeaponExec(WeaponViewModel weapon)
+		{
+			character.Weapons.Remove(weapon.weapon);
+			Weapons.Remove(weapon);
+			RaisePropertyChanged("Weapons");
+		}
 		async void SaveCharacterExecute()
 		{
 			await CharacterManager.SaveCurrentCharacter();
@@ -992,17 +1007,27 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		//Then, if it's added to the global list, add it to the global list
 		//Then, add it to the characters list, then create a new viewmodel based on it and add that to the observablecollection. 
 		//Then, finally, raise property changed the collection
-		void AddNewItemExecute()
+		async void AddNewItemExecute()
 		{
+			var newItem = new Item(newItemName, newItemDesc);
+
+			character.Inventory.Add(newItem);
+			if (Items.Count > 0)
+			{
+				Items.Add(new ItemViewModel(newItem));
+			}
+			RaisePropertyChanged("Items");
+			await CharacterManager.SaveCurrentCharacter();
 			if (AddItemToGlobalList)
 			{
-
+				CharacterManager.AllItems.Add(newItem);
+				await CharacterManager.SaveItems();
 			}
 		}
 
 		async void AddNewSpellExecute()
 		{
-			Spell newSpell = new Spell()
+			Spell newSpell = new Spell
 			{
 				Name = newSpellName,
 				Description = newSpellDesc,
@@ -1021,7 +1046,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		async void AddNewWeaponExecute()
 		{
-			var newWep = new Weapon()
+			var newWep = new Weapon
 			{
 				Name = newWepName,
 				Damage = newWepDamage,
@@ -1032,8 +1057,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				CharacterManager.AllWeapons.Add(newWep);
 				await CharacterManager.SaveWeapons();
 			}
+
 			character.Weapons.Add(newWep);
-			//Weapons.Add(new WeaponViewModel(newWep));
+
+			if (Weapons.Count > 0)
+			{
+				Weapons.Add(new WeaponViewModel(newWep, removeWeaponRelay));
+			}
 			RaisePropertyChanged("Weapons");
 			await CharacterManager.SaveCurrentCharacter();
 		}

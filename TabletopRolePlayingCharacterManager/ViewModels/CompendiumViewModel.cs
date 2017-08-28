@@ -9,7 +9,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class CompendiumViewModel : ViewModelBase
 	{
-	
+
 
 		private ObservableCollection<RaceViewModel> races = new ObservableCollection<RaceViewModel>();
 
@@ -24,7 +24,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 						races.Add(new RaceViewModel(race));
 					}
 				}
-				
+
 				return races;
 			}
 		}
@@ -75,7 +75,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var item in CharacterManager.AllWeapons)
 					{
-						weapons.Add(new WeaponViewModel(item));
+						weapons.Add(new WeaponViewModel(item, removeWeaponRelay));
 					}
 				}
 				return weapons;
@@ -117,6 +117,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			CharacterManager.ClassBonuses.Add(newClass);
 			Classes.Add(new ClassViewModel(newClass));
 			RaisePropertyChanged("Classes");
+		}
+
+		private RelayCommand<WeaponViewModel> removeWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
+
+		async void RemoveWeaponExec(WeaponViewModel weapon)
+		{
+			Weapons.Remove(weapon);
+
+			RaisePropertyChanged("Weapons");
+			
 		}
 	}
 }

@@ -647,11 +647,11 @@
 
 									</StackPanel>
 									<StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-										<ComboBox ItemsSource="{Binding NewWepMainStat}"
-										          SelectedIndex="{Binding SelectedMainStat, Mode=TwoWay}"
+										<ComboBox ItemsSource="{Binding WeaponMainStats}"
+										          SelectedIndex="{Binding NewWepSelectedMainStat, Mode=TwoWay}"
 										          Margin="0, 0, 4, 0"/>
-										<ComboBox ItemsSource="{Binding NewWepTypes}"
-										          SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}"/>
+										<ComboBox ItemsSource="{Binding WeaponRanges}"
+										          SelectedIndex="{Binding NewWepSelectedType, Mode=TwoWay}"/>
 									</StackPanel>
 									<TextBox Text="{Binding NewWepDesc, Mode=TwoWay}"
 									         PlaceholderText="Description"
@@ -693,7 +693,8 @@
 													  Margin="4"
 													  IsChecked="{Binding AddItemToGlobalList, Mode=TwoWay}"/>
 										<Button Content="+ Add Item" Margin="4"
-												Command="{Binding AddNewItem}"/>
+												Command="{Binding AddNewItem}"
+										        Tapped="AddItemButtonTapped"/>
 									</StackPanel>
 								</StackPanel>
 							</Flyout>
@@ -702,7 +703,7 @@
 							<StackPanel Orientation="Horizontal">
 								<SymbolIcon Symbol="Add"/>
 								<TextBlock Text="Add new Item" Margin="4, 0, 0, 0"
-											   Tapped="AddItemButtonTapped"/>
+											  />
 							</StackPanel>
 						</Button.Content>
 					</Button>

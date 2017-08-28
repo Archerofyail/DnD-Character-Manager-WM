@@ -2,20 +2,25 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class WeaponViewModel : ViewModelBase
 	{
-		private Weapon weapon;
-		private static ObservableCollection<MainStatType> _mainStat = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
-		private static  ObservableCollection<WeaponRangeType> _weaponTypes = new ObservableCollection<WeaponRangeType>() {WeaponRangeType.Melee, WeaponRangeType.Ranged};
-		public WeaponViewModel(Weapon weap)
+		public Weapon weapon { get; }
+		public static ObservableCollection<MainStatType> MainStatTypes = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
+		public static  ObservableCollection<WeaponRangeType> WeaponRanges = new ObservableCollection<WeaponRangeType>() {WeaponRangeType.Melee, WeaponRangeType.Ranged};
+		private RelayCommand<WeaponViewModel> Remove;
+		public WeaponViewModel(Weapon weap, RelayCommand<WeaponViewModel> removeCommand)
 		{
 			weapon = weap;
-
+			selectedMainStat = MainStatTypes.IndexOf(weap.MainStat);
+			SelectedWeaponType = WeaponRanges.IndexOf(weap.WeaponRangeType);
+			Remove = removeCommand;
 		}
 		public string Name
 		{
@@ -32,29 +37,30 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => weapon.Damage.ToString();
 			set
 			{
-				var matches = Regex.Match(value, @"(\d)(d\d{1,2})");
+				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
 				Debug.WriteLine("Matches: " + matches.Value);
 				for (int i = 0; i < matches.Groups.Count; i++)
 				{
 					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
 				}
-				if (matches.Success && matches.Groups.Count == 2)
+				if (matches.Success && matches.Groups.Count >= 3)
 				{
 					DieType dieType = DieType.D4;
 					int numDice;
-					if (int.TryParse(matches.Groups[0].Value, out numDice))
+					if (int.TryParse(matches.Groups[1].Value, out numDice))
 					{
-						if (Enum.TryParse(matches.Groups[1].Value, out dieType))
+						if (Enum.TryParse(matches.Groups[2].Value, out dieType))
 						{
 							weapon.Damage.Dice.Clear();
 							weapon.Damage.Dice.Add(dieType, numDice);
 						}
 					}
 				}
+				RaisePropertyChanged();
 			}
 		}
 
-		public ObservableCollection<MainStatType> MainStat => _mainStat;
+		public ObservableCollection<MainStatType> MainStat => MainStatTypes;
 
 		private int selectedMainStat = -1;
 
@@ -63,10 +69,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get { return selectedMainStat; }
 			set
 			{
-				if (value < _mainStat.Count && _mainStat.Count >= 0)
+				if (value < MainStatTypes.Count && MainStatTypes.Count >= 0)
 				{
 					selectedMainStat = value;
-					weapon.MainStat = _mainStat[selectedMainStat];
+					weapon.MainStat = MainStatTypes[selectedMainStat];
 					RaisePropertyChanged();
 				}
 			}
@@ -88,7 +94,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedWeaponType { get; set; } = -1;
 
-		public ObservableCollection<WeaponRangeType> WeaponTypes => _weaponTypes;
+		public ObservableCollection<WeaponRangeType> WeaponTypes => WeaponRanges;
 
 
 		public string Description
@@ -99,8 +105,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				weapon.Description = value; 
 				RaisePropertyChanged();
 			}
-
 		}
 
+		public ICommand RemoveWeapon => Remove;
 	}
 }
