@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 	{
 		public AddNewGenericCharacter()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 	}
 }

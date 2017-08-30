@@ -3,6 +3,7 @@ using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.Views;
 
@@ -29,25 +30,23 @@ namespace TabletopRolePlayingCharacterManager
 				Debug.WriteLine("Found resource name: " + name);
 
 			}
-			CharacterManager.LoadCompendium();
+			LoadCompendium();
+			NavigationCacheMode = NavigationCacheMode.Required;
 			//DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 
 
 		}
 
-		
 
+		async void LoadCompendium()
+		{
+			await CharacterManager.LoadCompendium();
+		}
 
 		private void SettingsClicked(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(SettingsPage));
-		}
-
-		private void CharacterTemplateList_ItemClick(object sender, ItemClickEventArgs e)
-		{
-
-			Frame.Navigate(typeof(CharacterSheet));
 		}
 
 		private void CharacterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,7 +56,12 @@ namespace TabletopRolePlayingCharacterManager
 
 		private void AddNewCharacterTapped(object sender, TappedRoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(CharacterSheet));
+			Frame.Navigate(typeof(AddNewCharacter));
+		}
+
+		private void CompendiumTapped(object sender, TappedRoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(Compendium));
 		}
 	}
 }

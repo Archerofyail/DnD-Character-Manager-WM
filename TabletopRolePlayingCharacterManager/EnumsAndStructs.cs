@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager
 {
@@ -27,10 +26,16 @@ namespace TabletopRolePlayingCharacterManager
 		D100
 	}
 
-	public enum WeaponType
+	public enum WeaponRangeType
 	{
 		Melee,
 		Ranged
+	}
+
+	public enum WeaponType
+	{
+		Simple,
+		Martial
 	}
 
 	public enum MessageType
@@ -55,6 +60,31 @@ namespace TabletopRolePlayingCharacterManager
 		
 	}
 
+	public enum ItemType
+	{
+		Pack,
+		Item,
+		Armor,
+		Weapon
+	}
+
+	public enum ProficiencyType
+	{
+		Weapon,
+		Armor,
+		Tool,
+		Vehicle,
+		Language
+	}
+
+	public enum TraitSource
+	{
+		Race,
+		Class,
+		Background,
+		Other
+	}
+
 	//TODO: Give the user the option of saving the custom items during character creation.
 
 	//TODO: Each section (Regular Items, Weapons, Armor, Races, subraces, etc.) will get their own class that manages the list of possible choices the player has. These classes will also handle adding new choices to each list and saving these. the Model of the character creation page will then take these and present them to the ViewModel, which will of course, give the View access to them. To add them. The view will have a + button or something. Then a menu flyout will appear, and the user will be able to choose what the race/item/weapon/armor/whatever, is called, be able to choose what it affects, if anything, and a description, to describe things that don't happen to the character, if any. It will then tell the viewmodel that a new item was created, then the viewmodel will tell the model that. Then, finally, the model will tell the class that manages that type of item to add it to the list, and save that list to disk.
@@ -67,13 +97,6 @@ namespace TabletopRolePlayingCharacterManager
 	//For skills within the character class, you want the name{string}, the ability score{MainStatType}, and whether they're proficient with it{bool}
 
 
-	public interface IStatIncrease
-	{
-		Character5E character { get; set; }
-
-		void AddBonus();
-		
-	}
 	public class Message<T>
 	{
 		public MessageType MessageType { get; private set; }
@@ -105,7 +128,7 @@ namespace TabletopRolePlayingCharacterManager
 
 		public static int CalculateMainStatBonus(int mainStat)
 		{
-			int bonus = 0;
+			int bonus;
 			mainStat -= 10;
 			bonus = mainStat / 2;
 			return bonus;

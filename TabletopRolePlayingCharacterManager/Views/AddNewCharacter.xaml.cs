@@ -1,5 +1,8 @@
 using System.Diagnostics;
+using System.Linq;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace TabletopRolePlayingCharacterManager.Views
 {
@@ -11,32 +14,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 			InitializeComponent();
 			
 			Debug.WriteLine("added data context");
-		}
 
-		private void LanguageAddClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void ArmorAddClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void WeaponAddClick(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-
-		private void RollAbilityScoresClick(object sender, RoutedEventArgs e)
-		{
-			
-		}
-
-		private void SelectAbilityToAssign(object sender, RoutedEventArgs e)
-		{
-			
 		}
 
 		private void ClearScoresClick(object sender, RoutedEventArgs e)
@@ -49,10 +27,26 @@ namespace TabletopRolePlayingCharacterManager.Views
 			CharismaTextBox.Text = "";
 		}
 
-		private void SaveButtonClick(object sender, RoutedEventArgs e)
+		private void ClearScores_OnTapped(object sender, TappedRoutedEventArgs e)
 		{
-			
+			Debug.WriteLine("Clear Tapped");
+		}
 
+		private void FinishCharCreationTapped(object sender, TappedRoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(CharacterSheet));
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+		
+			base.OnNavigatedFrom(e);
+
+			var pageToRemove = Frame.BackStack.First((x) => x.SourcePageType == typeof(AddNewCharacter));
+			if (pageToRemove != null)
+			{
+				Frame.BackStack.Remove(pageToRemove);
+			}
 		}
 	}
 }

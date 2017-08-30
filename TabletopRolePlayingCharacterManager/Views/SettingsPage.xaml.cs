@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 	{
 		public SettingsPage()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 	}
 }

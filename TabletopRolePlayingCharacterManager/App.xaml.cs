@@ -5,7 +5,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using TabletopRolePlayingCharacterManager.Types;
 using Windows.UI.Core;
 
 namespace TabletopRolePlayingCharacterManager
@@ -21,7 +20,7 @@ namespace TabletopRolePlayingCharacterManager
 		/// </summary>
 		public App()
 		{
-			Microsoft.HockeyApp.HockeyClient.Current.Configure("09332b4e70e1423a8a70a46894a0ad15");
+			HockeyClient.Current.Configure("09332b4e70e1423a8a70a46894a0ad15");
 			InitializeComponent();
 			Suspending += OnSuspending;
 		//DbLoader.CreateData();
@@ -72,7 +71,7 @@ namespace TabletopRolePlayingCharacterManager
 				Window.Current.Activate();
 			}
 
-			Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+			SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
 		}
 
 		/// <summary>

@@ -5,15 +5,15 @@
 	xmlns:local="using:TabletopRolePlayingCharacterManager"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d"
-	xmlns:vm="using:TabletopRolePlayingCharacterManager.ViewModel">
+	xmlns:viewModels="using:TabletopRolePlayingCharacterManager.ViewModels"
+	mc:Ignorable="d">
 <Page.DataContext>
-	<vm:MainPageViewModel/>
+	<viewModels:MainPageViewModel/>
 </Page.DataContext>
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Assets/Dictionary1.xaml" />
+				<ResourceDictionary Source="Assets/TemplateDictionary.xaml" />
 				<ResourceDictionary>
 					<DataTemplate x:Key="Character">
 						<StackPanel>
@@ -27,10 +27,14 @@
 	</Page.Resources>
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton Icon="Add" Label="Add a New Character"
+			
+			<AppBarButton Icon="Add" Label="New Character"
 						  Tapped="AddNewCharacterTapped">
-				<!-- TODO: Add flyout for selecting a character type when multiple games are supported-->
+				
 			</AppBarButton>
+			<AppBarButton Icon="Library"
+						  Label="Compendium"
+						  Tapped="CompendiumTapped"/>
 			<AppBarButton Icon="Setting" Label="Settings"
 						  Click="SettingsClicked"/>
 		</CommandBar>

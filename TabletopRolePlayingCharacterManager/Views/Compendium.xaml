@@ -3,243 +3,523 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="using:TabletopRolePlayingCharacterManager.Views"
+	xmlns:types="using:TabletopRolePlayingCharacterManager"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	xmlns:controls="using:TabletopRolePlayingCharacterManager.Controls">
-
+	xmlns:controls="using:TabletopRolePlayingCharacterManager.Controls"
+	xmlns:TKCtrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+	xmlns:converters="using:TabletopRolePlayingCharacterManager.Converters"
+	xmlns:viewModels="using:TabletopRolePlayingCharacterManager.ViewModels"
+	xmlns:types1="using:TabletopRolePlayingCharacterManager.Types"
+	xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:system="using:System">
+	<Page.DataContext>
+		<viewModels:CompendiumViewModel/>
+	</Page.DataContext>
 	<Page.Resources>
-		<Style x:Key="TabsStylePivotStyle" TargetType="Pivot">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="Pivot">
-						<Grid x:Name="RootElement"
-							HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-							VerticalAlignment="{TemplateBinding VerticalAlignment}"
-							Background="{TemplateBinding Background}">
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Assets/ColorDict.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+			<converters:BoolToSelectionMode x:Key="BoolToSelectionModeConverter"/>
+			<DataTemplate x:Key="AbilityScoreBonusTemplate">
+				<StackPanel>
+					<TextBox Text="{Binding Bonus, Mode=TwoWay}"
+						 InputScope="Number"/>
+					<ComboBox ItemsSource="{Binding MainStat}"
+						  SelectedIndex="{Binding SelectedStat, Mode=TwoWay}"/>
+				</StackPanel>
+			</DataTemplate>
 
-							<Grid.Resources>
-								<Style x:Key="BaseContentControlStyle" TargetType="ContentControl">
-									<Setter Property="FontFamily" Value="Segoe UI" />
-									<Setter Property="FontWeight" Value="SemiBold" />
-									<Setter Property="FontSize" Value="15" />
-									<Setter Property="Template">
-										<Setter.Value>
-											<ControlTemplate TargetType="ContentControl">
-												<ContentPresenter
-													Margin="{TemplateBinding Padding}"
-													HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-													VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-													Content="{TemplateBinding Content}"
-													ContentTemplate="{TemplateBinding ContentTemplate}"
-													ContentTransitions="{TemplateBinding ContentTransitions}"
-													OpticalMarginAlignment="TrimSideBearings" />
-											</ControlTemplate>
-										</Setter.Value>
-									</Setter>
-								</Style>
 
-								<Style x:Key="TitleContentControlStyle" BasedOn="{StaticResource BaseContentControlStyle}" TargetType="ContentControl">
-									<Setter Property="FontWeight" Value="SemiLight" />
-									<Setter Property="FontSize" Value="24" />
-								</Style>
 
-								<!-- While used here to remove the spacing between header items, the 
-								template can also be used to
-								display custom 'selected' visuals -->
-								<Style TargetType="PivotHeaderItem">
-									<Setter Property="Padding" Value="0" />
-									<Setter Property="BorderBrush" Value="{StaticResource SystemAccentColor}"/>
-									<Setter Property="BorderThickness" Value="0, 0, 0, 8"/>
-									<!--<Setter Property="Margin" Value="0, 0, 0, 8"/>-->
-									<Setter Property="Height" Value="52"/>
-								</Style>
-							</Grid.Resources>
+			<DataTemplate x:Key="TraitTemplate">
+				<StackPanel>
+					<TextBox Text="{Binding Description, Mode=TwoWay}"
+						 PlaceholderText="Trait"
+						 MinHeight="56"
+						 AcceptsReturn="True"/>
 
-							<VisualStateManager.VisualStateGroups>
-								<VisualStateGroup x:Name="Orientation">
-									<VisualState x:Name="Portrait">
-										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TitleContentControl" Storyboard.TargetProperty="Margin">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotPortraitThemePadding}" />
-											</ObjectAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-									<VisualState x:Name="Landscape">
-										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TitleContentControl" Storyboard.TargetProperty="Margin">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PivotLandscapeThemePadding}" />
-											</ObjectAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-								</VisualStateGroup>
+				</StackPanel>
+			</DataTemplate>
 
-								<VisualStateGroup x:Name="HeaderStates">
-									<VisualState x:Name="HeaderDynamic" />
-									<VisualState x:Name="HeaderStatic">
-										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header" Storyboard.TargetProperty="Visibility">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
-											</ObjectAnimationUsingKeyFrames>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaticHeader" Storyboard.TargetProperty="Visibility">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
-											</ObjectAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-								</VisualStateGroup>
-							</VisualStateManager.VisualStateGroups>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="*" />
-							</Grid.RowDefinitions>
+			<DataTemplate x:Key="TraitChoiceTemplate">
+				<StackPanel Orientation="Horizontal">
+					<ListView ItemsSource="{Binding Choices}"
+						  ItemTemplate="{StaticResource TraitTemplate}"
+						  SelectionMode="None"
+						  />
+					<StackPanel>
+						<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay}"/>
+					</StackPanel>
+				</StackPanel>
+			</DataTemplate>
 
-							<ContentControl x:Name="TitleContentControl"
-								Margin="{StaticResource PivotPortraitThemePadding}"
-								Content="{TemplateBinding Title}"
-								ContentTemplate="{TemplateBinding TitleTemplate}"
-								IsTabStop="False"
-								Style="{StaticResource TitleContentControlStyle}"
-								Visibility="Collapsed" />
+			<DataTemplate x:Key="ProficiencyTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBox Text="{Binding Name}"/>
+					<Button Command="{Binding Remove}">
+						<Button.Content>
+							<SymbolIcon Symbol="Delete"/>
+						</Button.Content>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
 
-							<Grid Grid.Row="1">
+			<DataTemplate x:Key="ProficiencyChoiceTemplate">
+				<StackPanel Orientation="Horizontal">
 
-								<Grid.Resources>
-									<ResourceDictionary>
-										<ResourceDictionary.ThemeDictionaries>
-											<ResourceDictionary x:Key="Default">
-												<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-												<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-											</ResourceDictionary>
-											<ResourceDictionary x:Key="Light">
-												<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-												<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemChromeMediumColor}" />
-											</ResourceDictionary>
-											<ResourceDictionary x:Key="HighContrast">
-												<SolidColorBrush x:Key="SystemControlPageBackgroundChromeMediumBrush" Color="{ThemeResource SystemColorWindowColor}" />
-												<SolidColorBrush x:Key="SystemControlForegroundChromeMediumBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
-											</ResourceDictionary>
-										</ResourceDictionary.ThemeDictionaries>
-									</ResourceDictionary>
-								</Grid.Resources>
+					<StackPanel>
+						<ListView ItemsSource="{Binding Choices}"
+						  ItemTemplate="{StaticResource ProficiencyTemplate}"
+							  SelectionMode="None"/>
+						<Button Command="{Binding AddItem}">
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add"/>
+									<TextBlock Text="Add Choice"/>
+								</StackPanel>
+							</Button.Content>
+						</Button>
+						<Button Command="{Binding Remove}">
+							<Button.Content>
+								<SymbolIcon Symbol="Delete"/>
+							</Button.Content>
+						</Button>
+					</StackPanel>
+					<StackPanel>
+						<CheckBox IsChecked="{Binding CanSelectMultiple, Mode=TwoWay
+											, Converter={StaticResource BoolToSelectionModeConverter}}"
+							  Content="Select Multiple?"/>
+						<TextBox Text="{Binding Path=TotalBonus, Mode=TwoWay}"
+							 PlaceholderText="Total Bonus"/>
+					</StackPanel>
+				</StackPanel>
+			</DataTemplate>
 
-								<ScrollViewer x:Name="ScrollViewer"
-									Margin="{TemplateBinding Padding}"
-									VerticalContentAlignment="Stretch"
-									BringIntoViewOnFocusChange="False"
-									HorizontalScrollBarVisibility="Hidden"
-									HorizontalSnapPointsAlignment="Center"
-									HorizontalSnapPointsType="MandatorySingle"
-									Template="{StaticResource ScrollViewerScrollBarlessTemplate}"
-									VerticalScrollBarVisibility="Disabled"
-									VerticalScrollMode="Disabled"
-									VerticalSnapPointsType="None"
-									ZoomMode="Disabled">
-									<PivotPanel x:Name="Panel" VerticalAlignment="Stretch">
-										<Grid x:Name="PivotLayoutElement" >
-											<Grid.RowDefinitions>
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="*" />
-											</Grid.RowDefinitions>
+			<DataTemplate x:Key="RaceTemplate">
 
-											<!-- By setting the column definitions to *,Auto,* allows the tabs to be centered by default -->
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*" />
-												<ColumnDefinition Width="Auto" />
-												<ColumnDefinition Width="*" />
-											</Grid.ColumnDefinitions>
-											<Grid.RenderTransform>
-												<CompositeTransform x:Name="PivotLayoutElementTranslateTransform" />
-											</Grid.RenderTransform>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"
+						   Margin="8"/>
+					<Button Content="Edit" Margin="4">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel MinWidth="150">
+									<TextBox Text="{Binding Name, Mode=TwoWay}"
+										 PlaceholderText="Name"
+										 Margin="4"/>
+									<TextBox Text="{Binding Speed, Mode=TwoWay}"
+										 InputScope="Number"
+										 PlaceholderText="Speed"
+										 Margin="4"/>
+									<ListView ItemsSource="{Binding AbilityScoreBonuses}"
+										  ItemTemplate="{StaticResource AbilityScoreBonusTemplate}"
+										  Margin="4"
+										  />
+									<Button Command="{Binding AddAbilityScoreBonus}">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Bonus"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<TKCtrls:BladeView ItemsSource="{Binding Traits}"
+												   ItemTemplate="{StaticResource TraitChoiceTemplate}"/>
+									<Button
+									Command="{Binding AddTrait}">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Trait"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<TextBlock Text="Language Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding LanguageProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
+												   Name="LangProfList"/>
+									<TextBlock Text="No Language proficiencies"
+										    Visibility="{Binding ElementName=LangProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+									<TextBlock Text="Weapon Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
+												   Name="WeapProfsList"/>
+									<TextBlock Text="No weapon proficiencies"
+										   Visibility="{Binding ElementName=WeapProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+									<Button Command="{Binding AddProficiency}">
+										<Button.CommandParameter>
+											<types:ProficiencyType>Weapon</types:ProficiencyType>
+										</Button.CommandParameter>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Weapon Proficiency Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
 
-											<!--  This border is used as a backplate for the header area  -->
-											<Border
-												Grid.ColumnSpan="3"
-												Background="{ThemeResource SystemControlPageBackgroundChromeMediumBrush}"
-												BorderBrush="{ThemeResource SystemControlForegroundChromeMediumBrush}"
-												BorderThickness="0,0,0,1" />
 
-											<ContentPresenter x:Name="LeftHeaderPresenter"
-												HorizontalAlignment="Stretch"
-												VerticalAlignment="Stretch"
-												Content="{TemplateBinding LeftHeader}"
-												ContentTemplate="{TemplateBinding LeftHeaderTemplate}" />
-											<ContentControl x:Name="HeaderClipper"
-												Grid.Column="1"
-												HorizontalContentAlignment="Stretch"
-												UseSystemFocusVisuals="True">
-												<ContentControl.Clip>
-													<RectangleGeometry x:Name="HeaderClipperGeometry" />
-												</ContentControl.Clip>
-												<Grid Background="Transparent">
-													<PivotHeaderPanel x:Name="StaticHeader" Visibility="Visible" />
-													<PivotHeaderPanel x:Name="Header">
-														<PivotHeaderPanel.RenderTransform>
-															<TransformGroup>
-																<CompositeTransform x:Name="HeaderTranslateTransform" />
-																<CompositeTransform x:Name="HeaderOffsetTranslateTransform" />
-															</TransformGroup>
-														</PivotHeaderPanel.RenderTransform>
-													</PivotHeaderPanel>
-												</Grid>
-											</ContentControl>
+									<TextBlock Text="Armor Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
+												   Name="ArmorProfsList"/>
+									<TextBlock Text="No weapon proficiencies"
+										   Visibility="{Binding ElementName=ArmorProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+									<Button Command="{Binding AddProficiency}">
+										<Button.CommandParameter>
+											<types:ProficiencyType>Armor</types:ProficiencyType>
+										</Button.CommandParameter>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Armor Proficiency Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
 
-											<ContentPresenter x:Name="RightHeaderPresenter"
-												Grid.Column="2"
-												HorizontalAlignment="Stretch"
-												VerticalAlignment="Stretch"
-												Content="{TemplateBinding RightHeader}"
-												ContentTemplate="{TemplateBinding RightHeaderTemplate}" />
-											<ItemsPresenter x:Name="PivotItemPresenter" Grid.Row="1" Grid.ColumnSpan="3">
-												<ItemsPresenter.RenderTransform>
-													<TransformGroup>
-														<TranslateTransform x:Name="ItemsPresenterTranslateTransform" />
-														<CompositeTransform x:Name="ItemsPresenterCompositeTransform" />
-													</TransformGroup>
-												</ItemsPresenter.RenderTransform>
-											</ItemsPresenter>
-										</Grid>
-									</PivotPanel>
-								</ScrollViewer>
-							</Grid>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+									<TextBlock Text="Tool Proficiencies"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"
+												   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"
+												   Name="ToolProfsList"
+												   />
+									<TextBlock Text="No weapon proficiencies"
+										   Visibility="{Binding ElementName=ToolProfsList, 
+														Path=Items.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+									<Button Command="{Binding AddProficiency}">
+										<Button.CommandParameter>
+											<types:ProficiencyType>Tool</types:ProficiencyType>
+										</Button.CommandParameter>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Tool Proficiency Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
 
-		<DataTemplate x:Key="RaceTemplate">
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Name}"/>
-			</StackPanel>
-		</DataTemplate>
+
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+
+			<DataTemplate x:Key="PrimitiveTextBox">
+				<StackPanel>
+					<TextBox Text="{Binding}"/>
+				</StackPanel>
+			</DataTemplate>
+
+			<DataTemplate x:Key="SpellSlotLevel">
+				<StackPanel>
+					<ListView ItemsSource="{Binding Items}"
+							  ItemTemplate="{StaticResource PrimitiveTextBox}"
+							  SelectionMode="None">
+						<ListView.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal">
+
+								</StackPanel>
+							</ItemsPanelTemplate>
+						</ListView.ItemsPanel>
+					</ListView>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="ClassTemplate">
+				<StackPanel Orientation="Horizontal">
+					<StackPanel.DataContext>
+						<viewModels:ClassViewModel/>
+					</StackPanel.DataContext>
+					<TextBlock Text="{Binding Name}"/>
+					<Button Content="Edit">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel>
+									<TextBox Text="{Binding Name, Mode=TwoWay}" PlaceholderText="Name"/>
+									<TextBox Text="{Binding SubclassName, Mode=TwoWay}"
+										 PlaceholderText="Archetype, College, Path, etc."/>
+									<TextBlock Text="The level you can pick your subclass"/>
+									<TextBox Text="{Binding SubclassLevel, Mode=TwoWay}" InputScope="Number"/>
+									<ComboBox ItemsSource="{Binding DieTypes}"
+										  Header="Hit Die"
+										  SelectedIndex="{Binding SelectedHitDieIndex, Mode=TwoWay}"/>
+									<TextBlock Text="InitialHP"/>
+									<TextBox Text="{Binding StartingHP, Mode=TwoWay}"/>
+									<TextBlock Text="Min. HP per level"/>
+									<TextBox Text="{Binding MinHPPerLevel, Mode=TwoWay}"/>
+									<TextBlock Text="Number of Start skills"/>
+									
+									<TextBlock Text="Proficiencies"/>
+									<TextBlock Text="Armor"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ArmorProficiencies}"/>
+									<TextBlock Text="Weapons"/>
+									<TKCtrls:BladeView ItemsSource="{Binding WeaponProficiencies}"/>
+									<TextBlock Text="Tools"/>
+									<TKCtrls:BladeView ItemsSource="{Binding ToolProficiencies}"/>
+									<Button>
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Proficiency"/>
+											</StackPanel>
+										</Button.Content>
+										<Button.Flyout>
+											<Flyout>
+												<StackPanel>
+													
+													<TextBox Header="Name"
+															 Name="NewProfTextBox"/>
+													<ComboBox Header="Proficiency Type"
+															  ItemsSource="{Binding ProficiencyTypes}"
+															  Name="ProficiencyTypeComboBox"
+															  SelectedIndex="{Binding SelectedNewProfTypeIndex, Mode=TwoWay}"/>
+													<Button Content="Add Proficiency" 
+															Command="{Binding AddProficiency}"
+															CommandParameter="{Binding ElementName=NewProfTextBox, Path=Text}">
+											
+													</Button>
+												</StackPanel>
+											</Flyout>
+										</Button.Flyout>
+									</Button>
+									<TextBox Text="{Binding NumberofStartingSkills, Mode=TwoWay}"
+										 PlaceholderText="Usually 2"/>
+									<TKCtrls:BladeView ItemsSource="{Binding SkillChoice.Choices}"></TKCtrls:BladeView>
+									<Button Command="{Binding AddSkillOption}"
+										Name="AddSkillButton">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add A Skill Option"/>
+											</StackPanel>
+
+										</Button.Content>
+										<Button.Flyout>
+											<Flyout>
+												<StackPanel>
+													<ListView ItemsSource="{Binding AllSkills}"
+														  Name="AllSkillsSelection"
+														  SelectionChanged="AllSkillsSelection_OnSelectionChanged">
+
+														<i:Interaction.Behaviors >
+															<core:EventTriggerBehavior EventName="SelectionChanged">
+																<core:InvokeCommandAction Command="{Binding AddSkillOption}"
+																					  CommandParameter="{Binding ElementName=AllSkillsSelection, Path=SelectedItem}">
+
+																</core:InvokeCommandAction>
+															</core:EventTriggerBehavior>
+														</i:Interaction.Behaviors>
+													</ListView>
+												</StackPanel>
+											</Flyout>
+										</Button.Flyout>
+									</Button>
+									<TextBlock Text="Magic"/>
+									<ComboBox ItemsSource="{Binding MainStatsList}"
+											  SelectedIndex="{Binding SelectedMainSpellcastingStatIndex}"
+											  Header="Spellcasting Ability"/>
+									<TextBlock Text="Spell Slots"/>
+									<StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Level"></TextBlock>
+											<ListView ItemsSource="{Binding Levels}"
+													  SelectionMode="None">
+												
+												<ListView.ItemsPanel>
+													<ItemsPanelTemplate>
+														<StackPanel Orientation="Horizontal"></StackPanel>
+													</ItemsPanelTemplate>
+												</ListView.ItemsPanel>
+											</ListView>
+										</StackPanel>
+										<ListView ItemsSource="{Binding SpellSlotsByLevel}"
+											  ItemTemplate="{StaticResource SpellSlotLevel}"
+											  SelectionMode="None"/>
+										
+									</StackPanel>
+									<ListView ItemsSource="{Binding SpellsKnownByLevel}"
+											  ItemTemplate="{StaticResource PrimitiveTextBox}"
+											  Header="Spells Known"/>
+									<ListView ItemsSource="{Binding CantripsKnownByLevel}"
+											  ItemTemplate="{StaticResource PrimitiveTextBox}"
+											  Header="Cantrips Known"/>
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="BackgroundTemplate">
+				<StackPanel>
+					<TextBlock Text="{Binding Name}"/>
+					<Button Content="Edit">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel>
+									<TextBox Text="{Binding Name}"/>
+									<TextBox Text="{Binding BackgroundFeatureName}"/>
+									<ListView ItemsSource="{Binding Skills}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Skill"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<TKCtrls:BladeView ItemsSource="{Binding Proficiencies}"
+													   ItemTemplate="{StaticResource ProficiencyChoiceTemplate}"/>
+									<ListView ItemsSource="{Binding BackgroundFeature}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Ideals}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Bonds}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Flaws}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<ListView ItemsSource="{Binding Traits}"/>
+									<Button >
+										<Button.Content>
+											<StackPanel Orientation="Horizontal">
+												<SymbolIcon Symbol="Add"/>
+												<TextBlock Text="Add Option"/>
+											</StackPanel>
+										</Button.Content>
+									</Button>
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="ItemTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="WeaponTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate x:Key="SpellTemplate">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Name}"/>
+				</StackPanel>
+			</DataTemplate>
+		</ResourceDictionary>
 	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Pivot>
-			<PivotItem>
+			<!--<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Races" Symbol="ContactInfo"/>
 				</PivotItem.Header>
+				<StackPanel>
+					<ListView ItemsSource="{Binding Races}"
+						  ItemTemplate="{StaticResource RaceTemplate}"/>
+
+
+					<Button Command="{Binding AddNewRace}">
+						<Button.Content>
+							<StackPanel Orientation="Horizontal">
+								<SymbolIcon Symbol="Add"/>
+								<TextBlock Text="Add Race"/>
+							</StackPanel>
+						</Button.Content>
+
+					</Button>
+				</StackPanel>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Classes" Symbol="ContactInfo"/>
 				</PivotItem.Header>
+				<StackPanel>
+					<ListView ItemsSource="{Binding Classes}"
+						  ItemTemplate="{StaticResource ClassTemplate}"/>
+					<Button Command="{Binding AddNewClass}">
+						<Button.Content>
+							<StackPanel Orientation="Horizontal">
+								<SymbolIcon Symbol="Add"/>
+								<TextBlock Text="Add Class"/>
+							</StackPanel>
+						</Button.Content>
+
+					</Button>
+				</StackPanel>
 			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="Background" Symbol="Contact"/>
+				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Background}"></ListView>
+			</PivotItem>-->
 			<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Items" Symbol="Tag"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Items}"
+						  ItemTemplate="{StaticResource ItemTemplate}"></ListView>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
-					<controls:TabHeader Label="Weapons" Symbol="Tag"/>
+					<controls:TabHeader Label="Weapons &amp; Armor" Symbol="Tag"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Weapons}"
+						  ItemTemplate="{StaticResource WeaponTemplate}"></ListView>
 			</PivotItem>
 			<PivotItem>
 				<PivotItem.Header>
 					<controls:TabHeader Label="Spells" Symbol="Library"/>
 				</PivotItem.Header>
+				<ListView ItemsSource="{Binding Spells}"
+						  ItemTemplate="{StaticResource SpellTemplate}"></ListView>
 			</PivotItem>
 		</Pivot>
 	</Grid>
 </Page>
+
+
+
+
+
+
+

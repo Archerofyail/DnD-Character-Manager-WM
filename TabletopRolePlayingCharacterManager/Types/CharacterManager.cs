@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using TabletopRolePlayingCharacterManager.Models;
 using Windows.Storage;
@@ -13,30 +15,77 @@ namespace TabletopRolePlayingCharacterManager.Types
 	{
 		public static Character5E CurrentCharacter { get; set; }
 
-		private static List<Character5E> characters = new List<Character5E>();
+		private static List<Character5E> _characters = new List<Character5E>();
 
 		public static List<Character5E> Characters
 		{
 			get
 			{
-				if (characters.Count == 0)
-				{  }
-				return characters;
+				if (_characters.Count == 0)
+				{ }
+				return _characters;
 			}
-			private set { characters = value; }
+			private set => _characters = value;
 		}
 
-		public static Dictionary<string, RacialBonus> RacialBonuses { get; set; } = new Dictionary<string, RacialBonus>();
-		public static Dictionary<string, ClassBonus> ClassBonuses { get; set; } = new Dictionary<string, ClassBonus>();
+		public static List<RacialBonus> RacialBonuses { get; set; } = new List<RacialBonus>();
+		public static List<ClassBonus> ClassBonuses { get; set; } = new List<ClassBonus>();
 		public static List<Item> AllItems { get; set; } = new List<Item>();
 		public static List<Spell> AllSpells { get; set; } = new List<Spell>();
 		public static List<Weapon> AllWeapons { get; set; } = new List<Weapon>();
 		public static List<string> AllLanguages { get; set; } = new List<string>();
+		public static List<Skill> AllSkills { get; set; } = new List<Skill>
+				{
+					new Skill("Acrobatics", 1, 1, MainStatType.Dexterity, false),
+					new Skill("Animal Handling", 1, 1, MainStatType.Wisdom, false),
+					new Skill("Arcana", 1, 1, MainStatType.Intelligence, false),
+					new Skill("Athletics", 1 , 1, MainStatType.Strength, false),
+					new Skill("Deception", 1 , 1, MainStatType.Charisma, false),
+					new Skill("History", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Insight", 1 , 1, MainStatType.Wisdom, false),
+					new Skill("Intimidation", 1 , 1, MainStatType.Charisma, false),
+					new Skill("Investigation", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Medicine", 1 , 1, MainStatType.Wisdom, false),
+					new Skill("Nature", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Perception", 1 , 1, MainStatType.Wisdom, false),
+					new Skill("Performance", 1 , 1, MainStatType.Charisma, false),
+					new Skill("Persuasion", 1 , 1, MainStatType.Charisma, false),
+					new Skill("Religion", 1 , 1, MainStatType.Intelligence, false),
+					new Skill("Sleight of Hand", 1 , 1, MainStatType.Dexterity, false),
+					new Skill("Stealth", 1 , 1, MainStatType.Dexterity, false),
+					new Skill("Survival", 1 , 1, MainStatType.Wisdom, false),
+				};
+		private static List<StatIncrease> _statBonuses = new List<StatIncrease>();
+		public static List<StatIncrease> StatBonuses
+		{
+			get
+			{
+				if (_statBonuses.Count == 0)
+				{
+					var statIncType = typeof(StatIncrease);
+					var allStatIncTypes = statIncType.GetTypeInfo()
+						.Assembly.GetTypes()
+						.Where((type) => type.GetTypeInfo().IsClass && type.GetTypeInfo().IsSubclassOf(statIncType));
+					foreach (var statType in allStatIncTypes)
+					{
+
+						_statBonuses.Add((StatIncrease)Activator.CreateInstance(statType));
+
+					}
+				}
+				return _statBonuses;
+			}
+		}
 		private static StorageFolder SaveFolder { get; set; }
 		private static StorageFolder RoamingFolder { get; set; }
 
 		public static EventHandler CharactersLoadedEventHandler;
 
+
+		static CharacterManager()
+		{
+
+		}
 
 		public static async Task SetFolders()
 		{
@@ -72,14 +121,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 						var character = JsonConvert.DeserializeObject<Character5E>(json);
 						character.CalculateAbilityModifiers();
 						character.CalculateSkillBonuses();
-						characters.Add(character);
+						_characters.Add(character);
 					}
 				}
 			}
 			CharactersLoadedEventHandler(typeof(CharacterManager), EventArgs.Empty);
 		}
 
-		internal async static Task SaveCurrentCharacter()
+		internal static async Task SaveCurrentCharacter()
 		{
 			var saveName = CurrentCharacter.id + ".json";
 			var json = JsonConvert.SerializeObject(CurrentCharacter);
@@ -99,17 +148,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 		}
 
-		public async static Task LoadRaces()
+		public static async Task LoadRaces()
 		{
 			var fileName = "Races.json";
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				RacialBonuses = await LoadObjectFromJsonFile<Dictionary<string, RacialBonus>>(file);
+				RacialBonuses.AddRange(await LoadObjectFromJsonFile<List<RacialBonus>>(file) ?? new List<RacialBonus>());
 			}
 		}
 
-		public async static Task SaveRaces()
+		public static async Task SaveRaces()
 		{
 			var fileName = "Races.json";
 			var file = await GetOrCreateStorageFile(fileName);
@@ -119,17 +168,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public async static Task LoadItems()
+		public static async Task LoadItems()
 		{
 			var fileName = "Items.json";
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				AllItems = await LoadObjectFromJsonFile<List<Item>>(file);
+				AllItems.AddRange(await LoadObjectFromJsonFile<List<Item>>(file));
 			}
 		}
 
-		public async static Task SaveItems()
+		public static async Task SaveItems()
 		{
 			var fileName = "Items.json";
 			var file = await GetOrCreateStorageFile(fileName);
@@ -139,17 +188,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public async static Task LoadClasses()
+		public static async Task LoadClasses()
 		{
 			var fileName = "Classes.json";
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				ClassBonuses = await LoadObjectFromJsonFile<Dictionary<string, ClassBonus>>(file);
+				ClassBonuses.AddRange(await LoadObjectFromJsonFile<List<ClassBonus>>(file));
 			}
 		}
 
-		public async static Task SaveClasses()
+		public static async Task SaveClasses()
 		{
 
 			var fileName = "Classes.json";
@@ -160,17 +209,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public async static Task LoadSpells()
+		public static async Task LoadSpells()
 		{
 			var fileName = "Spells.json";
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				AllSpells = await LoadObjectFromJsonFile<List<Spell>>(file);
+				AllSpells.AddRange(await LoadObjectFromJsonFile<List<Spell>>(file));
 			}
 		}
 
-		public async static Task SaveSpells()
+		public static async Task SaveSpells()
 		{
 			var fileName = "Spells.json";
 			var file = await GetOrCreateStorageFile(fileName);
@@ -180,18 +229,18 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public async static Task LoadWeapons()
+		public static async Task LoadWeapons()
 		{
 			var fileName = "Weapons.json";
 
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				AllWeapons = await LoadObjectFromJsonFile<List<Weapon>>(file);
+				AllWeapons.AddRange(await LoadObjectFromJsonFile<List<Weapon>>(file));
 			}
 		}
 
-		public async static Task SaveWeapons()
+		public static async Task SaveWeapons()
 		{
 			var fileName = "Weapons.json";
 
@@ -202,14 +251,14 @@ namespace TabletopRolePlayingCharacterManager.Types
 			}
 		}
 
-		public async static Task LoadLanguagues()
+		public static async Task LoadLanguagues()
 		{
 			var fileName = "Languages.json";
 
 			var file = await GetOrCreateStorageFile(fileName);
 			if (file != null)
 			{
-				AllLanguages = await LoadObjectFromJsonFile<List<string>>(file);
+				AllLanguages.AddRange(await LoadObjectFromJsonFile<List<string>>(file));
 				if (AllLanguages.Count == 0)
 				{
 					AllLanguages.Add("Common");
@@ -228,7 +277,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await LoadItems();
 			await LoadWeapons();
 			await LoadSpells();
-
+			AppendToLists();
 		}
 
 		public static async void SaveAll()
@@ -240,7 +289,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await SaveSpells();
 		}
 
-		public async static Task<StorageFile> GetOrCreateStorageFile(string fileName)
+		public static async Task<StorageFile> GetOrCreateStorageFile(string fileName)
 		{
 			StorageFile file;
 			try
@@ -271,21 +320,118 @@ namespace TabletopRolePlayingCharacterManager.Types
 			await FileIO.WriteTextAsync(file, json);
 		}
 
-		private async static Task<T> LoadObjectFromJsonFile<T>(StorageFile file)
+		private static async Task<T> LoadObjectFromJsonFile<T>(StorageFile file) where T : class, new()
 		{
 			T temp;
 			var json = await FileIO.ReadTextAsync(file);
 			temp = JsonConvert.DeserializeObject<T>(json);
-			return temp;
+			return temp ?? new T();
 		}
 
-		public static
-			Character5E GetNewChar()
+		public static Character5E GetNewChar()
 		{
 			var character = new Character5E(Characters.Count, true);
 			Characters.Add(character);
 			CurrentCharacter = character;
 			return character;
+		}
+
+		public static StatIncrease GetStatIncrease(string name)
+		{
+			StatIncrease statInc;
+
+			var statIncType = StatBonuses.Find((increase => increase.BonusName == name)).GetType();
+			statInc = (StatIncrease)Activator.CreateInstance(statIncType);
+
+			return statInc;
+		}
+
+		public static void AppendToLists()
+		{
+			RacialBonuses.Add(new RacialBonus
+			{
+				Race = "Dwarf",
+				StatBonuses = new List<List<AbilityScoreBonusModel>>
+				{
+					new List<AbilityScoreBonusModel>
+					{
+						new AbilityScoreBonusModel{Bonus = 2, Stat = MainStatType.Constitution}
+					}
+				},
+
+				Proficiencies = new List<List<Proficiency>>
+				{
+					new List<Proficiency>
+					{
+						new Proficiency(ProficiencyType.Weapon, "Battleaxe")
+					},
+					new List<Proficiency> {new Proficiency(ProficiencyType.Weapon, "Warhammer") },
+					new List<Proficiency> {new Proficiency(ProficiencyType.Weapon, "Throwing Hammer")},
+					new List<Proficiency> {new Proficiency(ProficiencyType.Weapon, "Handaxe")},
+					new List<Proficiency> {new Proficiency(ProficiencyType.Tool, "Smith's Tools"), new Proficiency(ProficiencyType.Tool, "Brewer's Supplies"), new Proficiency(ProficiencyType.Tool, "Mason's Tools") },
+					new List<Proficiency> {new Proficiency(ProficiencyType.Language, "Dwarvish")},
+					new List<Proficiency> {new Proficiency(ProficiencyType.Language, "Common")}
+				},
+				Traits = new List<List<Trait>>
+				{
+					new List<Trait>
+					{
+						new Trait
+						{
+							Description = "Darkvision - You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."
+						}
+					},
+					new List<Trait>
+					{
+						new Trait{ Description = "Dwarven Resilience - You have advantage on saving throws against poison, and you have resistance against poison damage (explained in chapter 9)."}
+					},
+					new List<Trait>
+					{
+						new Trait {Description = "Stonecunning. Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."}
+					}
+				}
+			});
+			RacialBonuses.Add(new RacialBonus
+			{
+				Race = "Hill Dwarf",
+				ParentRace = "Dwarf",
+				StatBonuses = new List<List<AbilityScoreBonusModel>>
+				{
+					new List<AbilityScoreBonusModel>
+					{
+						new AbilityScoreBonusModel{Bonus = 1, Stat = MainStatType.Wisdom}
+					}
+				},
+				Traits = new List<List<Trait>>()
+				{
+					new List<Trait>{new Trait { Description = "Dwarven Toughness. Your hit point maximum increases by 1, and it increases by 1 every time you gain a level." } }
+				}
+			});
+
+			RacialBonuses.Add(new RacialBonus
+			{
+				Race = "Mountain Dwarf",
+				ParentRace = "Dwarf",
+				StatBonuses = new List<List<AbilityScoreBonusModel>>
+				{
+					new List<AbilityScoreBonusModel>
+					{
+						new AbilityScoreBonusModel{Bonus = 2, Stat = MainStatType.Strength}
+					}
+				},
+				Proficiencies = new List<List<Proficiency>>
+				{
+					new List<Proficiency>()
+					{
+						new Proficiency(ProficiencyType.Armor, "Light Armor"),
+
+					},
+					new List<Proficiency>()
+					{
+						new Proficiency(ProficiencyType.Armor, "Medium Armor")
+					}
+				}
+			});
 		}
 
 	}

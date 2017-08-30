@@ -105,37 +105,53 @@
     <Compile Include="Controls\TabHeader.xaml.cs">
       <DependentUpon>TabHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToSelectionMode.cs" />
+    <Compile Include="Converters\CountToVisibilityConverter.cs" />
+    <Compile Include="Converters\SelectedIndexToVisibility.cs" />
     <Compile Include="EnumsAndStructs.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AbilityScoreBonusModel.cs" />
     <Compile Include="Models\Character5E.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\ArmorClassBonus.cs" />
+    <Compile Include="Models\Background.cs" />
     <Compile Include="Types\CharacterManager.cs" />
-    <Compile Include="Types\ClassBonus.cs" />
-    <Compile Include="Types\Damage.cs" />
-    <Compile Include="Types\Item.cs" />
+    <Compile Include="Models\ClassBonus.cs" />
+    <Compile Include="Models\Damage.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Types\ItemPair.cs" />
-    <Compile Include="Types\Proficiency.cs" />
-    <Compile Include="Types\RacialBonus.cs" />
-    <Compile Include="Types\Skill.cs" />
-    <Compile Include="Types\Spell.cs" />
-    <Compile Include="Types\SpellEffect.cs" />
-    <Compile Include="Types\Subclass.cs" />
-    <Compile Include="Types\Trait.cs" />
-    <Compile Include="Types\Weapon.cs" />
-    <Compile Include="ViewModel\CharacterSheetViewModel.cs" />
-    <Compile Include="ViewModel\CharacterViewModel.cs" />
-    <Compile Include="ViewModel\ClassViewModel.cs" />
-    <Compile Include="ViewModel\CompendiumViewModel.cs" />
-    <Compile Include="ViewModel\ItemViewModel.cs" />
-    <Compile Include="ViewModel\MainPageViewModel.cs" />
-    <Compile Include="ViewModel\RaceViewModel.cs" />
-    <Compile Include="ViewModel\SkillViewModel.cs" />
-    <Compile Include="ViewModel\SpellViewModel.cs" />
-    <Compile Include="ViewModel\TraitViewModel.cs" />
-    <Compile Include="ViewModel\WeaponViewModel.cs" />
+    <Compile Include="Models\Proficiency.cs" />
+    <Compile Include="Models\RacialBonus.cs" />
+    <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\Spell.cs" />
+    <Compile Include="Models\SpellEffect.cs" />
+    <Compile Include="Models\StatIncrease.cs" />
+    <Compile Include="Models\Subclass.cs" />
+    <Compile Include="Models\Trait.cs" />
+    <Compile Include="Models\Weapon.cs" />
+    <Compile Include="ViewModels\AbilityScoreBonusViewModel.cs" />
+    <Compile Include="ViewModels\AddNewCharacterViewModel.cs" />
+    <Compile Include="ViewModels\BackgroundViewModel.cs" />
+    <Compile Include="ViewModels\CharacterSheetViewModel.cs" />
+    <Compile Include="ViewModels\CharacterViewModel.cs" />
+    <Compile Include="ViewModels\ClassViewModel.cs" />
+    <Compile Include="ViewModels\CompendiumViewModel.cs" />
+    <Compile Include="ViewModels\GenericItemViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\PrimitiveListViewModel.cs" />
+    <Compile Include="ViewModels\ProficiencyChoiceViewModel.cs" />
+    <Compile Include="ViewModels\ProficiencyViewModel.cs" />
+    <Compile Include="ViewModels\RaceViewModel.cs" />
+    <Compile Include="ViewModels\SkillViewModel.cs" />
+    <Compile Include="ViewModels\SpellViewModel.cs" />
+    <Compile Include="ViewModels\ChoiceViewModel.cs" />
+    <Compile Include="ViewModels\SubclassViewModel.cs" />
+    <Compile Include="ViewModels\TraitViewModel.cs" />
+    <Compile Include="ViewModels\WeaponViewModel.cs" />
     <Compile Include="Views\AddNewCharacter.xaml.cs">
       <DependentUpon>AddNewCharacter.xaml</DependentUpon>
     </Compile>
@@ -174,7 +190,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Assets\Dictionary1.xaml">
+    <Page Include="Assets\ColorDict.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Assets\TemplateDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
