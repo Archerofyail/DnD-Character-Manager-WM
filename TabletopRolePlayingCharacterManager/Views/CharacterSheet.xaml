@@ -734,7 +734,8 @@
 										<CheckBox IsChecked="{Binding NSpellHasV}"
 													  Content="V" MinWidth="40"/>
 										<CheckBox IsChecked="{Binding NSpellHasS}"
-													  Content="V" MinWidth="44"/>
+													  Content="S" MinWidth="44"
+												  Margin="4, 0, 0, 0"/>
 										<TextBox Text="{Binding NSpellMat}"
 													 PlaceholderText="Material"
 													 MinWidth="120"/>

@@ -61,8 +61,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 			set
 			{
-				MainStatType result;
-				if (Enum.TryParse(value, out result))
+				if (Enum.TryParse(value, out MainStatType result))
 				{
 					skill.MainStat = result;
 

@@ -22,11 +22,11 @@ namespace TabletopRolePlayingCharacterManager.Models
 		//Override Bonus with bonus if it's set to a value
 		public int RollDamage()
 		{
-			int finalRoll = 0;
+			var finalRoll = 0;
 			foreach (var die in Dice)
 			{
 				var dieSize = int.Parse(die.Key.ToString().Substring(1));
-				for (int i = 0; i < die.Value; i++)
+				for (var i = 0; i < die.Value; i++)
 				{
 					finalRoll += Utility.Rand.Next(1, dieSize + 1);
 				}
@@ -44,7 +44,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 			{
 				foreach (var die in Dice)
 				{
-					text += die.Value + "d" + die.Key.ToString();
+					text += die.Value + "d" + die.Key.ToString().Substring(1);
 				}
 			}
 			return text;

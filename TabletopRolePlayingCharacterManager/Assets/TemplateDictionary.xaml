@@ -44,10 +44,10 @@
 	<DataTemplate x:Key="Weapon">
 		<StackPanel Margin="4">
 			<StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-				<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
+				<TextBox Text="{Binding Name, Mode=TwoWay}"
 							 Margin="0,0, 4, 0"
 						 MinWidth="96"/>
-				<TextBox Text="{Binding Path=Damage, Mode=TwoWay}"
+				<TextBox Text="{Binding Damage, Mode=TwoWay}"
 							 Margin="0, 0, 4, 0"
 						 PlaceholderText="1d6, 1d8, etc."/>
 				<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
@@ -93,7 +93,7 @@
 			<StackPanel Margin="4, 0">
 				<StackPanel Orientation="Horizontal">
 					<CheckBox Content="V"
-							  IsChecked="{Binding HasVerbalComponent}"
+							  IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
 							  MinWidth="40"/>
 					<CheckBox Content="S"
 							  IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"

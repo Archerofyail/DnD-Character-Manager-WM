@@ -39,17 +39,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
 				Debug.WriteLine("Matches: " + matches.Value);
-				for (int i = 0; i < matches.Groups.Count; i++)
+				for (var i = 0; i < matches.Groups.Count; i++)
 				{
 					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
 				}
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
-					DieType dieType = DieType.D4;
-					int numDice;
-					if (int.TryParse(matches.Groups[1].Value, out numDice))
+					var dieType = DieType.D4;
+					if (int.TryParse(matches.Groups[1].Value, out int numDice))
 					{
-						if (Enum.TryParse(matches.Groups[2].Value, out dieType))
+						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
 						{
 							weapon.Damage.Dice.Clear();
 							weapon.Damage.Dice.Add(dieType, numDice);
@@ -83,8 +82,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => weapon.AttackBonus.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					weapon.AttackBonus = result;
 					RaisePropertyChanged();

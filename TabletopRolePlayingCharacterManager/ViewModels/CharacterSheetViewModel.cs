@@ -116,8 +116,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.Level.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.Level = result;
 				}
@@ -130,8 +129,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.Experience.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.Experience = result;
 				}
@@ -148,8 +146,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.ArmorClass.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.ArmorClass = result;
 				}
@@ -163,9 +160,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.Speed.ToString();
 			set
 			{
-				int result;
 
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					if (result % 5 == 0)
 					{
@@ -180,8 +176,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.CurrHP.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.CurrHP = result;
 				}
@@ -193,8 +188,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.MaxHP.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.MaxHP = result;
 				}
@@ -205,8 +199,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.TempHP.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.TempHP = result;
 				}
@@ -232,8 +225,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.Age.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.Age = result;
 				}
@@ -302,8 +294,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.AbilityScores[MainStatType.Strength].ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.AbilityScores[MainStatType.Strength] = result;
 				}
@@ -321,8 +312,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.AbilityScores[MainStatType.Dexterity] = result;
 				}
@@ -340,8 +330,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.AbilityScores[MainStatType.Constitution] = result;
 				}
@@ -359,8 +348,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.AbilityScores[MainStatType.Intelligence] = result;
 				}
@@ -378,8 +366,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.AbilityScores[MainStatType.Wisdom] = result;
 				}
@@ -397,8 +384,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.AbilityScores[MainStatType.Charisma] = result;
 				}
@@ -763,11 +749,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				Debug.WriteLine("Matches: " + matches.Value + ". groups count is " + matches.Groups.Count);
 				if (matches.Success && matches.Groups.Count >= 3)
 				{
-					DieType dieType;
-					int numDice;
-					if (int.TryParse(matches.Groups[1].Value, out numDice))
+					if (int.TryParse(matches.Groups[1].Value, out int numDice))
 					{
-						if (Enum.TryParse(matches.Groups[2].Value, out dieType))
+						if (Enum.TryParse(matches.Groups[2].Value, out DieType dieType))
 						{
 							newWepDamage = new Damage();
 							newWepDamage.Dice.Clear();
@@ -829,8 +813,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => newSpellLevel.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					newSpellLevel = result;
 					RaisePropertyChanged();
@@ -1027,7 +1010,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		async void AddNewSpellExecute()
 		{
-			Spell newSpell = new Spell
+			var newSpell = new Spell
 			{
 				Name = newSpellName,
 				Description = newSpellDesc,

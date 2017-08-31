@@ -29,13 +29,13 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public ClassBonus()
 		{
-			for (int i = 0; i < 20; i++)
+			for (var i = 0; i < 20; i++)
 			{
 				SpellSlotsByLevel.Add(new List<int>());
 				AbilityScoreImprovements.Add((i + 1) % 4 == 0 ? 4 : 0);
 				SpellsKnownByLevel.Add(0);
 				CantripsKnownByLevel.Add(0);
-				for (int j = 0; j < 9; j++)
+				for (var j = 0; j < 9; j++)
 				{
 					SpellSlotsByLevel[i].Add(0);
 				}

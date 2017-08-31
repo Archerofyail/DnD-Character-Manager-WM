@@ -8,7 +8,7 @@ namespace TabletopRolePlayingCharacterManager.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			int count = 0;
+			var count = 0;
 			if (value is int)
 			{
 				count = (int) value;

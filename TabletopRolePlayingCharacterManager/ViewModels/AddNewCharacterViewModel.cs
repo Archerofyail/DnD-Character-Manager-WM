@@ -39,8 +39,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.Age.ToString();
 			set
 			{
-				int result = 0;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					character.Age = result;
 				}

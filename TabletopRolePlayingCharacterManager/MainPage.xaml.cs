@@ -1,21 +1,24 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
+using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 using TabletopRolePlayingCharacterManager.Views;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace TabletopRolePlayingCharacterManager
 {
-	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
-	/// </summary>
-	public sealed partial class MainPage
+
+	public sealed partial class MainPage : Page
 	{
+
+		public ListView CharacterList { get; set; }
+
 		public MainPage()
 		{
 			InitializeComponent();
@@ -32,20 +35,31 @@ namespace TabletopRolePlayingCharacterManager
 			}
 			LoadCompendium();
 			NavigationCacheMode = NavigationCacheMode.Required;
+			CharacterSection.Loaded += (sender, args) =>
+			{
+				var charList = CharacterSection.FindDescendantByName("CharacterList") as ListView;
+				if (charList != null)
+				{
+					CharacterList = charList;
+				}
+			};
 			//DataContext = new MainPageViewModel();
 			//JsonLoader.resourceLoader = ResourceLoader.GetForViewIndependentUse();
 
 
 		}
 
+		
 
 		async void LoadCompendium()
 		{
+			
 			await CharacterManager.LoadCompendium();
 		}
 
 		private void SettingsClicked(object sender, RoutedEventArgs e)
 		{
+			
 			Frame.Navigate(typeof(SettingsPage));
 		}
 
@@ -62,6 +76,12 @@ namespace TabletopRolePlayingCharacterManager
 		private void CompendiumTapped(object sender, TappedRoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(Compendium));
+		}
+
+		private void CharacterList_OnItemClick(object sender, ItemClickEventArgs e)
+		{
+			CharacterManager.CurrentCharacter = CharacterManager.Characters[CharacterList.Items.IndexOf(e.ClickedItem)];
+			Frame.Navigate(typeof(CharacterSheet));
 		}
 	}
 }

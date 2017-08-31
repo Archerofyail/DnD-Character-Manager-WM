@@ -59,7 +59,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				ObservableCollection<string> types = new ObservableCollection<string>();
+				var types = new ObservableCollection<string>();
 				foreach (var dieType in Enum.GetValues(typeof(DieType)))
 				{
 					types.Add(dieType.ToString());
@@ -116,7 +116,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				ObservableCollection<string> allskills = new ObservableCollection<string>();
+				var allskills = new ObservableCollection<string>();
 				foreach (var skill in CharacterManager.AllSkills)
 				{
 					allskills.Add(skill.Name);
@@ -201,7 +201,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				ObservableCollection<Proficiency> profs = 
+				var profs = 
 					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Weapon));
 				return profs;
 			}
@@ -211,7 +211,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				ObservableCollection<Proficiency> profs =
+				var profs =
 					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Armor));
 				return profs;
 			}
@@ -221,7 +221,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				ObservableCollection<Proficiency> profs =
+				var profs =
 					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Language));
 				return profs;
 			}
@@ -231,7 +231,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			get
 			{
-				ObservableCollection<Proficiency> profs =
+				var profs =
 					new ObservableCollection<Proficiency>(Proficiencies.Where((x) => x.Type == ProficiencyType.Tool));
 				return profs;
 			}

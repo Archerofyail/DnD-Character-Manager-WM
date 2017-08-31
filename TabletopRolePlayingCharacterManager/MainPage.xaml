@@ -19,6 +19,7 @@
 						<StackPanel>
 							<TextBlock Text="{Binding Path=Name}" />
 							<TextBlock Text="{Binding Path=ClassAndLevel}" />
+							<TextBlock Text="{Binding Path=Campaign}"/>
 						</StackPanel>
 					</DataTemplate>
 				</ResourceDictionary>
@@ -61,16 +62,20 @@
 
 		<Hub Header="DnD Character Sheet"
 			 Grid.RowSpan="3"
-			 Grid.ColumnSpan="4">
-			<HubSection Header="Characters">
+			 Grid.ColumnSpan="4"
+			 Name="MainHub">
+			<HubSection Header="Characters"
+						Name="CharacterSection">
 				<DataTemplate>
 					<Grid>
 
-						<ListView Name="CharacterList"  
-							  ItemTemplate="{StaticResource Character}"
+						<ListView ItemTemplate="{StaticResource Character}"
 								  ItemsSource="{Binding Characters}"
 								  SelectedIndex="{Binding CharListIndex, Mode=TwoWay}"
-								  SelectionChanged="CharacterList_OnSelectionChanged"/>
+								  IsItemClickEnabled="True"
+								  SelectionMode="None"
+								  ItemClick="CharacterList_OnItemClick"
+								  Name="CharacterList"/>
 						<TextBlock Text="{Binding Path=CharListEmptyText}"
 								   Visibility="{Binding NoCharacters}"/>
 					</Grid>

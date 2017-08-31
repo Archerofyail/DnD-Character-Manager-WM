@@ -160,8 +160,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => racialBonuses.SpeedBonus.ToString();
 			set
 			{
-				int result;
-				if (int.TryParse(value, out result))
+				if (int.TryParse(value, out int result))
 				{
 					if (result % 5 == 0)
 					{

@@ -11,7 +11,7 @@ namespace TabletopRolePlayingCharacterManager.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			SelectionMode mode = SelectionMode.Single;
+			var mode = SelectionMode.Single;
 			if (value is bool)
 			{
 				mode = (bool)value ? SelectionMode.Multiple : SelectionMode.Single;
@@ -22,7 +22,7 @@ namespace TabletopRolePlayingCharacterManager.Converters
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)
 		{
-			bool result = false;
+			var result = false;
 			if (value is SelectionMode)
 			{
 				result = (SelectionMode)value == SelectionMode.Multiple;

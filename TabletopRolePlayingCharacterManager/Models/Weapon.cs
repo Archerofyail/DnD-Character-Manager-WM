@@ -4,7 +4,7 @@
 	{
 
 		public WeaponRangeType WeaponRangeType { get; set; }
-		public Damage Damage { get; set; } = new Damage();
+		public Damage Damage { get; set; }
 		public MainStatType MainStat { get; set; } = MainStatType.Strength;
 		public int AttackBonus { get; set; }
 

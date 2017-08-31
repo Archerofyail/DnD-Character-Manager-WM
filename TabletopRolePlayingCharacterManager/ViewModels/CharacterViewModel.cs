@@ -13,5 +13,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public string Name => character.Name;
 
 		public string ClassAndLevel => "Level " + character.Level + " " + character.Class;
+		public string Campaign => "Campaign: " + character.Campaign;
 	}
 }

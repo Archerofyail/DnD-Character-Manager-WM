@@ -136,7 +136,7 @@ namespace TabletopRolePlayingCharacterManager
 
 		public static int CalculateProficiencyBonus(int level)
 		{
-			int bonus = 2;
+			var bonus = 2;
 			if (level <=4)
 			{
 				bonus = 2;

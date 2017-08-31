@@ -103,7 +103,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void AddNewRaceExec()
 		{
-			RacialBonus newRace = new RacialBonus();
+			var newRace = new RacialBonus();
 			CharacterManager.RacialBonuses.Add(newRace);
 			Races.Add(new RaceViewModel(newRace));
 			RaisePropertyChanged("Races");
@@ -113,7 +113,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void AddNewClassExec()
 		{
-			ClassBonus newClass = new ClassBonus();
+			var newClass = new ClassBonus();
 			CharacterManager.ClassBonuses.Add(newClass);
 			Classes.Add(new ClassViewModel(newClass));
 			RaisePropertyChanged("Classes");
