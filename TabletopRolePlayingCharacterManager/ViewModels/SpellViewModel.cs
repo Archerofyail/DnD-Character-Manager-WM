@@ -27,7 +27,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedLevel
 		{
-			get { return selectedLevel; }
+			get { return spell.Level; }
 			set
 			{
 				if (value < _levels.Count)

@@ -38,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 					foreach (var language in character.Languages)
 					{
-						languages.Add(new ProficiencyViewModel(language, languages));
+						languages.Add(new ProficiencyViewModel(language, RemoveProficiencyEx));
 					}
 
 				}
@@ -630,7 +630,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.WeaponProficiencies)
 					{
-						weaponProficiencies.Add(new ProficiencyViewModel(proficiency, weaponProficiencies));
+						weaponProficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
 					}
 				}
 				return weaponProficiencies;
@@ -647,7 +647,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.ArmorProficiencies)
 					{
-						armorProficiencies.Add(new ProficiencyViewModel(proficiency, armorProficiencies));
+						armorProficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
 					}
 
 				}
@@ -664,7 +664,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.Proficiencies)
 					{
-						proficiencies.Add(new ProficiencyViewModel(proficiency, proficiencies));
+						proficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
 					}
 				}
 				return proficiencies;
@@ -944,6 +944,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#endregion
 
+		#region Proficiency
+
+		public ObservableCollection<ProficiencyType> ProficiencyTypes => new ObservableCollection<ProficiencyType>
+		{ ProficiencyType.Weapon, ProficiencyType.Armor, ProficiencyType.Language, ProficiencyType.Tool, ProficiencyType.Vehicle };
+
+		private int newProficiencyTypeIndex = -1;
+		public int NewProficiencyTypeIndex
+		{
+			get => newProficiencyTypeIndex;
+			set
+			{
+				newProficiencyTypeIndex = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		#endregion
+
 		#endregion
 
 
@@ -959,7 +977,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ICommand AddNewCharTrait => new RelayCommand(AddNewCharTraitExecute);
 		public ICommand AddNewLanguage => new RelayCommand<string>(AddNewLanguageExecute);
 		public ICommand DeleteCharacter => new RelayCommand(DeleteCharacterExec);
-		public ICommand AddNewProficiency => new RelayCommand(AddNewProficiencyExec);
+		public ICommand AddNewProficiency => new RelayCommand<string>(AddNewProficiencyExec);
 		private RelayCommand<WeaponViewModel> removeWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
 		#region CommandFunctions
 
@@ -1075,19 +1093,71 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void AddNewLanguageExecute(string newLang)
 		{
 			var newProf = new Proficiency(ProficiencyType.Language, newLang);
-			Languages.Add(new ProficiencyViewModel(newProf, languages));
+			Languages.Add(new ProficiencyViewModel(newProf, RemoveProficiencyEx));
 			character.Languages.Add(newProf);
 			RaisePropertyChanged("Languages");
 		}
 
-		void AddNewProficiencyExec()
+		void AddNewProficiencyExec(string name)
 		{
+			var prof = new Proficiency(ProficiencyTypes[newProficiencyTypeIndex], name);
+			switch (ProficiencyTypes[newProficiencyTypeIndex])
+			{
+				case ProficiencyType.Weapon:
+				{
+					if (WeaponProficiencies.Count > 0)
+					{
+						WeaponProficiencies.Add(new ProficiencyViewModel(prof, RemoveProficiencyEx));
+					}
+					character.WeaponProficiencies.Add(prof);
+				}
+				break;
+				case ProficiencyType.Armor:
+				{
+					if (ArmorProficiencies.Count > 0)
+					{
+						WeaponProficiencies.Add(new ProficiencyViewModel(prof, RemoveProficiencyEx));
+					}
+					character.ArmorProficiencies.Add(prof);
+				}
+				break;
+				default:
+				{
+					if (Proficiencies.Count > 0)
+					{
+						Proficiencies.Add(new ProficiencyViewModel(prof, RemoveProficiencyEx));
+					}
+					character.Proficiencies.Add(prof);
+				}
+				break;
 
+			}
+			NewProficiencyTypeIndex = -1;
 		}
 
 		void RemoveProficiencyEx(ProficiencyViewModel prof)
 		{
-			Proficiencies.Remove(prof);
+			switch (prof.Type)
+			{
+				case ProficiencyType.Weapon:
+				{
+					WeaponProficiencies.Remove(prof);
+					character.WeaponProficiencies.Remove(character.WeaponProficiencies.First(x => x.Name == prof.Name));
+				}
+				break;
+				case ProficiencyType.Armor:
+				{
+					ArmorProficiencies.Remove(prof);
+					character.ArmorProficiencies.Remove(character.ArmorProficiencies.First(x => x.Name == prof.Name));
+				}
+				break;
+				default:
+				{
+					Proficiencies.Remove(prof);
+					character.Proficiencies.Remove(character.Proficiencies.First(x => x.Name == prof.Name));
+				}
+				break;
+			}
 		}
 		#endregion
 		#endregion

@@ -14,13 +14,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public Weapon weapon { get; }
 		public static ObservableCollection<MainStatType> MainStatTypes = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
 		public static  ObservableCollection<WeaponRangeType> WeaponRanges = new ObservableCollection<WeaponRangeType>() {WeaponRangeType.Melee, WeaponRangeType.Ranged};
-		private RelayCommand<WeaponViewModel> Remove;
+		private RelayCommand<WeaponViewModel> remove;
 		public WeaponViewModel(Weapon weap, RelayCommand<WeaponViewModel> removeCommand)
 		{
 			weapon = weap;
 			selectedMainStat = MainStatTypes.IndexOf(weap.MainStat);
 			SelectedWeaponType = WeaponRanges.IndexOf(weap.WeaponRangeType);
-			Remove = removeCommand;
+			remove = removeCommand;
 		}
 		public string Name
 		{
@@ -105,6 +105,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public ICommand RemoveWeapon => Remove;
+		public ICommand RemoveWeapon => remove;
 	}
 }

@@ -16,12 +16,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		where T2 : GenericItemViewModel, new()
 		where T : class, new()
 	{
-		protected List<T> items = new List<T>();
+		protected List<T> Items = new List<T>();
 		private int totalBonus = 1;
 
 		public ChoiceViewModel(List<T> items, int totalBonus, bool canSelectMultiple)
 		{
-			this.items = items;
+			this.Items = items;
 			this.totalBonus = totalBonus;
 			CanSelectMultiple = canSelectMultiple;
 		}
@@ -30,7 +30,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			if (items != null)
 			{
-				this.items = items;
+				this.Items = items;
 			}
 
 		}
@@ -79,7 +79,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				if (choices.Count == 0)
 				{
-					foreach (var item in items)
+					foreach (var item in Items)
 					{
 						var itm = new T2
 						{
@@ -96,13 +96,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region  Commands
 
-		public T SelectedItem => items[selectedIndex];
+		public T SelectedItem => Items[selectedIndex];
 
 		public ICommand AddItem => new RelayCommand(AddItemExec);
 
 		protected virtual void AddItemExec()
 		{
-			items.Add(new T());
+			Items.Add(new T());
 		}
 
 		/// <summary>
@@ -111,7 +111,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		/// <param name="modItem"></param>
 		protected void AddModifiedItem(T modItem)
 		{
-			items.Add(modItem);
+			Items.Add(modItem);
 			choices.Add(new T2 { Item = modItem });
 		}
 

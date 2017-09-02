@@ -19,16 +19,19 @@ namespace TabletopRolePlayingCharacterManager.Views
 		public void GeneralTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
 		{
 			ClassAndRaceInfo.Visibility = ClassAndRaceInfo.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			GeneralExpandIcon.Text = ClassAndRaceInfo.Visibility == Visibility.Visible ? "-" : "+";
 		}
 
 		private void AbilityScoresHeaderTapped(object sender, TappedRoutedEventArgs e)
 		{
 			AbilityScores.Visibility = AbilityScores.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			AbilityScoresExpandIcon.Text = AbilityScores.Visibility == Visibility.Visible ? "-" : "+";
 		}
 
 		private void PhysicalDescriptionHeaderTapped(object sender, TappedRoutedEventArgs e)
 		{
 			PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			PhysicalDescExpandIcon.Text = PhysicalDescription.Visibility == Visibility.Visible ? "-" : "+";
 		}
 
 		private void DeleteCharacterClick(object sender, RoutedEventArgs e)

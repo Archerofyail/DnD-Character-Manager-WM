@@ -19,7 +19,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					prof.Type = type;
 					
 				}
-				items.AddRange(profs);
+				Items.AddRange(profs);
 			
 			}
 		}

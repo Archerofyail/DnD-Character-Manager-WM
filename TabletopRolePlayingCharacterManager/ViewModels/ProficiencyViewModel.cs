@@ -11,15 +11,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		//private Proficiency proficiency;
 		public override object Item { get; set; } = new Proficiency();
 
-		//public delegate void removeProfDelegate(ProficiencyViewModel prof);
+		public delegate void RemoveProfDelegate(ProficiencyViewModel prof);
 
-		//private removeProfDelegate removeProficiencyAction;
-		private ObservableCollection<ProficiencyViewModel> List;
-		public ProficiencyViewModel(Proficiency prof, ObservableCollection<ProficiencyViewModel> list)
+		private RemoveProfDelegate removeProficiencyAction;
+		private ObservableCollection<ProficiencyViewModel> list;
+		public ProficiencyType Type => (Item as Proficiency).Type;
+		public ProficiencyViewModel(Proficiency prof, RemoveProfDelegate removeAction)
 		{
 			Item = prof;
-			//removeProficiencyAction = removeAction;
-			List = list;
+			removeProficiencyAction = removeAction;
+
 		}
 
 		public ProficiencyViewModel()
@@ -41,7 +42,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void RemoveProficiencyEx()
 		{
-			List.Remove(this);
+			removeProficiencyAction?.Invoke(this);
 		}
 	}
 }

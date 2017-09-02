@@ -107,34 +107,51 @@
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="Spell">
-		<StackPanel Orientation="Horizontal"
-					Margin="0, 4"
-					BorderThickness="1"
-					BorderBrush="#FF666666">
-			<StackPanel>
-				<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
-						 MinWidth="96"
-						 Margin="0, 0, 0, 4" />
-				<ComboBox ItemsSource="{Binding Path=Levels}"
-						  SelectedIndex="{Binding SelectedLevel}"
-						  MinWidth="96" />
-			</StackPanel>
-			<StackPanel Margin="4, 0">
-				<StackPanel Orientation="Horizontal">
-					<CheckBox Content="V"
-							  IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
-							  MinWidth="40" />
-					<CheckBox Content="S"
-							  IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
-							  MinWidth="40" />
+		<StackPanel>
+			<StackPanel Orientation="Horizontal"
+						Margin="0, 4"
+						BorderThickness="1"
+						BorderBrush="#FF666666">
+				<StackPanel Margin="4">
+					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
+							 MinWidth="120"
+							 Width="120"
+							 Margin="0, 0, 0, 4" />
+					<ComboBox ItemsSource="{Binding Path=Levels}"
+							  SelectedIndex="{Binding SelectedLevel, Mode=TwoWay}"
+							  MinWidth="120" />
 				</StackPanel>
-				<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
-						 PlaceholderText="Material" />
+				<StackPanel Margin="4">
+					<StackPanel Orientation="Horizontal">
+						<CheckBox Content="V"
+								  IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
+								  MinWidth="40"
+								  Margin="4, 0, 0, 0" />
+						<CheckBox Content="S"
+								  IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
+								  MinWidth="40" />
+					</StackPanel>
+					<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
+							 PlaceholderText="Material"
+							 MinWidth="120" />
+				</StackPanel>
+
 			</StackPanel>
 			<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
 					 TextWrapping="Wrap"
 					 MinWidth="120"
+					 MinHeight="96"
 					 AcceptsReturn="True" />
+			<CheckBox IsChecked="{Binding IsAttack}"
+					  Content="Attack"
+					  Name="IsAttackCheckBox" />
+			<StackPanel Visibility="{Binding IsChecked, ElementName=IsAttackCheckBox}">
+				<TextBox InputScope="Number"
+						 Text="{Binding Range, Mode=TwoWay}"
+						 PlaceholderText="Range" />
+				<TextBox Text="{Binding Damage}"
+						 PlaceholderText="Damage"/>
+			</StackPanel>
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="CharacterTrait">
@@ -172,7 +189,11 @@
 					</core:EventTriggerBehavior>
 				</interactivity:Interaction.Behaviors>
 			</TextBox>
-			<Button Content="Save" Command="{Binding StopEditing}"></Button>
+			<Button Content="Done"
+					Command="{Binding StopEditing}"
+					Visibility="{Binding IsEditing}"
+					Margin="4"
+					HorizontalAlignment="Stretch"></Button>
 		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>
