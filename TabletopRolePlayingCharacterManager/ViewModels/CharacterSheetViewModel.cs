@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -37,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 					foreach (var language in character.Languages)
 					{
-						languages.Add(new ProficiencyViewModel(language));
+						languages.Add(new ProficiencyViewModel(language, languages));
 					}
 
 				}
@@ -99,7 +100,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SelectedAlignment
 		{
-			get { return selectedAlignment; }
+			get
+			{
+				if (selectedAlignment == -1)
+				{
+					selectedAlignment = _alignments.IndexOf(CharacterManager.CurrentCharacter.Alignment);
+				}
+				return selectedAlignment;
+			}
 			set
 			{
 				if (selectedAlignment < _alignments.Count)
@@ -622,7 +630,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.WeaponProficiencies)
 					{
-						weaponProficiencies.Add(new ProficiencyViewModel(proficiency));
+						weaponProficiencies.Add(new ProficiencyViewModel(proficiency, weaponProficiencies));
 					}
 				}
 				return weaponProficiencies;
@@ -639,7 +647,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.ArmorProficiencies)
 					{
-						armorProficiencies.Add(new ProficiencyViewModel(proficiency));
+						armorProficiencies.Add(new ProficiencyViewModel(proficiency, armorProficiencies));
 					}
 
 				}
@@ -656,7 +664,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var proficiency in character.Proficiencies)
 					{
-						proficiencies.Add(new ProficiencyViewModel(proficiency));
+						proficiencies.Add(new ProficiencyViewModel(proficiency, proficiencies));
 					}
 				}
 				return proficiencies;
@@ -1022,7 +1030,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				await CharacterManager.SaveSpells();
 			}
 			character.Spells.Add(newSpell);
-			Spells.Add(new SpellViewModel(newSpell));
+			if (Spells.Count >= 0)
+			{
+				Spells.Add(new SpellViewModel(newSpell));
+			}
 			RaisePropertyChanged("Spells");
 			await CharacterManager.SaveCurrentCharacter();
 		}
@@ -1064,7 +1075,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void AddNewLanguageExecute(string newLang)
 		{
 			var newProf = new Proficiency(ProficiencyType.Language, newLang);
-			Languages.Add(new ProficiencyViewModel(newProf));
+			Languages.Add(new ProficiencyViewModel(newProf, languages));
 			character.Languages.Add(newProf);
 			RaisePropertyChanged("Languages");
 		}
@@ -1072,6 +1083,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void AddNewProficiencyExec()
 		{
 
+		}
+
+		void RemoveProficiencyEx(ProficiencyViewModel prof)
+		{
+			Proficiencies.Remove(prof);
 		}
 		#endregion
 		#endregion

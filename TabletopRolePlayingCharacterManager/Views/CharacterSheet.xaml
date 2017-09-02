@@ -145,7 +145,7 @@
 
 								<TextBlock Text="Alignment"></TextBlock>
 								<ComboBox ItemsSource="{Binding Alignments}"
-										  SelectedIndex="{Binding SelectedAlignment}"
+										  SelectedIndex="{Binding SelectedAlignment, Mode=TwoWay}"
 										  HorizontalAlignment="Stretch"
 										  PlaceholderText="Alignment" />
 							</StackPanel>
@@ -500,22 +500,20 @@
 										BorderThickness="1"
 										BorderBrush="{ThemeResource AccentColorBrush}"
 										Orientation="Horizontal">
-								<StackPanel>
+								<StackPanel MinWidth="100">
 									<TextBox Text="{Binding Strength, Mode=TwoWay}" />
 									<TextBlock Text="Strength"
 											   VerticalAlignment="Center" />
 								</StackPanel>
-								<StackPanel>
+								<StackPanel HorizontalAlignment="Right"
+											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
-											  MinWidth="28"
-											  Margin="4"
-											  HorizontalAlignment="Right">
+											  MinWidth="20"
+											  Width="20">
 
 									</CheckBox>
 
 									<TextBlock Text="{Binding StrengthMod}"
-											   HorizontalAlignment="Right"
-											   Margin="20, 0, 0, 0"
 											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
@@ -527,22 +525,19 @@
 										BorderThickness="1"
 										BorderBrush="{ThemeResource AccentColorBrush}"
 										Orientation="Horizontal">
-								<StackPanel>
+								<StackPanel MinWidth="100">
 									<TextBox Text="{Binding Dexterity, Mode=TwoWay}" />
 									<TextBlock Text="Dexterity"
 											   VerticalAlignment="Center" />
 								</StackPanel>
-								<StackPanel>
+								<StackPanel HorizontalAlignment="Right"
+											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
-											  MinWidth="28"
-											  Margin="4"
-											  HorizontalAlignment="Right">
+											  MinWidth="28">
 
 									</CheckBox>
 
 									<TextBlock Text="{Binding DexterityMod}"
-											   HorizontalAlignment="Right"
-											   Margin="20, 0, 0, 0"
 											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
@@ -551,22 +546,19 @@
 										BorderThickness="1"
 										BorderBrush="{ThemeResource AccentColorBrush}"
 										Orientation="Horizontal">
-								<StackPanel>
+								<StackPanel MinWidth="100">
 									<TextBox Text="{Binding Constitution, Mode=TwoWay}" />
 									<TextBlock Text="Constitution"
 											   VerticalAlignment="Center" />
 								</StackPanel>
-								<StackPanel>
+								<StackPanel HorizontalAlignment="Right"
+											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
-											  MinWidth="28"
-											  Margin="4"
-											  HorizontalAlignment="Right">
+											  MinWidth="28">
 
 									</CheckBox>
 
 									<TextBlock Text="{Binding ConstitutionMod}"
-											   HorizontalAlignment="Right"
-											   Margin="20, 0, 0, 0"
 											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
@@ -575,22 +567,19 @@
 										BorderThickness="1"
 										BorderBrush="{ThemeResource AccentColorBrush}"
 										Orientation="Horizontal">
-								<StackPanel>
+								<StackPanel MinWidth="100">
 									<TextBox Text="{Binding Intelligence, Mode=TwoWay}" />
 									<TextBlock Text="Intelligence"
 											   VerticalAlignment="Center" />
 								</StackPanel>
-								<StackPanel>
+								<StackPanel HorizontalAlignment="Right"
+											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
-											  MinWidth="28"
-											  Margin="4"
-											  HorizontalAlignment="Right">
+											  MinWidth="28">
 
 									</CheckBox>
 
 									<TextBlock Text="{Binding IntelligenceMod}"
-											   HorizontalAlignment="Right"
-											   Margin="20, 0, 0, 0"
 											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
@@ -599,22 +588,19 @@
 										BorderThickness="1"
 										BorderBrush="{ThemeResource AccentColorBrush}"
 										Orientation="Horizontal">
-								<StackPanel>
+								<StackPanel MinWidth="100">
 									<TextBox Text="{Binding Wisdom, Mode=TwoWay}" />
 									<TextBlock Text="Wisdom"
 											   VerticalAlignment="Center" />
 								</StackPanel>
-								<StackPanel>
+								<StackPanel HorizontalAlignment="Right"
+											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
-											  MinWidth="28"
-											  Margin="4"
-											  HorizontalAlignment="Right">
+											  MinWidth="28">
 
 									</CheckBox>
 
 									<TextBlock Text="{Binding WisdomMod}"
-											   HorizontalAlignment="Right"
-											   Margin="20, 0, 0, 0"
 											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
@@ -624,22 +610,19 @@
 										BorderThickness="1"
 										BorderBrush="{ThemeResource AccentColorBrush}"
 										Orientation="Horizontal">
-								<StackPanel>
+								<StackPanel MinWidth="100">
 									<TextBox Text="{Binding Charisma, Mode=TwoWay}" />
 									<TextBlock Text="Charisma"
 											   VerticalAlignment="Center" />
 								</StackPanel>
-								<StackPanel>
+								<StackPanel HorizontalAlignment="Right"
+											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
-											  MinWidth="28"
-											  Margin="4"
-											  HorizontalAlignment="Right">
+											  MinWidth="28">
 
 									</CheckBox>
 
 									<TextBlock Text="{Binding CharismaMod}"
-											   HorizontalAlignment="Right"
-											   Margin="20, 0, 0, 0"
 											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
@@ -655,11 +638,16 @@
 					<GridView Name="Skills"
 							  ItemTemplate="{StaticResource Skill}"
 							  ItemsSource="{Binding Skills, Mode=TwoWay}"
-							  SelectionMode="None">
+							  SelectionMode="None"
+							  IsItemClickEnabled="False">
 
 					</GridView>
 					<ListView ItemsSource="{Binding CharTraits, Mode=TwoWay}"
-							  ItemTemplate="{StaticResource CharacterTrait}" />
+							  ItemTemplate="{StaticResource CharacterTrait}" 
+							  SelectionMode="None"
+							  ItemClick="ListViewBase_OnItemClick"
+							  Name="TraitList"
+							  IsItemClickEnabled="True"/>
 					<Button Background="Transparent"
 							Name="AddTraitButton">
 						<Button.Content>
@@ -886,15 +874,15 @@
 							 TextWrapping="Wrap"
 							 AcceptsReturn="True" />
 					<TextBlock Text="Religion" />
-					<TextBox Text="{Binding God}"
+					<TextBox Text="{Binding God, Mode=TwoWay}"
 							 PlaceholderText="God(s)" />
 					<TextBlock Text="Relationships/Allies" />
-					<TextBox Text="{Binding Relationships}"
+					<TextBox Text="{Binding Relationships, Mode=TwoWay}"
 							 MinHeight="96"
 							 AcceptsReturn="True"
 							 TextWrapping="Wrap" />
 					<TextBlock Text="Other Notes" />
-					<TextBox Text="{Binding Notes}"
+					<TextBox Text="{Binding Notes, Mode=TwoWay}"
 							 MinHeight="96"
 							 AcceptsReturn="True"
 							 TextWrapping="Wrap" />

@@ -1,4 +1,8 @@
-﻿using TabletopRolePlayingCharacterManager.Models;
+﻿using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Xaml.Input;
+using GalaSoft.MvvmLight.Command;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -14,7 +18,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public TraitViewModel()
 		{
-			
+
 		}
 
 		public bool IsActive
@@ -33,7 +37,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => trait.Description;
 			set
 			{
-				trait.Description = value; 
+				trait.Description = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -48,6 +52,43 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				bonusButtonText = value;
 				RaisePropertyChanged();
 			}
+		}
+
+		private bool isEditing;
+		public bool IsEditing
+		{
+			get => isEditing;
+			set
+			{
+				isEditing = value;
+				RaisePropertyChanged();
+				RaisePropertyChanged("IsNotEditing");
+			}
+		}
+		public bool IsNotEditing => !isEditing;
+
+		public ICommand StartEditing => new RelayCommand(StartEditingEx);
+		public ICommand StopEditing => new RelayCommand(StopEditingEx);
+		public ICommand StopEditingEnter => new RelayCommand<KeyRoutedEventArgs>(StopEditingEnterEx);
+		void StartEditingEx()
+		{
+			IsEditing = true;
+
+		}
+
+		void StopEditingEnterEx(KeyRoutedEventArgs args)
+		{
+			if (args.Key == VirtualKey.Enter)
+			{
+				IsEditing = false;
+				RaisePropertyChanged("Description");
+			}
+		}
+
+		void StopEditingEx()
+		{
+			IsEditing = false;
+			RaisePropertyChanged("Description");
 		}
 
 		void ApplyBonus()

@@ -1,6 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:local="using:TabletopRolePlayingCharacterManager">
+					xmlns:local="using:TabletopRolePlayingCharacterManager"
+					xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+					xmlns:core="using:Microsoft.Xaml.Interactions.Core">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="../Assets/ColorDict.xaml"></ResourceDictionary>
+	</ResourceDictionary.MergedDictionaries>
 	<DataTemplate x:Key="Skill">
 		<StackPanel Orientation="Vertical"
 					Margin="4, 0, 4, 0"
@@ -27,8 +32,25 @@
 	</DataTemplate>
 
 	<DataTemplate x:Key="ProficiencyTemplate">
-		<StackPanel>
-			<TextBlock Text="{Binding Name}" />
+		<StackPanel Orientation="Horizontal"
+					Background="{StaticResource AccentColorBrush}"
+					BorderThickness="1"
+					Margin="0">
+
+			<StackPanel.BorderBrush>
+				<SolidColorBrush Color="{ThemeResource SystemBaseLowColor}" />
+			</StackPanel.BorderBrush>
+			<TextBlock Text="{Binding Name}"
+					   Margin="4"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Center" />
+
+			<Button Command="{Binding RemoveProficiency}"
+					Background="#FF7C7C7C"
+					Margin="4, 0, 0, 0"
+					BorderThickness="1">
+				<SymbolIcon Symbol="Cancel" />
+			</Button>
 		</StackPanel>
 	</DataTemplate>
 
@@ -116,9 +138,42 @@
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="CharacterTrait">
-		<TextBlock Text="{Binding Description, Mode=TwoWay}"
-				   MinHeight="72"
-				   TextWrapping="WrapWholeWords" />
+		<StackPanel>
+			<interactivity:Interaction.Behaviors>
+				<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
+										   EventName="LostFocus">
+					<core:InvokeCommandAction Command="{Binding StopEditing}"></core:InvokeCommandAction>
+				</core:EventTriggerBehavior>
+			</interactivity:Interaction.Behaviors>
+			<TextBlock Text="{Binding Description, Mode=TwoWay}"
+					   MinHeight="72"
+					   TextWrapping="WrapWholeWords"
+					   Name="DescTextBlock"
+					   Visibility="{Binding IsNotEditing}"
+					   AllowFocusOnInteraction="True">
+
+
+			</TextBlock>
+			<TextBox Text="{Binding Description, Mode=TwoWay}"
+					 Visibility="{Binding IsEditing}"
+					 Name="DescTextBox"
+					 MinHeight="72"
+					 TextWrapping="Wrap"
+					 AllowFocusOnInteraction="True"
+					 AcceptsReturn="True">
+				<interactivity:Interaction.Behaviors>
+					<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
+											   EventName="LostFocus">
+						<core:InvokeCommandAction Command="{Binding StopEditing}"></core:InvokeCommandAction>
+					</core:EventTriggerBehavior>
+					<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
+											   EventName="KeyDown">
+						<core:InvokeCommandAction Command="{Binding StopEditingEnter}"></core:InvokeCommandAction>
+					</core:EventTriggerBehavior>
+				</interactivity:Interaction.Behaviors>
+			</TextBox>
+			<Button Content="Save" Command="{Binding StopEditing}"></Button>
+		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>
 

@@ -1,6 +1,10 @@
+using System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
+using TabletopRolePlayingCharacterManager.ViewModels;
 
 namespace TabletopRolePlayingCharacterManager.Views
 {
@@ -72,6 +76,26 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void AddNewProficiencyTapped(object sender, TappedRoutedEventArgs e)
 		{
 			AddNewProficiencyButton.Flyout?.Hide();
+		}
+
+		private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+		{
+			
+			foreach (var trait in TraitList.Items)
+			{
+				if (trait != e.ClickedItem)
+				{
+					(trait as TraitViewModel).StopEditing.Execute(null);
+					
+				}
+				else
+				{
+					(trait as TraitViewModel).StartEditing.Execute(null);
+					var traitControls = TraitList.ContainerFromItem(trait);
+					(traitControls.FindDescendantByName("DescTextBox") as TextBox)?.Focus(FocusState.Programmatic);
+
+				}
+			}
 		}
 	}
 }
