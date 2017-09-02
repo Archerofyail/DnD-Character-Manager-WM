@@ -106,6 +106,150 @@
 			</Button>
 		</StackPanel>
 	</DataTemplate>
+
+	<DataTemplate x:Key="NewSpell">
+		<StackPanel MinWidth="150">
+			<TextBox PlaceholderText="Name"
+					 Margin="4"
+					 Text="{Binding Name, Mode=TwoWay}"
+					 MinWidth="240" />
+			<StackPanel Orientation="Horizontal"
+						Margin="4, 0, 4, 4">
+
+				<ComboBox ItemsSource="{Binding SpellLevels}"
+						  SelectedIndex="{Binding LevelIndex, Mode=TwoWay}"
+						  PlaceholderText="Level"
+						  Margin="0, 4, 0, 0"
+						  HorizontalAlignment="Left"
+						  MinWidth="120" />
+				<ComboBox ItemsSource="{Binding SpellSchools}"
+						  SelectedIndex="{Binding SchoolIndex, Mode=TwoWay}"
+						  Margin="4, 4, 0, 0"
+						  HorizontalAlignment="Right"
+						  MinWidth="120"
+						  PlaceholderText="School" />
+
+			</StackPanel>
+			<StackPanel Orientation="Horizontal"
+						Margin="0, 0, 0, 4">
+				<TextBox Text="{Binding Range, Mode=TwoWay}"
+						 Margin="4, 4, 0, 0"
+						 PlaceholderText="Range"
+						 MinWidth="120" />
+				<TextBox Text="{Binding Target, Mode=TwoWay}"
+						 PlaceholderText="Target"
+						 Margin="4, 4, 0, 0"
+						 MinWidth="120" />
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<CheckBox IsChecked="{Binding NSpellHasV, Mode=TwoWay}"
+						  Content="Verbal"
+						  MinWidth="40"
+						  Margin="4, 0, 4, 0" />
+				<CheckBox IsChecked="{Binding NSpellHasS, Mode=TwoWay}"
+						  Content="Somatic"
+						  MinWidth="44"
+						  Margin="4, 0, 4, 0" />
+				<TextBox Text="{Binding NSpellMat, Mode=TwoWay}"
+						 PlaceholderText="Material"
+						 MinWidth="120" />
+			</StackPanel>
+			<TextBlock Text="Description"
+					   Margin="4, 0, 0, 0" />
+			<TextBox Height="96"
+					 Margin="4"
+					 Text="{Binding Desc, Mode=TwoWay}"
+					 AcceptsReturn="True"
+					 TextWrapping="Wrap" />
+			<TextBlock Text="At Higher Levels:"
+					   Margin="4, 0, 0, 0" />
+			<TextBox Text="{Binding HigherLevels, Mode=TwoWay}"
+					 AcceptsReturn="True"
+					 TextWrapping="Wrap"
+					 MinHeight="72"
+					 Margin="4, 0, 4, 0" />
+			<ToggleSwitch IsOn="{Binding IsAttack, Mode=TwoWay}"
+						  OffContent="Is Attack"
+						  OnContent="Is Attack"
+						  Margin="4"
+						  Name="IsAttackToggle">
+				<interactivity:Interaction.Behaviors>
+					<core:EventTriggerBehavior SourceObject="{Binding ElementName=IsAttackToggle}"
+					                           EventName="Toggled">
+						<core:InvokeCommandAction Command="{Binding SwitchSavingThrow}"
+												  CommandParameter="{Binding IsOn, ElementName=IsAttackToggle}"></core:InvokeCommandAction>
+					</core:EventTriggerBehavior>
+				</interactivity:Interaction.Behaviors>
+			</ToggleSwitch>
+			<StackPanel Name="AttackStatsPanel"
+						Margin="4"
+						Visibility="Collapsed">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Damage: "
+							   VerticalAlignment="Center" />
+					<TextBox Text="{Binding Damage, Mode=TwoWay}"
+							 Margin="4, 0, 0, 0"
+							 MinWidth="60" />
+					<TextBlock Text="Type: "
+							   VerticalAlignment="Center"
+							   Margin="4, 0, 0, 0" />
+					<TextBox Text="{Binding DamageType, Mode=TwoWay}"
+							 Margin="4, 0, 0, 0"
+							 MinWidth="96"
+							 PlaceholderText="Necrotic, etc." />
+				</StackPanel>
+				<ToggleSwitch OnContent="Saving throw"
+							  OffContent="Attack roll"
+							  Name="SavingThrowToggle">
+					<interactivity:Interaction.Behaviors>
+						<core:EventTriggerBehavior SourceObject="{Binding ElementName=SavingThrowToggle}"
+						                           EventName="Toggled">
+							<core:InvokeCommandAction Command="{Binding SwitchSavingThrow}"
+													  CommandParameter="{Binding IsOn, ElementName=SavingThrowToggle}"></core:InvokeCommandAction>
+						</core:EventTriggerBehavior>
+					</interactivity:Interaction.Behaviors>
+				</ToggleSwitch>
+				<StackPanel Name="AttackRollPanel"
+							Margin="4">
+
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Range: "
+							   VerticalAlignment="Center" />
+					<ComboBox SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
+							  MinWidth="96"
+							  ItemsSource="{Binding SpellRangeTypes}">
+					</ComboBox>
+
+				</StackPanel>
+				<StackPanel Name="SavingThrowPanel"
+							Margin="4">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Saving Attribute: "
+								   VerticalAlignment="Center" />
+						<ComboBox ItemsSource="{Binding Attributes}"
+								  SelectedIndex="{Binding SavingThrowAttributeIndex, Mode=TwoWay}"
+								  Margin="4, 0, 0, 0" />
+
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Effect: "
+								   VerticalAlignment="Center" />
+						<TextBox Text="{Binding SavingThrowEffect, Mode=TwoWay}"
+								 Margin="4, 0, 0, 0" />
+					</StackPanel>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal"
+							Margin="4">
+					<TextBlock Text="Higher Level Cast Damage: "
+							   VerticalAlignment="Center" />
+					<TextBox Text="{Binding HigherLevelDamage, Mode=TwoWay}"
+							 Margin="4, 0, 0, 0" />
+				</StackPanel>
+			</StackPanel>
+			
+		</StackPanel>
+	</DataTemplate>
 	<DataTemplate x:Key="Spell">
 		<StackPanel>
 			<StackPanel Orientation="Horizontal"
@@ -150,7 +294,7 @@
 						 Text="{Binding Range, Mode=TwoWay}"
 						 PlaceholderText="Range" />
 				<TextBox Text="{Binding Damage}"
-						 PlaceholderText="Damage"/>
+						 PlaceholderText="Damage" />
 			</StackPanel>
 		</StackPanel>
 	</DataTemplate>

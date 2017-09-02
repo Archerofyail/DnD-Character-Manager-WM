@@ -100,5 +100,25 @@ namespace TabletopRolePlayingCharacterManager.Views
 				}
 			}
 		}
+
+		private void IsAttackSwitch_Toggled(object sender, RoutedEventArgs e)
+		{
+			var chkbox = sender as ToggleSwitch;
+			NewSpellAttackStatsPanel.Visibility = ((bool)chkbox.IsOn ? Visibility.Visible : Visibility.Collapsed);
+		}
+
+		private void DCSaveToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
+		{
+			var swtch = sender as ToggleSwitch;
+
+			AttackRollPanel.Visibility = (bool) swtch.IsOn ? Visibility.Collapsed : Visibility.Visible;
+			SavingThrowPanel.Visibility = (bool)swtch.IsOn ? Visibility.Visible : Visibility.Collapsed;
+
+		}
+
+		private void NewSpellRangeSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			
+		}
 	}
 }

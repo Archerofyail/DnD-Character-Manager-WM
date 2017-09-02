@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using Windows.Devices.Bluetooth.Advertisement;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
@@ -815,20 +816,71 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int newSpellLevel;
-		public string NewSpellLevel
+		private static ObservableCollection<string> _levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+		public ObservableCollection<string> SpellLevels => _levels;
+		private int newSpellLevelIndex;
+
+		public int NewSpellLevelIndex
 		{
-			get => newSpellLevel.ToString();
+			get => newSpellLevelIndex;
 			set
 			{
-				if (int.TryParse(value, out int result))
+				if (value < _levels.Count)
 				{
-					newSpellLevel = result;
+					if (_levels[value] == "Cantrip")
+					{
+						newSpellLevelIndex = 0;
+						RaisePropertyChanged();
+						return;
+					}
+					newSpellLevelIndex = int.Parse(_levels[value]);
 					RaisePropertyChanged();
+
 				}
+
 			}
 		}
 
+		public ObservableCollection<SpellSchool> SpellSchools { get; } = new ObservableCollection<SpellSchool>
+		{
+			SpellSchool.Abjuration, SpellSchool.Conjuration, SpellSchool.Divination,
+			SpellSchool.Enchantment, SpellSchool.Evocation, SpellSchool.Illusion,
+			SpellSchool.Necromany, SpellSchool.Transmutation
+		};
+
+		private int newSpellSchoolIndex = -1;
+
+		public int NewSpellSchoolIndex
+		{
+			get => newSpellSchoolIndex;
+			set
+			{
+				newSpellSchoolIndex = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private string newSpellRange = "";
+
+		public string NewSpellRange
+		{
+			get => newSpellRange;
+			set
+			{
+				newSpellRange = value;
+				RaisePropertyChanged();
+			}
+		}
+		private string newSpellTarget = "";
+		public string NewSpellTarget
+		{
+			get => newSpellTarget;
+			set
+			{
+				newSpellTarget = value;
+				RaisePropertyChanged();
+			}
+		}
 		private string newSpellDesc;
 
 		public string NewSpellDesc
@@ -839,6 +891,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				newSpellDesc = value;
 				RaisePropertyChanged();
 			}
+		}
+
+		private string newSpellHigherLevels = "";
+
+		public string NewSpellHigherLevels
+		{
+			get => this.newSpellHigherLevels;
+
+			set
+			{
+				newSpellHigherLevels = value;
+				RaisePropertyChanged();
+			}
+
 		}
 
 		private bool nSpellHasV;
@@ -878,6 +944,130 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		private bool newSpellIsAttack = false;
+
+		public bool NewSpellIsAttack
+		{
+			get => newSpellIsAttack;
+			set
+			{
+				newSpellIsAttack = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private Damage newSpellDamage = new Damage();
+
+		public string NewSpellDamage
+		{
+			get => newSpellDamage.ToString();
+			set
+			{
+				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
+				Debug.WriteLine("Matches: " + matches.Value);
+				for (var i = 0; i < matches.Groups.Count; i++)
+				{
+					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
+				}
+				if (matches.Success && matches.Groups.Count >= 3)
+				{
+					var dieType = DieType.D4;
+					if (int.TryParse(matches.Groups[1].Value, out int numDice))
+					{
+						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
+						{
+							newSpellDamage.Dice.Clear();
+							newSpellDamage.Dice.Add(dieType, numDice);
+						}
+					}
+				}
+				RaisePropertyChanged();
+			}
+		}
+
+		private string newSpellDamageType;
+		public string NewSpellDamageType
+		{
+			get => newSpellDamageType;
+			set
+			{
+				newSpellDamageType = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public ObservableCollection<string> SpellRangeTypes { get; } = new ObservableCollection<string> { "None", "Melee", "Ranged" };
+		private int newSpellRangeTypeIndex;
+
+		public int NewSpellRangeTypeIndex
+		{
+			get => newSpellRangeTypeIndex;
+			set
+			{
+				newSpellRangeTypeIndex = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public ObservableCollection<MainStatType> Attributes { get; } = new ObservableCollection<MainStatType>
+		{
+			MainStatType.Strength, MainStatType.Dexterity,
+			MainStatType.Constitution, MainStatType.Intelligence,
+			MainStatType.Wisdom, MainStatType.Charisma
+		};
+
+		private int newSpellSavingThrowAttributeIndex = -1;
+
+		public int NewSpellSavingThrowAttributeIndex
+		{
+			get => newSpellSavingThrowAttributeIndex;
+			set
+			{
+				newSpellSavingThrowAttributeIndex = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private string newSpellSavingThrowEffect = "";
+
+		public string NewSpellSavingThrowEffect
+		{
+			get => newSpellSavingThrowEffect;
+			set
+			{
+				newSpellSavingThrowEffect = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private Damage newSpellHigherLevelDamage = new Damage();
+
+		public string NewSpellHigherLevelDamage
+		{
+			get => newSpellHigherLevelDamage.ToString();
+			set
+			{
+				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
+				Debug.WriteLine("Matches: " + matches.Value);
+				for (var i = 0; i < matches.Groups.Count; i++)
+				{
+					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
+				}
+				if (matches.Success && matches.Groups.Count >= 3)
+				{
+					var dieType = DieType.D4;
+					if (int.TryParse(matches.Groups[1].Value, out int numDice))
+					{
+						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
+						{
+							newSpellHigherLevelDamage.Dice.Clear();
+							newSpellHigherLevelDamage.Dice.Add(dieType, numDice);
+						}
+					}
+				}
+				RaisePropertyChanged();
+			}
+		}
 
 		#endregion
 
@@ -1012,10 +1202,6 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			character.Weapons.Remove(param);
 		}
 
-		//TODO: create new spell/item/weapon, based on values in flyouts that I'll make later
-		//Then, if it's added to the global list, add it to the global list
-		//Then, add it to the characters list, then create a new viewmodel based on it and add that to the observablecollection. 
-		//Then, finally, raise property changed the collection
 		async void AddNewItemExecute()
 		{
 			var newItem = new Item(newItemName, newItemDesc);
@@ -1040,7 +1226,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				Name = newSpellName,
 				Description = newSpellDesc,
-				Level = newSpellLevel
+				Level = newSpellLevelIndex
 			};
 			if (AddSpellToGlobalList)
 			{

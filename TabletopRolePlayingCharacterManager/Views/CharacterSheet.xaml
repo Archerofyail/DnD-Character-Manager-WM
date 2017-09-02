@@ -83,8 +83,8 @@
 									   FontSize="20"
 									   HorizontalAlignment="Right"
 									   VerticalAlignment="Center"
-									   Margin="4, 0, 4, 0" 
-									   Name="GeneralExpandIcon"/>
+									   Margin="4, 0, 4, 0"
+									   Name="GeneralExpandIcon" />
 
 						</Grid>
 						<Grid Name="ClassAndRaceInfo"
@@ -172,14 +172,14 @@
 								Margin="4">
 						<Grid Tapped="PhysicalDescriptionHeaderTapped">
 							<TextBlock Text="Physical Description"
-									   FontWeight="Bold" 
-									   Margin="4"/>
+									   FontWeight="Bold"
+									   Margin="4" />
 							<TextBlock Text="-"
 									   FontSize="20"
 									   HorizontalAlignment="Right"
 									   VerticalAlignment="Center"
 									   Name="PhysicalDescExpandIcon"
-									   Margin="4, 0, 4, 0"/>
+									   Margin="4, 0, 4, 0" />
 
 						</Grid>
 
@@ -260,7 +260,8 @@
 									  ItemTemplate="{StaticResource ProficiencyTemplate}"
 									  SelectionMode="None" />
 							<Button Style="{StaticResource NoBackgroundAddButton}"
-									Name="AddNewLangButton">
+									Name="AddNewLangButton"
+									HorizontalAlignment="Right">
 								<Button.Content>
 									<StackPanel Orientation="Horizontal">
 										<SymbolIcon Symbol="Add" />
@@ -289,7 +290,8 @@
 									  ItemTemplate="{StaticResource ProficiencyTemplate}"
 									  SelectionMode="None" />
 							<Button Style="{StaticResource NoBackgroundAddButton}"
-									Name="AddNewProficiencyButton">
+									Name="AddNewProficiencyButton"
+									HorizontalAlignment="Right">
 								<Button.Content>
 									<StackPanel Orientation="Horizontal">
 										<SymbolIcon Symbol="Add" />
@@ -302,14 +304,13 @@
 
 											<TextBox Name="NewProficiencyBox"
 													 Margin="4"
-													 PlaceholderText="Proficiency" 
-													 MinWidth="120"/>
-											<ComboBox 
-												ItemsSource="{Binding ProficiencyTypes}"
-												SelectedIndex="{Binding NewProficiencyTypeIndex}"
-												MinWidth="120"
-												Margin="4"
-												PlaceholderText="Type"/>
+													 PlaceholderText="Proficiency"
+													 MinWidth="120" />
+											<ComboBox ItemsSource="{Binding ProficiencyTypes}"
+													  SelectedIndex="{Binding NewProficiencyTypeIndex}"
+													  MinWidth="120"
+													  Margin="4"
+													  PlaceholderText="Type" />
 											<Button Command="{Binding AddNewProficiency}"
 													CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
 													Tapped="AddNewProficiencyTapped"
@@ -486,14 +487,14 @@
 						<Grid Tapped="AbilityScoresHeaderTapped">
 							<TextBlock Text="Ability Scores"
 									   FontWeight="Bold"
-									   VerticalAlignment="Center" 
-									   Margin="4, 0, 0, 0"/>
+									   VerticalAlignment="Center"
+									   Margin="4, 0, 0, 0" />
 							<TextBlock Text="-"
 									   FontSize="20"
 									   HorizontalAlignment="Right"
-									   VerticalAlignment="Center" 
+									   VerticalAlignment="Center"
 									   Name="AbilityScoresExpandIcon"
-									   Margin="4"/>
+									   Margin="4" />
 
 						</Grid>
 						<controls1:AdaptiveGridView Name="AbilityScores"
@@ -526,7 +527,7 @@
 											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
 											  MinWidth="20"
-											  Width="20">
+											  Width="24">
 
 									</CheckBox>
 
@@ -550,7 +551,8 @@
 								<StackPanel HorizontalAlignment="Right"
 											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
-											  MinWidth="28">
+											  MinWidth="20"
+											  Width="24">
 
 									</CheckBox>
 
@@ -571,7 +573,8 @@
 								<StackPanel HorizontalAlignment="Right"
 											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
-											  MinWidth="28">
+											  Width="24"
+											  MinWidth="20">
 
 									</CheckBox>
 
@@ -592,7 +595,8 @@
 								<StackPanel HorizontalAlignment="Right"
 											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
-											  MinWidth="28">
+											  Width="24"
+											  MinWidth="20">
 
 									</CheckBox>
 
@@ -613,7 +617,8 @@
 								<StackPanel HorizontalAlignment="Right"
 											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
-											  MinWidth="28">
+											  Width="24"
+											  MinWidth="20">
 
 									</CheckBox>
 
@@ -635,7 +640,8 @@
 								<StackPanel HorizontalAlignment="Right"
 											Margin="20, 0, 0, 0">
 									<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
-											  MinWidth="28">
+											  Width="24"
+											  MinWidth="20">
 
 									</CheckBox>
 
@@ -829,33 +835,129 @@
 						<Button.Flyout>
 							<Flyout>
 								<StackPanel MinWidth="150">
-									<StackPanel Orientation="Horizontal">
-										<TextBox PlaceholderText="Name"
-												 Margin="4"
-												 Text="{Binding NewSpellName, Mode=TwoWay}"
-												 MinWidth="240" />
-										<TextBox Text="{Binding NewSpellLevel, Mode=TwoWay}"
-												 PlaceholderText="Level"
-												 Margin="4" />
+									<TextBox PlaceholderText="Name"
+											 Margin="4"
+											 Text="{Binding NewSpellName, Mode=TwoWay}"
+											 MinWidth="240" />
+									<StackPanel Orientation="Horizontal"
+												Margin="4, 0, 4, 4">
+
+										<ComboBox ItemsSource="{Binding SpellLevels}"
+												  SelectedIndex="{Binding NewSpellLevelIndex, Mode=TwoWay}"
+												  PlaceholderText="Level"
+												  Margin="0, 4, 0, 0"
+												  HorizontalAlignment="Left"
+												  MinWidth="120" />
+										<ComboBox ItemsSource="{Binding SpellSchools}"
+												  SelectedIndex="{Binding NewSpellSchoolIndex, Mode=TwoWay}"
+												  Margin="4, 4, 0, 0"
+												  HorizontalAlignment="Right"
+												  MinWidth="120"
+												  PlaceholderText="School" />
+
+									</StackPanel>
+									<StackPanel Orientation="Horizontal"
+												Margin="0, 0, 0, 4">
+										<TextBox Text="{Binding NewSpellRange, Mode=TwoWay}"
+												 Margin="4, 4, 0, 0"
+												 PlaceholderText="Range"
+												 MinWidth="120" />
+										<TextBox Text="{Binding NewSpellTarget, Mode=TwoWay}"
+												 PlaceholderText="Target"
+												 Margin="4, 4, 0, 0"
+												 MinWidth="120" />
 									</StackPanel>
 									<StackPanel Orientation="Horizontal">
-										<CheckBox IsChecked="{Binding NSpellHasV}"
-												  Content="V"
-												  MinWidth="40" />
-										<CheckBox IsChecked="{Binding NSpellHasS}"
-												  Content="S"
+										<CheckBox IsChecked="{Binding NSpellHasV, Mode=TwoWay}"
+												  Content="Verbal"
+												  MinWidth="40"
+												  Margin="4, 0, 4, 0" />
+										<CheckBox IsChecked="{Binding NSpellHasS, Mode=TwoWay}"
+												  Content="Somatic"
 												  MinWidth="44"
-												  Margin="4, 0, 0, 0" />
-										<TextBox Text="{Binding NSpellMat}"
+												  Margin="4, 0, 4, 0" />
+										<TextBox Text="{Binding NSpellMat, Mode=TwoWay}"
 												 PlaceholderText="Material"
 												 MinWidth="120" />
 									</StackPanel>
-									<TextBox PlaceholderText="Description"
-											 Height="96"
+									<TextBlock Text="Description"
+											   Margin="4, 0, 0, 0" />
+									<TextBox Height="96"
 											 Margin="4"
 											 Text="{Binding NewSpellDesc, Mode=TwoWay}"
 											 AcceptsReturn="True"
 											 TextWrapping="Wrap" />
+									<TextBlock Text="At Higher Levels:"
+											   Margin="4, 0, 0, 0" />
+									<TextBox Text="{Binding NewSpellHigherLevels, Mode=TwoWay}"
+											 AcceptsReturn="True"
+											 TextWrapping="Wrap"
+											 MinHeight="72"
+											 Margin="4, 0, 4, 0" />
+									<ToggleSwitch IsOn="{Binding NewSpellIsAttack, Mode=TwoWay}"
+												  OffContent="Is Attack"
+												  OnContent="Is Attack"
+												  Toggled="IsAttackSwitch_Toggled"
+												  Margin="4" />
+									<StackPanel Name="NewSpellAttackStatsPanel"
+												Margin="4"
+												Visibility="Collapsed">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Damage: "
+													   VerticalAlignment="Center" />
+											<TextBox Text="{Binding NewSpellDamage, Mode=TwoWay}"
+													 Margin="4, 0, 0, 0"
+													 MinWidth="60" />
+											<TextBlock Text="Type: "
+													   VerticalAlignment="Center"
+													   Margin="4, 0, 0, 0" />
+											<TextBox Text="{Binding NewSpellDamageType, Mode=TwoWay}"
+													 Margin="4, 0, 0, 0"
+													 MinWidth="96"
+													 PlaceholderText="Necrotic, etc." />
+										</StackPanel>
+										<ToggleSwitch OnContent="Saving throw"
+													  OffContent="Attack roll"
+													  Toggled="DCSaveToggleSwitch_OnToggled" />
+										<StackPanel Name="AttackRollPanel"
+													Margin="4">
+
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Range: "
+													   VerticalAlignment="Center" />
+											<ComboBox SelectedIndex="{Binding NewSpellRangeTypeIndex, Mode=TwoWay}"
+													  MinWidth="96"
+													  SelectionChanged="NewSpellRangeSelectionChanged"
+													  ItemsSource="{Binding SpellRangeTypes}">
+											</ComboBox>
+
+										</StackPanel>
+										<StackPanel Name="SavingThrowPanel"
+													Margin="4">
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="Saving Attribute: "
+														   VerticalAlignment="Center" />
+												<ComboBox ItemsSource="{Binding Attributes}"
+														  SelectedIndex="{Binding NewSpellSavingThrowAttributeIndex, Mode=TwoWay}"
+														  Margin="4, 0, 0, 0" />
+
+											</StackPanel>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="Effect: "
+														   VerticalAlignment="Center" />
+												<TextBox Text="{Binding NewSpellSavingThrowEffect, Mode=TwoWay}"
+														 Margin="4, 0, 0, 0" />
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal"
+													Margin="4">
+											<TextBlock Text="Higher Level Cast Damage: "
+													   VerticalAlignment="Center" />
+											<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
+													 Margin="4, 0, 0, 0" />
+										</StackPanel>
+									</StackPanel>
 									<StackPanel Orientation="Horizontal">
 										<CheckBox Content="Also Add to Compendium"
 												  Margin="4"
