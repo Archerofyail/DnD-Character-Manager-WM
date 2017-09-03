@@ -81,7 +81,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 			AddNewProficiencyButton.Flyout?.Hide();
 		}
 
-		private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+		private void TraitListOnItemClick(object sender, ItemClickEventArgs e)
 		{
 			
 			foreach (var trait in TraitList.Items)
@@ -104,7 +104,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void IsAttackSwitch_Toggled(object sender, RoutedEventArgs e)
 		{
 			var chkbox = sender as ToggleSwitch;
-			NewSpellAttackStatsPanel.Visibility = ((bool)chkbox.IsOn ? Visibility.Visible : Visibility.Collapsed);
+			NewSpellAttackStatsPanel.Visibility = (bool)chkbox.IsOn ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void DCSaveToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -119,6 +119,21 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void NewSpellRangeSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			
+		}
+
+		private void SpellListItemClick(object sender, ItemClickEventArgs e)
+		{
+			foreach (var spell in SpellList.Items)
+			{
+				if (spell != e.ClickedItem)
+				{
+					(spell as SpellViewModel).StopEditing.Execute(null);
+				}
+				else
+				{
+					(spell as SpellViewModel).StartEditing.Execute(null);
+				}
+			}
 		}
 	}
 }

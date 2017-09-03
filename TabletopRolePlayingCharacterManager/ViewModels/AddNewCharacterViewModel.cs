@@ -225,7 +225,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region SelectedRace
 
-		private RaceViewModel SelectedRace => (SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count) ? Races[SelectedRaceIndex] : new RaceViewModel();
+		private RaceViewModel SelectedRace => SelectedRaceIndex >= 0 && SelectedRaceIndex < Races.Count ? Races[SelectedRaceIndex] : new RaceViewModel();
 
 
 		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedRaceAbilityScoreBonuses => SelectedRace.AbilityScoreBonuses;
@@ -269,7 +269,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#endregion
 
-		private RaceViewModel SelectedSubrace => (selectedSubRaceIndex >= 0 && selectedSubRaceIndex < Subraces.Count) ? Subraces[selectedSubRaceIndex] : new RaceViewModel();
+		private RaceViewModel SelectedSubrace => selectedSubRaceIndex >= 0 && selectedSubRaceIndex < Subraces.Count ? Subraces[selectedSubRaceIndex] : new RaceViewModel();
 
 
 		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedSubraceAbilityScoreBonuses => SelectedSubrace.AbilityScoreBonuses;

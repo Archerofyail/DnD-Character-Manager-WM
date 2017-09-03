@@ -340,7 +340,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 		{
 			StatIncrease statInc;
 
-			var statIncType = StatBonuses.Find((increase => increase.BonusName == name)).GetType();
+			var statIncType = StatBonuses.Find(increase => increase.BonusName == name).GetType();
 			statInc = (StatIncrease)Activator.CreateInstance(statIncType);
 
 			return statInc;

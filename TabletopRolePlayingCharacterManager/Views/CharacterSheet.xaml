@@ -669,7 +669,7 @@
 					<ListView ItemsSource="{Binding CharTraits, Mode=TwoWay}"
 							  ItemTemplate="{StaticResource CharacterTrait}"
 							  SelectionMode="None"
-							  ItemClick="ListViewBase_OnItemClick"
+							  ItemClick="TraitListOnItemClick"
 							  Name="TraitList"
 							  IsItemClickEnabled="True" />
 					<Button Background="Transparent"
@@ -827,7 +827,12 @@
 			<ScrollViewer>
 				<StackPanel>
 					<ListView ItemsSource="{Binding Spells}"
-							  ItemTemplate="{StaticResource NewSpell}" />
+							  ItemTemplate="{StaticResource NewSpell}"
+							  SelectionMode="None"
+							  IsItemClickEnabled="True"
+							  ItemClick="SpellListItemClick"
+							  Name="SpellList"
+							 />
 					<Button Style="{StaticResource NoBackgroundAddButton}"
 							HorizontalAlignment="Right"
 							Name="AddSpellButton">

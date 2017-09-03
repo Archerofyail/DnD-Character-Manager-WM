@@ -285,11 +285,42 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		#region ReadOnlyProperties
+
+		public string LevelAndSchool => LevelIndex == 0
+			? SpellSchools[SchoolIndex] + " cantrip"
+			: "Level " + LevelIndex + " " + SpellSchools[SchoolIndex];
+
+		public string AttackButtonText => IsSavingThrow ? "Roll Damage" : "Roll Attack";
+		#endregion
+
 		#region ViewEvents
 
+		private bool isEditing;
+		public bool IsEditing
+		{
+			get => isEditing;
+			set
+			{
+				isEditing = value;
+				RaisePropertyChanged();
+				RaisePropertyChanged("IsNotEditing");
+			}
+		}
 
+		public bool IsNotEditing => !IsEditing;
 
+		public ICommand StartEditing => new RelayCommand(StartEditingEx);
+		public ICommand StopEditing => new RelayCommand(StopEditingEx);
+		void StartEditingEx()
+		{
+			IsEditing = true;
+		}
 
+		void StopEditingEx()
+		{
+			IsEditing = false;
+		}
 
 
 
