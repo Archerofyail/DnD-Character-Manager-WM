@@ -827,7 +827,7 @@
 			<ScrollViewer>
 				<StackPanel>
 					<ListView ItemsSource="{Binding Spells}"
-							  ItemTemplate="{StaticResource Spell}" />
+							  ItemTemplate="{StaticResource NewSpell}" />
 					<Button Style="{StaticResource NoBackgroundAddButton}"
 							HorizontalAlignment="Right"
 							Name="AddSpellButton">
@@ -901,7 +901,7 @@
 												  Margin="4" />
 									<StackPanel Name="NewSpellAttackStatsPanel"
 												Margin="4"
-												Visibility="Collapsed">
+												Visibility="Visible">
 										<StackPanel Orientation="Horizontal">
 											<TextBlock Text="Damage: "
 													   VerticalAlignment="Center" />
@@ -916,25 +916,38 @@
 													 MinWidth="96"
 													 PlaceholderText="Necrotic, etc." />
 										</StackPanel>
-										<ToggleSwitch OnContent="Saving throw"
-													  OffContent="Attack roll"
-													  Toggled="DCSaveToggleSwitch_OnToggled" />
+										<StackPanel Orientation="Horizontal"
+													Margin="0, 4, 0, 0">
+											<TextBlock Text="Higher Level Cast Damage: "
+											           VerticalAlignment="Center" />
+											<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
+													 Margin="4, 0, 0, 0"/>
+										</StackPanel>
+										<CheckBox Content="Add Ability Modifier to damage?"
+												  IsChecked="{Binding NewSpellAddAbilityModToDamage}"></CheckBox>
 										<StackPanel Name="AttackRollPanel"
 													Margin="4">
 
 										</StackPanel>
-										<StackPanel Orientation="Horizontal">
+										<StackPanel Orientation="Horizontal"
+													Margin="0, 4, 0, 0">
 											<TextBlock Text="Range: "
 													   VerticalAlignment="Center" />
 											<ComboBox SelectedIndex="{Binding NewSpellRangeTypeIndex, Mode=TwoWay}"
 													  MinWidth="96"
 													  SelectionChanged="NewSpellRangeSelectionChanged"
-													  ItemsSource="{Binding SpellRangeTypes}">
+													  ItemsSource="{Binding NewSpellRangeTypes}"
+													  Margin="4, 0, 0, 0">
 											</ComboBox>
 
 										</StackPanel>
+										<ToggleSwitch OnContent="Saving throw"
+										              OffContent="Attack roll"
+										              Toggled="DCSaveToggleSwitch_OnToggled" 
+													  IsOn="{Binding NewSpellIsSavingThrow, Mode=TwoWay}"/>
 										<StackPanel Name="SavingThrowPanel"
-													Margin="4">
+													Margin="4"
+													Visibility="Collapsed">
 											<StackPanel Orientation="Horizontal">
 												<TextBlock Text="Saving Attribute: "
 														   VerticalAlignment="Center" />
@@ -950,13 +963,7 @@
 														 Margin="4, 0, 0, 0" />
 											</StackPanel>
 										</StackPanel>
-										<StackPanel Orientation="Horizontal"
-													Margin="4">
-											<TextBlock Text="Higher Level Cast Damage: "
-													   VerticalAlignment="Center" />
-											<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
-													 Margin="4, 0, 0, 0" />
-										</StackPanel>
+										
 									</StackPanel>
 									<StackPanel Orientation="Horizontal">
 										<CheckBox Content="Also Add to Compendium"

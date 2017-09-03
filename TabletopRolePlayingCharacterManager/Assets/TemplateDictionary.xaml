@@ -108,7 +108,9 @@
 	</DataTemplate>
 
 	<DataTemplate x:Key="NewSpell">
-		<StackPanel MinWidth="150">
+		<StackPanel MinWidth="150"
+					BorderThickness="2"
+					BorderBrush="Gray">
 			<TextBox PlaceholderText="Name"
 					 Margin="4"
 					 Text="{Binding Name, Mode=TwoWay}"
@@ -142,15 +144,15 @@
 						 MinWidth="120" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding NSpellHasV, Mode=TwoWay}"
+				<CheckBox IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
 						  Content="Verbal"
 						  MinWidth="40"
 						  Margin="4, 0, 4, 0" />
-				<CheckBox IsChecked="{Binding NSpellHasS, Mode=TwoWay}"
+				<CheckBox IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
 						  Content="Somatic"
 						  MinWidth="44"
 						  Margin="4, 0, 4, 0" />
-				<TextBox Text="{Binding NSpellMat, Mode=TwoWay}"
+				<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
 						 PlaceholderText="Material"
 						 MinWidth="120" />
 			</StackPanel>
@@ -158,7 +160,7 @@
 					   Margin="4, 0, 0, 0" />
 			<TextBox Height="96"
 					 Margin="4"
-					 Text="{Binding Desc, Mode=TwoWay}"
+					 Text="{Binding Description, Mode=TwoWay}"
 					 AcceptsReturn="True"
 					 TextWrapping="Wrap" />
 			<TextBlock Text="At Higher Levels:"
@@ -173,17 +175,11 @@
 						  OnContent="Is Attack"
 						  Margin="4"
 						  Name="IsAttackToggle">
-				<interactivity:Interaction.Behaviors>
-					<core:EventTriggerBehavior SourceObject="{Binding ElementName=IsAttackToggle}"
-					                           EventName="Toggled">
-						<core:InvokeCommandAction Command="{Binding SwitchSavingThrow}"
-												  CommandParameter="{Binding IsOn, ElementName=IsAttackToggle}"></core:InvokeCommandAction>
-					</core:EventTriggerBehavior>
-				</interactivity:Interaction.Behaviors>
+
 			</ToggleSwitch>
 			<StackPanel Name="AttackStatsPanel"
 						Margin="4"
-						Visibility="Collapsed">
+						Visibility="{Binding IsAttack}">
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="Damage: "
 							   VerticalAlignment="Center" />
@@ -200,14 +196,9 @@
 				</StackPanel>
 				<ToggleSwitch OnContent="Saving throw"
 							  OffContent="Attack roll"
-							  Name="SavingThrowToggle">
-					<interactivity:Interaction.Behaviors>
-						<core:EventTriggerBehavior SourceObject="{Binding ElementName=SavingThrowToggle}"
-						                           EventName="Toggled">
-							<core:InvokeCommandAction Command="{Binding SwitchSavingThrow}"
-													  CommandParameter="{Binding IsOn, ElementName=SavingThrowToggle}"></core:InvokeCommandAction>
-						</core:EventTriggerBehavior>
-					</interactivity:Interaction.Behaviors>
+							  Name="SavingThrowToggle"
+							  IsOn="{Binding IsSavingThrow, Mode=TwoWay}">
+
 				</ToggleSwitch>
 				<StackPanel Name="AttackRollPanel"
 							Margin="4">
@@ -216,10 +207,10 @@
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="Range: "
 							   VerticalAlignment="Center" />
-					<ComboBox SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
-							  MinWidth="96"
-							  ItemsSource="{Binding SpellRangeTypes}">
-					</ComboBox>
+					<ComboBox  ItemsSource="{Binding SpellRangeTypes}"
+							   SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
+							   MinWidth="96"
+							   Margin="4, 0, 0, 0" />
 
 				</StackPanel>
 				<StackPanel Name="SavingThrowPanel"
@@ -236,7 +227,8 @@
 						<TextBlock Text="Effect: "
 								   VerticalAlignment="Center" />
 						<TextBox Text="{Binding SavingThrowEffect, Mode=TwoWay}"
-								 Margin="4, 0, 0, 0" />
+								 Margin="4, 0, 0, 0" 
+								 MinWidth="120"/>
 					</StackPanel>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal"
@@ -247,7 +239,7 @@
 							 Margin="4, 0, 0, 0" />
 				</StackPanel>
 			</StackPanel>
-			
+
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="Spell">

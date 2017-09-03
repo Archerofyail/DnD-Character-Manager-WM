@@ -956,6 +956,18 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		private bool newSpellIsSavingThrow;
+
+		public bool NewSpellIsSavingThrow
+		{
+			get => newSpellIsSavingThrow;
+			set
+			{
+				newSpellIsSavingThrow = value;
+				RaisePropertyChanged();
+			}
+		}
+
 		private Damage newSpellDamage = new Damage();
 
 		public string NewSpellDamage
@@ -996,7 +1008,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public ObservableCollection<string> SpellRangeTypes { get; } = new ObservableCollection<string> { "None", "Melee", "Ranged" };
+		public ObservableCollection<string> NewSpellRangeTypes { get; } = new ObservableCollection<string> { "None", "Melee", "Ranged" };
 		private int newSpellRangeTypeIndex;
 
 		public int NewSpellRangeTypeIndex
@@ -1065,6 +1077,18 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 						}
 					}
 				}
+				RaisePropertyChanged();
+			}
+		}
+
+		private bool newSpellAddAbilityModToDamage = false;
+
+		public bool NewSpellAddAbilityModToDamage
+		{
+			get => newSpellAddAbilityModToDamage;
+			set
+			{
+				newSpellAddAbilityModToDamage = value;
 				RaisePropertyChanged();
 			}
 		}

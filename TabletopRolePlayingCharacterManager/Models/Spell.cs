@@ -6,6 +6,7 @@
 		public int Level { get; set; }
 		public SpellSchool School { get; set; }
 		public string Range { get; set; }
+		public string RangeType { get; set; }
 		public bool HasVerbalComponent { get; set; }
 		public bool HasSomaticComponent { get; set; }
 		public string MaterialComponent { get; set; }
@@ -21,8 +22,10 @@
 		public MainStatType SavingThrowAttribute;
 		public string SavingThrowEffect;
 		#endregion
-		public Damage Damage { get; set; }
-		public Damage DamageAtHigherLevels { get; set; }
+		public Damage Damage { get; set; } = new Damage();
+		public bool AddAbilityModToDamage { get; set; }
+		public string DamageType { get; set; }
+		public Damage HigherLevelDamage { get; set; } = new Damage();
 		
 	}
 }
