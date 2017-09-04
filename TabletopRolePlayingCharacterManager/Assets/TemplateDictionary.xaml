@@ -109,32 +109,42 @@
 
 	<DataTemplate x:Key="NewSpell">
 		<StackPanel>
-			<StackPanel Visibility="{Binding IsNotEditing}">
+			<StackPanel Visibility="{Binding IsNotEditing}"
+						MinWidth="150"
+						Width="200"
+						HorizontalAlignment="Stretch">
+				<TextBlock Text="{Binding Name}"
+						   FontSize="20"
+						   FontWeight="Bold" />
 				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding Name}" 
-							   Margin="0, 0, 4, 0"/>
+
 					<TextBlock Text="{Binding LevelAndSchool}"
-							   HorizontalAlignment="Right"></TextBlock>
+							   HorizontalAlignment="Right"
+							   FontStyle="Italic" />
 				</StackPanel>
-				<TextBlock Text="Description"/>
-				<ScrollViewer MaxHeight="96"
+				<TextBlock Text="Description"
+						   FontSize="18" />
+				<ScrollViewer MaxHeight="150"
 							  MinHeight="24">
 					<TextBlock Text="{Binding Description}" />
 				</ScrollViewer>
-				<TextBlock Text="At Higher Levels"/>
-				<ScrollViewer MaxHeight="96"
+				<TextBlock Text="At Higher Levels"
+						   FontSize="18" />
+				<ScrollViewer MaxHeight="150"
 							  MinHeight="24">
 					<TextBlock Text="{Binding HigherLevels}" />
 				</ScrollViewer>
 
 				<Button Content="{Binding AttackButtonText}"
 						Visibility="{Binding IsAttack}"
-						HorizontalAlignment="Stretch"/>
+						HorizontalAlignment="Stretch"
+						Command="{Binding RollAttack}" />
 			</StackPanel>
 			<StackPanel MinWidth="150"
 						BorderThickness="2"
 						BorderBrush="Gray"
-						Visibility="{Binding IsEditing}">
+						Visibility="{Binding IsEditing}"
+						HorizontalAlignment="Stretch">
 				<TextBox PlaceholderText="Name"
 						 Margin="4"
 						 Text="{Binding Name, Mode=TwoWay}"
@@ -146,12 +156,12 @@
 							  SelectedIndex="{Binding LevelIndex, Mode=TwoWay}"
 							  PlaceholderText="Level"
 							  Margin="0, 4, 0, 0"
-							  HorizontalAlignment="Left"
+							  HorizontalAlignment="Stretch"
 							  MinWidth="120" />
 					<ComboBox ItemsSource="{Binding SpellSchools}"
 							  SelectedIndex="{Binding SchoolIndex, Mode=TwoWay}"
 							  Margin="4, 4, 0, 0"
-							  HorizontalAlignment="Right"
+							  HorizontalAlignment="Stretch"
 							  MinWidth="120"
 							  PlaceholderText="School" />
 
@@ -182,7 +192,7 @@
 				</StackPanel>
 				<TextBlock Text="Description"
 						   Margin="4, 0, 0, 0" />
-				<TextBox Height="96"
+				<TextBox MinHeight="96"
 						 Margin="4"
 						 Text="{Binding Description, Mode=TwoWay}"
 						 AcceptsReturn="True"
@@ -273,50 +283,209 @@
 	</DataTemplate>
 	<DataTemplate x:Key="Spell">
 		<StackPanel>
-			<StackPanel Orientation="Horizontal"
-						Margin="0, 4"
-						BorderThickness="1"
-						BorderBrush="#FF666666">
-				<StackPanel Margin="4">
-					<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
-							 MinWidth="120"
-							 Width="120"
-							 Margin="0, 0, 0, 4" />
-					<ComboBox ItemsSource="{Binding Path=Levels}"
-							  SelectedIndex="{Binding SelectedLevel, Mode=TwoWay}"
-							  MinWidth="120" />
+			<StackPanel Visibility="{Binding IsNotEditing}"
+						MinWidth="150"
+						Width="200"
+						HorizontalAlignment="Stretch">
+				<TextBlock Text="{Binding Name}"
+						   FontSize="20"
+						   FontWeight="Bold" />
+				<StackPanel Orientation="Horizontal">
+
+					<TextBlock Text="{Binding LevelAndSchool}"
+							   HorizontalAlignment="Right"
+							   FontStyle="Italic" />
 				</StackPanel>
-				<StackPanel Margin="4">
-					<StackPanel Orientation="Horizontal">
-						<CheckBox Content="V"
-								  IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
-								  MinWidth="40"
-								  Margin="4, 0, 0, 0" />
-						<CheckBox Content="S"
-								  IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
-								  MinWidth="40" />
-					</StackPanel>
-					<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
+				<TextBlock Text="Description"
+						   FontSize="18" />
+				<ScrollViewer MaxHeight="150"
+							  MinHeight="24">
+					<TextBlock Text="{Binding Description}" />
+				</ScrollViewer>
+				<TextBlock Text="At Higher Levels"
+						   FontSize="18" />
+				<ScrollViewer MaxHeight="150"
+							  MinHeight="24">
+					<TextBlock Text="{Binding HigherLevels}" />
+				</ScrollViewer>
+
+				<Button Content="{Binding AttackButtonText}"
+						Visibility="{Binding IsAttack}"
+						HorizontalAlignment="Stretch"
+						Command="{Binding RollAttack}" />
+			</StackPanel>
+
+			<Grid Margin="4, 0"
+				  Visibility="{Binding IsEditing}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="0" />
+					<RowDefinition Height="32" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<TextBox PlaceholderText="Name"
+						 Text="{Binding Name, Mode=TwoWay}"
+						 MinWidth="240"
+						 Grid.Row="0"
+						 Grid.Column="0"
+						 Grid.ColumnSpan="2" />
+				<StackPanel Margin="0,4"
+							Grid.Row="1"
+							Grid.Column="0"
+							HorizontalAlignment="Stretch">
+
+					<ComboBox ItemsSource="{Binding Levels}"
+							  SelectedIndex="{Binding LevelIndex, Mode=TwoWay}"
+							  PlaceholderText="Level"
+							  HorizontalAlignment="Stretch"
+							  MinWidth="120"
+							  Margin="0, 0, 4, 4" />
+					<TextBox Text="{Binding Target, Mode=TwoWay}"
+							 PlaceholderText="Target"
+							 MinWidth="120"
+							 HorizontalAlignment="Stretch"
+							 Margin="0, 0, 4, 0" />
+
+				</StackPanel>
+				<StackPanel Grid.Column="1"
+							Margin="0, 4"
+							Grid.Row="1">
+					<ComboBox ItemsSource="{Binding SpellSchools}"
+							  SelectedIndex="{Binding SchoolIndex, Mode=TwoWay}"
+							  HorizontalAlignment="Stretch"
+							  MinWidth="120"
+							  PlaceholderText="School"
+							  Margin="0, 0 ,0 ,4" />
+					<TextBox Text="{Binding Range, Mode=TwoWay}"
+							 PlaceholderText="Range"
+							 MinWidth="120"
+							 HorizontalAlignment="Stretch" />
+
+
+				</StackPanel>
+				<StackPanel Orientation="Horizontal"
+							Grid.Row="3"
+							Grid.Column="0"
+							Grid.ColumnSpan="2">
+					<CheckBox IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
+							  Content="Verbal"
+							  MinWidth="40"
+							  Margin="0, 0, 4, 0" />
+					<CheckBox IsChecked="{Binding HasSOmaticComponent, Mode=TwoWay}"
+							  Content="Somatic"
+							  MinWidth="44"
+							  Margin="0, 0, 4, 0" />
+					<TextBox Text="{Binding Material, Mode=TwoWay}"
 							 PlaceholderText="Material"
 							 MinWidth="120" />
 				</StackPanel>
+				<StackPanel Grid.Row="4"
+							Grid.Column="0"
+							Grid.ColumnSpan="2">
+					<TextBlock Text="Description" />
+					<TextBox Height="96"
+							 Margin="0"
+							 Text="{Binding Description, Mode=TwoWay}"
+							 AcceptsReturn="True"
+							 TextWrapping="Wrap" />
+				</StackPanel>
+				<StackPanel Grid.Row="5"
+							Grid.Column="0"
+							Grid.ColumnSpan="2">
+					<TextBlock Text="At Higher Levels" />
+					<TextBox Text="{Binding HigherLevels, Mode=TwoWay}"
+							 AcceptsReturn="True"
+							 TextWrapping="Wrap"
+							 MinHeight="72" />
+				</StackPanel>
+				<StackPanel Grid.Row="6"
+							Grid.Column="0"
+							Grid.ColumnSpan="2">
+					<ToggleSwitch IsOn="{Binding IsAttack, Mode=TwoWay}"
+								  OffContent="Is Attack"
+								  OnContent="Is Attack"
+								  Margin="0" />
+					<StackPanel Name="AttackStatsPanel"
+								Margin="0"
+								Visibility="Visible">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Damage: "
+									   VerticalAlignment="Center" />
+							<TextBox Text="{Binding Damage, Mode=TwoWay}"
+									 Margin="4, 0, 0, 0"
+									 MinWidth="60" />
+							<TextBlock Text="Type: "
+									   VerticalAlignment="Center"
+									   Margin="4, 0, 0, 0" />
+							<TextBox Text="{Binding DamageType, Mode=TwoWay}"
+									 Margin="4, 0, 0, 0"
+									 MinWidth="96"
+									 PlaceholderText="Necrotic, etc." />
+						</StackPanel>
+						<StackPanel Orientation="Horizontal"
+									Margin="0, 4, 0, 0">
+							<TextBlock Text="Higher Level Cast Damage: "
+									   VerticalAlignment="Center" />
+							<TextBox Text="{Binding HigherLevelDamage, Mode=TwoWay}"
+									 Margin="4, 0, 0, 0" />
+						</StackPanel>
+						<CheckBox Content="Add Ability Modifier to damage?"
+								  IsChecked="{Binding AddAbilityModToDamage}"></CheckBox>
+						<StackPanel Name="AttackRollPanel"
+									Margin="4">
 
-			</StackPanel>
-			<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
-					 TextWrapping="Wrap"
-					 MinWidth="120"
-					 MinHeight="96"
-					 AcceptsReturn="True" />
-			<CheckBox IsChecked="{Binding IsAttack}"
-					  Content="Attack"
-					  Name="IsAttackCheckBox" />
-			<StackPanel Visibility="{Binding IsChecked, ElementName=IsAttackCheckBox}">
-				<TextBox InputScope="Number"
-						 Text="{Binding Range, Mode=TwoWay}"
-						 PlaceholderText="Range" />
-				<TextBox Text="{Binding Damage}"
-						 PlaceholderText="Damage" />
-			</StackPanel>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal"
+									Margin="0, 4, 0, 0">
+							<TextBlock Text="Range: "
+									   VerticalAlignment="Center" />
+							<ComboBox SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
+									  MinWidth="96"
+									  ItemsSource="{Binding RangeTypes}"
+									  Margin="4, 0, 0, 0">
+							</ComboBox>
+
+						</StackPanel>
+						<ToggleSwitch OnContent="Saving throw"
+									  OffContent="Attack roll"
+									  IsOn="{Binding IsSavingThrow, Mode=TwoWay}" />
+						<StackPanel Name="SavingThrowPanel"
+									Margin="4"
+									Visibility="Collapsed">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Saving Attribute: "
+										   VerticalAlignment="Center" />
+								<ComboBox ItemsSource="{Binding Attributes}"
+										  SelectedIndex="{Binding SavingThrowAttributeIndex, Mode=TwoWay}"
+										  Margin="4, 0, 0, 0" />
+
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Effect: "
+										   VerticalAlignment="Center" />
+								<TextBox Text="{Binding SavingThrowEffect, Mode=TwoWay}"
+										 Margin="4, 0, 0, 0" />
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
+				<Button HorizontalAlignment="Stretch"
+				        Command="{Binding StopEditing}"
+				        Background="{StaticResource AccentColorBrush}"
+				        Content="Done" 
+						Grid.Row="7"
+						Grid.ColumnSpan="2"
+						Grid.Column="0"/>
+			</Grid>
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="CharacterTrait">

@@ -827,150 +827,187 @@
 			<ScrollViewer>
 				<StackPanel>
 					<ListView ItemsSource="{Binding Spells}"
-							  ItemTemplate="{StaticResource NewSpell}"
+							  ItemTemplate="{StaticResource Spell}"
 							  SelectionMode="None"
 							  IsItemClickEnabled="True"
 							  ItemClick="SpellListItemClick"
-							  Name="SpellList"
-							 />
+							  Name="SpellList" />
 					<Button Style="{StaticResource NoBackgroundAddButton}"
 							HorizontalAlignment="Right"
 							Name="AddSpellButton">
 
 						<Button.Flyout>
 							<Flyout>
-								<StackPanel MinWidth="150">
+
+								<Grid Margin="4, 0">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="0" />
+										<RowDefinition Height="32" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+
 									<TextBox PlaceholderText="Name"
-											 Margin="4"
 											 Text="{Binding NewSpellName, Mode=TwoWay}"
-											 MinWidth="240" />
-									<StackPanel Orientation="Horizontal"
-												Margin="4, 0, 4, 4">
+											 MinWidth="240"
+											 Grid.Row="0"
+											 Grid.Column="0"
+											 Grid.ColumnSpan="2" />
+									<StackPanel Margin="0,4"
+												Grid.Row="1"
+												Grid.Column="0"
+												HorizontalAlignment="Stretch">
 
 										<ComboBox ItemsSource="{Binding SpellLevels}"
 												  SelectedIndex="{Binding NewSpellLevelIndex, Mode=TwoWay}"
 												  PlaceholderText="Level"
-												  Margin="0, 4, 0, 0"
-												  HorizontalAlignment="Left"
-												  MinWidth="120" />
+												  HorizontalAlignment="Stretch"
+												  MinWidth="120"
+												  Margin="0, 0, 4, 4" />
+										<TextBox Text="{Binding NewSpellTarget, Mode=TwoWay}"
+												 PlaceholderText="Target"
+												 MinWidth="120"
+												 HorizontalAlignment="Stretch"
+												 Margin="0, 0, 4, 0" />
+
+									</StackPanel>
+									<StackPanel Grid.Column="1"
+												Margin="0, 4"
+												Grid.Row="1">
 										<ComboBox ItemsSource="{Binding SpellSchools}"
 												  SelectedIndex="{Binding NewSpellSchoolIndex, Mode=TwoWay}"
-												  Margin="4, 4, 0, 0"
-												  HorizontalAlignment="Right"
+												  HorizontalAlignment="Stretch"
 												  MinWidth="120"
-												  PlaceholderText="School" />
+												  PlaceholderText="School"
+												  Margin="0, 0 ,0 ,4" />
+										<TextBox Text="{Binding NewSpellRange, Mode=TwoWay}"
+												 PlaceholderText="Range"
+												 MinWidth="120"
+												 HorizontalAlignment="Stretch" />
+
 
 									</StackPanel>
 									<StackPanel Orientation="Horizontal"
-												Margin="0, 0, 0, 4">
-										<TextBox Text="{Binding NewSpellRange, Mode=TwoWay}"
-												 Margin="4, 4, 0, 0"
-												 PlaceholderText="Range"
-												 MinWidth="120" />
-										<TextBox Text="{Binding NewSpellTarget, Mode=TwoWay}"
-												 PlaceholderText="Target"
-												 Margin="4, 4, 0, 0"
-												 MinWidth="120" />
-									</StackPanel>
-									<StackPanel Orientation="Horizontal">
+												Grid.Row="3"
+												Grid.Column="0"
+												Grid.ColumnSpan="2">
 										<CheckBox IsChecked="{Binding NSpellHasV, Mode=TwoWay}"
 												  Content="Verbal"
 												  MinWidth="40"
-												  Margin="4, 0, 4, 0" />
+												  Margin="0, 0, 4, 0" />
 										<CheckBox IsChecked="{Binding NSpellHasS, Mode=TwoWay}"
 												  Content="Somatic"
 												  MinWidth="44"
-												  Margin="4, 0, 4, 0" />
+												  Margin="0, 0, 4, 0" />
 										<TextBox Text="{Binding NSpellMat, Mode=TwoWay}"
 												 PlaceholderText="Material"
 												 MinWidth="120" />
 									</StackPanel>
-									<TextBlock Text="Description"
-											   Margin="4, 0, 0, 0" />
-									<TextBox Height="96"
-											 Margin="4"
-											 Text="{Binding NewSpellDesc, Mode=TwoWay}"
-											 AcceptsReturn="True"
-											 TextWrapping="Wrap" />
-									<TextBlock Text="At Higher Levels:"
-											   Margin="4, 0, 0, 0" />
-									<TextBox Text="{Binding NewSpellHigherLevels, Mode=TwoWay}"
-											 AcceptsReturn="True"
-											 TextWrapping="Wrap"
-											 MinHeight="72"
-											 Margin="4, 0, 4, 0" />
-									<ToggleSwitch IsOn="{Binding NewSpellIsAttack, Mode=TwoWay}"
-												  OffContent="Is Attack"
-												  OnContent="Is Attack"
-												  Toggled="IsAttackSwitch_Toggled"
-												  Margin="4" />
-									<StackPanel Name="NewSpellAttackStatsPanel"
-												Margin="4"
-												Visibility="Visible">
-										<StackPanel Orientation="Horizontal">
-											<TextBlock Text="Damage: "
-													   VerticalAlignment="Center" />
-											<TextBox Text="{Binding NewSpellDamage, Mode=TwoWay}"
-													 Margin="4, 0, 0, 0"
-													 MinWidth="60" />
-											<TextBlock Text="Type: "
-													   VerticalAlignment="Center"
-													   Margin="4, 0, 0, 0" />
-											<TextBox Text="{Binding NewSpellDamageType, Mode=TwoWay}"
-													 Margin="4, 0, 0, 0"
-													 MinWidth="96"
-													 PlaceholderText="Necrotic, etc." />
-										</StackPanel>
-										<StackPanel Orientation="Horizontal"
-													Margin="0, 4, 0, 0">
-											<TextBlock Text="Higher Level Cast Damage: "
-											           VerticalAlignment="Center" />
-											<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
-													 Margin="4, 0, 0, 0"/>
-										</StackPanel>
-										<CheckBox Content="Add Ability Modifier to damage?"
-												  IsChecked="{Binding NewSpellAddAbilityModToDamage}"></CheckBox>
-										<StackPanel Name="AttackRollPanel"
-													Margin="4">
-
-										</StackPanel>
-										<StackPanel Orientation="Horizontal"
-													Margin="0, 4, 0, 0">
-											<TextBlock Text="Range: "
-													   VerticalAlignment="Center" />
-											<ComboBox SelectedIndex="{Binding NewSpellRangeTypeIndex, Mode=TwoWay}"
-													  MinWidth="96"
-													  SelectionChanged="NewSpellRangeSelectionChanged"
-													  ItemsSource="{Binding NewSpellRangeTypes}"
-													  Margin="4, 0, 0, 0">
-											</ComboBox>
-
-										</StackPanel>
-										<ToggleSwitch OnContent="Saving throw"
-										              OffContent="Attack roll"
-										              Toggled="DCSaveToggleSwitch_OnToggled" 
-													  IsOn="{Binding NewSpellIsSavingThrow, Mode=TwoWay}"/>
-										<StackPanel Name="SavingThrowPanel"
-													Margin="4"
-													Visibility="Collapsed">
+									<StackPanel Grid.Row="4"
+												Grid.Column="0"
+												Grid.ColumnSpan="2">
+										<TextBlock Text="Description" />
+										<TextBox Height="96"
+												 Margin="0"
+												 Text="{Binding NewSpellDesc, Mode=TwoWay}"
+												 AcceptsReturn="True"
+												 TextWrapping="Wrap" />
+									</StackPanel>
+									<StackPanel Grid.Row="5"
+												Grid.Column="0"
+												Grid.ColumnSpan="2">
+										<TextBlock Text="At Higher Levels" />
+										<TextBox Text="{Binding NewSpellHigherLevels, Mode=TwoWay}"
+												 AcceptsReturn="True"
+												 TextWrapping="Wrap"
+												 MinHeight="72" />
+									</StackPanel>
+									<StackPanel Grid.Row="6"
+												Grid.Column="0"
+												Grid.ColumnSpan="2">
+										<ToggleSwitch IsOn="{Binding NewSpellIsAttack, Mode=TwoWay}"
+													  OffContent="Is Attack"
+													  OnContent="Is Attack"
+													  Toggled="IsAttackSwitch_Toggled"
+													  Margin="0" />
+										<StackPanel Name="NewSpellAttackStatsPanel"
+													Margin="0"
+													Visibility="Visible">
 											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="Saving Attribute: "
+												<TextBlock Text="Damage: "
 														   VerticalAlignment="Center" />
-												<ComboBox ItemsSource="{Binding Attributes}"
-														  SelectedIndex="{Binding NewSpellSavingThrowAttributeIndex, Mode=TwoWay}"
-														  Margin="4, 0, 0, 0" />
-
+												<TextBox Text="{Binding NewSpellDamage, Mode=TwoWay}"
+														 Margin="4, 0, 0, 0"
+														 MinWidth="60" />
+												<TextBlock Text="Type: "
+														   VerticalAlignment="Center"
+														   Margin="4, 0, 0, 0" />
+												<TextBox Text="{Binding NewSpellDamageType, Mode=TwoWay}"
+														 Margin="4, 0, 0, 0"
+														 MinWidth="96"
+														 PlaceholderText="Necrotic, etc." />
 											</StackPanel>
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="Effect: "
+											<StackPanel Orientation="Horizontal"
+														Margin="0, 4, 0, 0">
+												<TextBlock Text="Higher Level Cast Damage: "
 														   VerticalAlignment="Center" />
-												<TextBox Text="{Binding NewSpellSavingThrowEffect, Mode=TwoWay}"
+												<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
 														 Margin="4, 0, 0, 0" />
 											</StackPanel>
+											<CheckBox Content="Add Ability Modifier to damage?"
+													  IsChecked="{Binding NewSpellAddAbilityModToDamage}"></CheckBox>
+											<StackPanel Name="AttackRollPanel"
+														Margin="4">
+
+											</StackPanel>
+											<StackPanel Orientation="Horizontal"
+														Margin="0, 4, 0, 0">
+												<TextBlock Text="Range: "
+														   VerticalAlignment="Center" />
+												<ComboBox SelectedIndex="{Binding NewSpellRangeTypeIndex, Mode=TwoWay}"
+														  MinWidth="96"
+														  SelectionChanged="NewSpellRangeSelectionChanged"
+														  ItemsSource="{Binding NewSpellRangeTypes}"
+														  Margin="4, 0, 0, 0">
+												</ComboBox>
+
+											</StackPanel>
+											<ToggleSwitch OnContent="Saving throw"
+														  OffContent="Attack roll"
+														  Toggled="DCSaveToggleSwitch_OnToggled"
+														  IsOn="{Binding NewSpellIsSavingThrow, Mode=TwoWay}" />
+											<StackPanel Name="SavingThrowPanel"
+														Margin="4"
+														Visibility="Collapsed">
+												<StackPanel Orientation="Horizontal">
+													<TextBlock Text="Saving Attribute: "
+															   VerticalAlignment="Center" />
+													<ComboBox ItemsSource="{Binding Attributes}"
+															  SelectedIndex="{Binding NewSpellSavingThrowAttributeIndex, Mode=TwoWay}"
+															  Margin="4, 0, 0, 0" />
+
+												</StackPanel>
+												<StackPanel Orientation="Horizontal">
+													<TextBlock Text="Effect: "
+															   VerticalAlignment="Center" />
+													<TextBox Text="{Binding NewSpellSavingThrowEffect, Mode=TwoWay}"
+															 Margin="4, 0, 0, 0" />
+												</StackPanel>
+											</StackPanel>
 										</StackPanel>
-										
 									</StackPanel>
-									<StackPanel Orientation="Horizontal">
+									<StackPanel Orientation="Horizontal"
+												Grid.Row="7"
+												Grid.Column="0"
+												Grid.ColumnSpan="2">
 										<CheckBox Content="Also Add to Compendium"
 												  Margin="4"
 												  IsChecked="{Binding AddSpellToGlobalList, Mode=TwoWay}" />
@@ -979,7 +1016,9 @@
 												Command="{Binding AddNewSpell, Mode=TwoWay}"
 												Tapped="AddSpellButtonTapped" />
 									</StackPanel>
-								</StackPanel>
+
+								</Grid>
+
 							</Flyout>
 						</Button.Flyout>
 						<Button.Content>

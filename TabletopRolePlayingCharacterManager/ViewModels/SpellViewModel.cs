@@ -82,10 +82,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set => spell.MaterialComponent = value;
 		}
 
-
-
-
-		public ObservableCollection<SpellSchool> SpellSchools { get; } = new ObservableCollection<SpellSchool>
+		public static ObservableCollection<SpellSchool> SpellSchools { get; } = new ObservableCollection<SpellSchool>
 		{
 			SpellSchool.Abjuration, SpellSchool.Conjuration, SpellSchool.Divination,
 			SpellSchool.Enchantment, SpellSchool.Evocation, SpellSchool.Illusion,
@@ -296,6 +293,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region ViewEvents
 
+
+
 		private bool isEditing;
 		public bool IsEditing
 		{
@@ -320,11 +319,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void StopEditingEx()
 		{
 			IsEditing = false;
+			RaisePropertyChanged("LevelAndSchool");
+			RaisePropertyChanged("AttackButtonText");
+			RaisePropertyChanged("Description");
+			RaisePropertyChanged("HigherLevels");
 		}
 
 
+		public ICommand RollAttack => new RelayCommand(RollAttackEx);
 
+		void RollAttackEx()
+		{
 
+		}
 
 		#endregion
 
