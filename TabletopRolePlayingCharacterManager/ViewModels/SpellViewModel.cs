@@ -14,10 +14,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class SpellViewModel : ViewModelBase
 	{
 		private Spell spell;
+		public delegate void RollSpellAttackDelegate(Spell spell);
+
+		public RollSpellAttackDelegate RollSpellAttack;
 		private static ObservableCollection<string> _levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-		public SpellViewModel(Spell sp)
+		public SpellViewModel(Spell sp, RollSpellAttackDelegate attackMethod = null)
 		{
 			spell = sp;
+			RollSpellAttack = attackMethod;
 		}
 
 		public string Name
@@ -32,7 +36,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int LevelIndex
 		{
-			get { return spell.Level; }
+			get => spell.Level;
 			set
 			{
 				if (value < _levels.Count && value >= 0)
@@ -163,24 +167,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => spell.Damage.ToString();
 			set
 			{
-				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
-				Debug.WriteLine("Matches: " + matches.Value);
-				for (var i = 0; i < matches.Groups.Count; i++)
-				{
-					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
-				}
-				if (matches.Success && matches.Groups.Count >= 3)
-				{
-					var dieType = DieType.D4;
-					if (int.TryParse(matches.Groups[1].Value, out int numDice))
-					{
-						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
-						{
-							spell.Damage.Dice.Clear();
-							spell.Damage.Dice.Add(dieType, numDice);
-						}
-					}
-				}
+				spell.Damage.ParseText(value);
 				RaisePropertyChanged();
 			}
 		}
@@ -250,24 +237,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => spell.HigherLevelDamage.ToString();
 			set
 			{
-				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
-				Debug.WriteLine("Matches: " + matches.Value);
-				for (var i = 0; i < matches.Groups.Count; i++)
-				{
-					Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
-				}
-				if (matches.Success && matches.Groups.Count >= 3)
-				{
-					var dieType = DieType.D4;
-					if (int.TryParse(matches.Groups[1].Value, out int numDice))
-					{
-						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
-						{
-							spell.HigherLevelDamage.Dice.Clear();
-							spell.HigherLevelDamage.Dice.Add(dieType, numDice);
-						}
-					}
-				}
+				spell.HigherLevelDamage.ParseText(value);
 				RaisePropertyChanged();
 			}
 		}
@@ -330,7 +300,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void RollAttackEx()
 		{
-
+			RollSpellAttack?.Invoke(spell);
 		}
 
 		#endregion

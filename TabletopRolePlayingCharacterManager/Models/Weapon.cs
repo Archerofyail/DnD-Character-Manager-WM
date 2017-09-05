@@ -8,7 +8,7 @@
 		public Damage Damage2 { get; set; }
 		public MainStatType MainStat { get; set; } = MainStatType.Strength;
 		public int AttackBonus { get; set; }
-
+		public bool IsProficient { get; set; }
 		public Weapon()
 		{
 			ItemType = ItemType.Weapon;

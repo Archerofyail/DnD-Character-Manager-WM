@@ -67,220 +67,67 @@
 
 	</DataTemplate>
 	<DataTemplate x:Key="Weapon">
-		<StackPanel Margin="4">
-			<StackPanel Orientation="Horizontal"
-						Margin="0,0,0,4">
-				<TextBox Text="{Binding Name, Mode=TwoWay}"
-						 Margin="0,0, 4, 0"
-						 MinWidth="96" />
-				<TextBox Text="{Binding Damage, Mode=TwoWay}"
-						 Margin="0, 0, 4, 0"
-						 PlaceholderText="1d6, 1d8, etc." />
-				<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
-						 PlaceholderText="Attack Bonus" />
-
-
-			</StackPanel>
-			<StackPanel Orientation="Horizontal"
-						Margin="0,0,0,4">
-				<ComboBox ItemsSource="{Binding MainStat}"
-						  SelectedIndex="{Binding SelectedMainStat, Mode=TwoWay}"
-						  Margin="0, 0, 4, 0" />
-				<ComboBox ItemsSource="{Binding WeaponTypes}"
-						  SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}" />
-			</StackPanel>
-			<TextBox Text="{Binding Description, Mode=TwoWay}"
-					 PlaceholderText="Description"
-					 AcceptsReturn="True"
-					 MinHeight="48"
-					 Margin="0, 4, 0, 0"
-					 TextWrapping="Wrap" />
-			<Button Command="{Binding RemoveWeapon}"
-					CommandParameter="{Binding}"
-					Margin="0, 4">
-				<Button.Content>
-					<StackPanel>
-						<SymbolIcon Symbol="Delete" />
-					</StackPanel>
-				</Button.Content>
-			</Button>
-		</StackPanel>
-	</DataTemplate>
-
-	<DataTemplate x:Key="NewSpell">
 		<StackPanel>
-			<StackPanel Visibility="{Binding IsNotEditing}"
-						MinWidth="150"
-						Width="200"
-						HorizontalAlignment="Stretch">
-				<TextBlock Text="{Binding Name}"
-						   FontSize="20"
-						   FontWeight="Bold" />
-				<StackPanel Orientation="Horizontal">
-
-					<TextBlock Text="{Binding LevelAndSchool}"
-							   HorizontalAlignment="Right"
-							   FontStyle="Italic" />
+			<StackPanel Margin="4">
+				<TextBlock Text="{Binding Name}" 
+						   FontSize="18"
+						   FontWeight="Bold"/>
+				<StackPanel Orientation="Horizontal"
+							Margin="0, 4">
+					<TextBlock Text="Attack Bonus: "
+							   Margin="0, 0, 4, 0"/>
+					<TextBlock Text="{Binding AttackBonus}"
+							   Margin="0, 0, 4, 0"/>
+					
+					<TextBlock Text="Damage: "
+							   Margin="0, 0, 4, 0"/>
+					<TextBlock Text="{Binding Damage}" />
 				</StackPanel>
-				<TextBlock Text="Description"
-						   FontSize="18" />
-				<ScrollViewer MaxHeight="150"
-							  MinHeight="24">
-					<TextBlock Text="{Binding Description}" />
-				</ScrollViewer>
-				<TextBlock Text="At Higher Levels"
-						   FontSize="18" />
-				<ScrollViewer MaxHeight="150"
-							  MinHeight="24">
-					<TextBlock Text="{Binding HigherLevels}" />
-				</ScrollViewer>
-
-				<Button Content="{Binding AttackButtonText}"
-						Visibility="{Binding IsAttack}"
-						HorizontalAlignment="Stretch"
-						Command="{Binding RollAttack}" />
+				<TextBlock Text="{Binding Description}"/>
 			</StackPanel>
-			<StackPanel MinWidth="150"
-						BorderThickness="2"
-						BorderBrush="Gray"
-						Visibility="{Binding IsEditing}"
-						HorizontalAlignment="Stretch">
-				<TextBox PlaceholderText="Name"
-						 Margin="4"
-						 Text="{Binding Name, Mode=TwoWay}"
-						 MinWidth="240" />
+			<StackPanel Margin="4">
 				<StackPanel Orientation="Horizontal"
-							Margin="4, 0, 4, 4">
+							Margin="0,0,0,4">
+					<TextBox Text="{Binding Name, Mode=TwoWay}"
+							 Margin="0,0, 4, 0"
+							 MinWidth="96" />
+					<TextBox Text="{Binding Damage, Mode=TwoWay}"
+							 Margin="0, 0, 4, 0"
+							 PlaceholderText="1d6 + 1, 1d8, etc." />
+					<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
+							 PlaceholderText="Attack Bonus" />
 
-					<ComboBox ItemsSource="{Binding SpellLevels}"
-							  SelectedIndex="{Binding LevelIndex, Mode=TwoWay}"
-							  PlaceholderText="Level"
-							  Margin="0, 4, 0, 0"
-							  HorizontalAlignment="Stretch"
-							  MinWidth="120" />
-					<ComboBox ItemsSource="{Binding SpellSchools}"
-							  SelectedIndex="{Binding SchoolIndex, Mode=TwoWay}"
-							  Margin="4, 4, 0, 0"
-							  HorizontalAlignment="Stretch"
-							  MinWidth="120"
-							  PlaceholderText="School" />
 
 				</StackPanel>
 				<StackPanel Orientation="Horizontal"
-							Margin="0, 0, 0, 4">
-					<TextBox Text="{Binding Range, Mode=TwoWay}"
-							 Margin="4, 4, 0, 0"
-							 PlaceholderText="Range"
-							 MinWidth="120" />
-					<TextBox Text="{Binding Target, Mode=TwoWay}"
-							 PlaceholderText="Target"
-							 Margin="4, 4, 0, 0"
-							 MinWidth="120" />
+							Margin="0,0,0,4">
+					<ComboBox ItemsSource="{Binding MainStat}"
+							  SelectedIndex="{Binding SelectedMainStat, Mode=TwoWay}"
+							  Margin="0, 0, 4, 0" />
+					<ComboBox ItemsSource="{Binding WeaponTypes}"
+							  SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}" />
 				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<CheckBox IsChecked="{Binding HasVerbalComponent, Mode=TwoWay}"
-							  Content="Verbal"
-							  MinWidth="40"
-							  Margin="4, 0, 4, 0" />
-					<CheckBox IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
-							  Content="Somatic"
-							  MinWidth="44"
-							  Margin="4, 0, 4, 0" />
-					<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
-							 PlaceholderText="Material"
-							 MinWidth="120" />
-				</StackPanel>
-				<TextBlock Text="Description"
-						   Margin="4, 0, 0, 0" />
-				<TextBox MinHeight="96"
-						 Margin="4"
-						 Text="{Binding Description, Mode=TwoWay}"
+				<TextBox Text="{Binding Description, Mode=TwoWay}"
+						 PlaceholderText="Description"
 						 AcceptsReturn="True"
+						 MinHeight="48"
+						 Margin="0, 4, 0, 0"
 						 TextWrapping="Wrap" />
-				<TextBlock Text="At Higher Levels:"
-						   Margin="4, 0, 0, 0" />
-				<TextBox Text="{Binding HigherLevels, Mode=TwoWay}"
-						 AcceptsReturn="True"
-						 TextWrapping="Wrap"
-						 MinHeight="72"
-						 Margin="4, 0, 4, 0" />
-				<ToggleSwitch IsOn="{Binding IsAttack, Mode=TwoWay}"
-							  OffContent="Is Attack"
-							  OnContent="Is Attack"
-							  Margin="4"
-							  Name="IsAttackToggle">
-
-				</ToggleSwitch>
-				<StackPanel Name="AttackStatsPanel"
-							Margin="4"
-							Visibility="{Binding IsAttack}">
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Damage: "
-								   VerticalAlignment="Center" />
-						<TextBox Text="{Binding Damage, Mode=TwoWay}"
-								 Margin="4, 0, 0, 0"
-								 MinWidth="60" />
-						<TextBlock Text="Type: "
-								   VerticalAlignment="Center"
-								   Margin="4, 0, 0, 0" />
-						<TextBox Text="{Binding DamageType, Mode=TwoWay}"
-								 Margin="4, 0, 0, 0"
-								 MinWidth="96"
-								 PlaceholderText="Necrotic, etc." />
-					</StackPanel>
-					<ToggleSwitch OnContent="Saving throw"
-								  OffContent="Attack roll"
-								  Name="SavingThrowToggle"
-								  IsOn="{Binding IsSavingThrow, Mode=TwoWay}">
-
-					</ToggleSwitch>
-					<StackPanel Name="AttackRollPanel"
-								Margin="4">
-
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Range: "
-								   VerticalAlignment="Center" />
-						<ComboBox  ItemsSource="{Binding SpellRangeTypes}"
-								   SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
-								   MinWidth="96"
-								   Margin="4, 0, 0, 0" />
-
-					</StackPanel>
-					<StackPanel Name="SavingThrowPanel"
-								Margin="4">
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="Saving Attribute: "
-									   VerticalAlignment="Center" />
-							<ComboBox ItemsSource="{Binding Attributes}"
-									  SelectedIndex="{Binding SavingThrowAttributeIndex, Mode=TwoWay}"
-									  Margin="4, 0, 0, 0" />
-
+				<Button Command="{Binding RemoveWeapon}"
+						CommandParameter="{Binding}"
+						Margin="0, 4">
+					<Button.Content>
+						<StackPanel>
+							<SymbolIcon Symbol="Delete" />
 						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="Effect: "
-									   VerticalAlignment="Center" />
-							<TextBox Text="{Binding SavingThrowEffect, Mode=TwoWay}"
-									 Margin="4, 0, 0, 0"
-									 MinWidth="120" />
-						</StackPanel>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal"
-								Margin="4">
-						<TextBlock Text="Higher Level Cast Damage: "
-								   VerticalAlignment="Center" />
-						<TextBox Text="{Binding HigherLevelDamage, Mode=TwoWay}"
-								 Margin="4, 0, 0, 0" />
-					</StackPanel>
-					<Button HorizontalAlignment="Stretch"
-							Command="{Binding StopEditing}"
-							Background="{StaticResource AccentColorBrush}"
-							Content="Done" />
-				</StackPanel>
-
+					</Button.Content>
+				</Button>
 			</StackPanel>
+
 		</StackPanel>
 	</DataTemplate>
+
+
 	<DataTemplate x:Key="Spell">
 		<StackPanel>
 			<StackPanel Visibility="{Binding IsNotEditing}"
@@ -312,7 +159,8 @@
 				<Button Content="{Binding AttackButtonText}"
 						Visibility="{Binding IsAttack}"
 						HorizontalAlignment="Stretch"
-						Command="{Binding RollAttack}" />
+						Command="{Binding RollAttack}"
+						Tag="RollAttackButton"/>
 			</StackPanel>
 
 			<Grid Margin="4, 0"
@@ -479,12 +327,12 @@
 					</StackPanel>
 				</StackPanel>
 				<Button HorizontalAlignment="Stretch"
-				        Command="{Binding StopEditing}"
-				        Background="{StaticResource AccentColorBrush}"
-				        Content="Done" 
+						Command="{Binding StopEditing}"
+						Background="{StaticResource AccentColorBrush}"
+						Content="Done"
 						Grid.Row="7"
 						Grid.ColumnSpan="2"
-						Grid.Column="0"/>
+						Grid.Column="0" />
 			</Grid>
 		</StackPanel>
 	</DataTemplate>

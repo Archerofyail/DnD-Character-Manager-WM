@@ -16,7 +16,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
-
+		private Random rand = new Random();
 		Character5E character;
 		private static ObservableCollection<string> _alignments = new ObservableCollection<string> { "Chaotic Evil", "Neutral Evil", "Lawful Evil", "Chaotic Neutral", "Neutral", "Lawful Neutral", "Chaotic Good", "Neutral Good", "Lawful Good" };
 		public CharacterSheetViewModel()
@@ -27,6 +27,99 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				character = CharacterManager.GetNewChar();
 			}
 		}
+
+		#region CombatRollProperties
+
+		private string attackOrDamageTitle = "Attack";
+		public string AttackOrDamageTitle
+		{
+			get => attackOrDamageTitle;
+			set
+			{
+				attackOrDamageTitle = value;
+				RaisePropertyChanged();
+			}
+		}
+		private int attackRollBonus;
+
+		private int damageRoll;
+		private int critDamage;
+
+		private string spellOrWeaponAttackName;
+		public string SpellOrWeaponAttackName
+		{
+			get => spellOrWeaponAttackName;
+			set
+			{
+				spellOrWeaponAttackName = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private string spellOrWeapon = "Weapon";
+
+		public string SpellOrWeapon
+		{
+			get => spellOrWeapon;
+			set
+			{
+				spellOrWeapon = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public int AttackRoll
+		{
+			get
+			{
+				var final = 0;
+				final += rand.Next(1, 21);
+				if (final == 20)
+				{
+					AttackRollCrit = true;
+				}
+				final += attackRollBonus;
+				return final;
+			}
+		}
+
+		public int DamageRoll
+		{
+			get
+			{
+				if (AttackRollCrit)
+				{
+					damageRoll += critDamage;
+				}
+				return damageRoll;
+			}
+		}
+
+		private string attackRollList;
+
+		public string AttackRollList
+		{
+			get => attackRollList;
+			set
+			{
+				attackRollList = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		private bool attackRollCrit;
+
+		public bool AttackRollCrit
+		{
+			get => attackRollCrit;
+			set
+			{
+				attackRollCrit = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		#endregion
 
 		#region General
 		private ObservableCollection<ProficiencyViewModel> languages = new ObservableCollection<ProficiencyViewModel>();
@@ -578,7 +671,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var item in character.Spells)
 					{
-						spells.Add(new SpellViewModel(item));
+						spells.Add(new SpellViewModel(item, SetAttackSpell));
 					}
 				}
 				return spells;
@@ -1127,10 +1220,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int NewStatIncreaseBonus
 		{
-			get
-			{
-				return selectedStatIncrease?.Bonus ?? 1;
-			}
+			get => selectedStatIncrease?.Bonus ?? 1;
 			set
 			{
 				if (selectedStatIncrease != null)
@@ -1260,7 +1350,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			character.Spells.Add(newSpell);
 			if (Spells.Count >= 0)
 			{
-				Spells.Add(new SpellViewModel(newSpell));
+				Spells.Add(new SpellViewModel(newSpell, SetAttackSpell));
 			}
 			RaisePropertyChanged("Spells");
 			await CharacterManager.SaveCurrentCharacter();
@@ -1373,6 +1463,21 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#endregion
 
 		#region MiscFunctions
+
+		void SetAttackSpell(Spell spell)
+		{
+			SpellOrWeaponAttackName = spell.Name;
+			attackRollBonus = character.AbilityModifiers[character.SpellcastingAttribute] + character.ProficiencyBonus;
+			damageRoll = spell.Damage.RollDamage() + spell.Damage2.RollDamage();
+		}
+
+		void SetAttackWeapon(Weapon weapon)
+		{
+			SpellOrWeaponAttackName = weapon.Name;
+			attackRollBonus = weapon.AttackBonus + (weapon.IsProficient ? character.ProficiencyBonus : 0) + character.AbilityModifiers[weapon.MainStat];
+			damageRoll = weapon.Damage.RollDamage() + weapon.Damage2.RollDamage() + character.AbilityModifiers[weapon.MainStat];
+			critDamage = weapon.Damage.RollDamage() - weapon.Damage.Bonus;
+		}
 
 		void RaiseSkillsChanged()
 		{

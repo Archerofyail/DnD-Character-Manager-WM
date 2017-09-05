@@ -56,452 +56,487 @@
 		</ResourceDictionary>
 	</Page.Resources>
 
-
-	<Pivot Background="{StaticResource BackgroundThemeBrush}">
-
-
-		<PivotItem>
-			<PivotItem.Header>
-				<controls:TabHeader Label="General"
-									Symbol="ContactInfo" />
-			</PivotItem.Header>
-			<ScrollViewer>
-				<StackPanel>
-
-
-					<StackPanel Orientation="Vertical"
-								Name="ClassAndRacePanel"
-								BorderBrush="Black"
-								BorderThickness="1"
-								Margin="4">
-						<Grid Tapped="GeneralTapped">
-							<TextBlock Text="General"
-									   VerticalAlignment="Center"
-									   FontWeight="Bold"
-									   Margin="4" />
-							<TextBlock Text="-"
-									   FontSize="20"
-									   HorizontalAlignment="Right"
-									   VerticalAlignment="Center"
-									   Margin="4, 0, 4, 0"
-									   Name="GeneralExpandIcon" />
-
-						</Grid>
-						<Grid Name="ClassAndRaceInfo"
-							  HorizontalAlignment="Stretch"
-							  Margin="4">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="2*" />
-							</Grid.RowDefinitions>
-							<StackPanel Grid.Row="0"
-										Grid.Column="0"
-										Grid.ColumnSpan="2">
-								<TextBlock Text="Campaign"
-										   Margin="4" />
-								<TextBox Text="{Binding Campaign, Mode=TwoWay}"
-										 Margin="4" />
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="0"
-										Grid.Row="1"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Name" />
-								<TextBox Text="{Binding Name, Mode=TwoWay}" />
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="1"
-										Grid.Row="1"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Class" />
-								<TextBox Text="{Binding Class, Mode=TwoWay}" />
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="0"
-										Grid.Row="3"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Level" />
-								<TextBox Text="{Binding Level, Mode=TwoWay}"
-										 InputScope="Number" />
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="0"
-										Grid.Row="2"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Race" />
-								<TextBox Text="{Binding Race, Mode=TwoWay}" />
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="1"
-										Grid.Row="2"
-										Margin="4, 0, 4, 0">
-
-								<TextBlock Text="Alignment"></TextBlock>
-								<ComboBox ItemsSource="{Binding Alignments}"
-										  SelectedIndex="{Binding SelectedAlignment, Mode=TwoWay}"
-										  HorizontalAlignment="Stretch"
-										  PlaceholderText="Alignment" />
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="1"
-										Grid.Row="3"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Experience" />
-								<TextBox Text="{Binding Experience, Mode=TwoWay}"
-										 InputScope="Number" />
-
-							</StackPanel>
-						</Grid>
+	<Grid>
+		<ContentDialog HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   Visibility="Visible"
+					   IsPrimaryButtonEnabled="True"
+					   IsSecondaryButtonEnabled="True"
+					   PrimaryButtonText="Roll Damage"
+					   SecondaryButtonClick="AttackRollDialogDoneClicked"
+					   PrimaryButtonClick="RollDamageButtonClicked"
+					   SecondaryButtonText="Done"
+					   Title="{Binding AttackOrDamageTitle}"
+					   Name="AttackDialog">
+			
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<StackPanel Name="AttackRollDialogPanel">
+					<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Attacking with "/>
+						<TextBlock Text="{Binding SpellOrWeaponAttackName}"></TextBlock>
 					</StackPanel>
-					<StackPanel Orientation="Vertical"
-								RelativePanel.Below="ClassAndRacePanel"
-								Name="PhysicalDescriptionPanel"
-								BorderBrush="Black"
-								BorderThickness="1"
-								Margin="4">
-						<Grid Tapped="PhysicalDescriptionHeaderTapped">
-							<TextBlock Text="Physical Description"
-									   FontWeight="Bold"
-									   Margin="4" />
-							<TextBlock Text="-"
-									   FontSize="20"
-									   HorizontalAlignment="Right"
-									   VerticalAlignment="Center"
-									   Name="PhysicalDescExpandIcon"
-									   Margin="4, 0, 4, 0" />
-
-						</Grid>
-
-
-						<Grid Name="PhysicalDescription"
-							  Margin="4">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="3*" />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="2*" />
-							</Grid.RowDefinitions>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="0"
-										Grid.Row="0"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Age" />
-								<TextBox Text="{Binding Age, Mode=TwoWay}"
-										 InputScope="Number" />
-
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="0"
-										Grid.Row="1"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Height" />
-								<TextBox Text="{Binding Height, Mode=TwoWay}" />
-
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="0"
-										Grid.Row="2"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Weight" />
-								<TextBox Text="{Binding Weight, Mode=TwoWay}" />
-
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="1"
-										Grid.Row="0"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Eyes" />
-								<TextBox Text="{Binding Eyes, Mode=TwoWay}" />
-
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="1"
-										Grid.Row="1"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Skin" />
-								<TextBox Text="{Binding Skin, Mode=TwoWay}" />
-
-
-							</StackPanel>
-							<StackPanel Orientation="Vertical"
-										Grid.Column="1"
-										Grid.Row="2"
-										Margin="4, 0, 4, 0">
-								<TextBlock Text="Hair" />
-								<TextBox Text="{Binding Hair, Mode=TwoWay}" />
-
-
-							</StackPanel>
-						</Grid>
-					</StackPanel>
-					<StackPanel Name="LanguageStackPanel"
-								Margin="4">
-						<StackPanel>
-							<TextBlock Text="Languages Known" />
-							<GridView ItemsSource="{Binding Languages}"
-									  ItemTemplate="{StaticResource ProficiencyTemplate}"
-									  SelectionMode="None" />
-							<Button Style="{StaticResource NoBackgroundAddButton}"
-									Name="AddNewLangButton"
-									HorizontalAlignment="Right">
-								<Button.Content>
-									<StackPanel Orientation="Horizontal">
-										<SymbolIcon Symbol="Add" />
-										<TextBlock Text="Add Language" />
-									</StackPanel>
-								</Button.Content>
-								<Button.Flyout>
-									<Flyout>
-										<StackPanel MinWidth="96">
-
-											<TextBox Name="NewLanguageBox"
-													 Margin="4"
-													 PlaceholderText="Language" />
-											<Button Command="{Binding AddNewLanguage}"
-													CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
-													Tapped="AddNewLangTapped"
-													Content="Add Language" />
-										</StackPanel>
-									</Flyout>
-								</Button.Flyout>
-							</Button>
-						</StackPanel>
-						<StackPanel>
-							<TextBlock Text="Proficiencies" />
-							<GridView ItemsSource="{Binding Proficiencies}"
-									  ItemTemplate="{StaticResource ProficiencyTemplate}"
-									  SelectionMode="None" />
-							<Button Style="{StaticResource NoBackgroundAddButton}"
-									Name="AddNewProficiencyButton"
-									HorizontalAlignment="Right">
-								<Button.Content>
-									<StackPanel Orientation="Horizontal">
-										<SymbolIcon Symbol="Add" />
-										<TextBlock Text="Add Proficiency" />
-									</StackPanel>
-								</Button.Content>
-								<Button.Flyout>
-									<Flyout>
-										<StackPanel MinWidth="96">
-
-											<TextBox Name="NewProficiencyBox"
-													 Margin="4"
-													 PlaceholderText="Proficiency"
-													 MinWidth="120" />
-											<ComboBox ItemsSource="{Binding ProficiencyTypes}"
-													  SelectedIndex="{Binding NewProficiencyTypeIndex}"
-													  MinWidth="120"
-													  Margin="4"
-													  PlaceholderText="Type" />
-											<Button Command="{Binding AddNewProficiency}"
-													CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
-													Tapped="AddNewProficiencyTapped"
-													Content="Add Proficiency" />
-										</StackPanel>
-									</Flyout>
-								</Button.Flyout>
-							</Button>
-
-						</StackPanel>
-
-					</StackPanel>
-
-					<StackPanel Name="CharacterPersonality"
-								Orientation="Vertical">
-						<TextBlock Text="Personality Traits" />
-						<TextBox Height="96"
-								 Text="{Binding PersonalityTraits, Mode=TwoWay}"
-								 TextWrapping="Wrap"
-								 AcceptsReturn="True" />
-						<TextBlock Text="Ideals" />
-						<TextBox Height="96"
-								 Text="{Binding Ideals, Mode=TwoWay}"
-								 TextWrapping="Wrap"
-								 AcceptsReturn="True" />
-						<TextBlock Text="Bonds" />
-						<TextBox Height="96"
-								 Text="{Binding Bonds, Mode=TwoWay}"
-								 TextWrapping="Wrap"
-								 AcceptsReturn="True" />
-						<TextBlock Text="Flaws" />
-						<TextBox Height="96"
-								 Text="{Binding Flaws, Mode=TwoWay}"
-								 TextWrapping="Wrap"
-								 AcceptsReturn="True" />
-
-					</StackPanel>
-
+					<TextBlock Text="You rolled a "/>
+					<TextBlock Margin="12"
+							   FontSize="26"
+							   FontWeight="SemiBold"
+							   Text="{Binding AttackRoll}"/>
+					<TextBlock Text="Did that hit?"/>
 				</StackPanel>
-			</ScrollViewer>
-		</PivotItem>
-		<PivotItem>
+				<StackPanel Name="DamageRollDialogPanel" ></StackPanel>
+				
+			</Grid>
+		</ContentDialog>
+		<Pivot Background="{StaticResource BackgroundThemeBrush}">
 
-			<PivotItem.Header>
-				<controls:TabHeader Label="Ability Scores&#x0a;&amp; Skills"
-									Symbol="List" />
-			</PivotItem.Header>
-			<ScrollViewer HorizontalScrollMode="Disabled"
-						  VerticalScrollMode="Enabled">
-				<StackPanel>
-					<Grid Name="CombatInfoPanel"
-						  Margin="0, 0, 0, 8">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition />
-							<ColumnDefinition />
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="3*" />
-							<RowDefinition Height="14" />
-							<RowDefinition Height="3*" />
-							<RowDefinition Height="3*" />
 
-						</Grid.RowDefinitions>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="General"
+										Symbol="ContactInfo" />
+				</PivotItem.Header>
+				<ScrollViewer>
+					<StackPanel>
 
 
 						<StackPanel Orientation="Vertical"
-									Margin="4, 0, 4, 0">
-							<TextBlock Text="AC"
-									   HorizontalAlignment="Center" />
-							<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
+									Name="ClassAndRacePanel"
+									BorderBrush="Black"
+									BorderThickness="1"
+									Margin="4">
+							<Grid Tapped="GeneralTapped">
+								<TextBlock Text="General"
+										   VerticalAlignment="Center"
+										   FontWeight="Bold"
+										   Margin="4" />
+								<TextBlock Text="-"
+										   FontSize="20"
+										   HorizontalAlignment="Right"
+										   VerticalAlignment="Center"
+										   Margin="4, 0, 4, 0"
+										   Name="GeneralExpandIcon" />
 
+							</Grid>
+							<Grid Name="ClassAndRaceInfo"
+								  HorizontalAlignment="Stretch"
+								  Margin="4">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
+								</Grid.RowDefinitions>
+								<StackPanel Grid.Row="0"
+											Grid.Column="0"
+											Grid.ColumnSpan="2">
+									<TextBlock Text="Campaign"
+											   Margin="4" />
+									<TextBox Text="{Binding Campaign, Mode=TwoWay}"
+											 Margin="4" />
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="0"
+											Grid.Row="1"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Name" />
+									<TextBox Text="{Binding Name, Mode=TwoWay}" />
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="1"
+											Grid.Row="1"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Class" />
+									<TextBox Text="{Binding Class, Mode=TwoWay}" />
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="0"
+											Grid.Row="3"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Level" />
+									<TextBox Text="{Binding Level, Mode=TwoWay}"
+											 InputScope="Number" />
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="0"
+											Grid.Row="2"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Race" />
+									<TextBox Text="{Binding Race, Mode=TwoWay}" />
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="1"
+											Grid.Row="2"
+											Margin="4, 0, 4, 0">
+
+									<TextBlock Text="Alignment"></TextBlock>
+									<ComboBox ItemsSource="{Binding Alignments}"
+											  SelectedIndex="{Binding SelectedAlignment, Mode=TwoWay}"
+											  HorizontalAlignment="Stretch"
+											  PlaceholderText="Alignment" />
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="1"
+											Grid.Row="3"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Experience" />
+									<TextBox Text="{Binding Experience, Mode=TwoWay}"
+											 InputScope="Number" />
+
+								</StackPanel>
+							</Grid>
 						</StackPanel>
 						<StackPanel Orientation="Vertical"
-									Margin="4, 0, 4, 0"
-									Grid.Row="0"
-									Grid.Column="1">
-							<TextBlock Text="Initiative"
-									   HorizontalAlignment="Center" />
-							<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
+									RelativePanel.Below="ClassAndRacePanel"
+									Name="PhysicalDescriptionPanel"
+									BorderBrush="Black"
+									BorderThickness="1"
+									Margin="4">
+							<Grid Tapped="PhysicalDescriptionHeaderTapped">
+								<TextBlock Text="Physical Description"
+										   FontWeight="Bold"
+										   Margin="4" />
+								<TextBlock Text="-"
+										   FontSize="20"
+										   HorizontalAlignment="Right"
+										   VerticalAlignment="Center"
+										   Name="PhysicalDescExpandIcon"
+										   Margin="4, 0, 4, 0" />
 
-						</StackPanel>
-						<StackPanel Orientation="Vertical"
-									Margin="4, 0, 4, 0"
-									Grid.Column="2"
-									Grid.Row="0">
-							<TextBlock Text="Speed"
-									   HorizontalAlignment="Center" />
-							<TextBox Text="{Binding Speed, Mode=TwoWay}" />
+							</Grid>
 
+
+							<Grid Name="PhysicalDescription"
+								  Margin="4">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="3*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
+									<RowDefinition Height="2*" />
+								</Grid.RowDefinitions>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="0"
+											Grid.Row="0"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Age" />
+									<TextBox Text="{Binding Age, Mode=TwoWay}"
+											 InputScope="Number" />
+
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="0"
+											Grid.Row="1"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Height" />
+									<TextBox Text="{Binding Height, Mode=TwoWay}" />
+
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="0"
+											Grid.Row="2"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Weight" />
+									<TextBox Text="{Binding Weight, Mode=TwoWay}" />
+
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="1"
+											Grid.Row="0"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Eyes" />
+									<TextBox Text="{Binding Eyes, Mode=TwoWay}" />
+
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="1"
+											Grid.Row="1"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Skin" />
+									<TextBox Text="{Binding Skin, Mode=TwoWay}" />
+
+
+								</StackPanel>
+								<StackPanel Orientation="Vertical"
+											Grid.Column="1"
+											Grid.Row="2"
+											Margin="4, 0, 4, 0">
+									<TextBlock Text="Hair" />
+									<TextBox Text="{Binding Hair, Mode=TwoWay}" />
+
+
+								</StackPanel>
+							</Grid>
 						</StackPanel>
-						<StackPanel Orientation="Vertical"
-									Grid.Row="2"
-									Grid.ColumnSpan="2"
-									Grid.Column="0">
-							<TextBlock Text="Hit Points"
-									   Margin="42, 0, 0, 0" />
-							<StackPanel Orientation="Horizontal"
-										Name="HealthBoxes">
-								<TextBox Name="CurrentHP"
-										 FontSize="16"
-										 PlaceholderText="HP"
-										 Text="{Binding CurrentHealth, Mode=TwoWay}"
-										 Margin="4, 0, 4, 0"></TextBox>
-								<TextBlock Text="/"
-										   FontSize="16" />
-								<TextBox Name="MaxHP"
-										 FontSize="16"
-										 TextAlignment="Center"
-										 IsTextPredictionEnabled="False"
-										 PlaceholderText="Max HP"
-										 Text="{Binding MaxHealth, Mode=TwoWay}"></TextBox>
+						<StackPanel Name="LanguageStackPanel"
+									Margin="4">
+							<StackPanel>
+								<TextBlock Text="Languages Known" />
+								<GridView ItemsSource="{Binding Languages}"
+										  ItemTemplate="{StaticResource ProficiencyTemplate}"
+										  SelectionMode="None" />
+								<Button Style="{StaticResource NoBackgroundAddButton}"
+										Name="AddNewLangButton"
+										HorizontalAlignment="Right">
+									<Button.Content>
+										<StackPanel Orientation="Horizontal">
+											<SymbolIcon Symbol="Add" />
+											<TextBlock Text="Add Language" />
+										</StackPanel>
+									</Button.Content>
+									<Button.Flyout>
+										<Flyout>
+											<StackPanel MinWidth="96">
+
+												<TextBox Name="NewLanguageBox"
+														 Margin="4"
+														 PlaceholderText="Language" />
+												<Button Command="{Binding AddNewLanguage}"
+														CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
+														Tapped="AddNewLangTapped"
+														Content="Add Language" />
+											</StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+							</StackPanel>
+							<StackPanel>
+								<TextBlock Text="Proficiencies" />
+								<GridView ItemsSource="{Binding Proficiencies}"
+										  ItemTemplate="{StaticResource ProficiencyTemplate}"
+										  SelectionMode="None" />
+								<Button Style="{StaticResource NoBackgroundAddButton}"
+										Name="AddNewProficiencyButton"
+										HorizontalAlignment="Right">
+									<Button.Content>
+										<StackPanel Orientation="Horizontal">
+											<SymbolIcon Symbol="Add" />
+											<TextBlock Text="Add Proficiency" />
+										</StackPanel>
+									</Button.Content>
+									<Button.Flyout>
+										<Flyout>
+											<StackPanel MinWidth="96">
+
+												<TextBox Name="NewProficiencyBox"
+														 Margin="4"
+														 PlaceholderText="Proficiency"
+														 MinWidth="120" />
+												<ComboBox ItemsSource="{Binding ProficiencyTypes}"
+														  SelectedIndex="{Binding NewProficiencyTypeIndex}"
+														  MinWidth="120"
+														  Margin="4"
+														  PlaceholderText="Type" />
+												<Button Command="{Binding AddNewProficiency}"
+														CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
+														Tapped="AddNewProficiencyTapped"
+														Content="Add Proficiency" />
+											</StackPanel>
+										</Flyout>
+									</Button.Flyout>
+								</Button>
+
 							</StackPanel>
 
+						</StackPanel>
+
+						<StackPanel Name="CharacterPersonality"
+									Orientation="Vertical">
+							<TextBlock Text="Personality Traits" />
+							<TextBox Height="96"
+									 Text="{Binding PersonalityTraits, Mode=TwoWay}"
+									 TextWrapping="Wrap"
+									 AcceptsReturn="True" />
+							<TextBlock Text="Ideals" />
+							<TextBox Height="96"
+									 Text="{Binding Ideals, Mode=TwoWay}"
+									 TextWrapping="Wrap"
+									 AcceptsReturn="True" />
+							<TextBlock Text="Bonds" />
+							<TextBox Height="96"
+									 Text="{Binding Bonds, Mode=TwoWay}"
+									 TextWrapping="Wrap"
+									 AcceptsReturn="True" />
+							<TextBlock Text="Flaws" />
+							<TextBox Height="96"
+									 Text="{Binding Flaws, Mode=TwoWay}"
+									 TextWrapping="Wrap"
+									 AcceptsReturn="True" />
 
 						</StackPanel>
-						<StackPanel Grid.Row="3"
-									Grid.Column="0"
-									Grid.ColumnSpan="3"
-									HorizontalAlignment="Stretch">
-							<TextBlock Text="Death Saves"
-									   HorizontalAlignment="Center" />
-							<StackPanel Orientation="Horizontal"
-										HorizontalAlignment="Center">
-								<StackPanel Orientation="Horizontal"
-											BorderBrush="Gray"
-											BorderThickness="2"
-											HorizontalAlignment="Left"
-											Margin="4">
-									<TextBlock Text="Successes"
-											   Margin="4" />
-									<CheckBox MinWidth="18"
-											  IsChecked="{Binding DeathSaveSuccesses[0], Mode=TwoWay}" />
-									<CheckBox MinWidth="18"
-											  IsChecked="{Binding DeathSaveSuccesses[1], Mode=TwoWay}" />
-									<CheckBox MinWidth="18"
-											  IsChecked="{Binding DeathSaveSuccesses[2], Mode=TwoWay}" />
-								</StackPanel>
-								<StackPanel Orientation="Horizontal"
-											BorderThickness="2"
-											BorderBrush="Gray"
-											Margin="4"
-											HorizontalAlignment="Right">
 
-									<TextBlock Text="Fails"
-											   Margin="4" />
-									<CheckBox MinWidth="18"
-											  IsChecked="{Binding DeathSaveFails[0], Mode=TwoWay}" />
-									<CheckBox MinWidth="18"
-											  IsChecked="{Binding DeathSaveFails[1], Mode=TwoWay}" />
-									<CheckBox MinWidth="18"
-											  IsChecked="{Binding DeathSaveFails[2], Mode=TwoWay}" />
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem>
+
+				<PivotItem.Header>
+					<controls:TabHeader Label="Ability Scores&#x0a;&amp; Skills"
+										Symbol="List" />
+				</PivotItem.Header>
+				<ScrollViewer HorizontalScrollMode="Disabled"
+							  VerticalScrollMode="Enabled">
+					<StackPanel>
+						<Grid Name="CombatInfoPanel"
+							  Margin="0, 0, 0, 8">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="3*" />
+								<RowDefinition Height="14" />
+								<RowDefinition Height="3*" />
+								<RowDefinition Height="3*" />
+
+							</Grid.RowDefinitions>
+
+
+							<StackPanel Orientation="Vertical"
+										Margin="4, 0, 4, 0">
+								<TextBlock Text="AC"
+										   HorizontalAlignment="Center" />
+								<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
+
+							</StackPanel>
+							<StackPanel Orientation="Vertical"
+										Margin="4, 0, 4, 0"
+										Grid.Row="0"
+										Grid.Column="1">
+								<TextBlock Text="Initiative"
+										   HorizontalAlignment="Center" />
+								<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
+
+							</StackPanel>
+							<StackPanel Orientation="Vertical"
+										Margin="4, 0, 4, 0"
+										Grid.Column="2"
+										Grid.Row="0">
+								<TextBlock Text="Speed"
+										   HorizontalAlignment="Center" />
+								<TextBox Text="{Binding Speed, Mode=TwoWay}" />
+
+							</StackPanel>
+							<StackPanel Orientation="Vertical"
+										Grid.Row="2"
+										Grid.ColumnSpan="2"
+										Grid.Column="0">
+								<TextBlock Text="Hit Points"
+										   Margin="42, 0, 0, 0" />
+								<StackPanel Orientation="Horizontal"
+											Name="HealthBoxes">
+									<TextBox Name="CurrentHP"
+											 FontSize="16"
+											 PlaceholderText="HP"
+											 Text="{Binding CurrentHealth, Mode=TwoWay}"
+											 Margin="4, 0, 4, 0"></TextBox>
+									<TextBlock Text="/"
+											   FontSize="16" />
+									<TextBox Name="MaxHP"
+											 FontSize="16"
+											 TextAlignment="Center"
+											 IsTextPredictionEnabled="False"
+											 PlaceholderText="Max HP"
+											 Text="{Binding MaxHealth, Mode=TwoWay}"></TextBox>
+								</StackPanel>
+
+
+							</StackPanel>
+							<StackPanel Grid.Row="3"
+										Grid.Column="0"
+										Grid.ColumnSpan="3"
+										HorizontalAlignment="Stretch">
+								<TextBlock Text="Death Saves"
+										   HorizontalAlignment="Center" />
+								<StackPanel Orientation="Horizontal"
+											HorizontalAlignment="Center">
+									<StackPanel Orientation="Horizontal"
+												BorderBrush="Gray"
+												BorderThickness="2"
+												HorizontalAlignment="Left"
+												Margin="4">
+										<TextBlock Text="Successes"
+												   Margin="4" />
+										<CheckBox MinWidth="18"
+												  IsChecked="{Binding DeathSaveSuccesses[0], Mode=TwoWay}" />
+										<CheckBox MinWidth="18"
+												  IsChecked="{Binding DeathSaveSuccesses[1], Mode=TwoWay}" />
+										<CheckBox MinWidth="18"
+												  IsChecked="{Binding DeathSaveSuccesses[2], Mode=TwoWay}" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal"
+												BorderThickness="2"
+												BorderBrush="Gray"
+												Margin="4"
+												HorizontalAlignment="Right">
+
+										<TextBlock Text="Fails"
+												   Margin="4" />
+										<CheckBox MinWidth="18"
+												  IsChecked="{Binding DeathSaveFails[0], Mode=TwoWay}" />
+										<CheckBox MinWidth="18"
+												  IsChecked="{Binding DeathSaveFails[1], Mode=TwoWay}" />
+										<CheckBox MinWidth="18"
+												  IsChecked="{Binding DeathSaveFails[2], Mode=TwoWay}" />
+									</StackPanel>
 								</StackPanel>
 							</StackPanel>
-						</StackPanel>
-						<StackPanel Orientation="Vertical"
-									Grid.Column="2"
-									Grid.Row="2"
-									Margin="0, 0, 4, 0">
-							<TextBlock Text="Temporary Hit Points"
-									   TextWrapping="Wrap"
-									   MaxLines="1"
-									   Margin="-32, 0, 0, 0"
-									   HorizontalAlignment="Right" />
-							<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}" />
+							<StackPanel Orientation="Vertical"
+										Grid.Column="2"
+										Grid.Row="2"
+										Margin="0, 0, 4, 0">
+								<TextBlock Text="Temporary Hit Points"
+										   TextWrapping="Wrap"
+										   MaxLines="1"
+										   Margin="-32, 0, 0, 0"
+										   HorizontalAlignment="Right" />
+								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}" />
 
-						</StackPanel>
-					</Grid>
-					<StackPanel Name="AbilityScoresStackPanel"
-								Orientation="Vertical"
-								BorderBrush="Black"
-								BorderThickness="1">
-
-						<Grid Tapped="AbilityScoresHeaderTapped">
-							<TextBlock Text="Ability Scores"
-									   FontWeight="Bold"
-									   VerticalAlignment="Center"
-									   Margin="4, 0, 0, 0" />
-							<TextBlock Text="-"
-									   FontSize="20"
-									   HorizontalAlignment="Right"
-									   VerticalAlignment="Center"
-									   Name="AbilityScoresExpandIcon"
-									   Margin="4" />
-
+							</StackPanel>
 						</Grid>
-						<controls1:AdaptiveGridView Name="AbilityScores"
-													ItemHeight="80"
-													DesiredWidth="200">
+						<StackPanel Name="AbilityScoresStackPanel"
+									Orientation="Vertical"
+									BorderBrush="Black"
+									BorderThickness="1">
 
-							<!--<Grid Margin="4" BorderBrush="{ThemeResource AccentColorBrush}"
+							<Grid Tapped="AbilityScoresHeaderTapped">
+								<TextBlock Text="Ability Scores"
+										   FontWeight="Bold"
+										   VerticalAlignment="Center"
+										   Margin="4, 0, 0, 0" />
+								<TextBlock Text="-"
+										   FontSize="20"
+										   HorizontalAlignment="Right"
+										   VerticalAlignment="Center"
+										   Name="AbilityScoresExpandIcon"
+										   Margin="4" />
+
+							</Grid>
+							<controls1:AdaptiveGridView Name="AbilityScores"
+														ItemHeight="80"
+														DesiredWidth="200">
+
+								<!--<Grid Margin="4" BorderBrush="{ThemeResource AccentColorBrush}"
 								  BorderThickness="1"
 								  Padding="4"
 									  >
@@ -514,217 +549,218 @@
 									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>-->
 
-							<StackPanel Margin="4"
-										BorderThickness="1"
-										BorderBrush="{ThemeResource AccentColorBrush}"
-										Orientation="Horizontal">
-								<StackPanel MinWidth="100">
-									<TextBox Text="{Binding Strength, Mode=TwoWay}" />
-									<TextBlock Text="Strength"
-											   VerticalAlignment="Center" />
-								</StackPanel>
-								<StackPanel HorizontalAlignment="Right"
-											Margin="20, 0, 0, 0">
-									<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
-											  MinWidth="20"
-											  Width="24">
+								<StackPanel Margin="4"
+											BorderThickness="1"
+											BorderBrush="{ThemeResource AccentColorBrush}"
+											Orientation="Horizontal">
+									<StackPanel MinWidth="100">
+										<TextBox Text="{Binding Strength, Mode=TwoWay}" />
+										<TextBlock Text="Strength"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Right"
+												Margin="20, 0, 0, 0">
+										<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
+												  MinWidth="20"
+												  Width="24">
 
-									</CheckBox>
+										</CheckBox>
 
-									<TextBlock Text="{Binding StrengthMod}"
-											   Foreground="DarkSlateGray" />
-								</StackPanel>
+										<TextBlock Text="{Binding StrengthMod}"
+												   Foreground="DarkSlateGray" />
+									</StackPanel>
 
-							</StackPanel>
-
-
-
-							<StackPanel Margin="4"
-										BorderThickness="1"
-										BorderBrush="{ThemeResource AccentColorBrush}"
-										Orientation="Horizontal">
-								<StackPanel MinWidth="100">
-									<TextBox Text="{Binding Dexterity, Mode=TwoWay}" />
-									<TextBlock Text="Dexterity"
-											   VerticalAlignment="Center" />
-								</StackPanel>
-								<StackPanel HorizontalAlignment="Right"
-											Margin="20, 0, 0, 0">
-									<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
-											  MinWidth="20"
-											  Width="24">
-
-									</CheckBox>
-
-									<TextBlock Text="{Binding DexterityMod}"
-											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
-							</StackPanel>
-							<StackPanel Margin="4"
-										BorderThickness="1"
-										BorderBrush="{ThemeResource AccentColorBrush}"
-										Orientation="Horizontal">
-								<StackPanel MinWidth="100">
-									<TextBox Text="{Binding Constitution, Mode=TwoWay}" />
-									<TextBlock Text="Constitution"
-											   VerticalAlignment="Center" />
+
+
+								<StackPanel Margin="4"
+											BorderThickness="1"
+											BorderBrush="{ThemeResource AccentColorBrush}"
+											Orientation="Horizontal">
+									<StackPanel MinWidth="100">
+										<TextBox Text="{Binding Dexterity, Mode=TwoWay}" />
+										<TextBlock Text="Dexterity"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Right"
+												Margin="20, 0, 0, 0">
+										<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
+												  MinWidth="20"
+												  Width="24">
+
+										</CheckBox>
+
+										<TextBlock Text="{Binding DexterityMod}"
+												   Foreground="DarkSlateGray" />
+									</StackPanel>
+
 								</StackPanel>
-								<StackPanel HorizontalAlignment="Right"
-											Margin="20, 0, 0, 0">
-									<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
-											  Width="24"
-											  MinWidth="20">
+								<StackPanel Margin="4"
+											BorderThickness="1"
+											BorderBrush="{ThemeResource AccentColorBrush}"
+											Orientation="Horizontal">
+									<StackPanel MinWidth="100">
+										<TextBox Text="{Binding Constitution, Mode=TwoWay}" />
+										<TextBlock Text="Constitution"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Right"
+												Margin="20, 0, 0, 0">
+										<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
+												  Width="24"
+												  MinWidth="20">
 
-									</CheckBox>
+										</CheckBox>
 
-									<TextBlock Text="{Binding ConstitutionMod}"
-											   Foreground="DarkSlateGray" />
+										<TextBlock Text="{Binding ConstitutionMod}"
+												   Foreground="DarkSlateGray" />
+									</StackPanel>
+
+								</StackPanel>
+								<StackPanel Margin="4"
+											BorderThickness="1"
+											BorderBrush="{ThemeResource AccentColorBrush}"
+											Orientation="Horizontal">
+									<StackPanel MinWidth="100">
+										<TextBox Text="{Binding Intelligence, Mode=TwoWay}" />
+										<TextBlock Text="Intelligence"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Right"
+												Margin="20, 0, 0, 0">
+										<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
+												  Width="24"
+												  MinWidth="20">
+
+										</CheckBox>
+
+										<TextBlock Text="{Binding IntelligenceMod}"
+												   Foreground="DarkSlateGray" />
+									</StackPanel>
+
+								</StackPanel>
+								<StackPanel Margin="4"
+											BorderThickness="1"
+											BorderBrush="{ThemeResource AccentColorBrush}"
+											Orientation="Horizontal">
+									<StackPanel MinWidth="100">
+										<TextBox Text="{Binding Wisdom, Mode=TwoWay}" />
+										<TextBlock Text="Wisdom"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Right"
+												Margin="20, 0, 0, 0">
+										<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
+												  Width="24"
+												  MinWidth="20">
+
+										</CheckBox>
+
+										<TextBlock Text="{Binding WisdomMod}"
+												   Foreground="DarkSlateGray" />
+									</StackPanel>
+
 								</StackPanel>
 
-							</StackPanel>
-							<StackPanel Margin="4"
-										BorderThickness="1"
-										BorderBrush="{ThemeResource AccentColorBrush}"
-										Orientation="Horizontal">
-								<StackPanel MinWidth="100">
-									<TextBox Text="{Binding Intelligence, Mode=TwoWay}" />
-									<TextBlock Text="Intelligence"
-											   VerticalAlignment="Center" />
-								</StackPanel>
-								<StackPanel HorizontalAlignment="Right"
-											Margin="20, 0, 0, 0">
-									<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
-											  Width="24"
-											  MinWidth="20">
+								<StackPanel Margin="4"
+											BorderThickness="1"
+											BorderBrush="{ThemeResource AccentColorBrush}"
+											Orientation="Horizontal">
+									<StackPanel MinWidth="100">
+										<TextBox Text="{Binding Charisma, Mode=TwoWay}" />
+										<TextBlock Text="Charisma"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Right"
+												Margin="20, 0, 0, 0">
+										<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
+												  Width="24"
+												  MinWidth="20">
 
-									</CheckBox>
+										</CheckBox>
 
-									<TextBlock Text="{Binding IntelligenceMod}"
-											   Foreground="DarkSlateGray" />
-								</StackPanel>
+										<TextBlock Text="{Binding CharismaMod}"
+												   Foreground="DarkSlateGray" />
+									</StackPanel>
 
-							</StackPanel>
-							<StackPanel Margin="4"
-										BorderThickness="1"
-										BorderBrush="{ThemeResource AccentColorBrush}"
-										Orientation="Horizontal">
-								<StackPanel MinWidth="100">
-									<TextBox Text="{Binding Wisdom, Mode=TwoWay}" />
-									<TextBlock Text="Wisdom"
-											   VerticalAlignment="Center" />
-								</StackPanel>
-								<StackPanel HorizontalAlignment="Right"
-											Margin="20, 0, 0, 0">
-									<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
-											  Width="24"
-											  MinWidth="20">
-
-									</CheckBox>
-
-									<TextBlock Text="{Binding WisdomMod}"
-											   Foreground="DarkSlateGray" />
 								</StackPanel>
 
-							</StackPanel>
 
-							<StackPanel Margin="4"
-										BorderThickness="1"
-										BorderBrush="{ThemeResource AccentColorBrush}"
-										Orientation="Horizontal">
-								<StackPanel MinWidth="100">
-									<TextBox Text="{Binding Charisma, Mode=TwoWay}" />
-									<TextBlock Text="Charisma"
-											   VerticalAlignment="Center" />
+
+
+
+							</controls1:AdaptiveGridView>
+						</StackPanel>
+
+						<GridView Name="Skills"
+								  ItemTemplate="{StaticResource Skill}"
+								  ItemsSource="{Binding Skills, Mode=TwoWay}"
+								  SelectionMode="None"
+								  IsItemClickEnabled="False"
+								  Margin="4">
+
+						</GridView>
+						<ListView ItemsSource="{Binding CharTraits, Mode=TwoWay}"
+								  ItemTemplate="{StaticResource CharacterTrait}"
+								  SelectionMode="None"
+								  ItemClick="TraitListOnItemClick"
+								  Name="TraitList"
+								  IsItemClickEnabled="True" />
+						<Button Background="Transparent"
+								Name="AddTraitButton">
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add" />
+									<TextBlock Text="Add Feature or Trait" />
 								</StackPanel>
-								<StackPanel HorizontalAlignment="Right"
-											Margin="20, 0, 0, 0">
-									<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
-											  Width="24"
-											  MinWidth="20">
-
-									</CheckBox>
-
-									<TextBlock Text="{Binding CharismaMod}"
-											   Foreground="DarkSlateGray" />
-								</StackPanel>
-
-							</StackPanel>
-
-
-
-
-
-						</controls1:AdaptiveGridView>
+							</Button.Content>
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="250">
+										<TextBox PlaceholderText="Description"
+												 Height="96"
+												 Margin="4"
+												 Text="{Binding NewTraitDesc, Mode=TwoWay}" />
+										<StackPanel Orientation="Horizontal">
+											<ComboBox ItemsSource="{Binding TraitStatBonuses}"
+													  SelectedIndex="{Binding SelectedStatBonus, Mode=TwoWay}" />
+											<TextBox Text="{Binding NewStatIncreaseBonus, Mode=TwoWay}" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<Button Content="+ Add Trait"
+													Margin="4"
+													Command="{Binding AddNewCharTrait}"
+													Tapped="AddTraitTapped" />
+											<CheckBox Content="Has Context-based stat bonus"
+													  Name="NewTraitHasStatBonusCheckbox"></CheckBox>
+										</StackPanel>
+									</StackPanel>
+								</Flyout>
+							</Button.Flyout>
+						</Button>
 					</StackPanel>
-
-					<GridView Name="Skills"
-							  ItemTemplate="{StaticResource Skill}"
-							  ItemsSource="{Binding Skills, Mode=TwoWay}"
-							  SelectionMode="None"
-							  IsItemClickEnabled="False"
-							  Margin="4">
-
-					</GridView>
-					<ListView ItemsSource="{Binding CharTraits, Mode=TwoWay}"
-							  ItemTemplate="{StaticResource CharacterTrait}"
-							  SelectionMode="None"
-							  ItemClick="TraitListOnItemClick"
-							  Name="TraitList"
-							  IsItemClickEnabled="True" />
-					<Button Background="Transparent"
-							Name="AddTraitButton">
-						<Button.Content>
-							<StackPanel Orientation="Horizontal">
-								<SymbolIcon Symbol="Add" />
-								<TextBlock Text="Add Feature or Trait" />
-							</StackPanel>
-						</Button.Content>
-						<Button.Flyout>
-							<Flyout>
-								<StackPanel MinWidth="250">
-									<TextBox PlaceholderText="Description"
-											 Height="96"
-											 Margin="4"
-											 Text="{Binding NewTraitDesc, Mode=TwoWay}" />
-									<StackPanel Orientation="Horizontal">
-										<ComboBox ItemsSource="{Binding TraitStatBonuses}"
-												  SelectedIndex="{Binding SelectedStatBonus, Mode=TwoWay}" />
-										<TextBox Text="{Binding NewStatIncreaseBonus, Mode=TwoWay}" />
-									</StackPanel>
-									<StackPanel Orientation="Horizontal">
-										<Button Content="+ Add Trait"
-												Margin="4"
-												Command="{Binding AddNewCharTrait}"
-												Tapped="AddTraitTapped" />
-										<CheckBox Content="Has Context-based stat bonus"
-												  Name="NewTraitHasStatBonusCheckbox"></CheckBox>
-									</StackPanel>
-								</StackPanel>
-							</Flyout>
-						</Button.Flyout>
-					</Button>
-				</StackPanel>
-			</ScrollViewer>
-		</PivotItem>
-		<PivotItem>
-			<PivotItem.Header>
-				<controls:TabHeader Label="Inventory"
-									Symbol="Tag" />
-			</PivotItem.Header>
-			<ScrollViewer>
-				<StackPanel>
-					<TextBlock Text="Weapons" />
-					<ListView ItemsSource="{Binding Weapons, Mode=TwoWay}"
-							  ItemTemplate="{StaticResource Weapon}"
-							  SelectionMode="None" />
-					<Button Style="{StaticResource NoBackgroundAddButton}"
-							HorizontalAlignment="Right"
-							Name="AddWeaponButton">
-						<Button.Flyout>
-							<Flyout>
-								<StackPanel MinWidth="150">
-									<!--<TextBox PlaceholderText="Name" Margin="4"
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="Inventory"
+										Symbol="Tag" />
+				</PivotItem.Header>
+				<ScrollViewer>
+					<StackPanel>
+						<TextBlock Text="Weapons" />
+						<ListView ItemsSource="{Binding Weapons, Mode=TwoWay}"
+								  ItemTemplate="{StaticResource Weapon}"
+								  SelectionMode="None" 
+								  Name="WeaponList"/>
+						<Button Style="{StaticResource NoBackgroundAddButton}"
+								HorizontalAlignment="Right"
+								Name="AddWeaponButton">
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="150">
+										<!--<TextBox PlaceholderText="Name" Margin="4"
 												 Text="{Binding NewWepName, Mode=TwoWay}"/>
 									<TextBox PlaceholderText="Damage"
 												 Margin="4"
@@ -736,331 +772,332 @@
 										<CheckBox Content="Also Add to Compendium"
 													  Margin="4"
 													  IsChecked="{Binding AddItemToGlobalList, Mode=TwoWay}"/>-->
-									<StackPanel Orientation="Horizontal"
-												Margin="0,0,0,4">
-										<TextBox Text="{Binding NewWepName, Mode=TwoWay}"
-												 Margin="0,0, 4, 0"
-												 MinWidth="96" />
-										<TextBox Text="{Binding NewWepDamage, Mode=TwoWay}"
-												 Margin="0, 0, 4, 0"
-												 PlaceholderText="1d6, 1d8, etc." />
-										<TextBox Text="{Binding NewWepAttackBonus, Mode=TwoWay}"
-												 PlaceholderText="Attack Bonus" />
+										<StackPanel Orientation="Horizontal"
+													Margin="0,0,0,4">
+											<TextBox Text="{Binding NewWepName, Mode=TwoWay}"
+													 Margin="0,0, 4, 0"
+													 MinWidth="96" />
+											<TextBox Text="{Binding NewWepDamage, Mode=TwoWay}"
+													 Margin="0, 0, 4, 0"
+													 PlaceholderText="1d6, 1d8, etc." />
+											<TextBox Text="{Binding NewWepAttackBonus, Mode=TwoWay}"
+													 PlaceholderText="Attack Bonus" />
 
 
-									</StackPanel>
-									<StackPanel Orientation="Horizontal"
-												Margin="0,0,0,4">
-										<ComboBox ItemsSource="{Binding WeaponMainStats}"
-												  SelectedIndex="{Binding NewWepSelectedMainStat, Mode=TwoWay}"
-												  Margin="0, 0, 4, 0" />
-										<ComboBox ItemsSource="{Binding WeaponRanges}"
-												  SelectedIndex="{Binding NewWepSelectedType, Mode=TwoWay}" />
-									</StackPanel>
-									<TextBox Text="{Binding NewWepDesc, Mode=TwoWay}"
-											 PlaceholderText="Description"
-											 AcceptsReturn="True"
-											 MinHeight="48"
-											 Margin="0, 4, 0, 0"
-											 TextWrapping="Wrap" />
-									<Button Content=" Add Item"
-											Margin="4"
-											Command="{Binding AddNewWeapon}"
-											Tapped="AddWeaponButtonTapped" />
-									<!--</StackPanel>-->
-								</StackPanel>
-							</Flyout>
-						</Button.Flyout>
-						<Button.Content>
-							<StackPanel Orientation="Horizontal">
-								<SymbolIcon Symbol="Add" />
-								<TextBlock Text="Add new Weapon"
-										   Margin="4, 0, 0, 0" />
-							</StackPanel>
-						</Button.Content>
-					</Button>
-					<TextBlock Text="Items" />
-					<ListView ItemsSource="{Binding Items}"
-							  ItemTemplate="{StaticResource Item}"
-							  SelectionMode="None" />
-					<Button Style="{StaticResource NoBackgroundAddButton}"
-							HorizontalAlignment="Right"
-							Name="AddItemButton">
-						<Button.Flyout>
-							<Flyout>
-								<StackPanel MinWidth="150">
-									<TextBox PlaceholderText="Name"
-											 Margin="4"
-											 Text="{Binding NewItemName, Mode=TwoWay}" />
-									<TextBox PlaceholderText="Description"
-											 Height="96"
-											 Margin="4"
-											 Text="{Binding NewItemDesc, Mode=TwoWay}" />
-									<StackPanel Orientation="Horizontal">
-										<CheckBox Content="Also Add to Compendium"
-												  Margin="4"
-												  IsChecked="{Binding AddItemToGlobalList, Mode=TwoWay}" />
-										<Button Content="+ Add Item"
-												Margin="4"
-												Command="{Binding AddNewItem}"
-												Tapped="AddItemButtonTapped" />
-									</StackPanel>
-								</StackPanel>
-							</Flyout>
-						</Button.Flyout>
-						<Button.Content>
-							<StackPanel Orientation="Horizontal">
-								<SymbolIcon Symbol="Add" />
-								<TextBlock Text="Add new Item"
-										   Margin="4, 0, 0, 0" />
-							</StackPanel>
-						</Button.Content>
-					</Button>
-				</StackPanel>
-			</ScrollViewer>
-		</PivotItem>
-		<PivotItem>
-			<PivotItem.Header>
-				<controls:TabHeader Label="Spells"
-									Symbol="Library" />
-			</PivotItem.Header>
-			<ScrollViewer>
-				<StackPanel>
-					<ListView ItemsSource="{Binding Spells}"
-							  ItemTemplate="{StaticResource Spell}"
-							  SelectionMode="None"
-							  IsItemClickEnabled="True"
-							  ItemClick="SpellListItemClick"
-							  Name="SpellList" />
-					<Button Style="{StaticResource NoBackgroundAddButton}"
-							HorizontalAlignment="Right"
-							Name="AddSpellButton">
-
-						<Button.Flyout>
-							<Flyout>
-
-								<Grid Margin="4, 0">
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="0" />
-										<RowDefinition Height="32" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-									</Grid.RowDefinitions>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-
-									<TextBox PlaceholderText="Name"
-											 Text="{Binding NewSpellName, Mode=TwoWay}"
-											 MinWidth="240"
-											 Grid.Row="0"
-											 Grid.Column="0"
-											 Grid.ColumnSpan="2" />
-									<StackPanel Margin="0,4"
-												Grid.Row="1"
-												Grid.Column="0"
-												HorizontalAlignment="Stretch">
-
-										<ComboBox ItemsSource="{Binding SpellLevels}"
-												  SelectedIndex="{Binding NewSpellLevelIndex, Mode=TwoWay}"
-												  PlaceholderText="Level"
-												  HorizontalAlignment="Stretch"
-												  MinWidth="120"
-												  Margin="0, 0, 4, 4" />
-										<TextBox Text="{Binding NewSpellTarget, Mode=TwoWay}"
-												 PlaceholderText="Target"
-												 MinWidth="120"
-												 HorizontalAlignment="Stretch"
-												 Margin="0, 0, 4, 0" />
-
-									</StackPanel>
-									<StackPanel Grid.Column="1"
-												Margin="0, 4"
-												Grid.Row="1">
-										<ComboBox ItemsSource="{Binding SpellSchools}"
-												  SelectedIndex="{Binding NewSpellSchoolIndex, Mode=TwoWay}"
-												  HorizontalAlignment="Stretch"
-												  MinWidth="120"
-												  PlaceholderText="School"
-												  Margin="0, 0 ,0 ,4" />
-										<TextBox Text="{Binding NewSpellRange, Mode=TwoWay}"
-												 PlaceholderText="Range"
-												 MinWidth="120"
-												 HorizontalAlignment="Stretch" />
-
-
-									</StackPanel>
-									<StackPanel Orientation="Horizontal"
-												Grid.Row="3"
-												Grid.Column="0"
-												Grid.ColumnSpan="2">
-										<CheckBox IsChecked="{Binding NSpellHasV, Mode=TwoWay}"
-												  Content="Verbal"
-												  MinWidth="40"
-												  Margin="0, 0, 4, 0" />
-										<CheckBox IsChecked="{Binding NSpellHasS, Mode=TwoWay}"
-												  Content="Somatic"
-												  MinWidth="44"
-												  Margin="0, 0, 4, 0" />
-										<TextBox Text="{Binding NSpellMat, Mode=TwoWay}"
-												 PlaceholderText="Material"
-												 MinWidth="120" />
-									</StackPanel>
-									<StackPanel Grid.Row="4"
-												Grid.Column="0"
-												Grid.ColumnSpan="2">
-										<TextBlock Text="Description" />
-										<TextBox Height="96"
-												 Margin="0"
-												 Text="{Binding NewSpellDesc, Mode=TwoWay}"
+										</StackPanel>
+										<StackPanel Orientation="Horizontal"
+													Margin="0,0,0,4">
+											<ComboBox ItemsSource="{Binding WeaponMainStats}"
+													  SelectedIndex="{Binding NewWepSelectedMainStat, Mode=TwoWay}"
+													  Margin="0, 0, 4, 0" />
+											<ComboBox ItemsSource="{Binding WeaponRanges}"
+													  SelectedIndex="{Binding NewWepSelectedType, Mode=TwoWay}" />
+										</StackPanel>
+										<TextBox Text="{Binding NewWepDesc, Mode=TwoWay}"
+												 PlaceholderText="Description"
 												 AcceptsReturn="True"
+												 MinHeight="48"
+												 Margin="0, 4, 0, 0"
 												 TextWrapping="Wrap" />
+										<Button Content=" Add Item"
+												Margin="4"
+												Command="{Binding AddNewWeapon}"
+												Tapped="AddWeaponButtonTapped" />
+										<!--</StackPanel>-->
 									</StackPanel>
-									<StackPanel Grid.Row="5"
-												Grid.Column="0"
-												Grid.ColumnSpan="2">
-										<TextBlock Text="At Higher Levels" />
-										<TextBox Text="{Binding NewSpellHigherLevels, Mode=TwoWay}"
-												 AcceptsReturn="True"
-												 TextWrapping="Wrap"
-												 MinHeight="72" />
+								</Flyout>
+							</Button.Flyout>
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add" />
+									<TextBlock Text="Add new Weapon"
+											   Margin="4, 0, 0, 0" />
+								</StackPanel>
+							</Button.Content>
+						</Button>
+						<TextBlock Text="Items" />
+						<ListView ItemsSource="{Binding Items}"
+								  ItemTemplate="{StaticResource Item}"
+								  SelectionMode="None" />
+						<Button Style="{StaticResource NoBackgroundAddButton}"
+								HorizontalAlignment="Right"
+								Name="AddItemButton">
+							<Button.Flyout>
+								<Flyout>
+									<StackPanel MinWidth="150">
+										<TextBox PlaceholderText="Name"
+												 Margin="4"
+												 Text="{Binding NewItemName, Mode=TwoWay}" />
+										<TextBox PlaceholderText="Description"
+												 Height="96"
+												 Margin="4"
+												 Text="{Binding NewItemDesc, Mode=TwoWay}" />
+										<StackPanel Orientation="Horizontal">
+											<CheckBox Content="Also Add to Compendium"
+													  Margin="4"
+													  IsChecked="{Binding AddItemToGlobalList, Mode=TwoWay}" />
+											<Button Content="+ Add Item"
+													Margin="4"
+													Command="{Binding AddNewItem}"
+													Tapped="AddItemButtonTapped" />
+										</StackPanel>
 									</StackPanel>
-									<StackPanel Grid.Row="6"
-												Grid.Column="0"
-												Grid.ColumnSpan="2">
-										<ToggleSwitch IsOn="{Binding NewSpellIsAttack, Mode=TwoWay}"
-													  OffContent="Is Attack"
-													  OnContent="Is Attack"
-													  Toggled="IsAttackSwitch_Toggled"
-													  Margin="0" />
-										<StackPanel Name="NewSpellAttackStatsPanel"
-													Margin="0"
-													Visibility="Visible">
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="Damage: "
-														   VerticalAlignment="Center" />
-												<TextBox Text="{Binding NewSpellDamage, Mode=TwoWay}"
-														 Margin="4, 0, 0, 0"
-														 MinWidth="60" />
-												<TextBlock Text="Type: "
-														   VerticalAlignment="Center"
-														   Margin="4, 0, 0, 0" />
-												<TextBox Text="{Binding NewSpellDamageType, Mode=TwoWay}"
-														 Margin="4, 0, 0, 0"
-														 MinWidth="96"
-														 PlaceholderText="Necrotic, etc." />
-											</StackPanel>
-											<StackPanel Orientation="Horizontal"
-														Margin="0, 4, 0, 0">
-												<TextBlock Text="Higher Level Cast Damage: "
-														   VerticalAlignment="Center" />
-												<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
-														 Margin="4, 0, 0, 0" />
-											</StackPanel>
-											<CheckBox Content="Add Ability Modifier to damage?"
-													  IsChecked="{Binding NewSpellAddAbilityModToDamage}"></CheckBox>
-											<StackPanel Name="AttackRollPanel"
-														Margin="4">
+								</Flyout>
+							</Button.Flyout>
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add" />
+									<TextBlock Text="Add new Item"
+											   Margin="4, 0, 0, 0" />
+								</StackPanel>
+							</Button.Content>
+						</Button>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="Spells"
+										Symbol="Library" />
+				</PivotItem.Header>
+				<ScrollViewer>
+					<StackPanel>
+						<ListView ItemsSource="{Binding Spells}"
+								  ItemTemplate="{StaticResource Spell}"
+								  SelectionMode="None"
+								  IsItemClickEnabled="True"
+								  ItemClick="SpellListItemClick"
+								  Name="SpellList" />
+						<Button Style="{StaticResource NoBackgroundAddButton}"
+								HorizontalAlignment="Right"
+								Name="AddSpellButton">
 
-											</StackPanel>
-											<StackPanel Orientation="Horizontal"
-														Margin="0, 4, 0, 0">
-												<TextBlock Text="Range: "
-														   VerticalAlignment="Center" />
-												<ComboBox SelectedIndex="{Binding NewSpellRangeTypeIndex, Mode=TwoWay}"
-														  MinWidth="96"
-														  SelectionChanged="NewSpellRangeSelectionChanged"
-														  ItemsSource="{Binding NewSpellRangeTypes}"
-														  Margin="4, 0, 0, 0">
-												</ComboBox>
+							<Button.Flyout>
+								<Flyout>
 
-											</StackPanel>
-											<ToggleSwitch OnContent="Saving throw"
-														  OffContent="Attack roll"
-														  Toggled="DCSaveToggleSwitch_OnToggled"
-														  IsOn="{Binding NewSpellIsSavingThrow, Mode=TwoWay}" />
-											<StackPanel Name="SavingThrowPanel"
-														Margin="4"
-														Visibility="Collapsed">
+									<Grid Margin="4, 0">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="0" />
+											<RowDefinition Height="32" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+
+										<TextBox PlaceholderText="Name"
+												 Text="{Binding NewSpellName, Mode=TwoWay}"
+												 MinWidth="240"
+												 Grid.Row="0"
+												 Grid.Column="0"
+												 Grid.ColumnSpan="2" />
+										<StackPanel Margin="0,4"
+													Grid.Row="1"
+													Grid.Column="0"
+													HorizontalAlignment="Stretch">
+
+											<ComboBox ItemsSource="{Binding SpellLevels}"
+													  SelectedIndex="{Binding NewSpellLevelIndex, Mode=TwoWay}"
+													  PlaceholderText="Level"
+													  HorizontalAlignment="Stretch"
+													  MinWidth="120"
+													  Margin="0, 0, 4, 4" />
+											<TextBox Text="{Binding NewSpellTarget, Mode=TwoWay}"
+													 PlaceholderText="Target"
+													 MinWidth="120"
+													 HorizontalAlignment="Stretch"
+													 Margin="0, 0, 4, 0" />
+
+										</StackPanel>
+										<StackPanel Grid.Column="1"
+													Margin="0, 4"
+													Grid.Row="1">
+											<ComboBox ItemsSource="{Binding SpellSchools}"
+													  SelectedIndex="{Binding NewSpellSchoolIndex, Mode=TwoWay}"
+													  HorizontalAlignment="Stretch"
+													  MinWidth="120"
+													  PlaceholderText="School"
+													  Margin="0, 0 ,0 ,4" />
+											<TextBox Text="{Binding NewSpellRange, Mode=TwoWay}"
+													 PlaceholderText="Range"
+													 MinWidth="120"
+													 HorizontalAlignment="Stretch" />
+
+
+										</StackPanel>
+										<StackPanel Orientation="Horizontal"
+													Grid.Row="3"
+													Grid.Column="0"
+													Grid.ColumnSpan="2">
+											<CheckBox IsChecked="{Binding NSpellHasV, Mode=TwoWay}"
+													  Content="Verbal"
+													  MinWidth="40"
+													  Margin="0, 0, 4, 0" />
+											<CheckBox IsChecked="{Binding NSpellHasS, Mode=TwoWay}"
+													  Content="Somatic"
+													  MinWidth="44"
+													  Margin="0, 0, 4, 0" />
+											<TextBox Text="{Binding NSpellMat, Mode=TwoWay}"
+													 PlaceholderText="Material"
+													 MinWidth="120" />
+										</StackPanel>
+										<StackPanel Grid.Row="4"
+													Grid.Column="0"
+													Grid.ColumnSpan="2">
+											<TextBlock Text="Description" />
+											<TextBox Height="96"
+													 Margin="0"
+													 Text="{Binding NewSpellDesc, Mode=TwoWay}"
+													 AcceptsReturn="True"
+													 TextWrapping="Wrap" />
+										</StackPanel>
+										<StackPanel Grid.Row="5"
+													Grid.Column="0"
+													Grid.ColumnSpan="2">
+											<TextBlock Text="At Higher Levels" />
+											<TextBox Text="{Binding NewSpellHigherLevels, Mode=TwoWay}"
+													 AcceptsReturn="True"
+													 TextWrapping="Wrap"
+													 MinHeight="72" />
+										</StackPanel>
+										<StackPanel Grid.Row="6"
+													Grid.Column="0"
+													Grid.ColumnSpan="2">
+											<ToggleSwitch IsOn="{Binding NewSpellIsAttack, Mode=TwoWay}"
+														  OffContent="Is Attack"
+														  OnContent="Is Attack"
+														  Toggled="IsAttackSwitch_Toggled"
+														  Margin="0" />
+											<StackPanel Name="NewSpellAttackStatsPanel"
+														Margin="0"
+														Visibility="Visible">
 												<StackPanel Orientation="Horizontal">
-													<TextBlock Text="Saving Attribute: "
+													<TextBlock Text="Damage: "
 															   VerticalAlignment="Center" />
-													<ComboBox ItemsSource="{Binding Attributes}"
-															  SelectedIndex="{Binding NewSpellSavingThrowAttributeIndex, Mode=TwoWay}"
-															  Margin="4, 0, 0, 0" />
+													<TextBox Text="{Binding NewSpellDamage, Mode=TwoWay}"
+															 Margin="4, 0, 0, 0"
+															 MinWidth="60" />
+													<TextBlock Text="Type: "
+															   VerticalAlignment="Center"
+															   Margin="4, 0, 0, 0" />
+													<TextBox Text="{Binding NewSpellDamageType, Mode=TwoWay}"
+															 Margin="4, 0, 0, 0"
+															 MinWidth="96"
+															 PlaceholderText="Necrotic, etc." />
+												</StackPanel>
+												<StackPanel Orientation="Horizontal"
+															Margin="0, 4, 0, 0">
+													<TextBlock Text="Higher Level Cast Damage: "
+															   VerticalAlignment="Center" />
+													<TextBox Text="{Binding NewSpellHigherLevelDamage, Mode=TwoWay}"
+															 Margin="4, 0, 0, 0" />
+												</StackPanel>
+												<CheckBox Content="Add Ability Modifier to damage?"
+														  IsChecked="{Binding NewSpellAddAbilityModToDamage}"></CheckBox>
+												<StackPanel Name="AttackRollPanel"
+															Margin="4">
 
 												</StackPanel>
-												<StackPanel Orientation="Horizontal">
-													<TextBlock Text="Effect: "
+												<StackPanel Orientation="Horizontal"
+															Margin="0, 4, 0, 0">
+													<TextBlock Text="Range: "
 															   VerticalAlignment="Center" />
-													<TextBox Text="{Binding NewSpellSavingThrowEffect, Mode=TwoWay}"
-															 Margin="4, 0, 0, 0" />
+													<ComboBox SelectedIndex="{Binding NewSpellRangeTypeIndex, Mode=TwoWay}"
+															  MinWidth="96"
+															  SelectionChanged="NewSpellRangeSelectionChanged"
+															  ItemsSource="{Binding NewSpellRangeTypes}"
+															  Margin="4, 0, 0, 0">
+													</ComboBox>
+
+												</StackPanel>
+												<ToggleSwitch OnContent="Saving throw"
+															  OffContent="Attack roll"
+															  Toggled="DCSaveToggleSwitch_OnToggled"
+															  IsOn="{Binding NewSpellIsSavingThrow, Mode=TwoWay}" />
+												<StackPanel Name="SavingThrowPanel"
+															Margin="4"
+															Visibility="Collapsed">
+													<StackPanel Orientation="Horizontal">
+														<TextBlock Text="Saving Attribute: "
+																   VerticalAlignment="Center" />
+														<ComboBox ItemsSource="{Binding Attributes}"
+																  SelectedIndex="{Binding NewSpellSavingThrowAttributeIndex, Mode=TwoWay}"
+																  Margin="4, 0, 0, 0" />
+
+													</StackPanel>
+													<StackPanel Orientation="Horizontal">
+														<TextBlock Text="Effect: "
+																   VerticalAlignment="Center" />
+														<TextBox Text="{Binding NewSpellSavingThrowEffect, Mode=TwoWay}"
+																 Margin="4, 0, 0, 0" />
+													</StackPanel>
 												</StackPanel>
 											</StackPanel>
 										</StackPanel>
-									</StackPanel>
-									<StackPanel Orientation="Horizontal"
-												Grid.Row="7"
-												Grid.Column="0"
-												Grid.ColumnSpan="2">
-										<CheckBox Content="Also Add to Compendium"
-												  Margin="4"
-												  IsChecked="{Binding AddSpellToGlobalList, Mode=TwoWay}" />
-										<Button Content="+ Add Spell"
-												Margin="4"
-												Command="{Binding AddNewSpell, Mode=TwoWay}"
-												Tapped="AddSpellButtonTapped" />
-									</StackPanel>
+										<StackPanel Orientation="Horizontal"
+													Grid.Row="7"
+													Grid.Column="0"
+													Grid.ColumnSpan="2">
+											<CheckBox Content="Also Add to Compendium"
+													  Margin="4"
+													  IsChecked="{Binding AddSpellToGlobalList, Mode=TwoWay}" />
+											<Button Content="+ Add Spell"
+													Margin="4"
+													Command="{Binding AddNewSpell, Mode=TwoWay}"
+													Tapped="AddSpellButtonTapped" />
+										</StackPanel>
 
-								</Grid>
+									</Grid>
 
-							</Flyout>
-						</Button.Flyout>
-						<Button.Content>
-							<StackPanel Orientation="Horizontal">
-								<SymbolIcon Symbol="Add" />
-								<TextBlock Text="Add new Spell"
-										   Margin="4, 0, 0, 0" />
-							</StackPanel>
-						</Button.Content>
-					</Button>
-				</StackPanel>
-			</ScrollViewer>
-		</PivotItem>
-		<PivotItem>
-			<PivotItem.Header>
-				<controls:TabHeader Label="Misc"
-									Symbol="Bullets" />
-			</PivotItem.Header>
-			<ScrollViewer>
-				<StackPanel>
-					<TextBlock Text="Backstory" />
-					<TextBox MinHeight="192"
-							 Text="{Binding Backstory, Mode=TwoWay}"
-							 TextWrapping="Wrap"
-							 AcceptsReturn="True" />
-					<TextBlock Text="Religion" />
-					<TextBox Text="{Binding God, Mode=TwoWay}"
-							 PlaceholderText="God(s)" />
-					<TextBlock Text="Relationships/Allies" />
-					<TextBox Text="{Binding Relationships, Mode=TwoWay}"
-							 MinHeight="96"
-							 AcceptsReturn="True"
-							 TextWrapping="Wrap" />
-					<TextBlock Text="Other Notes" />
-					<TextBox Text="{Binding Notes, Mode=TwoWay}"
-							 MinHeight="96"
-							 AcceptsReturn="True"
-							 TextWrapping="Wrap" />
-				</StackPanel>
-			</ScrollViewer>
-		</PivotItem>
-	</Pivot>
+								</Flyout>
+							</Button.Flyout>
+							<Button.Content>
+								<StackPanel Orientation="Horizontal">
+									<SymbolIcon Symbol="Add" />
+									<TextBlock Text="Add new Spell"
+											   Margin="4, 0, 0, 0" />
+								</StackPanel>
+							</Button.Content>
+						</Button>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem>
+				<PivotItem.Header>
+					<controls:TabHeader Label="Misc"
+										Symbol="Bullets" />
+				</PivotItem.Header>
+				<ScrollViewer>
+					<StackPanel>
+						<TextBlock Text="Backstory" />
+						<TextBox MinHeight="192"
+								 Text="{Binding Backstory, Mode=TwoWay}"
+								 TextWrapping="Wrap"
+								 AcceptsReturn="True" />
+						<TextBlock Text="Religion" />
+						<TextBox Text="{Binding God, Mode=TwoWay}"
+								 PlaceholderText="God(s)" />
+						<TextBlock Text="Relationships/Allies" />
+						<TextBox Text="{Binding Relationships, Mode=TwoWay}"
+								 MinHeight="96"
+								 AcceptsReturn="True"
+								 TextWrapping="Wrap" />
+						<TextBlock Text="Other Notes" />
+						<TextBox Text="{Binding Notes, Mode=TwoWay}"
+								 MinHeight="96"
+								 AcceptsReturn="True"
+								 TextWrapping="Wrap" />
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+		</Pivot>
+	</Grid>
 </Page>
 	
 	

@@ -23,9 +23,9 @@
 		public string SavingThrowEffect;
 		#endregion
 		public Damage Damage { get; set; } = new Damage();
+		public Damage Damage2 { get; set; } = new Damage();
 		public bool AddAbilityModToDamage { get; set; }
 		public string DamageType { get; set; }
 		public Damage HigherLevelDamage { get; set; } = new Damage();
-		
 	}
 }

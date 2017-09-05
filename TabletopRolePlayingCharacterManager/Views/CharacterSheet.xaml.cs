@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -13,7 +14,28 @@ namespace TabletopRolePlayingCharacterManager.Views
 		public CharacterSheet()
 		{
 			InitializeComponent();
+			SpellList.Loaded += (sender, args) =>
+			{
+				var attackButtonList = SpellList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.ToString() == "RollAttackButton");
+				foreach (var button in attackButtonList)
+				{
+					button.Click += ShowAttackDialogAsync;
+				}
+			};
+			WeaponList.Loaded += (sender, args) =>
+			{
+				var atkBtnList = WeaponList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.ToString() == "RollAttackButton");
+				foreach (var button in atkBtnList)
+				{
+					button.Click += ShowAttackDialogAsync;
+				}
 
+			};
+		}
+
+		public async void ShowAttackDialogAsync(object sender, RoutedEventArgs e)
+		{
+			await AttackDialog.ShowAsync();
 		}
 
 		public void GeneralTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
@@ -83,13 +105,13 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void TraitListOnItemClick(object sender, ItemClickEventArgs e)
 		{
-			
+
 			foreach (var trait in TraitList.Items)
 			{
 				if (trait != e.ClickedItem)
 				{
 					(trait as TraitViewModel).StopEditing.Execute(null);
-					
+
 				}
 				else
 				{
@@ -111,14 +133,14 @@ namespace TabletopRolePlayingCharacterManager.Views
 		{
 			var swtch = sender as ToggleSwitch;
 
-			AttackRollPanel.Visibility = (bool) swtch.IsOn ? Visibility.Collapsed : Visibility.Visible;
+			AttackRollPanel.Visibility = (bool)swtch.IsOn ? Visibility.Collapsed : Visibility.Visible;
 			SavingThrowPanel.Visibility = (bool)swtch.IsOn ? Visibility.Visible : Visibility.Collapsed;
 
 		}
 
 		private void NewSpellRangeSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			
+
 		}
 
 		private void SpellListItemClick(object sender, ItemClickEventArgs e)
@@ -134,6 +156,17 @@ namespace TabletopRolePlayingCharacterManager.Views
 					(spell as SpellViewModel).StartEditing.Execute(null);
 				}
 			}
+		}
+
+		private void AttackRollDialogDoneClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+		{
+			sender.Hide();
+		}
+
+		private void RollDamageButtonClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+		{
+			AttackRollDialogPanel.Visibility = Visibility.Collapsed;
+			DamageRollDialogPanel.Visibility = Visibility.Visible;
 		}
 	}
 }

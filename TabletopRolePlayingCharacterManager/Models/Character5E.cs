@@ -69,6 +69,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public Dictionary<MainStatType, int> AbilityModifiers { get; private set; } = new Dictionary<MainStatType, int>();
 		#endregion
 
+		public MainStatType SpellcastingAttribute { get; set; } = MainStatType.Intelligence;
 		public Dictionary<int, Tuple<int, int>> SpellSlots { get; set; } = new Dictionary<int, Tuple<int, int>>();
 		public List<Skill> Skills { get; set; } = new List<Skill>();
 		public List<Item> Inventory { get; set; } = new List<Item>();

@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
 	//TODO: Add a dice picker
 	public class Damage
 	{
-		//Die Dize probable shouldn't be more than a D12
+		//Die size probable shouldn't be more than a D12
 		public Dictionary<DieType, int> Dice { get; set; } = new Dictionary<DieType, int>();
 		public int Bonus { get; set; }
 
@@ -19,7 +22,6 @@ namespace TabletopRolePlayingCharacterManager.Models
 		{
 
 		}
-		//Override Bonus with bonus if it's set to a value
 		public int RollDamage()
 		{
 			var finalRoll = 0;
@@ -47,7 +49,42 @@ namespace TabletopRolePlayingCharacterManager.Models
 					text += die.Value + "d" + die.Key.ToString().Substring(1);
 				}
 			}
+			if (Bonus > 0)
+			{
+
+				text += " + " + Bonus;
+			}
 			return text;
+		}
+		/// <summary>
+		/// Parses a string and extracts the dice and bonus damage, then replaces the current values in this object
+		/// </summary>
+		/// <param name="text"></param>
+		public void ParseText(string text)
+		{
+			var matches = Regex.Match(text, @"(\d)([dD]\d{1,3})\s?[\+-]\s?(\d{1,3})");
+			Debug.WriteLine("Matches: " + matches.Value);
+			for (var i = 0; i < matches.Groups.Count; i++)
+			{
+				Debug.WriteLine("match " + i + " is " + matches.Groups[i].Value);
+			}
+			if (matches.Success && matches.Groups.Count >= 3)
+			{
+				var dieType = DieType.D4;
+				if (int.TryParse(matches.Groups[1].Value, out int numDice))
+				{
+					if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
+					{
+						Dice.Clear();
+						Dice.Add(dieType, numDice);
+						
+					}
+				}
+				if (int.TryParse(matches.Groups[3].Value, out int numBonus))
+				{
+					Bonus = numBonus;
+				}
+			}
 		}
 	}
 }
