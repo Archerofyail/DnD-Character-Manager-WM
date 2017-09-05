@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TabletopRolePlayingCharacterManager.Models;
 using Windows.Storage;
+using Newtonsoft.Json.Serialization;
 
 
 namespace TabletopRolePlayingCharacterManager.Types
@@ -119,6 +120,13 @@ namespace TabletopRolePlayingCharacterManager.Types
 						var json = await FileIO.ReadTextAsync(file);
 						Debug.WriteLine("Json for file is " + json);
 						var character = JsonConvert.DeserializeObject<Character5E>(json);
+						if (character.SpellSlots.Count == 0)
+						{
+							for (int i = 0; i < 9; i++)
+							{
+								character.SpellSlots.Add(new Pair<int, int>(0, 0));
+							}
+						}
 						character.CalculateAbilityModifiers();
 						character.CalculateSkillBonuses();
 						_characters.Add(character);

@@ -74,6 +74,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				var final = 0;
 				final += rand.Next(1, 21);
+				AttackRollString = string.Format("1d20[{0}] + Spell Attack Bonus ({1})", final, attackRollBonus);
 				if (final == 20)
 				{
 					AttackRollCrit = true;
@@ -119,6 +120,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public string AttackRollString { get; set; }
+
+		public string DamageRollString { get; set; }
 		#endregion
 
 		#region General
@@ -762,6 +766,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					}
 				}
 				return proficiencies;
+			}
+		}
+
+		private ObservableCollection<SpellSlotsViewModel> spellSlots = new ObservableCollection<SpellSlotsViewModel>();
+
+		public ObservableCollection<SpellSlotsViewModel> SpellSlots
+		{
+			get
+			{
+				if (spellSlots.Count == 0)
+				{
+					int index = 1;
+					foreach (var slot in character.SpellSlots)
+					{ 
+
+						spellSlots.Add(new SpellSlotsViewModel(slot, index));
+						index++;
+					}
+				}
+				return spellSlots;
 			}
 		}
 		#region GlobalListControl
@@ -1468,7 +1492,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			SpellOrWeaponAttackName = spell.Name;
 			attackRollBonus = character.AbilityModifiers[character.SpellcastingAttribute] + character.ProficiencyBonus;
-			damageRoll = spell.Damage.RollDamage() + spell.Damage2.RollDamage();
+			var d1 = spell.Damage.RollDamage();
+			var d2 = spell.Damage2.RollDamage();
+			damageRoll = d1 + d2;
+			DamageRollString = string.Format("{0}[{1}])", spell.Damage.ToString(), d1) + (spell.Damage2.Dice.Count > 0 ? string.Format(" + {0}[{1}]", spell.Damage2.ToString(), d2) : "");
+
+			RaisePropertyChanged("AttackRoll");
+			RaisePropertyChanged("DamageRoll");
 		}
 
 		void SetAttackWeapon(Weapon weapon)
@@ -1477,6 +1507,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			attackRollBonus = weapon.AttackBonus + (weapon.IsProficient ? character.ProficiencyBonus : 0) + character.AbilityModifiers[weapon.MainStat];
 			damageRoll = weapon.Damage.RollDamage() + weapon.Damage2.RollDamage() + character.AbilityModifiers[weapon.MainStat];
 			critDamage = weapon.Damage.RollDamage() - weapon.Damage.Bonus;
+			RaisePropertyChanged("AttackRoll");
+			RaisePropertyChanged("DamageRoll");
 		}
 
 		void RaiseSkillsChanged()

@@ -69,21 +69,21 @@
 	<DataTemplate x:Key="Weapon">
 		<StackPanel>
 			<StackPanel Margin="4">
-				<TextBlock Text="{Binding Name}" 
+				<TextBlock Text="{Binding Name}"
 						   FontSize="18"
-						   FontWeight="Bold"/>
+						   FontWeight="Bold" />
 				<StackPanel Orientation="Horizontal"
 							Margin="0, 4">
 					<TextBlock Text="Attack Bonus: "
-							   Margin="0, 0, 4, 0"/>
+							   Margin="0, 0, 4, 0" />
 					<TextBlock Text="{Binding AttackBonus}"
-							   Margin="0, 0, 4, 0"/>
-					
+							   Margin="0, 0, 4, 0" />
+
 					<TextBlock Text="Damage: "
-							   Margin="0, 0, 4, 0"/>
+							   Margin="0, 0, 4, 0" />
 					<TextBlock Text="{Binding Damage}" />
 				</StackPanel>
-				<TextBlock Text="{Binding Description}"/>
+				<TextBlock Text="{Binding Description}" />
 			</StackPanel>
 			<StackPanel Margin="4">
 				<StackPanel Orientation="Horizontal"
@@ -160,7 +160,7 @@
 						Visibility="{Binding IsAttack}"
 						HorizontalAlignment="Stretch"
 						Command="{Binding RollAttack}"
-						Tag="RollAttackButton"/>
+						Tag="RollAttackButton" />
 			</StackPanel>
 
 			<Grid Margin="4, 0"
@@ -191,7 +191,7 @@
 							Grid.Column="0"
 							HorizontalAlignment="Stretch">
 
-					<ComboBox ItemsSource="{Binding Levels}"
+					<ComboBox ItemsSource="{Binding SpellLevels}"
 							  SelectedIndex="{Binding LevelIndex, Mode=TwoWay}"
 							  PlaceholderText="Level"
 							  HorizontalAlignment="Stretch"
@@ -228,11 +228,11 @@
 							  Content="Verbal"
 							  MinWidth="40"
 							  Margin="0, 0, 4, 0" />
-					<CheckBox IsChecked="{Binding HasSOmaticComponent, Mode=TwoWay}"
+					<CheckBox IsChecked="{Binding HasSomaticComponent, Mode=TwoWay}"
 							  Content="Somatic"
 							  MinWidth="44"
 							  Margin="0, 0, 4, 0" />
-					<TextBox Text="{Binding Material, Mode=TwoWay}"
+					<TextBox Text="{Binding MaterialComponent, Mode=TwoWay}"
 							 PlaceholderText="Material"
 							 MinWidth="120" />
 				</StackPanel>
@@ -336,6 +336,66 @@
 			</Grid>
 		</StackPanel>
 	</DataTemplate>
+	<DataTemplate x:Key="SpellSlot">
+		<Grid BorderBrush="Gray"
+			  BorderThickness="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock Text="{Binding SlotLevel}"
+					   HorizontalAlignment="Center"
+					   Grid.Row="0"
+					   Grid.ColumnSpan="2" />
+
+
+			<StackPanel Margin="4"
+						HorizontalAlignment="Center"
+						Grid.Row="1"
+						Grid.Column="0">
+
+				<Button>
+					<Button.Content>
+						<SymbolIcon Symbol="Add"></SymbolIcon>
+					</Button.Content>
+				</Button>
+				<TextBlock Text="{Binding Slots, Mode=TwoWay}"
+						   FontSize="20"
+						   Margin="4"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center" />
+				<Button>
+					<Button.Content>
+						<SymbolIcon Symbol="Remove"></SymbolIcon>
+					</Button.Content>
+				</Button>
+			</StackPanel>
+			<StackPanel Margin="4"
+						HorizontalAlignment="Center"
+						Grid.Row="1"
+						Grid.Column="1">
+				<Button>
+					<Button.Content>
+						<SymbolIcon Symbol="Add"></SymbolIcon>
+					</Button.Content>
+				</Button>
+				<TextBlock Text="{Binding MaxSlots, Mode=TwoWay}"
+						   FontSize="20"
+						   Margin="4"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center" />
+				<Button>
+					<Button.Content>
+						<SymbolIcon Symbol="Remove"></SymbolIcon>
+					</Button.Content>
+				</Button>
+			</StackPanel>
+		</Grid>
+	</DataTemplate>
 	<DataTemplate x:Key="CharacterTrait">
 		<StackPanel>
 			<interactivity:Interaction.Behaviors>
@@ -379,4 +439,6 @@
 		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>
+
+
 

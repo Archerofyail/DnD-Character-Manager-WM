@@ -70,7 +70,8 @@ namespace TabletopRolePlayingCharacterManager.Models
 		#endregion
 
 		public MainStatType SpellcastingAttribute { get; set; } = MainStatType.Intelligence;
-		public Dictionary<int, Tuple<int, int>> SpellSlots { get; set; } = new Dictionary<int, Tuple<int, int>>();
+		//Item1 is how many slots the character has to spend, Item2 is how many they have total
+		public List<Pair<int, int>> SpellSlots { get; set; } = new List<Pair<int, int>>();
 		public List<Skill> Skills { get; set; } = new List<Skill>();
 		public List<Item> Inventory { get; set; } = new List<Item>();
 		public List<Weapon> Weapons { get; set; } = new List<Weapon>();
@@ -136,6 +137,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 					new Skill("Survival", AbilityModifiers[MainStatType.Wisdom], ProficiencyBonus, MainStatType.Wisdom, false),
 				};
 				CalculateSkillBonuses();
+				for (int i = 0; i < 9; i++)
+				{
+					SpellSlots.Add(new Pair<int, int>(0, 0));
+				}
 			}
 
 

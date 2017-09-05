@@ -147,6 +147,7 @@
     <Compile Include="ViewModels\ProficiencyViewModel.cs" />
     <Compile Include="ViewModels\RaceViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
+    <Compile Include="ViewModels\SpellSlotsViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
     <Compile Include="ViewModels\ChoiceViewModel.cs" />
     <Compile Include="ViewModels\SubclassViewModel.cs" />

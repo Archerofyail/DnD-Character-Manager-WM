@@ -64,11 +64,10 @@
 					   IsSecondaryButtonEnabled="True"
 					   PrimaryButtonText="Roll Damage"
 					   SecondaryButtonClick="AttackRollDialogDoneClicked"
-					   PrimaryButtonClick="RollDamageButtonClicked"
 					   SecondaryButtonText="Done"
 					   Title="{Binding AttackOrDamageTitle}"
 					   Name="AttackDialog">
-			
+
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
@@ -78,18 +77,31 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel Name="AttackRollDialogPanel">
 					<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Attacking with "/>
+						<TextBlock Text="Attacking with " />
 						<TextBlock Text="{Binding SpellOrWeaponAttackName}"></TextBlock>
 					</StackPanel>
-					<TextBlock Text="You rolled a "/>
+					<TextBlock Text="You rolled a " />
 					<TextBlock Margin="12"
 							   FontSize="26"
 							   FontWeight="SemiBold"
-							   Text="{Binding AttackRoll}"/>
-					<TextBlock Text="Did that hit?"/>
+							   Text="{Binding AttackRoll}" />
+					<TextBlock Text="{Binding AttackRollString}"
+							   FontStyle="Italic"
+							   FontWeight="SemiLight"
+							   FontSize="14" />
+					<TextBlock Text="Did that hit?" />
+					<Button Content="Roll Damage"
+							Background="{StaticResource AccentColorBrush}"
+							Click="RollDamageButtonClicked" />
 				</StackPanel>
-				<StackPanel Name="DamageRollDialogPanel" ></StackPanel>
-				
+				<StackPanel Name="DamageRollDialogPanel"
+							Visibility="Collapsed">
+					<TextBlock Text="{Binding DamageRoll}"
+							   Margin="12"
+							   FontSize="26"
+							   FontWeight="SemiBold" />
+				</StackPanel>
+
 			</Grid>
 		</ContentDialog>
 		<Pivot Background="{StaticResource BackgroundThemeBrush}">
@@ -752,8 +764,8 @@
 						<TextBlock Text="Weapons" />
 						<ListView ItemsSource="{Binding Weapons, Mode=TwoWay}"
 								  ItemTemplate="{StaticResource Weapon}"
-								  SelectionMode="None" 
-								  Name="WeaponList"/>
+								  SelectionMode="None"
+								  Name="WeaponList" />
 						<Button Style="{StaticResource NoBackgroundAddButton}"
 								HorizontalAlignment="Right"
 								Name="AddWeaponButton">
@@ -862,6 +874,11 @@
 				</PivotItem.Header>
 				<ScrollViewer>
 					<StackPanel>
+						<controls1:AdaptiveGridView ItemsSource="{Binding SpellSlots}"
+													ItemTemplate="{StaticResource SpellSlot}"
+													IsItemClickEnabled="False"
+													SelectionMode="None"
+													DesiredWidth="100"/>
 						<ListView ItemsSource="{Binding Spells}"
 								  ItemTemplate="{StaticResource Spell}"
 								  SelectionMode="None"

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -14,9 +15,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 		public CharacterSheet()
 		{
 			InitializeComponent();
-			SpellList.Loaded += (sender, args) =>
+			SpellList.Loaded += (s, ev) =>
 			{
-				var attackButtonList = SpellList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.ToString() == "RollAttackButton");
+				var attackButtonList = SpellList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
+					
 				foreach (var button in attackButtonList)
 				{
 					button.Click += ShowAttackDialogAsync;
@@ -35,6 +37,13 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		public async void ShowAttackDialogAsync(object sender, RoutedEventArgs e)
 		{
+			if ((sender as Button).Content.Equals("Roll Damage"))
+			{
+				AttackRollDialogPanel.Visibility = Visibility.Collapsed;
+				DamageRollDialogPanel.Visibility = Visibility.Visible;
+				AttackDialog.IsPrimaryButtonEnabled = false;
+			}
+			
 			await AttackDialog.ShowAsync();
 		}
 
@@ -163,10 +172,11 @@ namespace TabletopRolePlayingCharacterManager.Views
 			sender.Hide();
 		}
 
-		private void RollDamageButtonClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+		private void RollDamageButtonClicked(object sender, RoutedEventArgs args)
 		{
 			AttackRollDialogPanel.Visibility = Visibility.Collapsed;
 			DamageRollDialogPanel.Visibility = Visibility.Visible;
+			AttackDialog.IsPrimaryButtonEnabled = false;
 		}
 	}
 }
