@@ -68,7 +68,8 @@
 	</DataTemplate>
 	<DataTemplate x:Key="Weapon">
 		<StackPanel>
-			<StackPanel Margin="4">
+			<StackPanel Margin="4"
+						Visibility="{Binding IsNotEditing}">
 				<TextBlock Text="{Binding Name}"
 						   FontSize="18"
 						   FontWeight="Bold" />
@@ -85,7 +86,8 @@
 				</StackPanel>
 				<TextBlock Text="{Binding Description}" />
 			</StackPanel>
-			<StackPanel Margin="4">
+			<StackPanel Margin="4"
+						Visibility="{Binding IsEditing}">
 				<StackPanel Orientation="Horizontal"
 							Margin="0,0,0,4">
 					<TextBox Text="{Binding Name, Mode=TwoWay}"
@@ -113,15 +115,21 @@
 						 MinHeight="48"
 						 Margin="0, 4, 0, 0"
 						 TextWrapping="Wrap" />
-				<Button Command="{Binding RemoveWeapon}"
-						CommandParameter="{Binding}"
-						Margin="0, 4">
-					<Button.Content>
-						<StackPanel>
-							<SymbolIcon Symbol="Delete" />
-						</StackPanel>
-					</Button.Content>
-				</Button>
+				<StackPanel Orientation="Horizontal">
+					<Button Content="Roll Attack"
+							Command="{Binding Attack}"
+							Tag="RollAttackButton" 
+							Margin="4"/>
+					<Button Command="{Binding RemoveWeapon}"
+							CommandParameter="{Binding}"
+							Margin="4">
+						<Button.Content>
+							<StackPanel>
+								<SymbolIcon Symbol="Delete" />
+							</StackPanel>
+						</Button.Content>
+					</Button>
+				</StackPanel>
 			</StackPanel>
 
 		</StackPanel>
@@ -287,7 +295,7 @@
 									 Margin="4, 0, 0, 0" />
 						</StackPanel>
 						<CheckBox Content="Add Ability Modifier to damage?"
-								  IsChecked="{Binding AddAbilityModToDamage}"></CheckBox>
+								  IsChecked="{Binding AddAbilityModToDamage, Mode=TwoWay}"></CheckBox>
 						<StackPanel Name="AttackRollPanel"
 									Margin="4">
 
@@ -296,9 +304,9 @@
 									Margin="0, 4, 0, 0">
 							<TextBlock Text="Range: "
 									   VerticalAlignment="Center" />
-							<ComboBox SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
+							<ComboBox ItemsSource="{Binding RangeTypes}"
+									  SelectedIndex="{Binding RangeTypeIndex, Mode=TwoWay}"
 									  MinWidth="96"
-									  ItemsSource="{Binding RangeTypes}"
 									  Margin="4, 0, 0, 0">
 							</ComboBox>
 

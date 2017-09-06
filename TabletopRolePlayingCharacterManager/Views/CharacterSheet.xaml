@@ -57,56 +57,7 @@
 	</Page.Resources>
 
 	<Grid>
-		<ContentDialog HorizontalAlignment="Center"
-					   VerticalAlignment="Center"
-					   Visibility="Visible"
-					   IsPrimaryButtonEnabled="False"
-					   IsSecondaryButtonEnabled="False"
-					   PrimaryButtonText="Roll Damage"
-					   SecondaryButtonText="Done"
-					   Title="{Binding AttackOrDamageTitle}"
-					   Name="AttackDialog">
 
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"></RowDefinition>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<StackPanel Name="AttackRollDialogPanel">
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Attacking with " />
-						<TextBlock Text="{Binding SpellOrWeaponAttackName}"></TextBlock>
-					</StackPanel>
-					<TextBlock Text="You rolled a " />
-					<TextBlock Margin="12"
-							   FontSize="26"
-							   FontWeight="SemiBold"
-							   Text="{Binding AttackRoll}" />
-					<TextBlock Text="{Binding AttackRollString}"
-							   FontStyle="Italic"
-							   FontWeight="SemiLight"
-							   FontSize="14" />
-					<TextBlock Text="Did that hit?" />
-					<Button Content="Roll Damage"
-							Background="{StaticResource AccentColorBrush}"
-							Click="RollDamageButtonClicked" 
-							Margin="4"/>
-					<Button Margin="4"
-							Click="AttackRollDialogDoneClicked"
-							Content="Done"/>
-				</StackPanel>
-				<StackPanel Name="DamageRollDialogPanel"
-							Visibility="Collapsed">
-					<TextBlock Text="{Binding DamageRoll}"
-							   Margin="12"
-							   FontSize="26"
-							   FontWeight="SemiBold" />
-				</StackPanel>
-
-			</Grid>
-		</ContentDialog>
 		<Pivot Background="{StaticResource BackgroundThemeBrush}">
 
 
@@ -357,7 +308,7 @@
 														 PlaceholderText="Proficiency"
 														 MinWidth="120" />
 												<ComboBox ItemsSource="{Binding ProficiencyTypes}"
-														  SelectedIndex="{Binding NewProficiencyTypeIndex}"
+														  SelectedIndex="{Binding NewProficiencyTypeIndex, Mode=TwoWay}"
 														  MinWidth="120"
 														  Margin="4"
 														  PlaceholderText="Type" />
@@ -412,26 +363,30 @@
 							  VerticalScrollMode="Enabled">
 					<StackPanel>
 						<Grid Name="CombatInfoPanel"
-							  Margin="0, 0, 0, 8">
+							  Margin="0, 0, 0, 8"
+							  HorizontalAlignment="Stretch">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-								<ColumnDefinition />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
-								<RowDefinition Height="3*" />
+								<RowDefinition Height="Auto" />
 								<RowDefinition Height="14" />
-								<RowDefinition Height="3*" />
-								<RowDefinition Height="3*" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
 
 							</Grid.RowDefinitions>
 
 
 							<StackPanel Orientation="Vertical"
 										Margin="4, 0, 4, 0">
-								<TextBlock Text="AC"
+								<TextBlock Text="Armor Class"
 										   HorizontalAlignment="Center" />
-								<TextBox Text="{Binding ArmorClass, Mode=TwoWay}" />
+								<TextBox Text="{Binding ArmorClass, Mode=TwoWay}"
+										 HorizontalAlignment="Center"
+										 TextAlignment="Center" />
 
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
@@ -440,7 +395,9 @@
 										Grid.Column="1">
 								<TextBlock Text="Initiative"
 										   HorizontalAlignment="Center" />
-								<TextBlock Text="{Binding Initiative, Mode=TwoWay}" />
+								<TextBlock Text="{Binding Initiative, Mode=TwoWay}"
+										   HorizontalAlignment="Center"
+										   TextAlignment="Center" />
 
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
@@ -449,42 +406,59 @@
 										Grid.Row="0">
 								<TextBlock Text="Speed"
 										   HorizontalAlignment="Center" />
-								<TextBox Text="{Binding Speed, Mode=TwoWay}" />
+								<TextBox Text="{Binding Speed, Mode=TwoWay}"
+										 HorizontalAlignment="Center"
+										 TextAlignment="Center" />
 
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
 										Grid.Row="2"
-										Grid.ColumnSpan="2"
-										Grid.Column="0">
+										Grid.Column="0"
+										HorizontalAlignment="Left">
 								<TextBlock Text="Hit Points"
-										   Margin="42, 0, 0, 0" />
+										   TextAlignment="Center"
+										   HorizontalAlignment="Stretch" />
 								<StackPanel Orientation="Horizontal"
-											Name="HealthBoxes">
+											Name="HealthBoxes"
+											HorizontalAlignment="Center">
 									<TextBox Name="CurrentHP"
 											 FontSize="16"
 											 PlaceholderText="HP"
 											 Text="{Binding CurrentHealth, Mode=TwoWay}"
-											 Margin="4, 0, 4, 0"></TextBox>
+											 Margin="4, 0, 4, 0"
+											 TextAlignment="Center" />
 									<TextBlock Text="/"
 											   FontSize="16" />
 									<TextBox Name="MaxHP"
 											 FontSize="16"
 											 TextAlignment="Center"
 											 IsTextPredictionEnabled="False"
-											 PlaceholderText="Max HP"
-											 Text="{Binding MaxHealth, Mode=TwoWay}"></TextBox>
+											 PlaceholderText="MHP"
+											 Text="{Binding MaxHealth, Mode=TwoWay}" />
 								</StackPanel>
 
 
 							</StackPanel>
+							<StackPanel Grid.Row="2"
+										Grid.Column="1"
+										Margin="4">
+								<TextBlock Text="Proficiency Bonus"
+										   HorizontalAlignment="Center"
+										   TextWrapping="WrapWholeWords"
+										   MaxWidth="100" />
+								<TextBlock Text="{Binding ProficiencyBonus}"
+										   HorizontalAlignment="Center"
+										   TextAlignment="Center" />
+							</StackPanel>
 							<StackPanel Grid.Row="3"
 										Grid.Column="0"
 										Grid.ColumnSpan="3"
-										HorizontalAlignment="Stretch">
+										HorizontalAlignment="Left"
+										BorderThickness="1"
+										BorderBrush="Gray">
 								<TextBlock Text="Death Saves"
 										   HorizontalAlignment="Center" />
-								<StackPanel Orientation="Horizontal"
-											HorizontalAlignment="Center">
+								<StackPanel HorizontalAlignment="Center">
 									<StackPanel Orientation="Horizontal"
 												BorderBrush="Gray"
 												BorderThickness="2"
@@ -503,10 +477,10 @@
 												BorderThickness="2"
 												BorderBrush="Gray"
 												Margin="4"
-												HorizontalAlignment="Right">
+												HorizontalAlignment="Left">
 
 										<TextBlock Text="Fails"
-												   Margin="4" />
+												   Margin="4, 4, 40, 4" />
 										<CheckBox MinWidth="18"
 												  IsChecked="{Binding DeathSaveFails[0], Mode=TwoWay}" />
 										<CheckBox MinWidth="18"
@@ -516,16 +490,88 @@
 									</StackPanel>
 								</StackPanel>
 							</StackPanel>
+							<StackPanel Grid.Row="3"
+										Grid.Column="2"
+										BorderThickness="1"
+										BorderBrush="Gray"
+										Margin="4"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Orientation="Horizontal">
+
+								<StackPanel Name="HitDicePanel">
+									<ComboBox ItemsSource="{Binding DieTypes}"
+											  SelectedIndex="{Binding HitDiceTypeIndex, Mode=TwoWay}" />
+									<StackPanel Orientation="Horizontal">
+										<StackPanel>
+											<TextBlock Text="Hit Dice"
+													   TextAlignment="Center" />
+											<StackPanel Orientation="Horizontal">
+												<StackPanel>
+													<TextBlock Text="Total" />
+													<TextBlock Text="{Binding HitDiceMax}"
+															   TextAlignment="Center" />
+												</StackPanel>
+												<TextBox Text="{Binding HitDice, Mode=TwoWay}"/>
+											</StackPanel>
+											<Button HorizontalAlignment="Stretch"
+													Content="Use Hit Die"
+													Click="HitDieUsed"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal"
+											Name="ClassResourceTextBlock"
+											HorizontalAlignment="Center">
+									<TextBlock Text="{Binding ClassResourceName}"
+											   TextAlignment="Center" />
+									<Button Background="{x:Null}"
+											Click="EditClassResourceClick"
+											Padding="0">
+										<Button.Content>
+											<FontIcon FontFamily="Segoe MDL2 Assets"
+													  Glyph="&#xE104;"
+													  FontSize="16" />
+										</Button.Content>
+									</Button>
+								</StackPanel>
+								<StackPanel Name="ClassResourceTextBox"
+											Visibility="Collapsed"
+											Orientation="Horizontal"
+											HorizontalAlignment="Center">
+									<TextBox Text="{Binding ClassResourceName, Mode=TwoWay}"
+											 MinWidth="100"
+											 MaxWidth="150" />
+									<Button Background="{StaticResource AccentColorBrush}"
+											Click="EditClassResourceDoneClick"
+											Padding="4">
+										<Button.Content>
+											<FontIcon FontFamily="Segoe MDL2 Assets"
+													  Glyph="&#xE10B;"
+													  FontSize="20" />
+										</Button.Content>
+									</Button>
+								</StackPanel>
+								<TextBlock Text="{Binding ClassResource}"
+										   TextAlignment="Center"
+										   HorizontalAlignment="Center"
+										   FontSize="18"
+										   FontWeight="SemiBold" />
+							</StackPanel>
 							<StackPanel Orientation="Vertical"
 										Grid.Column="2"
 										Grid.Row="2"
 										Margin="0, 0, 4, 0">
 								<TextBlock Text="Temporary Hit Points"
-										   TextWrapping="Wrap"
-										   MaxLines="1"
-										   Margin="-32, 0, 0, 0"
-										   HorizontalAlignment="Right" />
-								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}" />
+										   TextWrapping="WrapWholeWords"
+										   MaxWidth="130"
+										   MaxLines="2"
+										   HorizontalAlignment="Right"
+										   Margin="4, 0, 4, 0" />
+								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"
+										 HorizontalAlignment="Center"
+										 TextAlignment="Center"
+										 InputScope="Number" />
 
 							</StackPanel>
 						</Grid>
@@ -569,7 +615,8 @@
 											BorderBrush="{ThemeResource AccentColorBrush}"
 											Orientation="Horizontal">
 									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Strength, Mode=TwoWay}" />
+										<TextBox Text="{Binding Strength, Mode=TwoWay}"
+												 InputScope="Number" />
 										<TextBlock Text="Strength"
 												   VerticalAlignment="Center" />
 									</StackPanel>
@@ -594,7 +641,8 @@
 											BorderBrush="{ThemeResource AccentColorBrush}"
 											Orientation="Horizontal">
 									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Dexterity, Mode=TwoWay}" />
+										<TextBox Text="{Binding Dexterity, Mode=TwoWay}"
+												 InputScope="Number" />
 										<TextBlock Text="Dexterity"
 												   VerticalAlignment="Center" />
 									</StackPanel>
@@ -616,7 +664,8 @@
 											BorderBrush="{ThemeResource AccentColorBrush}"
 											Orientation="Horizontal">
 									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Constitution, Mode=TwoWay}" />
+										<TextBox Text="{Binding Constitution, Mode=TwoWay}"
+												 InputScope="Number" />
 										<TextBlock Text="Constitution"
 												   VerticalAlignment="Center" />
 									</StackPanel>
@@ -638,7 +687,8 @@
 											BorderBrush="{ThemeResource AccentColorBrush}"
 											Orientation="Horizontal">
 									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Intelligence, Mode=TwoWay}" />
+										<TextBox Text="{Binding Intelligence, Mode=TwoWay}"
+												 InputScope="Number" />
 										<TextBlock Text="Intelligence"
 												   VerticalAlignment="Center" />
 									</StackPanel>
@@ -660,7 +710,8 @@
 											BorderBrush="{ThemeResource AccentColorBrush}"
 											Orientation="Horizontal">
 									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Wisdom, Mode=TwoWay}" />
+										<TextBox Text="{Binding Wisdom, Mode=TwoWay}"
+												 InputScope="Number" />
 										<TextBlock Text="Wisdom"
 												   VerticalAlignment="Center" />
 									</StackPanel>
@@ -683,7 +734,8 @@
 											BorderBrush="{ThemeResource AccentColorBrush}"
 											Orientation="Horizontal">
 									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Charisma, Mode=TwoWay}" />
+										<TextBox Text="{Binding Charisma, Mode=TwoWay}"
+												 InputScope="Number" />
 										<TextBlock Text="Charisma"
 												   VerticalAlignment="Center" />
 									</StackPanel>
@@ -896,7 +948,7 @@
 										BorderBrush="Gray">
 								<TextBlock Text="Spellcasting Attribute"
 										   TextWrapping="WrapWholeWords"
-										   TextAlignment="Center"/>
+										   TextAlignment="Center" />
 								<ComboBox ItemsSource="{Binding Attributes}"
 										  SelectedIndex="{Binding SpellcastingAttributeIndex, Mode=TwoWay}"
 										  Margin="4"
@@ -912,10 +964,10 @@
 										 Grid.Column="1"
 										 MaxWidth="120">
 								<TextBlock Text="Spell Attack Bonus"
-										   TextWrapping="WrapWholeWords" 
+										   TextWrapping="WrapWholeWords"
 										   HorizontalAlignment="Center"
 										   TextAlignment="Center"
-										   Margin="4"/>
+										   Margin="4" />
 								<TextBlock Text="{Binding SpellAttackBonus}"
 										   HorizontalAlignment="Center"
 										   VerticalAlignment="Center"
@@ -928,10 +980,10 @@
 										Grid.Column="2"
 										Margin="4">
 								<TextBlock Text="Spell Save DC"
-										   TextWrapping="WrapWholeWords" 
+										   TextWrapping="WrapWholeWords"
 										   TextAlignment="Center"
 										   Margin="4"
-										   MaxWidth="90"/>
+										   MaxWidth="90" />
 								<TextBlock Text="{Binding SpellSaveDC}"
 										   HorizontalAlignment="Center"
 										   FontSize="20"
@@ -1179,7 +1231,77 @@
 				</ScrollViewer>
 			</PivotItem>
 		</Pivot>
+		<ContentDialog HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   Visibility="Visible"
+					   IsPrimaryButtonEnabled="False"
+					   IsSecondaryButtonEnabled="False"
+					   Title="{Binding AttackOrDamageTitle}"
+					   Name="AttackDialog">
+
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<StackPanel Name="AttackRollDialogPanel">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Attacking with "
+								   Margin="0, 0, 4, 0" />
+						<TextBlock Text="{Binding SpellOrWeaponAttackName}"></TextBlock>
+					</StackPanel>
+					<TextBlock Text="You rolled a " />
+					<TextBlock Margin="8"
+							   FontSize="26"
+							   FontWeight="SemiBold"
+							   Text="{Binding AttackRoll}" />
+					<TextBlock Text="{Binding AttackRollString}"
+							   FontStyle="Italic"
+							   FontWeight="SemiLight"
+							   FontSize="14" />
+					<TextBlock Text="Did that hit?" />
+					<StackPanel Orientation="Horizontal">
+						<Button Content="Yes, Roll Damage"
+								Background="{StaticResource AccentColorBrush}"
+								Click="RollDamageButtonClicked"
+								Command="{Binding RollDamage}"
+								Margin="4"
+								Width="140" />
+						<Button Margin="4"
+								Click="AttackRollDialogDoneClicked"
+								Content="No"
+								Width="120" />
+					</StackPanel>
+				</StackPanel>
+				<StackPanel Name="DamageRollDialogPanel"
+							Visibility="Collapsed"
+							MinWidth="150">
+					<TextBlock Text="You did" />
+					<TextBlock Text="{Binding DamageRoll}"
+							   Margin="8"
+							   FontSize="26"
+							   FontWeight="SemiBold" />
+					<TextBlock Text="damage" />
+					<TextBlock Text="{Binding DamageRollString}"
+							   FontStyle="Italic"
+							   FontWeight="SemiLight"
+							   FontSize="14" />
+					<Button Margin="4"
+							Click="AttackRollDialogDoneClicked"
+							Content="Done" />
+				</StackPanel>
+
+			</Grid>
+		</ContentDialog>
 	</Grid>
 </Page>
+	
+	
+	
+	 
+	
+	
 	
 	

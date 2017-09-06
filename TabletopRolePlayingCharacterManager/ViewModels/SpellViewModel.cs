@@ -14,7 +14,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class SpellViewModel : ViewModelBase
 	{
 		private Spell spell;
-		public delegate void RollSpellAttackDelegate(Spell spell);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="spell"></param>
+		/// <param name="atLevel">When at 0 defaults to the level of the spell. Not applicable to cantrips (level 0)</param>
+		public delegate void RollSpellAttackDelegate(Spell spell, int atLevel = 0);
 
 		public RollSpellAttackDelegate RollSpellAttack;
 		private static ObservableCollection<string> _levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };

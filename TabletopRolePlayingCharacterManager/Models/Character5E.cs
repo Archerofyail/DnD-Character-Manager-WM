@@ -55,13 +55,16 @@ namespace TabletopRolePlayingCharacterManager.Models
 
 		public string Backstory { get; set; }
 		public string RelationshipsAndAllies { get; set; }
-		
+		public string ClassResourceName { get; set; } = "Class Resource";
+		public int ClassResource { get; set; }
 
 		public int ProficiencyBonus => Utility.CalculateProficiencyBonus(Level);
 
 		public int ArmorClass { get; set; } = 10;
 
-
+		public DieType HitDiceType { get; set; }
+		public int HitDiceMax => Level;
+		public int HitDice { get; set; }
 		public Dictionary<MainStatType, int> AbilityScores { get; set; } = new Dictionary<MainStatType, int>();
 		public Dictionary<MainStatType, bool> AbilityScoreProficiencies { get; set; } = new Dictionary<MainStatType, bool>();
 		#region Ignored

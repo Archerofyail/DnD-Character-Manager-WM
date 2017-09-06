@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Windows.Devices.Bluetooth.Advertisement;
@@ -25,6 +27,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			if (character == null)
 			{
 				character = CharacterManager.GetNewChar();
+				character.CalculateAbilityModifiers();
+				character.CalculateSkillBonuses();
 			}
 		}
 
@@ -41,6 +45,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 		private int attackRollBonus;
+		private int attackRollAttrBonus;
+		private MainStatType attackRollBonusAttr;
 
 		private int damageRoll;
 		private int critDamage;
@@ -74,10 +80,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				var final = 0;
 				final += rand.Next(1, 21);
-				AttackRollString = string.Format("1d20[{0}] + Spell Attack Bonus ({1})", final, attackRollBonus);
+				AttackRollString = string.Format("1d20[{0}] + {2} Attack Bonus [{1}]", final, attackRollBonus, SpellOrWeapon) + 
+					(attackRollAttrBonus > 0 ? string.Format(" + {0}[{1}]", attackRollBonusAttr, attackRollAttrBonus) : "");
+				RaisePropertyChanged("AttackRollString");
 				if (final == 20)
 				{
 					AttackRollCrit = true;
+					DamageRollString += string.Format(" + CRIT[{0}]", critDamage);
 				}
 				final += attackRollBonus;
 				return final;
@@ -226,7 +235,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					character.Level = result;
 				}
-
+				RaisePropertyChanged("ProficiencyBonus");
+				RaisePropertyChanged("HitDiceMax");
 				RaisePropertyChanged();
 			}
 		}
@@ -258,6 +268,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				}
 			}
 		}
+
+		public string ProficiencyBonus => "+" + character.ProficiencyBonus;
 
 		public string Initiative => character.Initiative.ToString();
 
@@ -322,13 +334,61 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get => character.DeathSaveFails;
 			set => character.DeathSaveFails = value;
 		}
+
+		public string ClassResourceName
+		{
+			get => character.ClassResourceName;
+			set
+			{
+				character.ClassResourceName = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public string ClassResource
+		{
+			get => character.ClassResource.ToString();
+			set
+			{
+				if (int.TryParse(value, out int result))
+				{
+					character.ClassResource = result;
+				}
+				RaisePropertyChanged();
+			}
+		}
+
+		public List<DieType> DieTypes => new List<DieType>{DieType.D4, DieType.D6, DieType.D8, DieType.D10, DieType.D12};
+
+		public int HitDiceTypeIndex
+		{
+			get => DieTypes.IndexOf(character.HitDiceType);
+			set
+			{
+				character.HitDiceType = DieTypes[value];
+				RaisePropertyChanged();
+			}
+		}
+
+		public int HitDiceMax => character.HitDiceMax;
+
+		public int HitDice
+		{
+			get => character.HitDice;
+			set
+			{
+				character.HitDice = value;
+				RaisePropertyChanged();
+			}
+		}
+
 		#endregion
 
 		#region SpellStats
 
 		public string SpellAttackBonus => (character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
 
-		public string SpellSaveDC => (10 + character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
+		public string SpellSaveDC => (8 + character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
 
 		public string SpellcastingAttribute
 		{
@@ -726,7 +786,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var item in character.Weapons)
 					{
-						weapons.Add(new WeaponViewModel(item, removeWeaponRelay));
+						weapons.Add(new WeaponViewModel(item, removeWeaponRelay, SetAttackWeapon));
 					}
 				}
 				return weapons;
@@ -1340,8 +1400,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ICommand AddNewLanguage => new RelayCommand<string>(AddNewLanguageExecute);
 		public ICommand DeleteCharacter => new RelayCommand(DeleteCharacterExec);
 		public ICommand AddNewProficiency => new RelayCommand<string>(AddNewProficiencyExec);
+		public ICommand RollDamage => new RelayCommand(RollDamageEx);
 		private RelayCommand<WeaponViewModel> removeWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
 		#region CommandFunctions
+
+		async void RollDamageEx()
+		{
+			AttackOrDamageTitle = "Damage";
+		}
 
 		async void RemoveWeaponExec(WeaponViewModel weapon)
 		{
@@ -1432,7 +1498,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 			if (Weapons.Count > 0)
 			{
-				Weapons.Add(new WeaponViewModel(newWep, removeWeaponRelay));
+				Weapons.Add(new WeaponViewModel(newWep, removeWeaponRelay, SetAttackWeapon));
 			}
 			RaisePropertyChanged("Weapons");
 			await CharacterManager.SaveCurrentCharacter();
@@ -1522,15 +1588,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region MiscFunctions
 
-		void SetAttackSpell(Spell spell)
+		void SetAttackSpell(Spell spell, int atLevel = 0)
 		{
 			SpellOrWeaponAttackName = spell.Name;
 			attackRollBonus = character.AbilityModifiers[character.SpellcastingAttribute] + character.ProficiencyBonus;
 			var d1 = spell.Damage.RollDamage();
 			var d2 = spell.Damage2.RollDamage();
-			damageRoll = d1 + d2;
-			DamageRollString = string.Format("{0}[{1}])", spell.Damage.ToString(), d1) + (spell.Damage2.Dice.Count > 0 ? string.Format(" + {0}[{1}]", spell.Damage2.ToString(), d2) : "");
-
+			damageRoll = d1 + d2 + (spell.AddAbilityModToDamage ? character.AbilityModifiers[character.SpellcastingAttribute] : 0);
+			DamageRollString = string.Format("{0}[{1}]", spell.Damage.ToString(), d1) + (spell.Damage2.Dice.Count > 0 ? string.Format(" + {0}[{1}]", spell.Damage2.ToString(), d2) : "") +
+				(spell.AddAbilityModToDamage ? string.Format(" + {0}[{1}]", character.SpellcastingAttribute, character.AbilityModifiers[character.SpellcastingAttribute]): "");
+			RaisePropertyChanged("DamageRollString");
 			RaisePropertyChanged("AttackRoll");
 			RaisePropertyChanged("DamageRoll");
 		}
@@ -1539,8 +1606,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			SpellOrWeaponAttackName = weapon.Name;
 			attackRollBonus = weapon.AttackBonus + (weapon.IsProficient ? character.ProficiencyBonus : 0) + character.AbilityModifiers[weapon.MainStat];
-			damageRoll = weapon.Damage.RollDamage() + weapon.Damage2.RollDamage() + character.AbilityModifiers[weapon.MainStat];
+			var d1 = weapon.Damage.RollDamage();
+			var d2 = 0;
+			damageRoll = d1 + character.AbilityModifiers[weapon.MainStat];
+			if (weapon.Damage2 != null)
+			{
+				damageRoll += weapon.Damage2.RollDamage();
+			}
+			attackRollBonusAttr = weapon.MainStat;
+			attackRollAttrBonus = character.AbilityModifiers[weapon.MainStat];
 			critDamage = weapon.Damage.RollDamage() - weapon.Damage.Bonus;
+			DamageRollString = string.Format("{0}[{1}]", weapon.Damage.ToString(), d1) + (d2 > 0 ? string.Format(" + {0}[{1}]", weapon.Damage2.ToString(), d2) : "") +
+			                    string.Format(" + {0}[{1}]", MainStatType.Strength, character.AbilityModifiers[MainStatType.Strength]);
+			
 			RaisePropertyChanged("AttackRoll");
 			RaisePropertyChanged("DamageRoll");
 		}

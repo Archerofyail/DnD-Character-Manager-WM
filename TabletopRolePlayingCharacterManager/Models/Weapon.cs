@@ -4,8 +4,8 @@
 	{
 
 		public WeaponRangeType WeaponRangeType { get; set; }
-		public Damage Damage { get; set; }
-		public Damage Damage2 { get; set; }
+		public Damage Damage { get; set; } = new Damage();
+		public Damage Damage2 { get; set; } = new Damage();
 		public MainStatType MainStat { get; set; } = MainStatType.Strength;
 		public int AttackBonus { get; set; }
 		public bool IsProficient { get; set; }

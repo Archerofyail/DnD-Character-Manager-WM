@@ -15,12 +15,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public static ObservableCollection<MainStatType> MainStatTypes = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
 		public static  ObservableCollection<WeaponRangeType> WeaponRanges = new ObservableCollection<WeaponRangeType>() {WeaponRangeType.Melee, WeaponRangeType.Ranged};
 		private RelayCommand<WeaponViewModel> remove;
-		public WeaponViewModel(Weapon weap, RelayCommand<WeaponViewModel> removeCommand)
+		public delegate void SetAttackWeaponDelegate(Weapon weapon);
+
+		private SetAttackWeaponDelegate SetAttackWeapon;
+		public WeaponViewModel(Weapon weap, RelayCommand<WeaponViewModel> removeCommand, SetAttackWeaponDelegate setAttackWeap)
 		{
 			weapon = weap;
 			selectedMainStat = MainStatTypes.IndexOf(weap.MainStat);
 			SelectedWeaponType = WeaponRanges.IndexOf(weap.WeaponRangeType);
 			remove = removeCommand;
+			SetAttackWeapon = setAttackWeap;
 		}
 		public string Name
 		{
@@ -89,5 +93,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 
 		public ICommand RemoveWeapon => remove;
+
+		public ICommand Attack => new RelayCommand(RollAttackEx);
+
+		void RollAttackEx()
+		{
+			SetAttackWeapon?.Invoke(weapon);
+		}
 	}
 }

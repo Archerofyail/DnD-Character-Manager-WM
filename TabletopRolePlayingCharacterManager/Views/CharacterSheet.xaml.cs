@@ -26,7 +26,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 			};
 			WeaponList.Loaded += (sender, args) =>
 			{
-				var atkBtnList = WeaponList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.ToString() == "RollAttackButton");
+				var atkBtnList = WeaponList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
 				foreach (var button in atkBtnList)
 				{
 					button.Click += ShowAttackDialogAsync;
@@ -169,6 +169,8 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void AttackRollDialogDoneClicked(object sender, RoutedEventArgs args)
 		{
+			AttackRollDialogPanel.Visibility = Visibility.Visible;
+			DamageRollDialogPanel.Visibility = Visibility.Collapsed;
 			AttackDialog.Hide();
 		}
 
@@ -177,6 +179,23 @@ namespace TabletopRolePlayingCharacterManager.Views
 			AttackRollDialogPanel.Visibility = Visibility.Collapsed;
 			DamageRollDialogPanel.Visibility = Visibility.Visible;
 			AttackDialog.IsPrimaryButtonEnabled = false;
+		}
+
+		private void EditClassResourceClick(object sender, RoutedEventArgs e)
+		{
+			ClassResourceTextBlock.Visibility = Visibility.Collapsed;
+			ClassResourceTextBox.Visibility = Visibility.Visible;
+		}
+
+		private void EditClassResourceDoneClick(object sender, RoutedEventArgs e)
+		{
+			ClassResourceTextBlock.Visibility = Visibility.Visible;
+			ClassResourceTextBox.Visibility = Visibility.Collapsed;
+		}
+
+		private void HitDieUsed(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

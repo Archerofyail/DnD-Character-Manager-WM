@@ -75,7 +75,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					foreach (var item in CharacterManager.AllWeapons)
 					{
-						weapons.Add(new WeaponViewModel(item, removeWeaponRelay));
+						weapons.Add(new WeaponViewModel(item, removeWeaponRelay, null));
 					}
 				}
 				return weapons;

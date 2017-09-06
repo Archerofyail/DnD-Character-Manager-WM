@@ -70,7 +70,8 @@ namespace TabletopRolePlayingCharacterManager
 
 		private void AddNewCharacterTapped(object sender, TappedRoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(AddNewCharacter));
+			CharacterManager.CurrentCharacter = CharacterManager.GetNewChar();
+			Frame.Navigate(typeof(CharacterSheet));
 		}
 
 		private void CompendiumTapped(object sender, TappedRoutedEventArgs e)
