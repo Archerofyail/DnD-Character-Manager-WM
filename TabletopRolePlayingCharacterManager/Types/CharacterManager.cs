@@ -111,6 +111,7 @@ namespace TabletopRolePlayingCharacterManager.Types
 			{
 				await SetFolders();
 			}
+			List<string> errors = new List<string>();
 			if (Characters.Count == 0)
 			{
 				foreach (var file in await SaveFolder.GetFilesAsync())
@@ -119,17 +120,32 @@ namespace TabletopRolePlayingCharacterManager.Types
 					{
 						var json = await FileIO.ReadTextAsync(file);
 						Debug.WriteLine("Json for file is " + json);
-						var character = JsonConvert.DeserializeObject<Character5E>(json);
-						if (character.SpellSlots.Count == 0)
+						var character = JsonConvert.DeserializeObject<Character5E>(json, new JsonSerializerSettings
 						{
-							for (int i = 0; i < 9; i++)
+							Error = (sender, args) =>
 							{
-								character.SpellSlots.Add(new Pair<int, int>(0, 0));
+								errors.Add(args.ErrorContext.Error.Message);
+								args.ErrorContext.Handled = true;
 							}
+						});
+						if (character != null)
+						{
+							Debug.WriteLine("Errors for {0}", args: character.Name);
+							foreach (var error in errors)
+							{
+								Debug.WriteLine(error);
+							}
+							if (character.SpellSlots.Count == 0)
+							{
+								for (int i = 0; i < 9; i++)
+								{
+									character.SpellSlots.Add(new Pair<int, int>(0, 0));
+								}
+							}
+							character.CalculateAbilityModifiers();
+							character.CalculateSkillBonuses();
+							_characters.Add(character);
 						}
-						character.CalculateAbilityModifiers();
-						character.CalculateSkillBonuses();
-						_characters.Add(character);
 					}
 				}
 			}

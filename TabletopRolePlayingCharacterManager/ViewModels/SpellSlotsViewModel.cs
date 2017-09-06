@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -37,6 +39,31 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			SlotLevel = "Level " + slotLevel;
 			SpellSlot = spellSlot;
+		}
+
+		public ICommand AddSlot => new RelayCommand(AddSlotEx);
+		public ICommand AddMaxSlot => new RelayCommand(AddMaxSlotEx);
+		public ICommand MinusSlot => new RelayCommand(MinusSlotEx);
+		public ICommand MinusMaxSlot => new RelayCommand(MinusMaxSlotEx);
+
+		void AddSlotEx()
+		{
+			Slots++;
+		}
+
+		void MinusSlotEx()
+		{
+			Slots--;
+		}
+
+		void AddMaxSlotEx()
+		{
+			MaxSlots++;
+		}
+
+		void MinusMaxSlotEx()
+		{
+			MaxSlots--;
 		}
 	}
 }

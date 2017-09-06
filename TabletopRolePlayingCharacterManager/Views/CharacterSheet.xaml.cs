@@ -167,9 +167,9 @@ namespace TabletopRolePlayingCharacterManager.Views
 			}
 		}
 
-		private void AttackRollDialogDoneClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+		private void AttackRollDialogDoneClicked(object sender, RoutedEventArgs args)
 		{
-			sender.Hide();
+			AttackDialog.Hide();
 		}
 
 		private void RollDamageButtonClicked(object sender, RoutedEventArgs args)

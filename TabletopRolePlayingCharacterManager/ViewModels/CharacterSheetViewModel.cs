@@ -324,6 +324,40 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		#endregion
 
+		#region SpellStats
+
+		public string SpellAttackBonus => (character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
+
+		public string SpellSaveDC => (10 + character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
+
+		public string SpellcastingAttribute
+		{
+			get => character.SpellcastingAttribute.ToString();
+			set
+			{
+				if (Enum.TryParse(value, out MainStatType result))
+				{
+					character.SpellcastingAttribute = result;
+				}
+				RaisePropertyChanged();
+				RaisePropertyChanged("SpellAttackBonus");
+				RaisePropertyChanged("SpellSaveDC");
+			}
+		}
+
+		public int SpellcastingAttributeIndex
+		{
+			get => Attributes.IndexOf(character.SpellcastingAttribute);
+			set
+			{
+				character.SpellcastingAttribute = Attributes[value];
+				RaisePropertyChanged("SpellAttackBonus");
+				RaisePropertyChanged("SpellSaveDC");
+				RaisePropertyChanged();
+			}
+		}
+		#endregion
+
 		#region PhysicalTraits
 
 		public string Age
@@ -779,7 +813,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					int index = 1;
 					foreach (var slot in character.SpellSlots)
-					{ 
+					{
 
 						spellSlots.Add(new SpellSlotsViewModel(slot, index));
 						index++;

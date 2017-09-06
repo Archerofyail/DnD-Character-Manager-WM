@@ -358,7 +358,7 @@
 						Grid.Row="1"
 						Grid.Column="0">
 
-				<Button>
+				<Button Command="{Binding AddSlot}">
 					<Button.Content>
 						<SymbolIcon Symbol="Add"></SymbolIcon>
 					</Button.Content>
@@ -368,7 +368,7 @@
 						   Margin="4"
 						   VerticalAlignment="Center"
 						   HorizontalAlignment="Center" />
-				<Button>
+				<Button  Command="{Binding MinusSlot}">
 					<Button.Content>
 						<SymbolIcon Symbol="Remove"></SymbolIcon>
 					</Button.Content>
@@ -378,7 +378,7 @@
 						HorizontalAlignment="Center"
 						Grid.Row="1"
 						Grid.Column="1">
-				<Button>
+				<Button Command="{Binding AddMaxSlot}">
 					<Button.Content>
 						<SymbolIcon Symbol="Add"></SymbolIcon>
 					</Button.Content>
@@ -388,7 +388,7 @@
 						   Margin="4"
 						   VerticalAlignment="Center"
 						   HorizontalAlignment="Center" />
-				<Button>
+				<Button Command="{Binding MinusMaxSlot}">
 					<Button.Content>
 						<SymbolIcon Symbol="Remove"></SymbolIcon>
 					</Button.Content>

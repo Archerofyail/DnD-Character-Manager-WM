@@ -60,10 +60,9 @@
 		<ContentDialog HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
 					   Visibility="Visible"
-					   IsPrimaryButtonEnabled="True"
-					   IsSecondaryButtonEnabled="True"
+					   IsPrimaryButtonEnabled="False"
+					   IsSecondaryButtonEnabled="False"
 					   PrimaryButtonText="Roll Damage"
-					   SecondaryButtonClick="AttackRollDialogDoneClicked"
 					   SecondaryButtonText="Done"
 					   Title="{Binding AttackOrDamageTitle}"
 					   Name="AttackDialog">
@@ -92,7 +91,11 @@
 					<TextBlock Text="Did that hit?" />
 					<Button Content="Roll Damage"
 							Background="{StaticResource AccentColorBrush}"
-							Click="RollDamageButtonClicked" />
+							Click="RollDamageButtonClicked" 
+							Margin="4"/>
+					<Button Margin="4"
+							Click="AttackRollDialogDoneClicked"
+							Content="Done"/>
 				</StackPanel>
 				<StackPanel Name="DamageRollDialogPanel"
 							Visibility="Collapsed">
@@ -437,7 +440,7 @@
 										Grid.Column="1">
 								<TextBlock Text="Initiative"
 										   HorizontalAlignment="Center" />
-								<TextBox Text="{Binding Initiative, Mode=TwoWay}" />
+								<TextBlock Text="{Binding Initiative, Mode=TwoWay}" />
 
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
@@ -874,11 +877,73 @@
 				</PivotItem.Header>
 				<ScrollViewer>
 					<StackPanel>
+						<Grid HorizontalAlignment="Stretch"
+							  VerticalAlignment="Top"
+							  MinHeight="50">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<StackPanel Grid.Column="0"
+										Margin="4"
+										MaxWidth="140"
+										VerticalAlignment="Bottom"
+										BorderThickness="1"
+										BorderBrush="Gray">
+								<TextBlock Text="Spellcasting Attribute"
+										   TextWrapping="WrapWholeWords"
+										   TextAlignment="Center"/>
+								<ComboBox ItemsSource="{Binding Attributes}"
+										  SelectedIndex="{Binding SpellcastingAttributeIndex, Mode=TwoWay}"
+										  Margin="4"
+										  MinWidth="130"
+										  MaxWidth="160"
+										  BorderThickness="1"
+										  BorderBrush="Gray" />
+							</StackPanel>
+							<StackPanel  Margin="4"
+										 VerticalAlignment="Bottom"
+										 BorderThickness="1"
+										 BorderBrush="Gray"
+										 Grid.Column="1"
+										 MaxWidth="120">
+								<TextBlock Text="Spell Attack Bonus"
+										   TextWrapping="WrapWholeWords" 
+										   HorizontalAlignment="Center"
+										   TextAlignment="Center"
+										   Margin="4"/>
+								<TextBlock Text="{Binding SpellAttackBonus}"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   FontSize="20"
+										   FontWeight="SemiBold" />
+							</StackPanel>
+							<StackPanel VerticalAlignment="Bottom"
+										BorderThickness="1"
+										BorderBrush="Gray"
+										Grid.Column="2"
+										Margin="4">
+								<TextBlock Text="Spell Save DC"
+										   TextWrapping="WrapWholeWords" 
+										   TextAlignment="Center"
+										   Margin="4"
+										   MaxWidth="90"/>
+								<TextBlock Text="{Binding SpellSaveDC}"
+										   HorizontalAlignment="Center"
+										   FontSize="20"
+										   FontWeight="SemiBold" />
+							</StackPanel>
+
+						</Grid>
 						<controls1:AdaptiveGridView ItemsSource="{Binding SpellSlots}"
 													ItemTemplate="{StaticResource SpellSlot}"
 													IsItemClickEnabled="False"
 													SelectionMode="None"
-													DesiredWidth="100"/>
+													DesiredWidth="120" />
 						<ListView ItemsSource="{Binding Spells}"
 								  ItemTemplate="{StaticResource Spell}"
 								  SelectionMode="None"
