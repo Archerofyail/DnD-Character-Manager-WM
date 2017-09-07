@@ -366,9 +366,9 @@
 							  Margin="0, 0, 0, 8"
 							  HorizontalAlignment="Stretch">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
 
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
@@ -452,10 +452,52 @@
 							</StackPanel>
 							<StackPanel Grid.Row="3"
 										Grid.Column="0"
-										Grid.ColumnSpan="3"
 										HorizontalAlignment="Left"
+										Grid.ColumnSpan="2"
 										BorderThickness="1"
 										BorderBrush="Gray">
+								<StackPanel VerticalAlignment="Center"
+								            BorderThickness="1"
+								            BorderBrush="Gray"
+								            Margin="4">
+									<StackPanel Orientation="Horizontal"
+									            Name="ClassResourceTextBlock"
+									            HorizontalAlignment="Center">
+										<TextBlock Text="{Binding ClassResourceName}"
+										           TextAlignment="Center" />
+										<Button Background="{x:Null}"
+										        Click="EditClassResourceClick"
+										        Padding="0">
+											<Button.Content>
+												<FontIcon FontFamily="Segoe MDL2 Assets"
+												          Glyph="&#xE104;"
+												          FontSize="16" />
+											</Button.Content>
+										</Button>
+									</StackPanel>
+									<StackPanel Name="ClassResourceTextBox"
+									            Visibility="Collapsed"
+									            Orientation="Horizontal"
+									            HorizontalAlignment="Center">
+										<TextBox Text="{Binding ClassResourceName, Mode=TwoWay}"
+										         MinWidth="100"
+										         MaxWidth="150" />
+										<Button Background="{StaticResource AccentColorBrush}"
+										        Click="EditClassResourceDoneClick"
+										        Padding="4">
+											<Button.Content>
+												<FontIcon FontFamily="Segoe MDL2 Assets"
+												          Glyph="&#xE10B;"
+												          FontSize="20" />
+											</Button.Content>
+										</Button>
+									</StackPanel>
+									<TextBlock Text="{Binding ClassResource}"
+									           TextAlignment="Center"
+									           HorizontalAlignment="Center"
+									           FontSize="18"
+									           FontWeight="SemiBold" />
+								</StackPanel>
 								<TextBlock Text="Death Saves"
 										   HorizontalAlignment="Center" />
 								<StackPanel HorizontalAlignment="Center">
@@ -491,72 +533,49 @@
 								</StackPanel>
 							</StackPanel>
 							<StackPanel Grid.Row="3"
-										Grid.Column="2"
-										BorderThickness="1"
-										BorderBrush="Gray"
-										Margin="4"
+										Grid.Column="1"
+										Grid.ColumnSpan="2"
+										Margin="20, 4, 4, 4"
 										HorizontalAlignment="Center"
 										VerticalAlignment="Center"
-										Orientation="Horizontal">
+										Orientation="Horizontal"
+										>
 
-								<StackPanel Name="HitDicePanel">
-									<ComboBox ItemsSource="{Binding DieTypes}"
-											  SelectedIndex="{Binding HitDiceTypeIndex, Mode=TwoWay}" />
-									<StackPanel Orientation="Horizontal">
-										<StackPanel>
+								<StackPanel Name="HitDicePanel"
+								            BorderThickness="1"
+								            BorderBrush="Gray"
+											Margin="4">
+
+									<StackPanel Orientation="Horizontal"
+												Margin="4">
+										<StackPanel Margin="4">
 											<TextBlock Text="Hit Dice"
 													   TextAlignment="Center" />
-											<StackPanel Orientation="Horizontal">
-												<StackPanel>
+											<ComboBox ItemsSource="{Binding DieTypes}"
+													  SelectedIndex="{Binding HitDiceTypeIndex, Mode=TwoWay}"
+													  HorizontalAlignment="Stretch" />
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel Margin="4">
 													<TextBlock Text="Total" />
 													<TextBlock Text="{Binding HitDiceMax}"
 															   TextAlignment="Center" />
 												</StackPanel>
-												<TextBox Text="{Binding HitDice, Mode=TwoWay}"/>
+												<StackPanel>
+													<TextBlock Text="Current"
+															   TextAlignment="Center"/>
+												<TextBox Text="{Binding HitDice, Mode=TwoWay}"
+														 Margin="4"
+														 MaxHeight="24" />
+												</StackPanel>
 											</StackPanel>
 											<Button HorizontalAlignment="Stretch"
 													Content="Use Hit Die"
-													Click="HitDieUsed"/>
+													Click="HitDieUsed" />
 										</StackPanel>
 									</StackPanel>
 								</StackPanel>
-								<StackPanel Orientation="Horizontal"
-											Name="ClassResourceTextBlock"
-											HorizontalAlignment="Center">
-									<TextBlock Text="{Binding ClassResourceName}"
-											   TextAlignment="Center" />
-									<Button Background="{x:Null}"
-											Click="EditClassResourceClick"
-											Padding="0">
-										<Button.Content>
-											<FontIcon FontFamily="Segoe MDL2 Assets"
-													  Glyph="&#xE104;"
-													  FontSize="16" />
-										</Button.Content>
-									</Button>
-								</StackPanel>
-								<StackPanel Name="ClassResourceTextBox"
-											Visibility="Collapsed"
-											Orientation="Horizontal"
-											HorizontalAlignment="Center">
-									<TextBox Text="{Binding ClassResourceName, Mode=TwoWay}"
-											 MinWidth="100"
-											 MaxWidth="150" />
-									<Button Background="{StaticResource AccentColorBrush}"
-											Click="EditClassResourceDoneClick"
-											Padding="4">
-										<Button.Content>
-											<FontIcon FontFamily="Segoe MDL2 Assets"
-													  Glyph="&#xE10B;"
-													  FontSize="20" />
-										</Button.Content>
-									</Button>
-								</StackPanel>
-								<TextBlock Text="{Binding ClassResource}"
-										   TextAlignment="Center"
-										   HorizontalAlignment="Center"
-										   FontSize="18"
-										   FontWeight="SemiBold" />
+								
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
 										Grid.Column="2"
@@ -566,7 +585,7 @@
 										   TextWrapping="WrapWholeWords"
 										   MaxWidth="130"
 										   MaxLines="2"
-										   HorizontalAlignment="Right"
+										   HorizontalAlignment="Center"
 										   Margin="4, 0, 4, 0" />
 								<TextBox Text="{Binding TemporaryHealth, Mode=TwoWay}"
 										 HorizontalAlignment="Center"
@@ -1294,6 +1313,15 @@
 				</StackPanel>
 
 			</Grid>
+		</ContentDialog>
+		<ContentDialog>
+			<StackPanel>
+				<TextBlock Text="You rolled" />
+				<TextBlock Text="{Binding HitDiceRoll}"
+						   Margin="8"
+						   FontSize="28"
+						   FontWeight="SemiBold" />
+			</StackPanel>
 		</ContentDialog>
 	</Grid>
 </Page>
