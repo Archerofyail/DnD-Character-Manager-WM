@@ -63,6 +63,11 @@
 					 TextWrapping="Wrap"
 					 MinHeight="48"
 					 AcceptsReturn="True" />
+			<Button Command="{Binding RemoveItem}">
+				<Button.Content>
+					<SymbolIcon Symbol="Delete"/>
+				</Button.Content>
+			</Button>
 		</StackPanel>
 
 	</DataTemplate>
@@ -417,10 +422,13 @@
 					   TextWrapping="WrapWholeWords"
 					   Name="DescTextBlock"
 					   Visibility="{Binding IsNotEditing}"
-					   AllowFocusOnInteraction="True">
-
-
-			</TextBlock>
+					   AllowFocusOnInteraction="True"/>
+			<Button Visibility="{Binding IsNotEditing}"
+					Command="{Binding RemoveTrait}">
+				<Button.Content>
+					<SymbolIcon Symbol="Delete"/>
+				</Button.Content>
+			</Button>
 			<TextBox Text="{Binding Description, Mode=TwoWay}"
 					 Visibility="{Binding IsEditing}"
 					 Name="DescTextBox"

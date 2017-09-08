@@ -1,4 +1,6 @@
-﻿using TabletopRolePlayingCharacterManager.Models;
+﻿using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -6,9 +8,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	{
 		public new Item Item { get; }
 
-		public ItemViewModel(Item item)
+		public delegate void RemoveItemDelegate(ItemViewModel item);
+
+		public RemoveItemDelegate RemoveAction;
+
+		public ItemViewModel(Item item, RemoveItemDelegate remove = null)
 		{
 			Item = item;
+			RemoveAction = remove;
 		}
 
 		public ItemViewModel()
@@ -34,6 +41,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				Item.Description = value;
 				RaisePropertyChanged();
 			}
+		}
+
+		public ICommand RemoveItem => new RelayCommand(RemoveItemEx);
+
+		void RemoveItemEx()
+		{
+			RemoveAction?.Invoke(this);
 		}
 	}
 }

@@ -9,12 +9,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class ProficiencyViewModel : GenericItemViewModel
 	{
 		//private Proficiency proficiency;
-		public override object Item { get; set; } = new Proficiency();
+		public new object Item { get; set; } = new Proficiency();
 
 		public delegate void RemoveProfDelegate(ProficiencyViewModel prof);
 
 		private RemoveProfDelegate removeProficiencyAction;
-		private ObservableCollection<ProficiencyViewModel> list;
 		public ProficiencyType Type => (Item as Proficiency).Type;
 		public ProficiencyViewModel(Proficiency prof, RemoveProfDelegate removeAction)
 		{

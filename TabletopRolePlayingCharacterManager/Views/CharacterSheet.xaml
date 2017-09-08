@@ -456,47 +456,82 @@
 										Grid.ColumnSpan="2"
 										BorderThickness="1"
 										BorderBrush="Gray">
-								<StackPanel VerticalAlignment="Center"
-								            BorderThickness="1"
-								            BorderBrush="Gray"
-								            Margin="4">
+								<StackPanel Name="HitDicePanel"
+											BorderThickness="1"
+											BorderBrush="Gray"
+											Margin="4">
+
 									<StackPanel Orientation="Horizontal"
-									            Name="ClassResourceTextBlock"
-									            HorizontalAlignment="Center">
+												Margin="4">
+										<StackPanel Margin="4">
+											<TextBlock Text="Hit Dice"
+													   TextAlignment="Center" />
+											<ComboBox ItemsSource="{Binding DieTypes}"
+													  SelectedIndex="{Binding HitDiceTypeIndex, Mode=TwoWay}"
+													  HorizontalAlignment="Stretch" />
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel Margin="4">
+													<TextBlock Text="Total" />
+													<TextBlock Text="{Binding HitDiceMax}"
+															   TextAlignment="Center" />
+												</StackPanel>
+												<StackPanel>
+													<TextBlock Text="Current"
+															   TextAlignment="Center" />
+													<TextBox Text="{Binding HitDice, Mode=TwoWay}"
+															 Margin="4"
+															 MaxHeight="24" />
+												</StackPanel>
+											</StackPanel>
+											<Button HorizontalAlignment="Stretch"
+													Content="Use Hit Die"
+													Click="HitDieUsed"
+													Command="{Binding HitDieUsed}"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel VerticalAlignment="Center"
+											BorderThickness="1"
+											BorderBrush="Gray"
+											Margin="4">
+									<StackPanel Orientation="Horizontal"
+												Name="ClassResourceTextBlock"
+												HorizontalAlignment="Center">
 										<TextBlock Text="{Binding ClassResourceName}"
-										           TextAlignment="Center" />
+												   TextAlignment="Center" />
 										<Button Background="{x:Null}"
-										        Click="EditClassResourceClick"
-										        Padding="0">
+												Click="EditClassResourceClick"
+												Padding="0">
 											<Button.Content>
 												<FontIcon FontFamily="Segoe MDL2 Assets"
-												          Glyph="&#xE104;"
-												          FontSize="16" />
+														  Glyph="&#xE104;"
+														  FontSize="16" />
 											</Button.Content>
 										</Button>
 									</StackPanel>
 									<StackPanel Name="ClassResourceTextBox"
-									            Visibility="Collapsed"
-									            Orientation="Horizontal"
-									            HorizontalAlignment="Center">
+												Visibility="Collapsed"
+												Orientation="Horizontal"
+												HorizontalAlignment="Center">
 										<TextBox Text="{Binding ClassResourceName, Mode=TwoWay}"
-										         MinWidth="100"
-										         MaxWidth="150" />
+												 MinWidth="100"
+												 MaxWidth="150" />
 										<Button Background="{StaticResource AccentColorBrush}"
-										        Click="EditClassResourceDoneClick"
-										        Padding="4">
+												Click="EditClassResourceDoneClick"
+												Padding="4">
 											<Button.Content>
 												<FontIcon FontFamily="Segoe MDL2 Assets"
-												          Glyph="&#xE10B;"
-												          FontSize="20" />
+														  Glyph="&#xE10B;"
+														  FontSize="20" />
 											</Button.Content>
 										</Button>
 									</StackPanel>
 									<TextBlock Text="{Binding ClassResource}"
-									           TextAlignment="Center"
-									           HorizontalAlignment="Center"
-									           FontSize="18"
-									           FontWeight="SemiBold" />
+											   TextAlignment="Center"
+											   HorizontalAlignment="Center"
+											   FontSize="18"
+											   FontWeight="SemiBold" />
 								</StackPanel>
 								<TextBlock Text="Death Saves"
 										   HorizontalAlignment="Center" />
@@ -536,46 +571,193 @@
 										Grid.Column="1"
 										Grid.ColumnSpan="2"
 										Margin="20, 4, 4, 4"
-										HorizontalAlignment="Center"
-										VerticalAlignment="Center"
-										Orientation="Horizontal"
-										>
+										HorizontalAlignment="Stretch"
+										VerticalAlignment="Stretch">
 
-								<StackPanel Name="HitDicePanel"
-								            BorderThickness="1"
-								            BorderBrush="Gray"
-											Margin="4">
+								<StackPanel Name="AbilityScoresStackPanel"
+											BorderBrush="Black"
+											BorderThickness="1">
+									<TextBlock Text="Attributes"
+											   FontSize="18"
+											   FontWeight="SemiBold"
+											   TextAlignment="Center"
+											   HorizontalAlignment="Center" />
 
-									<StackPanel Orientation="Horizontal"
-												Margin="4">
-										<StackPanel Margin="4">
-											<TextBlock Text="Hit Dice"
-													   TextAlignment="Center" />
-											<ComboBox ItemsSource="{Binding DieTypes}"
-													  SelectedIndex="{Binding HitDiceTypeIndex, Mode=TwoWay}"
-													  HorizontalAlignment="Stretch" />
+									<controls1:AdaptiveGridView Name="AbilityScores"
+																ItemHeight="80"
+																DesiredWidth="200"
+																HorizontalAlignment="Stretch">
+
+										<!--<Grid Margin="4" BorderBrush="{ThemeResource AccentColorBrush}"
+								  BorderThickness="1"
+								  Padding="4"
+									  >
+								<Grid.RowDefinitions>
+									<RowDefinition Height="14*"/>
+									<RowDefinition Height="15*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>-->
+
+										<StackPanel Margin="4"
+													BorderThickness="1"
+													BorderBrush="{ThemeResource AccentColorBrush}"
+													Orientation="Horizontal">
 											<StackPanel Orientation="Horizontal"
 														Margin="4">
-												<StackPanel Margin="4">
-													<TextBlock Text="Total" />
-													<TextBlock Text="{Binding HitDiceMax}"
-															   TextAlignment="Center" />
+												<StackPanel MinWidth="100">
+													<TextBox Text="{Binding Strength, Mode=TwoWay}"
+															 InputScope="Number" />
+													<TextBlock Text="Strength"
+															   VerticalAlignment="Center" />
 												</StackPanel>
-												<StackPanel>
-													<TextBlock Text="Current"
-															   TextAlignment="Center"/>
-												<TextBox Text="{Binding HitDice, Mode=TwoWay}"
-														 Margin="4"
-														 MaxHeight="24" />
+												<StackPanel HorizontalAlignment="Right"
+															Margin="20, 0, 0, 0">
+													<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
+															  MinWidth="20"
+															  Width="24">
+
+													</CheckBox>
+
+													<TextBlock Text="{Binding StrengthMod}"
+															   Foreground="DarkSlateGray" />
 												</StackPanel>
 											</StackPanel>
-											<Button HorizontalAlignment="Stretch"
-													Content="Use Hit Die"
-													Click="HitDieUsed" />
 										</StackPanel>
-									</StackPanel>
+
+
+
+										<StackPanel Margin="4"
+													BorderThickness="1"
+													BorderBrush="{ThemeResource AccentColorBrush}"
+													Orientation="Horizontal">
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel MinWidth="100">
+													<TextBox Text="{Binding Dexterity, Mode=TwoWay}"
+															 InputScope="Number" />
+													<TextBlock Text="Dexterity"
+															   VerticalAlignment="Center" />
+												</StackPanel>
+												<StackPanel HorizontalAlignment="Right"
+															Margin="20, 0, 0, 0">
+													<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
+															  MinWidth="20"
+															  Width="24">
+
+													</CheckBox>
+
+													<TextBlock Text="{Binding DexterityMod}"
+															   Foreground="DarkSlateGray" />
+												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Margin="4"
+													BorderThickness="1"
+													BorderBrush="{ThemeResource AccentColorBrush}"
+													Orientation="Horizontal">
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel MinWidth="100">
+													<TextBox Text="{Binding Constitution, Mode=TwoWay}"
+															 InputScope="Number" />
+													<TextBlock Text="Constitution"
+															   VerticalAlignment="Center" />
+												</StackPanel>
+												<StackPanel HorizontalAlignment="Right"
+															Margin="20, 0, 0, 0">
+													<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
+															  Width="24"
+															  MinWidth="20">
+
+													</CheckBox>
+
+													<TextBlock Text="{Binding ConstitutionMod}"
+															   Foreground="DarkSlateGray" />
+												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Margin="4"
+													BorderThickness="1"
+													BorderBrush="{ThemeResource AccentColorBrush}"
+													Orientation="Horizontal">
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel MinWidth="100">
+													<TextBox Text="{Binding Intelligence, Mode=TwoWay}"
+															 InputScope="Number" />
+													<TextBlock Text="Intelligence"
+															   VerticalAlignment="Center" />
+												</StackPanel>
+												<StackPanel HorizontalAlignment="Right"
+															Margin="20, 0, 0, 0">
+													<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
+															  Width="24"
+															  MinWidth="20">
+
+													</CheckBox>
+
+													<TextBlock Text="{Binding IntelligenceMod}"
+															   Foreground="DarkSlateGray" />
+												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Margin="4"
+													BorderThickness="1"
+													BorderBrush="{ThemeResource AccentColorBrush}"
+													Orientation="Horizontal">
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel MinWidth="100">
+													<TextBox Text="{Binding Wisdom, Mode=TwoWay}"
+															 InputScope="Number" />
+													<TextBlock Text="Wisdom"
+															   VerticalAlignment="Center" />
+												</StackPanel>
+												<StackPanel HorizontalAlignment="Right"
+															Margin="20, 0, 0, 0">
+													<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
+															  Width="24"
+															  MinWidth="20">
+
+													</CheckBox>
+
+													<TextBlock Text="{Binding WisdomMod}"
+															   Foreground="DarkSlateGray" />
+												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+
+										<StackPanel Margin="4"
+													BorderThickness="1"
+													BorderBrush="{ThemeResource AccentColorBrush}"
+													Orientation="Horizontal">
+											<StackPanel Orientation="Horizontal"
+														Margin="4">
+												<StackPanel MinWidth="100">
+													<TextBox Text="{Binding Charisma, Mode=TwoWay}"
+															 InputScope="Number" />
+													<TextBlock Text="Charisma"
+															   VerticalAlignment="Center" />
+												</StackPanel>
+												<StackPanel HorizontalAlignment="Right"
+															Margin="20, 0, 0, 0">
+													<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
+															  Width="24"
+															  MinWidth="20">
+
+													</CheckBox>
+
+													<TextBlock Text="{Binding CharismaMod}"
+															   Foreground="DarkSlateGray" />
+												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+									</controls1:AdaptiveGridView>
 								</StackPanel>
-								
+
 							</StackPanel>
 							<StackPanel Orientation="Vertical"
 										Grid.Column="2"
@@ -594,199 +776,23 @@
 
 							</StackPanel>
 						</Grid>
-						<StackPanel Name="AbilityScoresStackPanel"
-									Orientation="Vertical"
-									BorderBrush="Black"
-									BorderThickness="1">
 
-							<Grid Tapped="AbilityScoresHeaderTapped">
-								<TextBlock Text="Ability Scores"
-										   FontWeight="Bold"
-										   VerticalAlignment="Center"
-										   Margin="4, 0, 0, 0" />
-								<TextBlock Text="-"
-										   FontSize="20"
-										   HorizontalAlignment="Right"
-										   VerticalAlignment="Center"
-										   Name="AbilityScoresExpandIcon"
-										   Margin="4" />
+						<StackPanel BorderThickness="1"
+									BorderBrush="Gray">
+							<TextBlock Text="Skills"
+									   FontSize="18"
+									   TextAlignment="Center"
+									   HorizontalAlignment="Center"
+									   FontWeight="SemiBold" />
+							<GridView Name="Skills"
+									  ItemTemplate="{StaticResource Skill}"
+									  ItemsSource="{Binding Skills, Mode=TwoWay}"
+									  SelectionMode="None"
+									  IsItemClickEnabled="False"
+									  Margin="4">
 
-							</Grid>
-							<controls1:AdaptiveGridView Name="AbilityScores"
-														ItemHeight="80"
-														DesiredWidth="200">
-
-								<!--<Grid Margin="4" BorderBrush="{ThemeResource AccentColorBrush}"
-								  BorderThickness="1"
-								  Padding="4"
-									  >
-								<Grid.RowDefinitions>
-									<RowDefinition Height="14*"/>
-									<RowDefinition Height="15*"/>
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
-									<ColumnDefinition Width="Auto"/>
-								</Grid.ColumnDefinitions>-->
-
-								<StackPanel Margin="4"
-											BorderThickness="1"
-											BorderBrush="{ThemeResource AccentColorBrush}"
-											Orientation="Horizontal">
-									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Strength, Mode=TwoWay}"
-												 InputScope="Number" />
-										<TextBlock Text="Strength"
-												   VerticalAlignment="Center" />
-									</StackPanel>
-									<StackPanel HorizontalAlignment="Right"
-												Margin="20, 0, 0, 0">
-										<CheckBox IsChecked="{Binding StrIsProficient, Mode=TwoWay}"
-												  MinWidth="20"
-												  Width="24">
-
-										</CheckBox>
-
-										<TextBlock Text="{Binding StrengthMod}"
-												   Foreground="DarkSlateGray" />
-									</StackPanel>
-
-								</StackPanel>
-
-
-
-								<StackPanel Margin="4"
-											BorderThickness="1"
-											BorderBrush="{ThemeResource AccentColorBrush}"
-											Orientation="Horizontal">
-									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Dexterity, Mode=TwoWay}"
-												 InputScope="Number" />
-										<TextBlock Text="Dexterity"
-												   VerticalAlignment="Center" />
-									</StackPanel>
-									<StackPanel HorizontalAlignment="Right"
-												Margin="20, 0, 0, 0">
-										<CheckBox IsChecked="{Binding DexIsProficient, Mode=TwoWay}"
-												  MinWidth="20"
-												  Width="24">
-
-										</CheckBox>
-
-										<TextBlock Text="{Binding DexterityMod}"
-												   Foreground="DarkSlateGray" />
-									</StackPanel>
-
-								</StackPanel>
-								<StackPanel Margin="4"
-											BorderThickness="1"
-											BorderBrush="{ThemeResource AccentColorBrush}"
-											Orientation="Horizontal">
-									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Constitution, Mode=TwoWay}"
-												 InputScope="Number" />
-										<TextBlock Text="Constitution"
-												   VerticalAlignment="Center" />
-									</StackPanel>
-									<StackPanel HorizontalAlignment="Right"
-												Margin="20, 0, 0, 0">
-										<CheckBox IsChecked="{Binding ConIsProficient, Mode=TwoWay}"
-												  Width="24"
-												  MinWidth="20">
-
-										</CheckBox>
-
-										<TextBlock Text="{Binding ConstitutionMod}"
-												   Foreground="DarkSlateGray" />
-									</StackPanel>
-
-								</StackPanel>
-								<StackPanel Margin="4"
-											BorderThickness="1"
-											BorderBrush="{ThemeResource AccentColorBrush}"
-											Orientation="Horizontal">
-									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Intelligence, Mode=TwoWay}"
-												 InputScope="Number" />
-										<TextBlock Text="Intelligence"
-												   VerticalAlignment="Center" />
-									</StackPanel>
-									<StackPanel HorizontalAlignment="Right"
-												Margin="20, 0, 0, 0">
-										<CheckBox IsChecked="{Binding IntIsProficient, Mode=TwoWay}"
-												  Width="24"
-												  MinWidth="20">
-
-										</CheckBox>
-
-										<TextBlock Text="{Binding IntelligenceMod}"
-												   Foreground="DarkSlateGray" />
-									</StackPanel>
-
-								</StackPanel>
-								<StackPanel Margin="4"
-											BorderThickness="1"
-											BorderBrush="{ThemeResource AccentColorBrush}"
-											Orientation="Horizontal">
-									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Wisdom, Mode=TwoWay}"
-												 InputScope="Number" />
-										<TextBlock Text="Wisdom"
-												   VerticalAlignment="Center" />
-									</StackPanel>
-									<StackPanel HorizontalAlignment="Right"
-												Margin="20, 0, 0, 0">
-										<CheckBox IsChecked="{Binding WisIsProficient, Mode=TwoWay}"
-												  Width="24"
-												  MinWidth="20">
-
-										</CheckBox>
-
-										<TextBlock Text="{Binding WisdomMod}"
-												   Foreground="DarkSlateGray" />
-									</StackPanel>
-
-								</StackPanel>
-
-								<StackPanel Margin="4"
-											BorderThickness="1"
-											BorderBrush="{ThemeResource AccentColorBrush}"
-											Orientation="Horizontal">
-									<StackPanel MinWidth="100">
-										<TextBox Text="{Binding Charisma, Mode=TwoWay}"
-												 InputScope="Number" />
-										<TextBlock Text="Charisma"
-												   VerticalAlignment="Center" />
-									</StackPanel>
-									<StackPanel HorizontalAlignment="Right"
-												Margin="20, 0, 0, 0">
-										<CheckBox IsChecked="{Binding ChaIsProficient, Mode=TwoWay}"
-												  Width="24"
-												  MinWidth="20">
-
-										</CheckBox>
-
-										<TextBlock Text="{Binding CharismaMod}"
-												   Foreground="DarkSlateGray" />
-									</StackPanel>
-
-								</StackPanel>
-
-
-
-
-
-							</controls1:AdaptiveGridView>
+							</GridView>
 						</StackPanel>
-
-						<GridView Name="Skills"
-								  ItemTemplate="{StaticResource Skill}"
-								  ItemsSource="{Binding Skills, Mode=TwoWay}"
-								  SelectionMode="None"
-								  IsItemClickEnabled="False"
-								  Margin="4">
-
-						</GridView>
 						<ListView ItemsSource="{Binding CharTraits, Mode=TwoWay}"
 								  ItemTemplate="{StaticResource CharacterTrait}"
 								  SelectionMode="None"
@@ -878,6 +884,8 @@
 													  Margin="0, 0, 4, 0" />
 											<ComboBox ItemsSource="{Binding WeaponRanges}"
 													  SelectedIndex="{Binding NewWepSelectedType, Mode=TwoWay}" />
+											<CheckBox Content="Proficient"
+													  IsChecked="{Binding NewWepIsProficient, Mode=TwoWay}" />
 										</StackPanel>
 										<TextBox Text="{Binding NewWepDesc, Mode=TwoWay}"
 												 PlaceholderText="Description"
@@ -1314,13 +1322,31 @@
 
 			</Grid>
 		</ContentDialog>
-		<ContentDialog>
+		<ContentDialog HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   Name="HitDieDialog">
 			<StackPanel>
 				<TextBlock Text="You rolled" />
-				<TextBlock Text="{Binding HitDiceRoll}"
+				<TextBlock Text="{Binding HitDiceRoll, UpdateSourceTrigger=Explicit}"
 						   Margin="8"
 						   FontSize="28"
 						   FontWeight="SemiBold" />
+				<StackPanel Orientation="Horizontal"
+							Margin="4">
+					<TextBlock Text="{Binding HealthBeforeRoll}"/>
+					<FontIcon FontFamily="Segoe MDL2 Assets"
+					          Glyph="&#xE111;"
+							  FontSize="16"
+							  Margin="4, 0"/>
+					<TextBlock Text="{Binding CurrentHealth}"></TextBlock>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+				<Button Content="Roll Again"
+						Command="{Binding HitDieUsed}"
+						Margin="4"/>
+					<Button Content="Done" 
+							Click="HitDieDoneRollingClicked"/>
+				</StackPanel>
 			</StackPanel>
 		</ContentDialog>
 	</Grid>

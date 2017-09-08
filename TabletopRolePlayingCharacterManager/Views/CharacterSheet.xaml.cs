@@ -53,12 +53,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 			GeneralExpandIcon.Text = ClassAndRaceInfo.Visibility == Visibility.Visible ? "-" : "+";
 		}
 
-		private void AbilityScoresHeaderTapped(object sender, TappedRoutedEventArgs e)
-		{
-			AbilityScores.Visibility = AbilityScores.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-			AbilityScoresExpandIcon.Text = AbilityScores.Visibility == Visibility.Visible ? "-" : "+";
-		}
-
+		
 		private void PhysicalDescriptionHeaderTapped(object sender, TappedRoutedEventArgs e)
 		{
 			PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
@@ -193,9 +188,14 @@ namespace TabletopRolePlayingCharacterManager.Views
 			ClassResourceTextBox.Visibility = Visibility.Collapsed;
 		}
 
-		private void HitDieUsed(object sender, RoutedEventArgs e)
+		private async void HitDieUsed(object sender, RoutedEventArgs e)
 		{
-			throw new NotImplementedException();
+			await HitDieDialog.ShowAsync();
+		}
+
+		private void HitDieDoneRollingClicked(object sender, RoutedEventArgs e)
+		{
+			HitDieDialog.Hide();
 		}
 	}
 }

@@ -9,10 +9,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	public class TraitViewModel : GenericItemViewModel
 	{
 		public override object Item { get; set; } = new Trait();
-		private Trait trait => Item as Trait;
+		public Trait Trait => Item as Trait;
 
-		public TraitViewModel(Trait trait)
+		public delegate void RemoveActionDelegate(TraitViewModel trait);
+
+		public RemoveActionDelegate RemoveAction;
+
+		public TraitViewModel(Trait trait, RemoveActionDelegate remove)
 		{
+			RemoveAction = remove;
 			Item = trait;
 		}
 
@@ -23,10 +28,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool IsActive
 		{
-			get => trait.IsActive;
+			get => Trait.IsActive;
 			set
 			{
-				trait.IsActive = value;
+				Trait.IsActive = value;
 				BonusButtonText = value ? "Disable Bonus" : "Enable Bonus";
 				RaisePropertyChanged();
 			}
@@ -34,10 +39,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Description
 		{
-			get => trait.Description;
+			get => Trait.Description;
 			set
 			{
-				trait.Description = value;
+				Trait.Description = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -94,13 +99,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void ApplyBonus()
 		{
 			IsActive = true;
-			trait.StatBonus.AddBonus();
+			Trait.StatBonus.AddBonus();
 		}
 
 		void RemoveBonus()
 		{
 			IsActive = false;
-			trait.StatBonus.RemoveBonus();
+			Trait.StatBonus.RemoveBonus();
+		}
+
+		public ICommand RemoveTrait => new RelayCommand(RemoveTraitEx);
+
+		void RemoveTraitEx()
+		{
+			RemoveAction?.Invoke(this);
 		}
 
 	}

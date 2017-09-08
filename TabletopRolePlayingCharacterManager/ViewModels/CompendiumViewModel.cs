@@ -121,7 +121,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		private RelayCommand<WeaponViewModel> removeWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
 
-		async void RemoveWeaponExec(WeaponViewModel weapon)
+		void RemoveWeaponExec(WeaponViewModel weapon)
 		{
 			Weapons.Remove(weapon);
 
