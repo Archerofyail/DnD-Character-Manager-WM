@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>TabletopRolePlayingCharacterManager_StoreKey.pfx</PackageCertificateKeyFile>
     <HockeyAppResourceId>09332b4e70e1423a8a70a46894a0ad15</HockeyAppResourceId>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>27561E274EFEE268A66A3378E06C0A2001576F09</PackageCertificateThumbprint>

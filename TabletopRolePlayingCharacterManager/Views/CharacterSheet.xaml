@@ -313,7 +313,7 @@
 														  Margin="4"
 														  PlaceholderText="Type" />
 												<Button Command="{Binding AddNewProficiency}"
-														CommandParameter="{Binding ElementName=NewLanguageBox, Path=Text}"
+														CommandParameter="{Binding ElementName=NewProficiencyBox, Path=Text}"
 														Tapped="AddNewProficiencyTapped"
 														Content="Add Proficiency" />
 											</StackPanel>
@@ -810,22 +810,36 @@
 							<Button.Flyout>
 								<Flyout>
 									<StackPanel MinWidth="250">
+										<TextBlock Margin="4"
+												   Text="Name"></TextBlock>
+										<TextBox Text="{Binding NewTraitName, Mode=TwoWay}" 
+												 MaxWidth="250"
+												 Margin="4"/>
+										<TextBlock Text="Description"
+												   Margin="4"/>
 										<TextBox PlaceholderText="Description"
 												 Height="96"
 												 Margin="4"
-												 Text="{Binding NewTraitDesc, Mode=TwoWay}" />
-										<StackPanel Orientation="Horizontal">
+												 Text="{Binding NewTraitDesc, Mode=TwoWay}" 
+												 AcceptsReturn="True"
+												 MaxWidth="250"/>
+										<ComboBox ItemsSource="{Binding TraitSources}"
+												  SelectedIndex="{Binding NewTraitSourceIndex, Mode=TwoWay}"
+												  MinWidth="150"
+												  Margin="4"
+												  Header="Source"/>
+										<!--<StackPanel Orientation="Horizontal">
 											<ComboBox ItemsSource="{Binding TraitStatBonuses}"
 													  SelectedIndex="{Binding SelectedStatBonus, Mode=TwoWay}" />
 											<TextBox Text="{Binding NewStatIncreaseBonus, Mode=TwoWay}" />
-										</StackPanel>
+										</StackPanel>-->
 										<StackPanel Orientation="Horizontal">
 											<Button Content="+ Add Trait"
 													Margin="4"
 													Command="{Binding AddNewCharTrait}"
 													Tapped="AddTraitTapped" />
-											<CheckBox Content="Has Context-based stat bonus"
-													  Name="NewTraitHasStatBonusCheckbox"></CheckBox>
+											<!--CheckBox Content="Has Context-based stat bonus"
+													  Name="NewTraitHasStatBonusCheckbox"></CheckBox>-->
 										</StackPanel>
 									</StackPanel>
 								</Flyout>
@@ -1137,7 +1151,7 @@
 														  Margin="0" />
 											<StackPanel Name="NewSpellAttackStatsPanel"
 														Margin="0"
-														Visibility="Visible">
+														Visibility="Collapsed">
 												<StackPanel Orientation="Horizontal">
 													<TextBlock Text="Damage: "
 															   VerticalAlignment="Center" />

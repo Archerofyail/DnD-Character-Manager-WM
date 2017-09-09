@@ -167,7 +167,7 @@ namespace TabletopRolePlayingCharacterManager
 			{
 				bonus = 2;
 			}
-			if (level <= 8)
+			else if (level <= 8)
 			{
 				bonus = 3;
 			}

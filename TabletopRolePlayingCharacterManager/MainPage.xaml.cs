@@ -37,8 +37,7 @@ namespace TabletopRolePlayingCharacterManager
 			NavigationCacheMode = NavigationCacheMode.Required;
 			CharacterSection.Loaded += (sender, args) =>
 			{
-				var charList = CharacterSection.FindDescendantByName("CharacterList") as ListView;
-				if (charList != null)
+				if (CharacterSection.FindDescendantByName("CharacterList") is ListView charList)
 				{
 					CharacterList = charList;
 				}

@@ -160,13 +160,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged("HealthBeforeRoll");
 
 				var total = rand.Next(1, int.Parse(character.HitDiceType.ToString().Substring(1))) +
-				            character.AbilityModifiers[MainStatType.Constitution];
+							character.AbilityModifiers[MainStatType.Constitution];
 				character.CurrHP = Math.Min(total + character.CurrHP, character.MaxHP);
 				RaisePropertyChanged("CurrentHealth");
 				LastHitDieRoll = total;
 				return total;
 			}
-		} 
+		}
 
 		#endregion
 
@@ -1405,6 +1405,18 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Traits
 
+		private string newTraitName = "";
+
+		public string NewTraitName
+		{
+			get => newTraitName;
+			set
+			{
+				newTraitName = value;
+				RaisePropertyChanged();
+			}
+		}
+
 		private string newTraitDesc = "";
 
 		public string NewTraitDesc
@@ -1413,6 +1425,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set
 			{
 				newTraitDesc = value;
+				RaisePropertyChanged();
+			}
+		}
+
+		public ObservableCollection<TraitSource> TraitSources => new ObservableCollection<TraitSource>
+		{
+			TraitSource.Background,
+			TraitSource.Race,
+			TraitSource.Class,
+			TraitSource.Other
+		};
+
+		private int newTraitSourceIndex = -1;
+
+		public int NewTraitSourceIndex
+		{
+			get => newTraitSourceIndex;
+			set
+			{
+				newTraitSourceIndex = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1581,16 +1613,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				Description = newSpellDesc,
 				Level = newSpellLevelIndex
 			};
+			if (Spells.Count > 0)
+			{
+				Spells.Add(new SpellViewModel(newSpell, SetAttackSpell));
+			}
 			if (AddSpellToGlobalList)
 			{
 				CharacterManager.AllSpells.Add(newSpell);
 				await CharacterManager.SaveSpells();
 			}
 			character.Spells.Add(newSpell);
-			if (Spells.Count > 0)
-			{
-				Spells.Add(new SpellViewModel(newSpell, SetAttackSpell));
-			}
+
 			RaisePropertyChanged("Spells");
 			await CharacterManager.SaveCurrentCharacter();
 		}
@@ -1607,6 +1640,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				WeaponRangeType = WeaponRanges[NewWepSelectedType],
 				IsProficient = NewWepIsProficient
 			};
+			if (Weapons.Count > 0)
+			{
+				Weapons.Add(new WeaponViewModel(newWep, removeWeaponRelay, SetAttackWeapon));
+			}
 			if (AddWeaponToGlobalList)
 			{
 				CharacterManager.AllWeapons.Add(newWep);
@@ -1614,10 +1651,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 
 
-			if (Weapons.Count > 0)
-			{
-				Weapons.Add(new WeaponViewModel(newWep, removeWeaponRelay, SetAttackWeapon));
-			}
+
 			character.Weapons.Add(newWep);
 
 			RaisePropertyChanged("Weapons");
@@ -1626,10 +1660,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		async void AddNewCharTraitExecute()
 		{
-			var newTrait = new Trait(newTraitDesc);
-			newTraitDesc = "";
+			var newTrait = new Trait(newTraitName, newTraitDesc, TraitSources[newTraitSourceIndex]);
+			NewTraitDesc = "";
+			NewTraitName = "";
+			NewTraitSourceIndex = -1;
+			if (CharTraits.Count > 0)
+			{
+				CharTraits.Add(new TraitViewModel(newTrait, RemoveTrait));
+			}
 			character.Traits.Add(newTrait);
-			CharTraits.Add(new TraitViewModel(newTrait, RemoveTrait));
 			RaisePropertyChanged("CharTraits");
 			await CharacterManager.SaveCurrentCharacter();
 		}
@@ -1637,7 +1676,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void AddNewLanguageExecute(string newLang)
 		{
 			var newProf = new Proficiency(ProficiencyType.Language, newLang);
-			Languages.Add(new ProficiencyViewModel(newProf, RemoveProficiencyEx));
+			if (Languages.Count > 0)
+			{
+				Languages.Add(new ProficiencyViewModel(newProf, RemoveProficiencyEx));
+			}
 			character.Languages.Add(newProf);
 			RaisePropertyChanged("Languages");
 		}
@@ -1645,40 +1687,23 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void AddNewProficiencyExec(string name)
 		{
 			var prof = new Proficiency(ProficiencyTypes[newProficiencyTypeIndex], name);
-
-
 			if (Proficiencies.Count > 0)
 			{
 				Proficiencies.Add(new ProficiencyViewModel(prof, RemoveProficiencyEx));
 			}
 			character.Proficiencies.Add(prof);
-
+			RaisePropertyChanged("Proficiencies");
 			NewProficiencyTypeIndex = -1;
 		}
 
 		void RemoveProficiencyEx(ProficiencyViewModel prof)
 		{
-			switch (prof.Type)
-			{
-				case ProficiencyType.Weapon:
-				{
-					WeaponProficiencies.Remove(prof);
-					character.WeaponProficiencies.Remove(character.WeaponProficiencies.First(x => x.Name == prof.Name));
-				}
-				break;
-				case ProficiencyType.Armor:
-				{
-					ArmorProficiencies.Remove(prof);
-					character.ArmorProficiencies.Remove(character.ArmorProficiencies.First(x => x.Name == prof.Name));
-				}
-				break;
-				default:
-				{
-					Proficiencies.Remove(prof);
-					character.Proficiencies.Remove(character.Proficiencies.First(x => x.Name == prof.Name));
-				}
-				break;
-			}
+
+
+			Proficiencies.Remove(prof);
+			character.Proficiencies.Remove(character.Proficiencies.First(x => x.Name == prof.Name));
+
+
 		}
 		#endregion
 		#endregion

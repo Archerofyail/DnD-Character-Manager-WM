@@ -65,7 +65,7 @@
 					 AcceptsReturn="True" />
 			<Button Command="{Binding RemoveItem}">
 				<Button.Content>
-					<SymbolIcon Symbol="Delete"/>
+					<SymbolIcon Symbol="Delete" />
 				</Button.Content>
 			</Button>
 		</StackPanel>
@@ -123,8 +123,8 @@
 				<StackPanel Orientation="Horizontal">
 					<Button Content="Roll Attack"
 							Command="{Binding Attack}"
-							Tag="RollAttackButton" 
-							Margin="4"/>
+							Tag="RollAttackButton"
+							Margin="4" />
 					<Button Command="{Binding RemoveWeapon}"
 							CommandParameter="{Binding}"
 							Margin="4">
@@ -417,41 +417,62 @@
 					<core:InvokeCommandAction Command="{Binding StopEditing}"></core:InvokeCommandAction>
 				</core:EventTriggerBehavior>
 			</interactivity:Interaction.Behaviors>
-			<TextBlock Text="{Binding Description, Mode=TwoWay}"
-					   MinHeight="72"
-					   TextWrapping="WrapWholeWords"
-					   Name="DescTextBlock"
-					   Visibility="{Binding IsNotEditing}"
-					   AllowFocusOnInteraction="True"/>
-			<Button Visibility="{Binding IsNotEditing}"
-					Command="{Binding RemoveTrait}">
-				<Button.Content>
-					<SymbolIcon Symbol="Delete"/>
-				</Button.Content>
-			</Button>
-			<TextBox Text="{Binding Description, Mode=TwoWay}"
-					 Visibility="{Binding IsEditing}"
-					 Name="DescTextBox"
-					 MinHeight="72"
-					 TextWrapping="Wrap"
-					 AllowFocusOnInteraction="True"
-					 AcceptsReturn="True">
-				<interactivity:Interaction.Behaviors>
-					<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
-											   EventName="LostFocus">
-						<core:InvokeCommandAction Command="{Binding StopEditing}"></core:InvokeCommandAction>
-					</core:EventTriggerBehavior>
-					<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
-											   EventName="KeyDown">
-						<core:InvokeCommandAction Command="{Binding StopEditingEnter}"></core:InvokeCommandAction>
-					</core:EventTriggerBehavior>
-				</interactivity:Interaction.Behaviors>
-			</TextBox>
-			<Button Content="Done"
-					Command="{Binding StopEditing}"
-					Visibility="{Binding IsEditing}"
-					Margin="4"
-					HorizontalAlignment="Stretch"></Button>
+			<StackPanel Visibility="{Binding IsNotEditing}">
+				<TextBlock Text="{Binding Name}"
+						   Name="NameTextBlock"
+						   FontWeight="SemiBold"
+						   FontSize="20"
+						   MaxLines="2" />
+				<TextBlock Text="{Binding SourceName}"
+						   FontStyle="Italic"
+						   FontWeight="SemiLight"
+						   FontSize="14" />
+				<TextBlock Text="{Binding Description, Mode=TwoWay}"
+						   MinHeight="72"
+						   TextWrapping="WrapWholeWords"
+						   Name="DescTextBlock"
+						   AllowFocusOnInteraction="True" />
+				<Button Visibility="{Binding IsNotEditing}"
+						Command="{Binding RemoveTrait}">
+					<Button.Content>
+						<SymbolIcon Symbol="Delete" />
+					</Button.Content>
+				</Button>
+			</StackPanel>
+			<StackPanel Visibility="{Binding IsEditing}">
+				<TextBox Text="{Binding Name, Mode=TwoWay}"
+						 Name="NameTextBox" 
+						 Margin="4"/>
+				<ComboBox ItemsSource="{Binding SourceList}"
+						  SelectedIndex="{Binding SourceIndex, Mode=TwoWay}"
+						  MinWidth="150"
+						  MaxWidth="250"
+						  Margin="4"/>
+				<TextBox Text="{Binding Description, Mode=TwoWay}"
+						 Name="DescTextBox"
+						 MinHeight="72"
+						 TextWrapping="Wrap"
+						 AllowFocusOnInteraction="True"
+						 AcceptsReturn="True"
+						 MaxWidth="250"
+						 Margin="4">
+					<interactivity:Interaction.Behaviors>
+						<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
+												   EventName="LostFocus">
+							<core:InvokeCommandAction Command="{Binding StopEditing}"></core:InvokeCommandAction>
+						</core:EventTriggerBehavior>
+						<core:EventTriggerBehavior SourceObject="{Binding ElementName=DescTextBlock}"
+												   EventName="KeyDown">
+							<core:InvokeCommandAction Command="{Binding StopEditingEnter}"></core:InvokeCommandAction>
+						</core:EventTriggerBehavior>
+					</interactivity:Interaction.Behaviors>
+				</TextBox>
+				<Button Content="Done"
+						Command="{Binding StopEditing}"
+						Visibility="{Binding IsEditing}"
+						Margin="4"
+						HorizontalAlignment="Stretch"></Button>
+			</StackPanel>
 		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>

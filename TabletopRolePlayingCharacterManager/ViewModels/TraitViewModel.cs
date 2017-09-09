@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Windows.System;
 using Windows.UI.Xaml.Input;
 using GalaSoft.MvvmLight.Command;
@@ -37,6 +38,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public string Name
+		{
+			get => Trait.Name;
+			set
+			{
+				Trait.Name = value;
+				RaisePropertyChanged();
+			}
+		}
+
 		public string Description
 		{
 			get => Trait.Description;
@@ -46,6 +57,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
+
+		public ObservableCollection<TraitSource> SourceList => new ObservableCollection<TraitSource> { TraitSource.Background, TraitSource.Race, TraitSource.Class, TraitSource.Other };
+
+		public int SourceIndex
+		{
+			get => SourceList.IndexOf(Trait.Source);
+			set
+			{
+				Trait.Source = SourceList[value];
+				RaisePropertyChanged();
+			}
+		}
+
+		public string SourceName => SourceList[SourceIndex].ToString();
 
 		private string bonusButtonText = "Enable Bonus";
 

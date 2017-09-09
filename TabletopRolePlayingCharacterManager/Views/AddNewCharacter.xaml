@@ -33,7 +33,7 @@
 			<converters:SelectedIndexToVisibility x:Key="IndexToVisibilityConverter"/>
 			<DataTemplate x:Key="ComboBoxItem">
 				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding Path=Name}" />
+					<TextBlock Text="{Binding Name}" />
 				</StackPanel>
 			</DataTemplate>
 
