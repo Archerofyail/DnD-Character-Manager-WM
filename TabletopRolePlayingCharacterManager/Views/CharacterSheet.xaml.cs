@@ -15,24 +15,11 @@ namespace TabletopRolePlayingCharacterManager.Views
 		public CharacterSheet()
 		{
 			InitializeComponent();
-			SpellList.Loaded += (s, ev) =>
+			SheetHub.Loaded += (sender, args) =>
 			{
-				var attackButtonList = SpellList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
-					
-				foreach (var button in attackButtonList)
-				{
-					button.Click += ShowAttackDialogAsync;
-				}
-			};
-			WeaponList.Loaded += (sender, args) =>
-			{
-				var atkBtnList = WeaponList.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
-				foreach (var button in atkBtnList)
-				{
-					button.Click += ShowAttackDialogAsync;
-				}
 
 			};
+
 		}
 
 		public async void ShowAttackDialogAsync(object sender, RoutedEventArgs e)
@@ -43,21 +30,31 @@ namespace TabletopRolePlayingCharacterManager.Views
 				DamageRollDialogPanel.Visibility = Visibility.Visible;
 				AttackDialog.IsPrimaryButtonEnabled = false;
 			}
-			
+
 			await AttackDialog.ShowAsync();
 		}
 
 		public void GeneralTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
 		{
-			ClassAndRaceInfo.Visibility = ClassAndRaceInfo.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-			GeneralExpandIcon.Text = ClassAndRaceInfo.Visibility == Visibility.Visible ? "-" : "+";
+			var classRace = GeneralSection.FindName("ClassAndRaceInfo") as FrameworkElement;
+			classRace.Visibility = classRace.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			(GeneralSection.FindName("GeneralExpandIcon") as TextBlock).Text = classRace.Visibility == Visibility.Visible ? "-" : "+";
 		}
 
-		
+		private void HeaderTapped(object sender, TappedRoutedEventArgs e)
+		{
+			var header = sender as FrameworkElement;
+			if (header != null)
+			{
+				header.Visibility = header.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+				header.FindDescendants<TextBlock>().Where(x => x.Text == "-" || x.Text == "+");
+			}
+		}
 		private void PhysicalDescriptionHeaderTapped(object sender, TappedRoutedEventArgs e)
 		{
-			PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-			PhysicalDescExpandIcon.Text = PhysicalDescription.Visibility == Visibility.Visible ? "-" : "+";
+
+			//PhysicalDescription.Visibility = PhysicalDescription.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			//PhysicalDescExpandIcon.Text = PhysicalDescription.Visibility == Visibility.Visible ? "-" : "+";
 		}
 
 		private void DeleteCharacterClick(object sender, RoutedEventArgs e)
@@ -65,29 +62,11 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		}
 
-		private void AddSpellButtonTapped(object sender, TappedRoutedEventArgs e)
+		private void ButtonHideFlyout(object sender, TappedRoutedEventArgs e)
 		{
-			AddSpellButton.Flyout?.Hide();
-		}
+			var parentButton = (sender as Button).FindAscendant<Button>();
+			parentButton?.Flyout?.Hide();
 
-		private void AddItemButtonTapped(object sender, TappedRoutedEventArgs e)
-		{
-			AddItemButton.Flyout?.Hide();
-		}
-
-		private void AddWeaponButtonTapped(object sender, TappedRoutedEventArgs e)
-		{
-			AddWeaponButton.Flyout?.Hide();
-		}
-
-		private void AddTraitTapped(object sender, TappedRoutedEventArgs e)
-		{
-			AddTraitButton.Flyout?.Hide();
-		}
-
-		private void AddNewLangTapped(object sender, TappedRoutedEventArgs e)
-		{
-			AddNewLangButton.Flyout?.Hide();
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -102,15 +81,10 @@ namespace TabletopRolePlayingCharacterManager.Views
 			Frame.Navigate(typeof(MainPage));
 		}
 
-		private void AddNewProficiencyTapped(object sender, TappedRoutedEventArgs e)
-		{
-			AddNewProficiencyButton.Flyout?.Hide();
-		}
-
 		private void TraitListOnItemClick(object sender, ItemClickEventArgs e)
 		{
-
-			foreach (var trait in TraitList.Items)
+			var list = sender as ListView;
+			foreach (var trait in list.Items)
 			{
 				if (trait != e.ClickedItem)
 				{
@@ -120,7 +94,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 				else
 				{
 					(trait as TraitViewModel).StartEditing.Execute(null);
-					var traitControls = TraitList.ContainerFromItem(trait);
+					var traitControls = list.ContainerFromItem(trait);
 					(traitControls.FindDescendantByName("DescTextBox") as TextBox)?.Focus(FocusState.Programmatic);
 
 				}
@@ -130,15 +104,17 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void IsAttackSwitch_Toggled(object sender, RoutedEventArgs e)
 		{
 			var chkbox = sender as ToggleSwitch;
-			NewSpellAttackStatsPanel.Visibility = (bool)chkbox.IsOn ? Visibility.Visible : Visibility.Collapsed;
+			var statsPanel = chkbox.Parent.FindDescendantByName("NewSpellAttackStatsPanel");
+			statsPanel.Visibility = (bool)chkbox.IsOn ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void DCSaveToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
 		{
 			var swtch = sender as ToggleSwitch;
-
-			AttackRollPanel.Visibility = (bool)swtch.IsOn ? Visibility.Collapsed : Visibility.Visible;
-			SavingThrowPanel.Visibility = (bool)swtch.IsOn ? Visibility.Visible : Visibility.Collapsed;
+			var attackPanel = swtch.Parent.FindDescendantByName("AttackRollPanel");
+			var savingPanel = swtch.Parent.FindDescendantByName("SavingThrowPanel");
+			attackPanel.Visibility = (bool)swtch.IsOn ? Visibility.Collapsed : Visibility.Visible;
+			savingPanel.Visibility = (bool)swtch.IsOn ? Visibility.Visible : Visibility.Collapsed;
 
 		}
 
@@ -149,15 +125,19 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void SpellListItemClick(object sender, ItemClickEventArgs e)
 		{
-			foreach (var spell in SpellList.Items)
+			var spellList = sender as ListView;
+			if (spellList != null)
 			{
-				if (spell != e.ClickedItem)
+				foreach (var spell in spellList.Items)
 				{
-					(spell as SpellViewModel).StopEditing.Execute(null);
-				}
-				else
-				{
-					(spell as SpellViewModel).StartEditing.Execute(null);
+					if (spell != e.ClickedItem)
+					{
+						(spell as SpellViewModel)?.StopEditing.Execute(null);
+					}
+					else
+					{
+						(spell as SpellViewModel)?.StartEditing.Execute(null);
+					}
 				}
 			}
 		}
@@ -178,14 +158,29 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void EditClassResourceClick(object sender, RoutedEventArgs e)
 		{
-			ClassResourceTextBlock.Visibility = Visibility.Collapsed;
-			ClassResourceTextBox.Visibility = Visibility.Visible;
+			var btn = sender as Button;
+			var textBlock = btn.Parent as FrameworkElement;
+			if (textBlock != null)
+			{
+				textBlock.Visibility = Visibility.Collapsed;
+			}
+
+			var textBox = StatsSection.FindChildByName("ClassResourceTextBox");
+			textBox.Visibility = Visibility.Visible;
 		}
 
 		private void EditClassResourceDoneClick(object sender, RoutedEventArgs e)
 		{
-			ClassResourceTextBlock.Visibility = Visibility.Visible;
-			ClassResourceTextBox.Visibility = Visibility.Collapsed;
+			var btn = sender as Button;
+			var textBlock = btn.Parent as FrameworkElement;
+			if (textBlock != null)
+			{
+				textBlock.Visibility = Visibility.Collapsed;
+			}
+
+			var textBox = StatsSection.FindChildByName("ClassResourceTextBlock");
+			textBox.Visibility = Visibility.Visible;
+
 		}
 
 		private async void HitDieUsed(object sender, RoutedEventArgs e)
@@ -196,6 +191,19 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void HitDieDoneRollingClicked(object sender, RoutedEventArgs e)
 		{
 			HitDieDialog.Hide();
+		}
+
+		private void AttackOrSpellListLoaded(object sender, RoutedEventArgs e)
+		{
+			var list = sender as ListView;
+
+			var attackButtonList = list.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
+
+			foreach (var button in attackButtonList)
+			{
+				button.Click += ShowAttackDialogAsync;
+			}
+
 		}
 	}
 }
