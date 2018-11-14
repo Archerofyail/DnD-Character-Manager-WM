@@ -60,102 +60,228 @@
 			<StackPanel Visibility="{Binding IsNotEditing}">
 				<TextBlock Text="{Binding Name}"
 				           FontSize="18"
-				           FontWeight="Bold" />
-				<TextBlock Text="{Binding Description}" Visibility="{Binding HasDescription}" />
-				<Button Visibility="{Binding HasUse}"
-				        Command="{Binding Use}">Use</Button>
+				           FontWeight="Bold"
+				           Margin="2"/>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Quantity: "/>
+					<TextBlock Text="{Binding Quantity}"/>
+					<TextBlock Text="Weight (total): "/>
+					<TextBlock Text="{Binding Weight}"/>
+				</StackPanel>
+				<TextBlock Text="{Binding Description}" Visibility="{Binding HasDescription}" 
+				           Margin="2"
+				           MaxWidth="450"
+				           TextWrapping="Wrap"/>
+				<StackPanel Orientation="Horizontal">
+					<Button Visibility="{Binding HasUse}"
+				        Command="{Binding Use}" Margin="4">Use</Button>
+					<Button Command="{Binding RemoveItem}" 
+							Margin="4">
+						<Button.Content>
+							<SymbolIcon Symbol="Delete" />
+						</Button.Content>
+					</Button>
+				</StackPanel>
 			</StackPanel>
 			<StackPanel Visibility="{Binding IsEditing}">
 				<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
-					 Margin="0, 4" />
+					 Margin="0, 4" 
+				         MinWidth="300"/>
 				<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
 					 TextWrapping="Wrap"
 					 MinHeight="48"
-					 AcceptsReturn="True" />
+					 AcceptsReturn="True" 
+				         MinWidth="300"/>
+				<Button Command="{Binding RemoveItem}">
+					<Button.Content>
+						<SymbolIcon Symbol="Delete" />
+					</Button.Content>
+				</Button>
 			</StackPanel>
-			<Button Command="{Binding RemoveItem}">
-				<Button.Content>
-					<SymbolIcon Symbol="Delete" />
-				</Button.Content>
-			</Button>
+
 
 		</StackPanel>
 
 	</DataTemplate>
 	<DataTemplate x:Key="Weapon">
 		<StackPanel>
-			<StackPanel Visibility="{Binding IsNotEditing}"
+			<Grid Visibility="{Binding IsNotEditing}"
 			            MinWidth="150"
 			            Width="400"
-			            HorizontalAlignment="Stretch">
+			            HorizontalAlignment="Stretch"
+			      BorderBrush="Black"
+			      BorderThickness="1"
+			      Margin="4">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
 				<TextBlock Text="{Binding Name}"
 				           FontSize="20"
-				           FontWeight="Bold" TextWrapping="Wrap"/>
-				<TextBlock Text="{Binding Range}"
-					           HorizontalAlignment="Right"
-					           FontStyle="Italic" />
-				<StackPanel Orientation="Horizontal">
+				           FontWeight="Bold" TextWrapping="Wrap"
+				           Grid.Column="0"
+				           Grid.Row="0"
+				           Grid.ColumnSpan="2"
+				           Margin="2"/>
+
+				<TextBlock Text="{Binding RangeString}"
+				           HorizontalAlignment="Left"
+				           FontStyle="Italic"
+				           Grid.Column="0"
+				           Grid.Row="1"
+				           Margin="2"/>
+
+				<StackPanel Orientation="Horizontal"
+				            Visibility="{Binding HasAttackBonus}"
+				            Grid.Column="0"
+				            Grid.ColumnSpan="3"
+				            Grid.Row="2"
+				            Margin="2">
 					<TextBlock Text="Attack bonus: "></TextBlock>
 					<TextBlock Text="{Binding AttackBonus}"/>
 				</StackPanel>
-				<StackPanel Orientation="Horizontal">
+				<StackPanel Orientation="Horizontal"
+				            Grid.Column="0"
+				            Grid.ColumnSpan="3"
+				            Grid.Row="3"
+				            Margin="2">
 					<TextBlock Text="Damage: "></TextBlock>
 					<TextBlock Text="{Binding DamageWithBonus}"/>
 				</StackPanel>
-				<StackPanel Visibility="{Binding HasDescription}">
+				<StackPanel Visibility="{Binding HasDescription}"
+				            Grid.Column="0"
+				            Grid.ColumnSpan="3"
+				            Grid.Row="4"
+				            Margin="2">
 					<TextBlock Text="Description"
 				           FontSize="18" />
 					<ScrollViewer MaxHeight="150"
 				              MinHeight="24">
-						<TextBlock Text="{Binding Description}" />
+						<TextBlock Text="{Binding Description}" 
+						           TextWrapping="Wrap"
+						           MaxWidth="400"/>
 					</ScrollViewer>
 				</StackPanel>
 				<Button Content="Roll Attack"
 				        HorizontalAlignment="Stretch"
 				        Command="{Binding Attack}"
-				        Tag="RollAttackButton" />
-			</StackPanel>
+				        Tag="RollAttackButton"
+				        Grid.Row="5"
+				        Grid.Column="0"
+				        Grid.ColumnSpan="3"
+				        Margin="4"/>
+			</Grid>
 
-			<StackPanel Margin="4"
-						Visibility="{Binding IsEditing}">
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Name"/>
-					<TextBox Text="{Binding Name, Mode=TwoWay}"
-							 Margin="0,0, 4, 0"
-							 MinWidth="96" />
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Damage"/>
-					<TextBox Text="{Binding Damage, Mode=TwoWay}"
-							 Margin="0, 0, 4, 0"
-							 PlaceholderText="1d6 + 1" />
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Attack Bonus"/>
-					<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
-							 PlaceholderText="Attack Bonus" />
-				</StackPanel>
+			<Grid Margin="4"
+						Visibility="{Binding IsEditing}"
+			      MinWidth="450">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<TextBlock Text="Name" Grid.Column="0"
+					           Grid.Row="0"
+					           Margin="2"
+					           VerticalAlignment="Center"/>
+				<TextBox Text="{Binding Name, Mode=TwoWay}"
+							 MinWidth="96" 
+					         Grid.Column="1"
+					         Grid.Row="0"
+					         Grid.ColumnSpan="2"
+					         Margin="2"/>
+
+
+				<TextBlock Text="Damage"
+					           Grid.Column="0"
+					           Grid.Row="1"
+					           Margin="2"
+					           VerticalAlignment="Center"/>
+				<TextBox Text="{Binding Damage, Mode=TwoWay}"
+							
+							 PlaceholderText="1d6 + 1" 
+					         Grid.Column="1"
+					         Grid.Row="1"
+					         Margin="2"/>
+
 				<StackPanel Orientation="Horizontal"
-							Margin="0,0,0,4">
-					<ComboBox ItemsSource="{Binding MainStat}"
+				            Grid.Column="2"
+				            Grid.Row="1">
+					<TextBlock Text="Attack Bonus"
+					          Margin="2"
+					           VerticalAlignment="Center"/>
+					<TextBox Text="{Binding AttackBonus, Mode=TwoWay}"
+							 PlaceholderText="Attack Bonus"
+					        HorizontalAlignment="Stretch"
+					         Margin="2"/>
+				</StackPanel>
+				<ComboBox ItemsSource="{Binding MainStat}"
 							  SelectedIndex="{Binding SelectedMainStat, Mode=TwoWay}"
-							  Margin="0, 0, 4, 0" />
-					<ComboBox ItemsSource="{Binding WeaponTypes}"
-					          SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}" />
+					          Margin="2"
+					          Grid.Column="0"
+					          Grid.Row="3"
+					          HorizontalAlignment="Stretch"/>
+				<ComboBox ItemsSource="{Binding WeaponTypes}"
+					          SelectedIndex="{Binding SelectedWeaponType, Mode=TwoWay}" 
+					          Grid.Column="1"
+					          Grid.Row="3"
+					          Margin="2"
+					          HorizontalAlignment="Stretch"/>
 
-					<CheckBox IsChecked="{Binding IsProficient, Mode=TwoWay}" Content="Proficient"/>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Range"/>
-					<TextBox Text="{Binding Range, Mode=TwoWay}"/>
-				</StackPanel>
+				<CheckBox IsChecked="{Binding IsProficient, Mode=TwoWay}" Content="Proficient"
+					          Grid.Row="3"
+					          Grid.Column="2"
+					          HorizontalAlignment="Stretch"
+					          Margin="2"/>
+
+				<TextBlock Text="Range"
+					           Grid.Row="4"
+					           Grid.Column="0"
+					           Margin="2"
+					           VerticalAlignment="Center"/>
+				<TextBox Text="{Binding Range, Mode=TwoWay}"
+					         Grid.Column="1"
+							 Grid.ColumnSpan="2"
+					         Grid.Row="4"
+					         Margin="2"/>
+				<TextBlock Text="Description"
+				           Grid.Row="5"
+				           Grid.Column="0"
+				           Grid.ColumnSpan="3"/>
 				<TextBox Text="{Binding Description, Mode=TwoWay}"
 						 PlaceholderText="Description"
 						 AcceptsReturn="True"
 						 MinHeight="48"
-						 Margin="0, 4, 0, 0"
-						 TextWrapping="Wrap" />
-				<StackPanel Orientation="Horizontal">
+						 TextWrapping="Wrap" 
+				         Grid.Column="0"
+				         Grid.ColumnSpan="3"
+				         Grid.Row="6"
+				         Margin="2"/>
+				<StackPanel Orientation="Horizontal"
+				            Grid.Column="0"
+				            Grid.ColumnSpan="3"
+				            Grid.Row="7"
+				            Margin="2">
 					<Button Content="Roll Attack"
 							Command="{Binding Attack}"
 							Tag="RollAttackButton"
@@ -169,7 +295,7 @@
 						</Button.Content>
 					</Button>
 				</StackPanel>
-			</StackPanel>
+			</Grid>
 		</StackPanel>
 	</DataTemplate>
 
@@ -317,7 +443,7 @@
 							 TextWrapping="Wrap"
 							 MinHeight="72"
 					         MaxWidth="300"
-					         Visibility="{Binding IsCantrip}"/>
+					         Visibility="{Binding IsNotCantrip}"/>
 				</StackPanel>
 				<StackPanel Grid.Row="6"
 							Grid.Column="0"

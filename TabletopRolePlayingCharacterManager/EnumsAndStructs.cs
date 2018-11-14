@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TabletopRolePlayingCharacterManager.Models;
 
 namespace TabletopRolePlayingCharacterManager
@@ -98,6 +99,11 @@ namespace TabletopRolePlayingCharacterManager
 		Transmutation
 	}
 
+	public enum ItemEffectType
+	{
+		Heal,
+	}
+
 	public class Pair<T,V>
 	{
 		public T Item1 { get; set; }
@@ -176,6 +182,20 @@ namespace TabletopRolePlayingCharacterManager
 				bonus = 4;
 			}
 			return bonus;
+		}
+
+		public static int ParseWeight(string weightStr)
+		{
+			var match = Regex.Match(weightStr, @"(\d{1,4})");
+			if (match.Success)
+			{
+				if (int.TryParse(match.Groups[1].ToString(), out int result))
+				{
+					return result;
+				}
+				throw new ArgumentException("Failed to parse the weight given");
+			}
+			throw new ArgumentException("Failed to parse the weight given");
 		}
 	}
 }

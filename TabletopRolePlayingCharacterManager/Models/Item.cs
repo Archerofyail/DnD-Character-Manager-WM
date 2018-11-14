@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
@@ -9,10 +10,10 @@ namespace TabletopRolePlayingCharacterManager.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public int Quantity { get; set; }
-		public int Weight { get; set; }
+		public string Weight { get; set; }
 		public List<Item> ContainedItems { get; set; } = new List<Item>();
 		public ItemType ItemType { get; set; } = ItemType.Item;
-
+		public IItemEffect Effect { get; set; } = null;
 		public Item()
 		{
 			

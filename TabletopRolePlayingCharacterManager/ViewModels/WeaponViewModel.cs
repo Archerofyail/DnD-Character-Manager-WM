@@ -96,6 +96,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 
 		}
+
+		public string RangeString
+		{
+			get => WeaponRanges[SelectedWeaponType] + (!string.IsNullOrEmpty(Range) ? " - " + Range : "");
+		}
+
 		public string Description
 		{
 			get => weapon.Description;
@@ -103,6 +109,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				weapon.Description = value; 
 				RaisePropertyChanged();
+				RaisePropertyChanged("HasDescription");
 			}
 		}
 
@@ -116,6 +123,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public bool HasAttackBonus => weapon.AttackBonus > 0;
+
 		public ICommand RemoveWeapon => remove;
 
 		public ICommand Attack => new RelayCommand(RollAttackEx);
@@ -125,7 +134,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			SetAttackWeapon?.Invoke(weapon);
 		}
 
-		public bool HasDescription => Description.Length > 0;
+		public bool HasDescription => Description?.Length > 0;
 
 
 		private bool isEditing;
@@ -155,7 +164,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			RaisePropertyChanged("LevelAndSchool");
 			RaisePropertyChanged("AttackButtonText");
 			RaisePropertyChanged("Description");
+			RaisePropertyChanged("HasDescription");
 			RaisePropertyChanged("HigherLevels");
+			RaisePropertyChanged("RangeString");
+			RaisePropertyChanged("HasAttackBonus");
 		}
 	}
 }

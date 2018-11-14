@@ -126,6 +126,7 @@
     <Compile Include="Models\ClassBonus.cs" />
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Types\IItemEffect.cs" />
     <Compile Include="Types\ItemPair.cs" />
     <Compile Include="Models\Proficiency.cs" />
     <Compile Include="Models\RacialBonus.cs" />
