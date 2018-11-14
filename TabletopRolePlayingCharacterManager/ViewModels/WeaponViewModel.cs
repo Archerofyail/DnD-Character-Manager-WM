@@ -6,6 +6,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
+using TabletopRolePlayingCharacterManager.Types;
 
 namespace TabletopRolePlayingCharacterManager.ViewModels
 {
@@ -43,8 +44,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				weapon.Damage.ParseText(value);
 				RaisePropertyChanged();
+				RaisePropertyChanged("DamageWithBonus");
 			}
 		}
+
+		public string DamageWithBonus => weapon.Damage + " + " + Utility.ShorthandStatStrings[MainStat[SelectedMainStat]] + "[" + CharacterManager.CurrentCharacter.AbilityModifiers[MainStat[SelectedMainStat]] +"]";
 
 		public ObservableCollection<MainStatType> MainStat => MainStatTypes;
 
@@ -81,13 +85,33 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ObservableCollection<WeaponRangeType> WeaponTypes => WeaponRanges;
 
+		public string Range
+		{
+			get => weapon.Range;
 
+			set
+			{
+				weapon.Range = value;
+				RaisePropertyChanged();
+			}
+
+		}
 		public string Description
 		{
 			get => weapon.Description;
 			set
 			{
 				weapon.Description = value; 
+				RaisePropertyChanged();
+			}
+		}
+
+		public bool IsProficient
+		{
+			get => weapon.IsProficient;
+			set
+			{
+				weapon.IsProficient = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -99,6 +123,39 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void RollAttackEx()
 		{
 			SetAttackWeapon?.Invoke(weapon);
+		}
+
+		public bool HasDescription => Description.Length > 0;
+
+
+		private bool isEditing;
+		public bool IsEditing
+		{
+			get => isEditing;
+			set
+			{
+				isEditing = value;
+				RaisePropertyChanged();
+				RaisePropertyChanged("IsNotEditing");
+			}
+		}
+
+		public bool IsNotEditing => !IsEditing;
+
+		public ICommand StartEditing => new RelayCommand(StartEditingEx);
+		public ICommand StopEditing => new RelayCommand(StopEditingEx);
+		void StartEditingEx()
+		{
+			IsEditing = true;
+		}
+
+		void StopEditingEx()
+		{
+			IsEditing = false;
+			RaisePropertyChanged("LevelAndSchool");
+			RaisePropertyChanged("AttackButtonText");
+			RaisePropertyChanged("Description");
+			RaisePropertyChanged("HigherLevels");
 		}
 	}
 }

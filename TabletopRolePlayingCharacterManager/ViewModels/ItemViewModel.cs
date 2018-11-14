@@ -43,11 +43,45 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public bool HasDescription => Description.Length > 0;
+
+
 		public ICommand RemoveItem => new RelayCommand(RemoveItemEx);
 
 		void RemoveItemEx()
 		{
 			RemoveAction?.Invoke(this);
 		}
+
+		private bool isEditing;
+		public bool IsEditing
+		{
+			get => isEditing;
+			set
+			{
+				isEditing = value;
+				RaisePropertyChanged();
+				RaisePropertyChanged("IsNotEditing");
+			}
+		}
+
+		public bool IsNotEditing => !IsEditing;
+
+		public ICommand StartEditing => new RelayCommand(StartEditingEx);
+		public ICommand StopEditing => new RelayCommand(StopEditingEx);
+		void StartEditingEx()
+		{
+			IsEditing = true;
+		}
+
+		void StopEditingEx()
+		{
+			IsEditing = false;
+			RaisePropertyChanged("LevelAndSchool");
+			RaisePropertyChanged("AttackButtonText");
+			RaisePropertyChanged("Description");
+			RaisePropertyChanged("HigherLevels");
+		}
+
 	}
 }

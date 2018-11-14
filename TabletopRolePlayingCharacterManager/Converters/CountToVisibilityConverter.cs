@@ -11,9 +11,9 @@ namespace TabletopRolePlayingCharacterManager.Converters
 		{
 			if (value is int i)
 			{
-				if (parameter is bool r)
+				if (bool.TryParse(parameter as string, out bool isReverse))
 				{
-					if (parameter as bool? == false)
+					if (isReverse)
 					{
 						return i != 0 ? Visibility.Visible : Visibility.Collapsed;
 					}

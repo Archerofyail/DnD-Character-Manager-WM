@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -125,8 +126,7 @@ namespace TabletopRolePlayingCharacterManager.Views
 
 		private void SpellListItemClick(object sender, ItemClickEventArgs e)
 		{
-			var spellList = sender as ListView;
-			if (spellList != null)
+			if (sender is ListView spellList)
 			{
 				foreach (var spell in spellList.Items)
 				{
@@ -196,14 +196,49 @@ namespace TabletopRolePlayingCharacterManager.Views
 		private void AttackOrSpellListLoaded(object sender, RoutedEventArgs e)
 		{
 			var list = sender as ListView;
-
-			var attackButtonList = list.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
+			var attackButtonList = list?.ItemsPanelRoot.FindDescendants<Button>().Where(x => x.Tag != null && x.Tag.Equals("RollAttackButton"));
 
 			foreach (var button in attackButtonList)
 			{
 				button.Click += ShowAttackDialogAsync;
 			}
 
+		}
+
+		private void WeaponList_OnItemClick(object sender, ItemClickEventArgs e)
+		{
+			if (sender is ListView weaponList)
+			{
+				foreach (var weapon in weaponList.Items)
+				{
+					if (weapon != e.ClickedItem)
+					{
+						(weapon as WeaponViewModel)?.StopEditing.Execute(null);
+					}
+					else
+					{
+						(weapon as WeaponViewModel)?.StartEditing.Execute(null);
+					}
+				}
+			}
+		}
+
+		private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+		{
+			if (sender is ListView itemList)
+			{
+				foreach (var weapon in itemList.Items)
+				{
+					if (weapon != e.ClickedItem)
+					{
+						(weapon as ItemViewModel)?.StopEditing.Execute(null);
+					}
+					else
+					{
+						(weapon as ItemViewModel)?.StartEditing.Execute(null);
+					}
+				}
+			}
 		}
 	}
 }

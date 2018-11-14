@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.MarkDown;
 
 namespace TabletopRolePlayingCharacterManager.Models
 {
 	//TODO: Add a dice picker
 	public class Damage
 	{
-		//Die size probable shouldn't be more than a D12
+		//Die size probably shouldn't be more than a D12
 		public Dictionary<DieType, int> Dice { get; set; } = new Dictionary<DieType, int>();
 		public int Bonus { get; set; }
 
 		public Damage(int bonus)
 		{
-			
+
 			Bonus = bonus;
 		}
 
@@ -62,7 +63,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		/// <param name="text"></param>
 		public void ParseText(string text)
 		{
-			var matches = Regex.Match(text, @"(\d)([dD]\d{1,3})\s?[\+-]\s?(\d{1,3})");
+			var matches = Regex.Match(text, @"(\d{1,2})([dD]\d{1,3})\s?[\+-]?\s?(\d{1,3})?");
 			Debug.WriteLine("Matches: " + matches.Value);
 			for (var i = 0; i < matches.Groups.Count; i++)
 			{
@@ -77,12 +78,16 @@ namespace TabletopRolePlayingCharacterManager.Models
 					{
 						Dice.Clear();
 						Dice.Add(dieType, numDice);
-						
+
 					}
 				}
-				if (int.TryParse(matches.Groups[3].Value, out int numBonus))
+
+				if (matches.Length >= 4)
 				{
-					Bonus = numBonus;
+					if (int.TryParse(matches.Groups[3].Value, out int numBonus))
+					{
+						Bonus = numBonus;
+					}
 				}
 			}
 		}

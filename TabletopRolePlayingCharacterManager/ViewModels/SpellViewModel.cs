@@ -49,6 +49,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 					spell.Level = value;
 					RaisePropertyChanged();
+					RaisePropertyChanged("IsNotCantrip");
+
 
 				}
 			}
@@ -156,6 +158,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				RaisePropertyChanged();
 			}
 		}
+
+		public bool IsNotCantrip => spell.Level != 0;
 
 		public bool IsSavingThrow
 		{
@@ -269,6 +273,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region ViewEvents
 
 
+		public bool HasDescription => Description?.Length > 0;
 
 		private bool isEditing;
 		public bool IsEditing

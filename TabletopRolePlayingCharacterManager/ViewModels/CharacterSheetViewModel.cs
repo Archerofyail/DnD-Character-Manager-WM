@@ -1,14 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using Windows.Devices.Bluetooth.Advertisement;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
 
@@ -340,6 +338,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					character.CurrHP = result;
 				}
+				RaisePropertyChanged();
+				RaisePropertyChanged("CanUseHitDice");
 			}
 		}
 
@@ -423,7 +423,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				character.HitDice = value;
 				RaisePropertyChanged();
+				RaisePropertyChanged("CanUseHitDice");
 			}
+		}
+
+		public bool CanUseHitDice
+		{
+			get => character.HitDice > 0 && character.CurrHP < character.MaxHP;
 		}
 
 		#endregion
@@ -1553,6 +1559,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void RollDamageEx()
 		{
 			AttackOrDamageTitle = "Damage";
+			
 		}
 
 		void RemoveWeaponExec(WeaponViewModel weapon)
@@ -1681,11 +1688,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				Languages.Add(new ProficiencyViewModel(newProf, RemoveProficiencyEx));
 			}
 			character.Languages.Add(newProf);
+			character.Proficiencies.Add(newProf);
 			RaisePropertyChanged("Languages");
 		}
 
 		void AddNewProficiencyExec(string name)
 		{
+			if (character.Proficiencies.Exists(x => x.Name == name))
+			{
+				return;
+			}
+
 			var prof = new Proficiency(ProficiencyTypes[newProficiencyTypeIndex], name);
 			if (Proficiencies.Count > 0)
 			{
@@ -1701,8 +1714,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 
 			Proficiencies.Remove(prof);
+			
+			if (prof.Type == ProficiencyType.Language)
+			{
+				character.Languages.Remove(character.Languages.First(x => x.Name == prof.Name));
+				Languages.Remove(prof);
+			}
 			character.Proficiencies.Remove(character.Proficiencies.First(x => x.Name == prof.Name));
-
+			RaisePropertyChanged("Proficiencies");
+			RaisePropertyChanged("Languages");
 
 		}
 		#endregion
@@ -1716,10 +1736,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			attackRollBonus = character.AbilityModifiers[character.SpellcastingAttribute] + character.ProficiencyBonus;
 			var d1 = spell.Damage.RollDamage();
 			var d2 = spell.Damage2.RollDamage();
+			SpellOrWeapon = "Spell Modifier";
 			damageRoll = d1 + d2 + (spell.AddAbilityModToDamage ? character.AbilityModifiers[character.SpellcastingAttribute] : 0);
 			DamageRollString = string.Format("{0}[{1}]", spell.Damage.ToString(), d1) + (spell.Damage2.Dice.Count > 0 ? string.Format(" + {0}[{1}]", spell.Damage2.ToString(), d2) : "") +
 				(spell.AddAbilityModToDamage ? string.Format(" + {0}[{1}]", character.SpellcastingAttribute, character.AbilityModifiers[character.SpellcastingAttribute]) : "");
-			RaisePropertyChanged("DamageRollString");
 			RaisePropertyChanged("AttackRoll");
 			RaisePropertyChanged("DamageRoll");
 		}

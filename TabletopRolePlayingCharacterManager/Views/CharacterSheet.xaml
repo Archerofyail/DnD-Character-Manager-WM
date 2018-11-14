@@ -7,7 +7,7 @@
 	  mc:Ignorable="d"
 	  xmlns:controls="using:TabletopRolePlayingCharacterManager.Controls"
 	  xmlns:viewModels="using:TabletopRolePlayingCharacterManager.ViewModels"
-	  xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
+	  xmlns:tControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
 	  xmlns:converters="using:TabletopRolePlayingCharacterManager.Converters">
 	<Page.DataContext>
 		<viewModels:CharacterSheetViewModel />
@@ -73,7 +73,7 @@
 				<DataTemplate>
 					<ScrollViewer>
 						<StackPanel 
-							MinWidth="450"
+							MinWidth="500"
 							Margin="12">
 
 
@@ -296,7 +296,7 @@
 									<TextBlock Text="Proficiencies" />
 									<GridView ItemsSource="{Binding Proficiencies}"
 										  ItemTemplate="{StaticResource ProficiencyTemplate}"
-										  SelectionMode="None" />
+									          SelectionMode="None"/>
 									<Button Style="{StaticResource NoBackgroundAddButton}"
 										Name="AddNewProficiencyButton"
 										HorizontalAlignment="Right">
@@ -592,7 +592,7 @@
 											   TextAlignment="Center"
 											   HorizontalAlignment="Center" />
 
-										<controls1:AdaptiveGridView Name="AbilityScores"
+										<tControls:AdaptiveGridView Name="AbilityScores"
 																ItemHeight="80"
 																DesiredWidth="200"
 																HorizontalAlignment="Stretch">
@@ -764,7 +764,7 @@
 													</StackPanel>
 												</StackPanel>
 											</StackPanel>
-										</controls1:AdaptiveGridView>
+										</tControls:AdaptiveGridView>
 									</StackPanel>
 
 								</StackPanel>
@@ -864,13 +864,17 @@
 										Symbol="Tag" />
 				</HubSection.Header>
 				<DataTemplate>
-					<ScrollViewer>
+					<ScrollViewer MaxWidth="600"
+					              MinWidth="500">
 						<StackPanel>
 							<TextBlock Text="Weapons" />
 							<ListView ItemsSource="{Binding Weapons, Mode=TwoWay}"
 								  ItemTemplate="{StaticResource Weapon}"
 								  SelectionMode="None"
-								  Name="WeaponList" />
+								  Name="WeaponList"
+							          Loaded="AttackOrSpellListLoaded"
+							          ItemClick="WeaponList_OnItemClick"
+							          IsItemClickEnabled="True"/>
 							<Button Style="{StaticResource NoBackgroundAddButton}"
 								HorizontalAlignment="Right"
 								Name="AddWeaponButton">
@@ -937,7 +941,9 @@
 							<TextBlock Text="Items" />
 							<ListView ItemsSource="{Binding Items}"
 								  ItemTemplate="{StaticResource Item}"
-								  SelectionMode="None" />
+								  ItemClick="ListViewBase_OnItemClick"
+							          IsItemClickEnabled="True"
+							          SelectionMode="None"/>
 							<Button Style="{StaticResource NoBackgroundAddButton}"
 								HorizontalAlignment="Right"
 								Name="AddItemButton">
@@ -975,13 +981,14 @@
 					</ScrollViewer>
 				</DataTemplate>
 			</HubSection>
-			<HubSection Name="SpellsSection" MaxWidth="500">
+			<HubSection Name="SpellsSection">
 				<HubSection.Header>
 					<controls:TabHeader Label="Spells"
 										Symbol="Library" />
 				</HubSection.Header>
 				<DataTemplate>
-					<ScrollViewer>
+					<ScrollViewer MinWidth="500"
+					              MaxWidth="600">
 						<StackPanel Margin="12">
 							<Grid HorizontalAlignment="Stretch"
 							  VerticalAlignment="Top"
@@ -1045,7 +1052,7 @@
 								</StackPanel>
 
 							</Grid>
-							<controls1:AdaptiveGridView ItemsSource="{Binding SpellSlots}"
+							<tControls:AdaptiveGridView ItemsSource="{Binding SpellSlots}"
 													ItemTemplate="{StaticResource SpellSlot}"
 													IsItemClickEnabled="False"
 													SelectionMode="None"
@@ -1264,7 +1271,7 @@
 										Symbol="Bullets" />
 				</HubSection.Header>
 				<DataTemplate>
-					<ScrollViewer>
+					<ScrollViewer MaxWidth="500">
 						<StackPanel Margin="12">
 							<TextBlock Text="Backstory" />
 							<TextBox MinHeight="192"
@@ -1375,7 +1382,7 @@
 					<Button Content="Roll Again"
 						Command="{Binding HitDieUsed}"
 						Margin="4" 
-				        Visibility="{Binding HitDice, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=False}"/>
+				        Visibility="{Binding HitDice, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=True}"/>
 					<Button Content="Done" 
 							Click="HitDieDoneRollingClicked"/>
 				</StackPanel>
@@ -1383,11 +1390,5 @@
 		</ContentDialog>
 	</Grid>
 </Page>
-	
-	
-	
-	 
-	
-	
 	
 	
