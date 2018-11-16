@@ -56,17 +56,50 @@
 
 	<DataTemplate x:Key="Item">
 		<StackPanel Margin="4"
-					MinWidth="150">
-			<StackPanel Visibility="{Binding IsNotEditing}">
+					MinWidth="250"
+					Width="400"
+		            BorderBrush="Black"
+		            BorderThickness="1">
+			<StackPanel Visibility="{Binding IsNotEditing}"
+			            Margin="4">
 				<TextBlock Text="{Binding Name}"
 				           FontSize="18"
 				           FontWeight="Bold"
 				           Margin="2"/>
 				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Quantity: "/>
-					<TextBlock Text="{Binding Quantity}"/>
-					<TextBlock Text="Weight (total): "/>
-					<TextBlock Text="{Binding Weight}"/>
+
+					<TextBlock Text="Weight (total): "
+					           Margin="2"/>
+					<TextBlock Text="{Binding Weight}"
+					           Margin="2"/>
+				</StackPanel>
+				<TextBlock Text="Quantity: "
+				           Margin="2"/>
+				<StackPanel Orientation="Horizontal">
+					<Button Content="- 5"
+				        Command="{Binding Decrease}"
+				        CommandParameter="5"
+				        Margin="2"
+				        VerticalAlignment="Center"/>
+					<Button Content="-"
+				        Command="{Binding Decrease}"
+				        Margin="2"
+				        VerticalAlignment="Center"/>
+					<TextBlock Text="{Binding Quantity}"
+				           MinWidth="44"
+				           Margin="2"
+				           TextAlignment="Center"
+				           HorizontalAlignment="Center"
+				           VerticalAlignment="Center"/>
+					<Button Content="+"
+				        Command="{Binding Increase}"
+				        Margin="2"
+				        VerticalAlignment="Center"/>
+					<Button Content="+ 5"
+				        Command="{Binding Increase}"
+				        CommandParameter="5"
+				        Margin="2"
+				        VerticalAlignment="Center"/>
 				</StackPanel>
 				<TextBlock Text="{Binding Description}" Visibility="{Binding HasDescription}" 
 				           Margin="2"
@@ -83,34 +116,98 @@
 					</Button>
 				</StackPanel>
 			</StackPanel>
-			<StackPanel Visibility="{Binding IsEditing}">
+			<Grid Visibility="{Binding IsEditing}"
+			      Margin="4">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Text="Name"/>
 				<TextBox Text="{Binding Path=Name, Mode=TwoWay}"
 					 Margin="0, 4" 
-				         MinWidth="300"/>
+				         MinWidth="300"
+				         Grid.Column="1"
+				         Grid.Row="0"/>
+
+				<TextBlock Text="Description"
+				           Grid.Column="0"
+						   Grid.ColumnSpan="2"
+				           Grid.Row="1"/>
 				<TextBox Text="{Binding Path=Description, Mode=TwoWay}"
 					 TextWrapping="Wrap"
 					 MinHeight="48"
 					 AcceptsReturn="True" 
-				         MinWidth="300"/>
-				<Button Command="{Binding RemoveItem}">
+				         MinWidth="300"
+				         Grid.Column="0"
+				         Grid.ColumnSpan="2"
+				         Grid.Row="2"/>
+				<TextBlock Text="Weight"
+				           Grid.Column="0"
+				           Grid.Row="3"/>
+				<TextBox Text="{Binding Weight, Mode=TwoWay}"
+				         Grid.Column="1"
+				         Grid.Row="3"/>
+				<TextBlock Text="Quantity"
+				           Grid.Column="0"
+				           Grid.Row="4"/>
+				<StackPanel Orientation="Horizontal"
+				            Grid.Column="1"
+				            Grid.Row="4">
+					<Button Content="- 5"
+					        Command="{Binding Decrease}"
+					        CommandParameter="5"
+					        Margin="2"
+					        VerticalAlignment="Center"/>
+					<Button Content="-"
+					        Command="{Binding Decrease}"
+					        Margin="2"
+					        VerticalAlignment="Center"/>
+					<TextBlock Text="{Binding Quantity}"
+					           MinWidth="44"
+					           Margin="2"
+					           TextAlignment="Center"
+					           HorizontalAlignment="Center"
+					           VerticalAlignment="Center"/>
+					<Button Content="+"
+					        Command="{Binding Increase}"
+					        Margin="2"
+					        VerticalAlignment="Center"/>
+					<Button Content="+ 5"
+					        Command="{Binding Increase}"
+					        CommandParameter="5"
+					        Margin="2"
+					        VerticalAlignment="Center"/>
+				</StackPanel>
+				<Button Command="{Binding RemoveItem}"
+				        Grid.Column="0"
+				        Grid.ColumnSpan="2"
+				        Grid.Row="5">
 					<Button.Content>
 						<SymbolIcon Symbol="Delete" />
 					</Button.Content>
 				</Button>
-			</StackPanel>
+			</Grid>
 
 
 		</StackPanel>
 
 	</DataTemplate>
 	<DataTemplate x:Key="Weapon">
-		<StackPanel>
+		<StackPanel  BorderBrush="Black"
+		             BorderThickness="1"
+		             Margin="4">
 			<Grid Visibility="{Binding IsNotEditing}"
-			            MinWidth="150"
-			            Width="400"
-			            HorizontalAlignment="Stretch"
-			      BorderBrush="Black"
-			      BorderThickness="1"
+			      MinWidth="250"
+			      Width="400"
+			      HorizontalAlignment="Stretch"
 			      Margin="4">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
@@ -182,8 +279,8 @@
 			</Grid>
 
 			<Grid Margin="4"
-						Visibility="{Binding IsEditing}"
-			      MinWidth="450">
+				  Visibility="{Binding IsEditing}"
+			      MinWidth="400">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="*"/>
@@ -258,12 +355,14 @@
 					           Grid.Row="4"
 					           Grid.Column="0"
 					           Margin="2"
-					           VerticalAlignment="Center"/>
+					           VerticalAlignment="Center"
+				           Visibility="{Binding IsRanged}"/>
 				<TextBox Text="{Binding Range, Mode=TwoWay}"
 					         Grid.Column="1"
 							 Grid.ColumnSpan="2"
 					         Grid.Row="4"
-					         Margin="2"/>
+					         Margin="2"
+				         Visibility="{Binding IsRanged}"/>
 				<TextBlock Text="Description"
 				           Grid.Row="5"
 				           Grid.Column="0"

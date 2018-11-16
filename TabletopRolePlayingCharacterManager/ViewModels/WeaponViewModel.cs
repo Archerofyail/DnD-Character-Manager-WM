@@ -81,7 +81,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		public int SelectedWeaponType { get; set; } = -1;
+		public int SelectedWeaponType
+		{
+			get => _selectedWeaponType;
+			set
+			{
+				_selectedWeaponType = value;
+				RaisePropertyChanged();
+				RaisePropertyChanged("IsRanged");
+			}
+		}
 
 		public ObservableCollection<WeaponRangeType> WeaponTypes => WeaponRanges;
 
@@ -123,6 +132,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
+		public bool IsRanged
+		{
+			get => weapon.WeaponRangeType == WeaponRangeType.Ranged;
+		}
+
 		public bool HasAttackBonus => weapon.AttackBonus > 0;
 
 		public ICommand RemoveWeapon => remove;
@@ -138,6 +152,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 
 		private bool isEditing;
+		private int _selectedWeaponType = -1;
+
 		public bool IsEditing
 		{
 			get => isEditing;

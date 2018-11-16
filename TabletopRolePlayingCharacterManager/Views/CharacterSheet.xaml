@@ -368,7 +368,8 @@
 										Symbol="List" />
 				</HubSection.Header>
 				<DataTemplate>
-					<ScrollViewer>
+					<ScrollViewer VerticalScrollBarVisibility="Auto"
+					              HorizontalScrollBarVisibility="Disabled">
 						<StackPanel Margin="12">
 
 							<Grid Name="CombatInfoPanel"
@@ -865,7 +866,9 @@
 				</HubSection.Header>
 				<DataTemplate>
 					<ScrollViewer MaxWidth="600"
-					              MinWidth="500">
+					              MinWidth="500"
+					              VerticalScrollBarVisibility="Auto"
+					              HorizontalScrollBarVisibility="Disabled">
 						<StackPanel>
 							<TextBlock Text="Weapons" />
 							<ListView ItemsSource="{Binding Weapons, Mode=TwoWay}"
@@ -988,7 +991,9 @@
 				</HubSection.Header>
 				<DataTemplate>
 					<ScrollViewer MinWidth="500"
-					              MaxWidth="600">
+					              MaxWidth="600"
+					              VerticalScrollBarVisibility="Auto"
+					              HorizontalScrollBarVisibility="Disabled">
 						<StackPanel Margin="12">
 							<Grid HorizontalAlignment="Stretch"
 							  VerticalAlignment="Top"
@@ -1271,7 +1276,9 @@
 										Symbol="Bullets" />
 				</HubSection.Header>
 				<DataTemplate>
-					<ScrollViewer MaxWidth="500">
+					<ScrollViewer MaxWidth="500"
+					              HorizontalScrollBarVisibility="Disabled"
+					              VerticalScrollBarVisibility="Auto">
 						<StackPanel Margin="12">
 							<TextBlock Text="Backstory" />
 							<TextBox MinHeight="192"

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using TabletopRolePlayingCharacterManager.Models;
 using TabletopRolePlayingCharacterManager.Types;
@@ -70,12 +71,39 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 
 		public bool HasDescription => Description.Length > 0;
-
 		public bool HasUse => Item.Effect != null;
 
 		public  ICommand Use=> new RelayCommand(UseEx);
-
 		public ICommand RemoveItem => new RelayCommand(RemoveItemEx);
+		public ICommand Increase => new RelayCommand<string>(IncreaseEx);
+
+		private void IncreaseEx(string quantity)
+		{
+			if (int.TryParse(quantity, out int result))
+			{
+				Quantity += result;
+			}
+			else
+			{
+				Quantity++;
+			}
+		}
+
+		public ICommand Decrease => new RelayCommand<string>(DecreaseEx);
+
+		private void DecreaseEx(string quantity)
+		{
+			if(int.TryParse(quantity, out int result))
+			{
+				Quantity -= result;
+			}
+			else
+			{
+				Quantity--;
+			}
+
+			Quantity = Math.Max(0, Quantity);
+		}
 
 		void UseEx()
 		{

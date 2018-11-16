@@ -1776,13 +1776,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			Items.Remove(item);
 			character.Inventory.Remove(item.Item);
 		}
-		void RaiseSkillsChanged()
+		async void RaiseSkillsChanged()
 		{
 			foreach (var skillViewModel in Skills)
 			{
 				skillViewModel.RaiseAllPropertiesChanged();
 			}
+			await CharacterManager.SaveCurrentCharacter();
 		}
 		#endregion
+
+		public override async void RaisePropertyChanged(string propertyName = null)
+		{
+			await CharacterManager.SaveCurrentCharacter();
+			base.RaisePropertyChanged(propertyName);
+		}
 	}
 }
