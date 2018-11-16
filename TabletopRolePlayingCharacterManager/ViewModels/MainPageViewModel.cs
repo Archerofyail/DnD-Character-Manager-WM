@@ -12,54 +12,54 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			CharacterManager.CharactersLoadedEventHandler += (sender, args) => { RaisePropertyChanged("Characters");};
 		}
-		private int selectedCharacterTemplate;
+		private int _selectedCharacterTemplate;
 
 		public int SelectedCharacterTemplate
 		{
-			get => selectedCharacterTemplate;
-			set { selectedCharacterTemplate = value; RaisePropertyChanged(); }
+			get => _selectedCharacterTemplate;
+			set { _selectedCharacterTemplate = value; RaisePropertyChanged(); }
 		}
 
-		private ObservableCollection<string> characterTemplates = new ObservableCollection<string>();
+		private ObservableCollection<string> _characterTemplates = new ObservableCollection<string>();
 
 		public ObservableCollection<string> CharacterTemplates
 		{
 			get
 			{
-				if (characterTemplates.Count != 0) return characterTemplates;
-				characterTemplates.Add("Fifth Edition Character");
-				characterTemplates.Add("Generic Character");
-				return characterTemplates;
+				if (_characterTemplates.Count != 0) return _characterTemplates;
+				_characterTemplates.Add("Fifth Edition Character");
+				_characterTemplates.Add("Generic Character");
+				return _characterTemplates;
 			}
 		}
 
-		private ObservableCollection<CharacterViewModel> characterList = new ObservableCollection<CharacterViewModel>();
+		private ObservableCollection<CharacterViewModel> _characterList = new ObservableCollection<CharacterViewModel>();
 
 		public ObservableCollection<CharacterViewModel> Characters
 		{
 			get
 			{
-				if (characterList.Count == 0)
+				if (_characterList.Count == 0)
 				{
 					
-					characterList.Clear();
+					_characterList.Clear();
 					foreach (var character in CharacterManager.Characters)
 					{
-						characterList.Add(new CharacterViewModel(character));
+						_characterList.Add(new CharacterViewModel(character));
 					}
 					RaisePropertyChanged("NoCharacters");
 					
 				}
 				
-				return characterList;
+				return _characterList;
 			}
 		}
 
-		private int charListIndex = -1;
+		private int _charListIndex = -1;
 
 		public int CharListIndex
 		{
-			get => charListIndex;
+			get => _charListIndex;
 			set => CharacterManager.CurrentCharacter = CharacterManager.Characters[value];
 		}
 

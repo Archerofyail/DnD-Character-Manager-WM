@@ -13,7 +13,7 @@ namespace TabletopRolePlayingCharacterManager.Models
 		/// If true, it means that the spells are added to the character sheet.
 		/// If false, they're just added to the list of spells to choose from when changing prepared or known spells
 		/// </summary>
-		public bool areSpellsLearned { get; set; }
+		public bool AreSpellsLearned { get; set; }
 
 		public List<Tuple<int, List<string>>> SkillProficiencies { get; set; } = new List<Tuple<int, List<string>>>();
 		public List<Tuple<int, List<Spell>>> SpellsLearned { get; set; } = new List<Tuple<int, List<Spell>>>();

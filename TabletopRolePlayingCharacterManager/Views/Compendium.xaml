@@ -251,9 +251,9 @@
 											  Header="Hit Die"
 											  SelectedIndex="{Binding SelectedHitDieIndex, Mode=TwoWay}" />
 									<TextBlock Text="InitialHP" />
-									<TextBox Text="{Binding StartingHP, Mode=TwoWay}" />
+									<TextBox Text="{Binding StartingHp, Mode=TwoWay}" />
 									<TextBlock Text="Min. HP per level" />
-									<TextBox Text="{Binding MinHPPerLevel, Mode=TwoWay}" />
+									<TextBox Text="{Binding MinHpPerLevel, Mode=TwoWay}" />
 									<TextBlock Text="Number of Start skills" />
 
 									<TextBlock Text="Proficiencies" />

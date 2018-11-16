@@ -17,32 +17,32 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		}
 
-		private Skill skill => Item as Skill;
+		private Skill Skill => Item as Skill;
 		public string Name
 		{
-			get => skill.Name;
+			get => Skill.Name;
 			set
 			{
-				skill.Name = value;
+				Skill.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 		public int Bonus
 		{
-			get => skill.Bonus;
+			get => Skill.Bonus;
 			set
 			{
-				skill.Bonus = value;
+				Skill.Bonus = value;
 				RaisePropertyChanged();
 			}
 		}
 		public bool IsProficient
 		{
-			get => skill.IsProficient;
+			get => Skill.IsProficient;
 			set
 			{
-				skill.IsProficient = value;
-				skill.CalculateBonus();
+				Skill.IsProficient = value;
+				Skill.CalculateBonus();
 				RaisePropertyChanged("Bonus");
 				RaisePropertyChanged();
 			}
@@ -57,13 +57,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string MainStat
 		{
-			get => skill.MainStat.ToString().Substring(0, 3);
+			get => Skill.MainStat.ToString().Substring(0, 3);
 
 			set
 			{
 				if (Enum.TryParse(value, out MainStatType result))
 				{
-					skill.MainStat = result;
+					Skill.MainStat = result;
 
 				}
 				RaisePropertyChanged();

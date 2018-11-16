@@ -5,12 +5,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class ProficiencyChoiceViewModel : ChoiceViewModel<Proficiency, ProficiencyViewModel>
 	{
-		private ProficiencyType type;
+		private ProficiencyType _type;
 
 
 		public ProficiencyChoiceViewModel(ProficiencyType type, List<Proficiency> profs = null, int totalBonus = 1, bool canSelectMultiple = false)
 		{
-			this.type = type;
+			this._type = type;
 			if (profs != null)
 			{
 				
@@ -27,7 +27,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		protected override void AddItemExec()
 		{
 
-			var newProf = new Proficiency { Type = type };
+			var newProf = new Proficiency { Type = _type };
 			AddModifiedItem(newProf);
 		}
 	}

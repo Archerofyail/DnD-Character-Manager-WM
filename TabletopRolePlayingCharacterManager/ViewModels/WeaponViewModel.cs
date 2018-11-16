@@ -12,57 +12,57 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class WeaponViewModel : ViewModelBase
 	{
-		public Weapon weapon { get; }
+		public Weapon Weapon { get; }
 		public static ObservableCollection<MainStatType> MainStatTypes = new ObservableCollection<MainStatType>() { MainStatType.Strength, MainStatType.Dexterity };
 		public static  ObservableCollection<WeaponRangeType> WeaponRanges = new ObservableCollection<WeaponRangeType>() {WeaponRangeType.Melee, WeaponRangeType.Ranged};
-		private RelayCommand<WeaponViewModel> remove;
+		private RelayCommand<WeaponViewModel> _remove;
 		public delegate void SetAttackWeaponDelegate(Weapon weapon);
 
-		private SetAttackWeaponDelegate SetAttackWeapon;
+		private SetAttackWeaponDelegate _setAttackWeapon;
 		public WeaponViewModel(Weapon weap, RelayCommand<WeaponViewModel> removeCommand, SetAttackWeaponDelegate setAttackWeap)
 		{
-			weapon = weap;
-			selectedMainStat = MainStatTypes.IndexOf(weap.MainStat);
+			Weapon = weap;
+			_selectedMainStat = MainStatTypes.IndexOf(weap.MainStat);
 			SelectedWeaponType = WeaponRanges.IndexOf(weap.WeaponRangeType);
-			remove = removeCommand;
-			SetAttackWeapon = setAttackWeap;
+			_remove = removeCommand;
+			_setAttackWeapon = setAttackWeap;
 		}
 		public string Name
 		{
-			get => weapon.Name;
+			get => Weapon.Name;
 			set
 			{
-				weapon.Name = value;
+				Weapon.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Damage
 		{
-			get => weapon.Damage.ToString();
+			get => Weapon.Damage.ToString();
 			set
 			{
-				weapon.Damage.ParseText(value);
+				Weapon.Damage.ParseText(value);
 				RaisePropertyChanged();
 				RaisePropertyChanged("DamageWithBonus");
 			}
 		}
 
-		public string DamageWithBonus => weapon.Damage + " + " + Utility.ShorthandStatStrings[MainStat[SelectedMainStat]] + "[" + CharacterManager.CurrentCharacter.AbilityModifiers[MainStat[SelectedMainStat]] +"]";
+		public string DamageWithBonus => Weapon.Damage + " + " + Utility.ShorthandStatStrings[MainStat[SelectedMainStat]] + "[" + CharacterManager.CurrentCharacter.AbilityModifiers[MainStat[SelectedMainStat]] +"]";
 
 		public ObservableCollection<MainStatType> MainStat => MainStatTypes;
 
-		private int selectedMainStat = -1;
+		private int _selectedMainStat = -1;
 
 		public int SelectedMainStat
 		{
-			get => selectedMainStat;
+			get => _selectedMainStat;
 			set
 			{
 				if (value < MainStatTypes.Count && MainStatTypes.Count >= 0)
 				{
-					selectedMainStat = value;
-					weapon.MainStat = MainStatTypes[selectedMainStat];
+					_selectedMainStat = value;
+					Weapon.MainStat = MainStatTypes[_selectedMainStat];
 					RaisePropertyChanged();
 				}
 			}
@@ -70,12 +70,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string AttackBonus
 		{
-			get => weapon.AttackBonus.ToString();
+			get => Weapon.AttackBonus.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					weapon.AttackBonus = result;
+					Weapon.AttackBonus = result;
 					RaisePropertyChanged();
 				}
 			}
@@ -96,11 +96,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Range
 		{
-			get => weapon.Range;
+			get => Weapon.Range;
 
 			set
 			{
-				weapon.Range = value;
+				Weapon.Range = value;
 				RaisePropertyChanged();
 			}
 
@@ -113,10 +113,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Description
 		{
-			get => weapon.Description;
+			get => Weapon.Description;
 			set
 			{
-				weapon.Description = value; 
+				Weapon.Description = value; 
 				RaisePropertyChanged();
 				RaisePropertyChanged("HasDescription");
 			}
@@ -124,42 +124,42 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool IsProficient
 		{
-			get => weapon.IsProficient;
+			get => Weapon.IsProficient;
 			set
 			{
-				weapon.IsProficient = value;
+				Weapon.IsProficient = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool IsRanged
 		{
-			get => weapon.WeaponRangeType == WeaponRangeType.Ranged;
+			get => Weapon.WeaponRangeType == WeaponRangeType.Ranged;
 		}
 
-		public bool HasAttackBonus => weapon.AttackBonus > 0;
+		public bool HasAttackBonus => Weapon.AttackBonus > 0;
 
-		public ICommand RemoveWeapon => remove;
+		public ICommand RemoveWeapon => _remove;
 
 		public ICommand Attack => new RelayCommand(RollAttackEx);
 
 		void RollAttackEx()
 		{
-			SetAttackWeapon?.Invoke(weapon);
+			_setAttackWeapon?.Invoke(Weapon);
 		}
 
 		public bool HasDescription => Description?.Length > 0;
 
 
-		private bool isEditing;
+		private bool _isEditing;
 		private int _selectedWeaponType = -1;
 
 		public bool IsEditing
 		{
-			get => isEditing;
+			get => _isEditing;
 			set
 			{
-				isEditing = value;
+				_isEditing = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("IsNotEditing");
 			}

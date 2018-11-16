@@ -17,12 +17,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		where T : class, new()
 	{
 		protected List<T> Items = new List<T>();
-		private int totalBonus = 1;
+		private int _totalBonus = 1;
 
 		public ChoiceViewModel(List<T> items, int totalBonus, bool canSelectMultiple)
 		{
 			this.Items = items;
-			this.totalBonus = totalBonus;
+			this._totalBonus = totalBonus;
 			CanSelectMultiple = canSelectMultiple;
 		}
 
@@ -42,42 +42,42 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int TotalBonus
 		{
-			get => totalBonus;
+			get => _totalBonus;
 			set
 			{
-				totalBonus = value;
+				_totalBonus = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool CanSelectMultiple { get; set; }
 
-		private int selectedIndex;
+		private int _selectedIndex;
 
 		public int SelectedIndex
 		{
-			get => selectedIndex;
+			get => _selectedIndex;
 			set
 			{
-				selectedIndex = value;
+				_selectedIndex = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private ObservableCollection<T2> selectedItems = new ObservableCollection<T2>();
+		private ObservableCollection<T2> _selectedItems = new ObservableCollection<T2>();
 		public ObservableCollection<T2> SelectedItems
 		{
-			get => selectedItems;
-			set => selectedItems = value;
+			get => _selectedItems;
+			set => _selectedItems = value;
 		}
 
-		private ObservableCollection<T2> choices = new ObservableCollection<T2>();
+		private ObservableCollection<T2> _choices = new ObservableCollection<T2>();
 
 		public ObservableCollection<T2> Choices
 		{
 			get
 			{
-				if (choices.Count == 0)
+				if (_choices.Count == 0)
 				{
 					foreach (var item in Items)
 					{
@@ -85,18 +85,18 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 						{
 							Item = item
 						};
-						choices.Add(itm);	
+						_choices.Add(itm);	
 					}
 				}
-				return choices;
+				return _choices;
 			}
 
-			protected set => choices = value;
+			protected set => _choices = value;
 		}
 
 		#region  Commands
 
-		public T SelectedItem => Items[selectedIndex];
+		public T SelectedItem => Items[_selectedIndex];
 
 		public ICommand AddItem => new RelayCommand(AddItemExec);
 
@@ -112,7 +112,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		protected void AddModifiedItem(T modItem)
 		{
 			Items.Add(modItem);
-			choices.Add(new T2 { Item = modItem });
+			_choices.Add(new T2 { Item = modItem });
 		}
 
 		#endregion

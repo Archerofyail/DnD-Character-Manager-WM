@@ -9,24 +9,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class RaceViewModel : ViewModelBase
 	{
-		public RacialBonus racialBonuses { get; }
+		public RacialBonus RacialBonuses { get; }
 
 		public RaceViewModel(RacialBonus raceBonuses)
 		{
-			racialBonuses = raceBonuses;
+			RacialBonuses = raceBonuses;
 		}
 
 		public RaceViewModel()
 		{
-			racialBonuses = new RacialBonus();
+			RacialBonuses = new RacialBonus();
 		}
 
 		public string Name
 		{
-			get => racialBonuses.Race;
+			get => RacialBonuses.Race;
 			set
 			{
-				racialBonuses.Race = value;
+				RacialBonuses.Race = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -38,7 +38,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get
 			{
 				var bonuses = new ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>>();
-				foreach (var statBonuses in racialBonuses.StatBonuses)
+				foreach (var statBonuses in RacialBonuses.StatBonuses)
 				{
 					bonuses.Add(new ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>(statBonuses));
 				}
@@ -48,89 +48,89 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Proficiencies
 
-		private ObservableCollection<ProficiencyChoiceViewModel> weaponProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
+		private ObservableCollection<ProficiencyChoiceViewModel> _weaponProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
 		public ObservableCollection<ProficiencyChoiceViewModel> WeaponProficiencies
 		{
 			get
 			{
-				if (weaponProficiencies.Count == 0)
+				if (_weaponProficiencies.Count == 0)
 				{
 					
-					foreach (var profChoice in racialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Weapon))
+					foreach (var profChoice in RacialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Weapon))
 					{
-						weaponProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Weapon, profChoice));
+						_weaponProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Weapon, profChoice));
 					}
 				}
-				return weaponProficiencies;
+				return _weaponProficiencies;
 			}
 		}
-		private ObservableCollection<ProficiencyChoiceViewModel> armorProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
+		private ObservableCollection<ProficiencyChoiceViewModel> _armorProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
 		public ObservableCollection<ProficiencyChoiceViewModel> ArmorProficiencies
 		{
 			get
 			{
-				if (armorProficiencies.Count == 0)
+				if (_armorProficiencies.Count == 0)
 				{
 					
-					foreach (var profChoice in racialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Armor))
+					foreach (var profChoice in RacialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Armor))
 					{
-						armorProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Armor, profChoice));
+						_armorProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Armor, profChoice));
 					}
 				}
-				return armorProficiencies;
+				return _armorProficiencies;
 			}
 		}
 
-		private ObservableCollection<ProficiencyChoiceViewModel> languageProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
+		private ObservableCollection<ProficiencyChoiceViewModel> _languageProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
 		public ObservableCollection<ProficiencyChoiceViewModel> LanguageProficiencies
 		{
 			get
 			{
-				if (languageProficiencies.Count == 0)
+				if (_languageProficiencies.Count == 0)
 				{
 
 					
-					foreach (var profChoice in racialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Language))
+					foreach (var profChoice in RacialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Language))
 					{
-						languageProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Language, profChoice));
+						_languageProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Language, profChoice));
 					}
 				}
-				return languageProficiencies;
+				return _languageProficiencies;
 			}
 		}
 
-		private ObservableCollection<ProficiencyChoiceViewModel> toolProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
+		private ObservableCollection<ProficiencyChoiceViewModel> _toolProficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
 		public ObservableCollection<ProficiencyChoiceViewModel> ToolProficiencies
 		{
 			get
 			{
-				if (toolProficiencies.Count == 0)
+				if (_toolProficiencies.Count == 0)
 				{
-					foreach (var profChoice in racialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Tool))
+					foreach (var profChoice in RacialBonuses.Proficiencies.Where((x) => x[0].Type == ProficiencyType.Tool))
 					{
-						toolProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Tool, profChoice));
+						_toolProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Tool, profChoice));
 					}
 				}
-				return toolProficiencies;
+				return _toolProficiencies;
 			}
 		}
 
 		#endregion
 
-		private ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> traits = new ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>>();
+		private ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> _traits = new ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>>();
 
 		public ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> Traits
 		{
 			get
 			{
-				if (traits.Count == 0)
+				if (_traits.Count == 0)
 				{
-					foreach (var traitList in racialBonuses.Traits)
+					foreach (var traitList in RacialBonuses.Traits)
 					{
-						traits.Add(new ChoiceViewModel<Trait, TraitViewModel>(traitList));
+						_traits.Add(new ChoiceViewModel<Trait, TraitViewModel>(traitList));
 					}
 				}
-				return traits;
+				return _traits;
 			}
 		}
 
@@ -142,7 +142,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get
 			{
 				var text = "";
-				foreach (var bonusList in racialBonuses.StatBonuses)
+				foreach (var bonusList in RacialBonuses.StatBonuses)
 				{
 					foreach (var bonus in bonusList)
 					{
@@ -157,14 +157,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Speed
 		{
-			get => racialBonuses.SpeedBonus.ToString();
+			get => RacialBonuses.SpeedBonus.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
 					if (result % 5 == 0)
 					{
-						racialBonuses.SpeedBonus = result;
+						RacialBonuses.SpeedBonus = result;
 						RaisePropertyChanged();
 					}
 				}
@@ -196,25 +196,25 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				case ProficiencyType.Weapon:
 				{
-					weaponProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Weapon));
+					_weaponProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Weapon));
 					RaisePropertyChanged("WeaponProficiencies");
 				}
 				break;
 				case ProficiencyType.Armor:
 				{
-					armorProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Armor));
+					_armorProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Armor));
 					RaisePropertyChanged("ArmorProficiencies");
 				}
 				break;
 				case ProficiencyType.Tool:
 				{
-					toolProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Tool));
+					_toolProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Tool));
 					RaisePropertyChanged("ToolProficiencies");
 				}
 				break;
 				case ProficiencyType.Language:
 				{
-					languageProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Language));
+					_languageProficiencies.Add(new ProficiencyChoiceViewModel(ProficiencyType.Language));
 					RaisePropertyChanged("LanguageProficiencies");
 				}
 				break;

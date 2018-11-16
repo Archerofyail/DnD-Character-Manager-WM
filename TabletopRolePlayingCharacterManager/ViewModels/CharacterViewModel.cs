@@ -7,12 +7,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	{
 		public CharacterViewModel(Character5E ch)
 		{
-			character = ch;
+			_character = ch;
 		}
-		private Character5E character;
-		public string Name => character.Name;
+		private Character5E _character;
+		public string Name => _character.Name;
 
-		public string ClassAndLevel => "Level " + character.Level + " " + character.Class;
-		public string Campaign => "Campaign: " + character.Campaign;
+		public string ClassAndLevel => "Level " + _character.Level + " " + _character.Class;
+		public string Campaign => "Campaign: " + _character.Campaign;
 	}
 }

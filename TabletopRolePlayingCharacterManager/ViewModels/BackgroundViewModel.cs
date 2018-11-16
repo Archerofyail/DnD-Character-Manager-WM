@@ -11,165 +11,165 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class BackgroundViewModel : ViewModelBase
 	{
-		public Background background { get; private set; } = new Background();
+		public Background Background { get; private set; } = new Background();
 		public string Name
 		{
-			get => background.Name;
+			get => Background.Name;
 			set
 			{
-				background.Name = value;
+				Background.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string BackgroundFeatureName
 		{
-			get => background.BackgroundFeatureName;
+			get => Background.BackgroundFeatureName;
 			set
 			{
-				background.BackgroundFeatureName = value;
+				Background.BackgroundFeatureName = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private ObservableCollection<string> skills = new ObservableCollection<string>();
+		private ObservableCollection<string> _skills = new ObservableCollection<string>();
 		public ObservableCollection<string> Skills
 		{
 			get
 			{
-				if (skills.Count == 0)
+				if (_skills.Count == 0)
 				{
-					foreach (var skill in background.Skills)
+					foreach (var skill in Background.Skills)
 					{
-						skills.Add(skill);
+						_skills.Add(skill);
 					}
 				}
 
-				return skills;
+				return _skills;
 			}
 		}
-		private ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> equipmentChoices = new ObservableCollection<ChoiceViewModel<Item, ItemViewModel>>();
+		private ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> _equipmentChoices = new ObservableCollection<ChoiceViewModel<Item, ItemViewModel>>();
 
 		public ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> EquipmentChoices
 		{
 			get
 			{
-				if (equipmentChoices.Count == 0)
+				if (_equipmentChoices.Count == 0)
 				{
-					foreach (var equipmentChoice in background.Equipment)
+					foreach (var equipmentChoice in Background.Equipment)
 					{
-						equipmentChoices.Add(new ChoiceViewModel<Item, ItemViewModel>(equipmentChoice));
+						_equipmentChoices.Add(new ChoiceViewModel<Item, ItemViewModel>(equipmentChoice));
 					}
 				}
 
-				return equipmentChoices;
+				return _equipmentChoices;
 			}
 		}
 
-		private ObservableCollection<ProficiencyChoiceViewModel> proficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
+		private ObservableCollection<ProficiencyChoiceViewModel> _proficiencies = new ObservableCollection<ProficiencyChoiceViewModel>();
 
 		public ObservableCollection<ProficiencyChoiceViewModel> Proficiencies
 		{
 			get
 			{
-				if (proficiencies.Count == 0)
+				if (_proficiencies.Count == 0)
 				{
-					foreach (var proficiencyChoice in background.Proficiencies)
+					foreach (var proficiencyChoice in Background.Proficiencies)
 					{
-						proficiencies.Add(new ProficiencyChoiceViewModel(proficiencyChoice[0].Type, proficiencyChoice));
+						_proficiencies.Add(new ProficiencyChoiceViewModel(proficiencyChoice[0].Type, proficiencyChoice));
 					}
 				}
 
-				return proficiencies;
+				return _proficiencies;
 			}
 		}
 
-		private ObservableCollection<string> backgroundFeature = new ObservableCollection<string>();
+		private ObservableCollection<string> _backgroundFeature = new ObservableCollection<string>();
 
 		public ObservableCollection<string> BackgroundFeature
 		{
 			get
 			{
-				if (backgroundFeature.Count == 0)
+				if (_backgroundFeature.Count == 0)
 				{
-					foreach (var feature in background.BackgroundFeatures)
+					foreach (var feature in Background.BackgroundFeatures)
 					{
-						backgroundFeature.Add(feature);
+						_backgroundFeature.Add(feature);
 					}
 				}
 
-				return backgroundFeature;
+				return _backgroundFeature;
 			}
 		}
 
-		private ObservableCollection<string> ideals = new ObservableCollection<string>();
+		private ObservableCollection<string> _ideals = new ObservableCollection<string>();
 
 		public ObservableCollection<string> Ideals
 		{
 			get
 			{
-				if (ideals.Count == 0)
+				if (_ideals.Count == 0)
 				{
-					foreach (var feature in background.Ideals)
+					foreach (var feature in Background.Ideals)
 					{
-						ideals.Add(feature);
+						_ideals.Add(feature);
 					}
 				}
 
-				return ideals;
+				return _ideals;
 			}
 		}
 
-		private ObservableCollection<string> bonds = new ObservableCollection<string>();
+		private ObservableCollection<string> _bonds = new ObservableCollection<string>();
 
 		public ObservableCollection<string> Bonds
 		{
 			get
 			{
-				if (bonds.Count == 0)
+				if (_bonds.Count == 0)
 				{
-					foreach (var feature in background.Bonds)
+					foreach (var feature in Background.Bonds)
 					{
-						bonds.Add(feature);
+						_bonds.Add(feature);
 					}
 				}
 
-				return bonds;
+				return _bonds;
 			}
 		}
 
-		private ObservableCollection<string> flaws = new ObservableCollection<string>();
+		private ObservableCollection<string> _flaws = new ObservableCollection<string>();
 
 		public ObservableCollection<string> Flaws
 		{
 			get
 			{
-				if (flaws.Count == 0)
+				if (_flaws.Count == 0)
 				{
-					foreach (var feature in background.Flaws)
+					foreach (var feature in Background.Flaws)
 					{
-						flaws.Add(feature);
+						_flaws.Add(feature);
 					}
 				}
 
-				return flaws;
+				return _flaws;
 			}
 		}
 
-		private ObservableCollection<Trait> traits = new ObservableCollection<Trait>();
+		private ObservableCollection<Trait> _traits = new ObservableCollection<Trait>();
 
 		public ObservableCollection<Trait> Traits
 		{
 			get
 			{
-				if (traits.Count == 0)
+				if (_traits.Count == 0)
 				{
-					foreach (var trait in background.Traits)
+					foreach (var trait in Background.Traits)
 					{
-						traits.Add(trait);
+						_traits.Add(trait);
 					}
 				}
-				return traits;
+				return _traits;
 			}
 		}
 	}

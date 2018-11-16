@@ -1050,7 +1050,7 @@
 										   TextAlignment="Center"
 										   Margin="4"
 										   MaxWidth="90" />
-									<TextBlock Text="{Binding SpellSaveDC}"
+									<TextBlock Text="{Binding SpellSaveDc}"
 										   HorizontalAlignment="Center"
 										   FontSize="20"
 										   FontWeight="SemiBold" />

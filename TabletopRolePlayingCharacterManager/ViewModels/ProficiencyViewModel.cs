@@ -13,12 +13,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public delegate void RemoveProfDelegate(ProficiencyViewModel prof);
 
-		private RemoveProfDelegate removeProficiencyAction;
+		private RemoveProfDelegate _removeProficiencyAction;
 		public ProficiencyType Type => (Item as Proficiency).Type;
 		public ProficiencyViewModel(Proficiency prof, RemoveProfDelegate removeAction)
 		{
 			Item = prof;
-			removeProficiencyAction = removeAction;
+			_removeProficiencyAction = removeAction;
 
 		}
 
@@ -41,7 +41,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void RemoveProficiencyEx()
 		{
-			removeProficiencyAction?.Invoke(this);
+			_removeProficiencyAction?.Invoke(this);
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class SpellViewModel : ViewModelBase
 	{
-		private Spell spell;
+		private Spell _spell;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -25,29 +25,29 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		private static ObservableCollection<string> _levels = new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 		public SpellViewModel(Spell sp, RollSpellAttackDelegate attackMethod = null)
 		{
-			spell = sp;
+			_spell = sp;
 			RollSpellAttack = attackMethod;
 		}
 
 		public string Name
 		{
-			get => spell.Name;
+			get => _spell.Name;
 			set
 			{
-				spell.Name = value;
+				_spell.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int LevelIndex
 		{
-			get => spell.Level;
+			get => _spell.Level;
 			set
 			{
 				if (value < _levels.Count && value >= 0)
 				{
 
-					spell.Level = value;
+					_spell.Level = value;
 					RaisePropertyChanged();
 					RaisePropertyChanged("IsNotCantrip");
 
@@ -59,38 +59,38 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Description
 		{
-			get => spell.Description;
+			get => _spell.Description;
 			set
 			{
-				spell.Description = value;
+				_spell.Description = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool HasVerbalComponent
 		{
-			get => spell.HasVerbalComponent;
+			get => _spell.HasVerbalComponent;
 			set
 			{
-				spell.HasVerbalComponent = value;
+				_spell.HasVerbalComponent = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool HasSomaticComponent
 		{
-			get => spell.HasSomaticComponent;
+			get => _spell.HasSomaticComponent;
 			set
 			{
-				spell.HasSomaticComponent = value;
+				_spell.HasSomaticComponent = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string MaterialComponent
 		{
-			get => spell.MaterialComponent;
-			set => spell.MaterialComponent = value;
+			get => _spell.MaterialComponent;
+			set => _spell.MaterialComponent = value;
 		}
 
 		public static ObservableCollection<SpellSchool> SpellSchools { get; } = new ObservableCollection<SpellSchool>
@@ -103,12 +103,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SchoolIndex
 		{
-			get => SpellSchools.IndexOf(spell.School);
+			get => SpellSchools.IndexOf(_spell.School);
 			set
 			{
 				if (value >= 0 && value < SpellSchools.Count)
 				{
-					spell.School = SpellSchools[value];
+					_spell.School = SpellSchools[value];
 				}
 				RaisePropertyChanged();
 			}
@@ -117,20 +117,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Range
 		{
-			get => spell.Range;
+			get => _spell.Range;
 			set
 			{
-				spell.Range = value;
+				_spell.Range = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Target
 		{
-			get => spell.Target;
+			get => _spell.Target;
 			set
 			{
-				spell.Target = value;
+				_spell.Target = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -138,11 +138,11 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string HigherLevels
 		{
-			get => spell.AtHigherLevelsDescription;
+			get => _spell.AtHigherLevelsDescription;
 
 			set
 			{
-				spell.AtHigherLevelsDescription = value;
+				_spell.AtHigherLevelsDescription = value;
 				RaisePropertyChanged();
 			}
 
@@ -151,32 +151,32 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool IsAttack
 		{
-			get => spell.IsAttack;
+			get => _spell.IsAttack;
 			set
 			{
-				spell.IsAttack = value;
+				_spell.IsAttack = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		public bool IsNotCantrip => spell.Level != 0;
+		public bool IsNotCantrip => _spell.Level != 0;
 
 		public bool IsSavingThrow
 		{
-			get => !spell.IsAttackRoll;
+			get => !_spell.IsAttackRoll;
 			set
 			{
-				spell.IsAttackRoll = !value;
+				_spell.IsAttackRoll = !value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Damage
 		{
-			get => spell.Damage.ToString();
+			get => _spell.Damage.ToString();
 			set
 			{
-				spell.Damage.ParseText(value);
+				_spell.Damage.ParseText(value);
 				RaisePropertyChanged();
 			}
 		}
@@ -184,10 +184,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string DamageType
 		{
-			get => spell.DamageType;
+			get => _spell.DamageType;
 			set
 			{
-				spell.DamageType = value;
+				_spell.DamageType = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -196,12 +196,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int RangeTypeIndex
 		{
-			get => SpellRangeTypes.IndexOf(spell.RangeType);
+			get => SpellRangeTypes.IndexOf(_spell.RangeType);
 			set
 			{
 				if (value >= 0 && value < SpellRangeTypes.Count)
 				{
-					spell.RangeType = SpellRangeTypes[value];
+					_spell.RangeType = SpellRangeTypes[value];
 				}
 
 				RaisePropertyChanged();
@@ -218,12 +218,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SavingThrowAttributeIndex
 		{
-			get => Attributes.IndexOf(spell.SavingThrowAttribute);
+			get => Attributes.IndexOf(_spell.SavingThrowAttribute);
 			set
 			{
 				if (value >= 0 && value < Attributes.Count)
 				{
-					spell.SavingThrowAttribute = Attributes[value];
+					_spell.SavingThrowAttribute = Attributes[value];
 				}
 				RaisePropertyChanged();
 			}
@@ -232,10 +232,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string SavingThrowEffect
 		{
-			get => spell.SavingThrowEffect;
+			get => _spell.SavingThrowEffect;
 			set
 			{
-				spell.SavingThrowEffect = value;
+				_spell.SavingThrowEffect = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -243,20 +243,20 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string HigherLevelDamage
 		{
-			get => spell.HigherLevelDamage.ToString();
+			get => _spell.HigherLevelDamage.ToString();
 			set
 			{
-				spell.HigherLevelDamage.ParseText(value);
+				_spell.HigherLevelDamage.ParseText(value);
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool AddAbilityModToDamage
 		{
-			get => spell.AddAbilityModToDamage;
+			get => _spell.AddAbilityModToDamage;
 			set
 			{
-				spell.AddAbilityModToDamage = value;
+				_spell.AddAbilityModToDamage = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -275,13 +275,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool HasDescription => Description?.Length > 0;
 
-		private bool isEditing;
+		private bool _isEditing;
 		public bool IsEditing
 		{
-			get => isEditing;
+			get => _isEditing;
 			set
 			{
-				isEditing = value;
+				_isEditing = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("IsNotEditing");
 			}
@@ -310,7 +310,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void RollAttackEx()
 		{
-			RollSpellAttack?.Invoke(spell);
+			RollSpellAttack?.Invoke(_spell);
 		}
 
 		#endregion

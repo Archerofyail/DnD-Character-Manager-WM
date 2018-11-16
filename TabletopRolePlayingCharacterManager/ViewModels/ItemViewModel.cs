@@ -118,13 +118,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			RemoveAction?.Invoke(this);
 		}
 
-		private bool isEditing;
+		private bool _isEditing;
 		public bool IsEditing
 		{
-			get => isEditing;
+			get => _isEditing;
 			set
 			{
-				isEditing = value;
+				_isEditing = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("IsNotEditing");
 			}

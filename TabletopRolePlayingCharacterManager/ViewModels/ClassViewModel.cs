@@ -17,42 +17,42 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ObservableCollection<int> Levels => new ObservableCollection<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
-		private ClassBonus classBonus;
+		private ClassBonus _classBonus;
 
 		public ClassViewModel(ClassBonus cl)
 		{
-			classBonus = cl;
+			_classBonus = cl;
 		}
 
 		public ClassViewModel()
 		{
-			classBonus = new ClassBonus();
+			_classBonus = new ClassBonus();
 		}
 
 		public string Name
 		{
-			get => classBonus.ClassName;
+			get => _classBonus.ClassName;
 			set
 			{
-				classBonus.ClassName = value;
+				_classBonus.ClassName = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string SubclassName
 		{
-			get => classBonus.SubclassTitle;
+			get => _classBonus.SubclassTitle;
 			set
 			{
-				classBonus.SubclassTitle = value;
+				_classBonus.SubclassTitle = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int SubclassLevel
 		{
-			get => classBonus.SubclassLevel;
-			set => classBonus.SubclassLevel = value;
+			get => _classBonus.SubclassLevel;
+			set => _classBonus.SubclassLevel = value;
 		}
 
 		public ObservableCollection<string> DieTypes
@@ -68,49 +68,49 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private int selectedHitDieIndex = -1;
+		private int _selectedHitDieIndex = -1;
 
 		public int SelectedHitDieIndex
 		{
-			get => selectedHitDieIndex;
+			get => _selectedHitDieIndex;
 			set
 			{
-				selectedHitDieIndex = value;
-				classBonus.HitDie = (DieType)Enum.Parse(typeof(DieType), DieTypes[selectedHitDieIndex]);
+				_selectedHitDieIndex = value;
+				_classBonus.HitDie = (DieType)Enum.Parse(typeof(DieType), DieTypes[_selectedHitDieIndex]);
 			}
 		}
 
 
 
-		public int StartingHP
+		public int StartingHp
 		{
-			get => classBonus.StartingHP;
-			set => classBonus.StartingHP = value;
+			get => _classBonus.StartingHP;
+			set => _classBonus.StartingHP = value;
 		}
 
-		public int MinHPPerLevel
+		public int MinHpPerLevel
 		{
-			get => classBonus.MinHPPerLevel;
-			set => classBonus.MinHPPerLevel = value;
+			get => _classBonus.MinHPPerLevel;
+			set => _classBonus.MinHPPerLevel = value;
 		}
 
 		public int NumberofStartingSkills
 		{
-			get => classBonus.NumberOfSkills;
+			get => _classBonus.NumberOfSkills;
 			set
 			{
-				classBonus.NumberOfSkills = value;
-				if (skillChoice != null)
+				_classBonus.NumberOfSkills = value;
+				if (_skillChoice != null)
 				{
-					skillChoice.SelectionCount = classBonus.NumberOfSkills;
+					_skillChoice.SelectionCount = _classBonus.NumberOfSkills;
 				}
 			}
 		}
 
-		private PrimitiveListViewModel<string> skillChoice;
+		private PrimitiveListViewModel<string> _skillChoice;
 
-		public PrimitiveListViewModel<string> SkillChoice => skillChoice ??
-		                                                     (skillChoice = new PrimitiveListViewModel<string>(classBonus.NumberOfSkills, true, classBonus.Skills));
+		public PrimitiveListViewModel<string> SkillChoice => _skillChoice ??
+		                                                     (_skillChoice = new PrimitiveListViewModel<string>(_classBonus.NumberOfSkills, true, _classBonus.Skills));
 
 		public ObservableCollection<string> AllSkills
 		{
@@ -127,73 +127,73 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public ObservableCollection<string> MainStatsList { get; set; } = new ObservableCollection<string>(Enum.GetNames(typeof(MainStatType)));
 
-		private int selectedMainSpellcastingStatIndex = -1;
+		private int _selectedMainSpellcastingStatIndex = -1;
 		public int SelectedMainSpellcastingStatIndex
 		{
-			get => selectedMainSpellcastingStatIndex;
+			get => _selectedMainSpellcastingStatIndex;
 			set
 			{
-				selectedMainSpellcastingStatIndex = value;
-				classBonus.SpellcastingStat = (MainStatType)Enum.Parse(typeof(MainStatType), MainStatsList[value]);
+				_selectedMainSpellcastingStatIndex = value;
+				_classBonus.SpellcastingStat = (MainStatType)Enum.Parse(typeof(MainStatType), MainStatsList[value]);
 			}
 		}
-		private ObservableCollection<PrimitiveListViewModel<int>> spellSlotsByLevel = new ObservableCollection<PrimitiveListViewModel<int>>();
+		private ObservableCollection<PrimitiveListViewModel<int>> _spellSlotsByLevel = new ObservableCollection<PrimitiveListViewModel<int>>();
 		public ObservableCollection<PrimitiveListViewModel<int>> SpellSlotsByLevel
 		{
 			get
 			{
-				if (spellSlotsByLevel.Count == 0)
+				if (_spellSlotsByLevel.Count == 0)
 				{
-					foreach (var level in classBonus.SpellSlotsByLevel)
+					foreach (var level in _classBonus.SpellSlotsByLevel)
 					{
-						spellSlotsByLevel.Add(new PrimitiveListViewModel<int>(level));
+						_spellSlotsByLevel.Add(new PrimitiveListViewModel<int>(level));
 					}
 				}
-				return spellSlotsByLevel;
+				return _spellSlotsByLevel;
 			}
 		}
-		private PrimitiveListViewModel<int> spellsKnownByLevel = new PrimitiveListViewModel<int>();
+		private PrimitiveListViewModel<int> _spellsKnownByLevel = new PrimitiveListViewModel<int>();
 		public PrimitiveListViewModel<int> SpellsKnownByLevel
 		{
 			get
 			{
-				if (spellsKnownByLevel.Count == 0)
+				if (_spellsKnownByLevel.Count == 0)
 				{
-					spellsKnownByLevel.AddRange(classBonus.SpellsKnownByLevel);
+					_spellsKnownByLevel.AddRange(_classBonus.SpellsKnownByLevel);
 				}
-				return spellsKnownByLevel;
+				return _spellsKnownByLevel;
 			}
 		}
 
-		private PrimitiveListViewModel<int> cantripsKnownByLevel = new PrimitiveListViewModel<int>();
+		private PrimitiveListViewModel<int> _cantripsKnownByLevel = new PrimitiveListViewModel<int>();
 		public PrimitiveListViewModel<int> CantripsKnownByLevel
 		{
 			get
 			{
-				if (spellsKnownByLevel.Count == 0)
+				if (_spellsKnownByLevel.Count == 0)
 				{
-					spellsKnownByLevel.AddRange(classBonus.SpellsKnownByLevel);
+					_spellsKnownByLevel.AddRange(_classBonus.SpellsKnownByLevel);
 				}
-				return spellsKnownByLevel;
+				return _spellsKnownByLevel;
 			}
 		}
 
 		public ObservableCollection<string> ProficiencyTypes => new ObservableCollection<string>(Enum.GetNames(typeof(ProficiencyType)));
 		public int SelectedNewProfTypeIndex { get; set; } = -1;
-		private ObservableCollection<Proficiency> proficiencies = new ObservableCollection<Proficiency>();
+		private ObservableCollection<Proficiency> _proficiencies = new ObservableCollection<Proficiency>();
 
 		public ObservableCollection<Proficiency> Proficiencies
 		{
 			get
 			{
-				if (proficiencies.Count == 0)
+				if (_proficiencies.Count == 0)
 				{
-					foreach (var prof in classBonus.Proficiencies)
+					foreach (var prof in _classBonus.Proficiencies)
 					{
-						proficiencies.Add(prof);
+						_proficiencies.Add(prof);
 					}
 				}
-				return proficiencies;
+				return _proficiencies;
 			}
 		}
 
@@ -237,82 +237,82 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private ObservableCollection<MainStatType> savingThrowProficiencies = new ObservableCollection<MainStatType>();
+		private ObservableCollection<MainStatType> _savingThrowProficiencies = new ObservableCollection<MainStatType>();
 
 		public ObservableCollection<MainStatType> SavingThrowProficiiencies
 		{
 			get
 			{
-				if (savingThrowProficiencies.Count == 0)
+				if (_savingThrowProficiencies.Count == 0)
 				{
-					foreach (var proficiency in classBonus.SavingThrowProficiencies)
+					foreach (var proficiency in _classBonus.SavingThrowProficiencies)
 					{
-						savingThrowProficiencies.Add(proficiency);
+						_savingThrowProficiencies.Add(proficiency);
 					}
 				}
-				return savingThrowProficiencies;
+				return _savingThrowProficiencies;
 			}
 		}
 
-		private PrimitiveListViewModel<int> abilityScoreImprovementsByLevel = new PrimitiveListViewModel<int>();
+		private PrimitiveListViewModel<int> _abilityScoreImprovementsByLevel = new PrimitiveListViewModel<int>();
 
 		public PrimitiveListViewModel<int> AbilityScoreImprovementsByLevel
 		{
 			get
 			{
-				if (abilityScoreImprovementsByLevel.Count == 0)
+				if (_abilityScoreImprovementsByLevel.Count == 0)
 				{
-					abilityScoreImprovementsByLevel.AddRange(classBonus.AbilityScoreImprovements);
+					_abilityScoreImprovementsByLevel.AddRange(_classBonus.AbilityScoreImprovements);
 				}
-				return abilityScoreImprovementsByLevel;
+				return _abilityScoreImprovementsByLevel;
 			}
 		}
 
-		private ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> equipmentChoices = new ObservableCollection<ChoiceViewModel<Item, ItemViewModel>>();
+		private ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> _equipmentChoices = new ObservableCollection<ChoiceViewModel<Item, ItemViewModel>>();
 
 		public ObservableCollection<ChoiceViewModel<Item, ItemViewModel>> EquipmentChoices
 		{
 			get
 			{
-				if (equipmentChoices.Count == 0)
+				if (_equipmentChoices.Count == 0)
 				{
-					foreach (var choice in classBonus.EquipmentChoices)
+					foreach (var choice in _classBonus.EquipmentChoices)
 					{
-						equipmentChoices.Add(new ChoiceViewModel<Item, ItemViewModel>(choice));
+						_equipmentChoices.Add(new ChoiceViewModel<Item, ItemViewModel>(choice));
 					}
 				}
-				return equipmentChoices;
+				return _equipmentChoices;
 			}
 		}
 
-		private PrimitiveListViewModel<int> expertise = new PrimitiveListViewModel<int>();
+		private PrimitiveListViewModel<int> _expertise = new PrimitiveListViewModel<int>();
 
 		public PrimitiveListViewModel<int> Expertise
 		{
 			get
 			{
-				if (expertise.Count == 0)
+				if (_expertise.Count == 0)
 				{
-					expertise.AddRange(classBonus.Expertise);
+					_expertise.AddRange(_classBonus.Expertise);
 				}
-				return expertise;
+				return _expertise;
 			}
 		}
 
-		private ObservableCollection<SubclassViewModel> subclasses = new ObservableCollection<SubclassViewModel>();
+		private ObservableCollection<SubclassViewModel> _subclasses = new ObservableCollection<SubclassViewModel>();
 
 		public ObservableCollection<SubclassViewModel> Subclasses
 		{
 			get
 			{
-				if (subclasses.Count == 0)
+				if (_subclasses.Count == 0)
 				{
-					foreach (var subClass in classBonus.SubClasses)
+					foreach (var subClass in _classBonus.SubClasses)
 					{
-						subclasses.Add(new SubclassViewModel(subClass));
+						_subclasses.Add(new SubclassViewModel(subClass));
 					}
 				}
-				return subclasses;
+				return _subclasses;
 			}
 		}
 
@@ -321,7 +321,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get
 			{
 				var text = "";
-				foreach (var levelTrait in classBonus.TraitsByLevel)
+				foreach (var levelTrait in _classBonus.TraitsByLevel)
 				{
 					text += "Level " + levelTrait.Key + ":\n";
 					foreach (var traitList in levelTrait.Value)
@@ -345,12 +345,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void AddSkillOptionExec(string skillName)
 		{
-			skillChoice.Add(skillName ?? "");
+			_skillChoice.Add(skillName ?? "");
 		}
 
 		void AddProficiencyExec(string prof)
 		{
-			proficiencies.Add(new Proficiency((ProficiencyType)Enum.Parse(typeof(ProficiencyType), ProficiencyTypes[SelectedNewProfTypeIndex]), prof));
+			_proficiencies.Add(new Proficiency((ProficiencyType)Enum.Parse(typeof(ProficiencyType), ProficiencyTypes[SelectedNewProfTypeIndex]), prof));
 			SelectedNewProfTypeIndex = -1;
 			RaisePropertyChanged("SelectedNewProfTypeIndex");
 		}

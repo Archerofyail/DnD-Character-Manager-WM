@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using TabletopRolePlayingCharacterManager.Models;
@@ -16,8 +17,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 	//If the CharacterManager's current character is empty when loading this page, assume a new character was created.
 	public class CharacterSheetViewModel : ViewModelBase
 	{
-		private Random rand = new Random();
-		Character5E character;
+		private Random _rand = new Random();
+		Character5E _character;
 
 		private static ObservableCollection<string> _alignments = new ObservableCollection<string>
 		{
@@ -34,56 +35,56 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public CharacterSheetViewModel()
 		{
-			character = CharacterManager.CurrentCharacter;
-			if (character == null)
+			_character = CharacterManager.CurrentCharacter;
+			if (_character == null)
 			{
-				character = CharacterManager.GetNewChar();
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character = CharacterManager.GetNewChar();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 			}
 		}
 
 		#region CombatRollProperties
 
-		private string attackOrDamageTitle = "Attack";
+		private string _attackOrDamageTitle = "Attack";
 
 		public string AttackOrDamageTitle
 		{
-			get => attackOrDamageTitle;
+			get => _attackOrDamageTitle;
 			set
 			{
-				attackOrDamageTitle = value;
+				_attackOrDamageTitle = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private int attackRollBonus;
-		private int attackRollAttrBonus;
-		private MainStatType attackRollBonusAttr;
+		private int _attackRollBonus;
+		private int _attackRollAttrBonus;
+		private MainStatType _attackRollBonusAttr;
 
-		private int damageRoll;
-		private int critDamage;
+		private int _damageRoll;
+		private int _critDamage;
 
-		private string spellOrWeaponAttackName;
+		private string _spellOrWeaponAttackName;
 
 		public string SpellOrWeaponAttackName
 		{
-			get => spellOrWeaponAttackName;
+			get => _spellOrWeaponAttackName;
 			set
 			{
-				spellOrWeaponAttackName = value;
+				_spellOrWeaponAttackName = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string spellOrWeapon = "Weapon";
+		private string _spellOrWeapon = "Weapon";
 
 		public string SpellOrWeapon
 		{
-			get => spellOrWeapon;
+			get => _spellOrWeapon;
 			set
 			{
-				spellOrWeapon = value;
+				_spellOrWeapon = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -93,18 +94,18 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			get
 			{
 				var final = 0;
-				final += rand.Next(1, 21);
-				AttackRollString = string.Format("1d20[{0}] + {2} Attack Bonus [{1}]", final, attackRollBonus, SpellOrWeapon) +
-								   (attackRollAttrBonus > 0
-									   ? string.Format(" + {0}[{1}]", attackRollBonusAttr, attackRollAttrBonus)
+				final += _rand.Next(1, 21);
+				AttackRollString = string.Format("1d20[{0}] + {2} Attack Bonus [{1}]", final, _attackRollBonus, SpellOrWeapon) +
+								   (_attackRollAttrBonus > 0
+									   ? string.Format(" + {0}[{1}]", _attackRollBonusAttr, _attackRollAttrBonus)
 									   : "");
 				RaisePropertyChanged("AttackRollString");
 				if (final == 20)
 				{
 					AttackRollCrit = true;
-					DamageRollString += string.Format(" + CRIT[{0}]", critDamage);
+					DamageRollString += string.Format(" + CRIT[{0}]", _critDamage);
 				}
-				final += attackRollBonus;
+				final += _attackRollBonus;
 				return final;
 			}
 		}
@@ -115,32 +116,32 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				if (AttackRollCrit)
 				{
-					damageRoll += critDamage;
+					_damageRoll += _critDamage;
 				}
-				return damageRoll;
+				return _damageRoll;
 			}
 		}
 
-		private string attackRollList;
+		private string _attackRollList;
 
 		public string AttackRollList
 		{
-			get => attackRollList;
+			get => _attackRollList;
 			set
 			{
-				attackRollList = value;
+				_attackRollList = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool attackRollCrit;
+		private bool _attackRollCrit;
 
 		public bool AttackRollCrit
 		{
-			get => attackRollCrit;
+			get => _attackRollCrit;
 			set
 			{
-				attackRollCrit = value;
+				_attackRollCrit = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -157,9 +158,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				HealthBeforeRoll = CurrentHealth;
 				RaisePropertyChanged("HealthBeforeRoll");
 
-				var total = rand.Next(1, int.Parse(character.HitDiceType.ToString().Substring(1))) +
-							character.AbilityModifiers[MainStatType.Constitution];
-				character.CurrHP = Math.Min(total + character.CurrHP, character.MaxHP);
+				var total = _rand.Next(1, int.Parse(_character.HitDiceType.ToString().Substring(1))) +
+							_character.AbilityModifiers[MainStatType.Constitution];
+				_character.CurrHP = Math.Min(total + _character.CurrHP, _character.MaxHP);
 				RaisePropertyChanged("CurrentHealth");
 				LastHitDieRoll = total;
 				return total;
@@ -170,95 +171,95 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region General
 
-		private ObservableCollection<ProficiencyViewModel> languages = new ObservableCollection<ProficiencyViewModel>();
+		private ObservableCollection<ProficiencyViewModel> _languages = new ObservableCollection<ProficiencyViewModel>();
 
 		public ObservableCollection<ProficiencyViewModel> Languages
 		{
 			get
 			{
-				if (languages.Count == 0)
+				if (_languages.Count == 0)
 				{
 
-					foreach (var language in character.Languages)
+					foreach (var language in _character.Languages)
 					{
-						languages.Add(new ProficiencyViewModel(language, RemoveProficiencyEx));
+						_languages.Add(new ProficiencyViewModel(language, RemoveProficiencyEx));
 					}
 
 				}
-				return languages;
+				return _languages;
 			}
 		}
 
 		public string Notes
 		{
-			get => character.Notes;
+			get => _character.Notes;
 			set
 			{
-				character.Notes = value;
+				_character.Notes = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Campaign
 		{
-			get => character.Campaign;
+			get => _character.Campaign;
 			set
 			{
-				character.Campaign = value;
+				_character.Campaign = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Name
 		{
-			get => character.Name;
+			get => _character.Name;
 			set
 			{
-				character.Name = value;
+				_character.Name = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Race
 		{
-			get => character.Race;
+			get => _character.Race;
 			set
 			{
-				character.Race = value;
+				_character.Race = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Class
 		{
-			get => character.Class;
+			get => _character.Class;
 			set
 			{
-				character.Class = value;
+				_character.Class = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public ObservableCollection<string> Alignments => _alignments;
 
-		private int selectedAlignment = -1;
+		private int _selectedAlignment = -1;
 
 		public int SelectedAlignment
 		{
 			get
 			{
-				if (selectedAlignment == -1)
+				if (_selectedAlignment == -1)
 				{
-					selectedAlignment = _alignments.IndexOf(CharacterManager.CurrentCharacter.Alignment);
+					_selectedAlignment = _alignments.IndexOf(CharacterManager.CurrentCharacter.Alignment);
 				}
-				return selectedAlignment;
+				return _selectedAlignment;
 			}
 			set
 			{
-				if (selectedAlignment < _alignments.Count)
+				if (_selectedAlignment < _alignments.Count)
 				{
-					selectedAlignment = value;
-					character.Alignment = _alignments[value];
+					_selectedAlignment = value;
+					_character.Alignment = _alignments[value];
 					RaisePropertyChanged();
 				}
 			}
@@ -266,12 +267,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Level
 		{
-			get => character.Level.ToString();
+			get => _character.Level.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.Level = result;
+					_character.Level = result;
 				}
 				RaisePropertyChanged("ProficiencyBonus");
 				RaisePropertyChanged("HitDiceMax");
@@ -281,12 +282,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Experience
 		{
-			get => character.Experience.ToString();
+			get => _character.Experience.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.Experience = result;
+					_character.Experience = result;
 				}
 
 				RaisePropertyChanged();
@@ -299,23 +300,23 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string ArmorClass
 		{
-			get => character.ArmorClass.ToString();
+			get => _character.ArmorClass.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.ArmorClass = result;
+					_character.ArmorClass = result;
 				}
 			}
 		}
 
-		public string ProficiencyBonus => "+" + character.ProficiencyBonus;
+		public string ProficiencyBonus => "+" + _character.ProficiencyBonus;
 
-		public string Initiative => character.Initiative.ToString();
+		public string Initiative => _character.Initiative.ToString();
 
 		public string Speed
 		{
-			get => character.Speed.ToString();
+			get => _character.Speed.ToString();
 			set
 			{
 
@@ -323,7 +324,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				{
 					if (result % 5 == 0)
 					{
-						character.Speed = result;
+						_character.Speed = result;
 					}
 				}
 			}
@@ -331,12 +332,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string CurrentHealth
 		{
-			get => character.CurrHP.ToString();
+			get => _character.CurrHP.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.CurrHP = result;
+					_character.CurrHP = result;
 				}
 				RaisePropertyChanged();
 				RaisePropertyChanged("CanUseHitDice");
@@ -345,58 +346,58 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string MaxHealth
 		{
-			get => character.MaxHP.ToString();
+			get => _character.MaxHP.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.MaxHP = result;
+					_character.MaxHP = result;
 				}
 			}
 		}
 
 		public string TemporaryHealth
 		{
-			get => character.TempHP.ToString();
+			get => _character.TempHP.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.TempHP = result;
+					_character.TempHP = result;
 				}
 			}
 		}
 
 		public bool[] DeathSaveSuccesses
 		{
-			get => character.DeathSaveSuccesses;
-			set => character.DeathSaveSuccesses = value;
+			get => _character.DeathSaveSuccesses;
+			set => _character.DeathSaveSuccesses = value;
 		}
 
 		public bool[] DeathSaveFails
 		{
-			get => character.DeathSaveFails;
-			set => character.DeathSaveFails = value;
+			get => _character.DeathSaveFails;
+			set => _character.DeathSaveFails = value;
 		}
 
 		public string ClassResourceName
 		{
-			get => character.ClassResourceName;
+			get => _character.ClassResourceName;
 			set
 			{
-				character.ClassResourceName = value;
+				_character.ClassResourceName = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string ClassResource
 		{
-			get => character.ClassResource.ToString();
+			get => _character.ClassResource.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.ClassResource = result;
+					_character.ClassResource = result;
 				}
 				RaisePropertyChanged();
 			}
@@ -406,22 +407,22 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int HitDiceTypeIndex
 		{
-			get => DieTypes.IndexOf(character.HitDiceType);
+			get => DieTypes.IndexOf(_character.HitDiceType);
 			set
 			{
-				character.HitDiceType = DieTypes[value];
+				_character.HitDiceType = DieTypes[value];
 				RaisePropertyChanged();
 			}
 		}
 
-		public int HitDiceMax => character.HitDiceMax;
+		public int HitDiceMax => _character.HitDiceMax;
 
 		public int HitDice
 		{
-			get => character.HitDice;
+			get => _character.HitDice;
 			set
 			{
-				character.HitDice = value;
+				_character.HitDice = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("CanUseHitDice");
 			}
@@ -429,7 +430,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool CanUseHitDice
 		{
-			get => character.HitDice > 0 && character.CurrHP < character.MaxHP;
+			get => _character.HitDice > 0 && _character.CurrHP < _character.MaxHP;
 		}
 
 		#endregion
@@ -437,19 +438,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#region SpellStats
 
 		public string SpellAttackBonus =>
-			(character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
+			(_character.ProficiencyBonus + _character.AbilityModifiers[_character.SpellcastingAttribute]).ToString();
 
-		public string SpellSaveDC =>
-			(8 + character.ProficiencyBonus + character.AbilityModifiers[character.SpellcastingAttribute]).ToString();
+		public string SpellSaveDc =>
+			(8 + _character.ProficiencyBonus + _character.AbilityModifiers[_character.SpellcastingAttribute]).ToString();
 
 		public string SpellcastingAttribute
 		{
-			get => character.SpellcastingAttribute.ToString();
+			get => _character.SpellcastingAttribute.ToString();
 			set
 			{
 				if (Enum.TryParse(value, out MainStatType result))
 				{
-					character.SpellcastingAttribute = result;
+					_character.SpellcastingAttribute = result;
 				}
 				RaisePropertyChanged();
 				RaisePropertyChanged("SpellAttackBonus");
@@ -459,10 +460,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public int SpellcastingAttributeIndex
 		{
-			get => Attributes.IndexOf(character.SpellcastingAttribute);
+			get => Attributes.IndexOf(_character.SpellcastingAttribute);
 			set
 			{
-				character.SpellcastingAttribute = Attributes[value];
+				_character.SpellcastingAttribute = Attributes[value];
 				RaisePropertyChanged("SpellAttackBonus");
 				RaisePropertyChanged("SpellSaveDC");
 				RaisePropertyChanged();
@@ -475,12 +476,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Age
 		{
-			get => character.Age.ToString();
+			get => _character.Age.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.Age = result;
+					_character.Age = result;
 				}
 
 				RaisePropertyChanged();
@@ -489,10 +490,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Height
 		{
-			get => character.Height;
+			get => _character.Height;
 			set
 			{
-				character.Height = value;
+				_character.Height = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -500,40 +501,40 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Weight
 		{
-			get => character.Weight;
+			get => _character.Weight;
 			set
 			{
-				character.Weight = value;
+				_character.Weight = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Eyes
 		{
-			get => character.Eyes;
+			get => _character.Eyes;
 			set
 			{
-				character.Eyes = value;
+				_character.Eyes = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Skin
 		{
-			get => character.Skin;
+			get => _character.Skin;
 			set
 			{
-				character.Skin = value;
+				_character.Skin = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Hair
 		{
-			get => character.Hair;
+			get => _character.Hair;
 			set
 			{
-				character.Hair = value;
+				_character.Hair = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -545,15 +546,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Strength
 		{
-			get => character.AbilityScores[MainStatType.Strength].ToString();
+			get => _character.AbilityScores[MainStatType.Strength].ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.AbilityScores[MainStatType.Strength] = result;
+					_character.AbilityScores[MainStatType.Strength] = result;
 				}
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 				RaisePropertyChanged("Skills");
 				RaiseSkillsChanged();
 				RaisePropertyChanged("StrengthMod");
@@ -563,16 +564,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Dexterity
 		{
-			get => character.AbilityScores[MainStatType.Dexterity].ToString();
+			get => _character.AbilityScores[MainStatType.Dexterity].ToString();
 			set
 			{
 
 				if (int.TryParse(value, out int result))
 				{
-					character.AbilityScores[MainStatType.Dexterity] = result;
+					_character.AbilityScores[MainStatType.Dexterity] = result;
 				}
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 				RaisePropertyChanged("Skills");
 				RaiseSkillsChanged();
 				RaisePropertyChanged("DexterityMod");
@@ -582,16 +583,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Constitution
 		{
-			get => character.AbilityScores[MainStatType.Constitution].ToString();
+			get => _character.AbilityScores[MainStatType.Constitution].ToString();
 			set
 			{
 
 				if (int.TryParse(value, out int result))
 				{
-					character.AbilityScores[MainStatType.Constitution] = result;
+					_character.AbilityScores[MainStatType.Constitution] = result;
 				}
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 				RaisePropertyChanged("Skills");
 				RaiseSkillsChanged();
 				RaisePropertyChanged("ConstitutionMod");
@@ -601,16 +602,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Intelligence
 		{
-			get => character.AbilityScores[MainStatType.Intelligence].ToString();
+			get => _character.AbilityScores[MainStatType.Intelligence].ToString();
 			set
 			{
 
 				if (int.TryParse(value, out int result))
 				{
-					character.AbilityScores[MainStatType.Intelligence] = result;
+					_character.AbilityScores[MainStatType.Intelligence] = result;
 				}
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 				RaisePropertyChanged("Skills");
 				RaiseSkillsChanged();
 				RaisePropertyChanged("IntelligenceMod");
@@ -620,16 +621,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Wisdom
 		{
-			get => character.AbilityScores[MainStatType.Wisdom].ToString();
+			get => _character.AbilityScores[MainStatType.Wisdom].ToString();
 			set
 			{
 
 				if (int.TryParse(value, out int result))
 				{
-					character.AbilityScores[MainStatType.Wisdom] = result;
+					_character.AbilityScores[MainStatType.Wisdom] = result;
 				}
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 				RaisePropertyChanged("Skills");
 				RaiseSkillsChanged();
 				RaisePropertyChanged("WisdomMod");
@@ -639,16 +640,16 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Charisma
 		{
-			get => character.AbilityScores[MainStatType.Charisma].ToString();
+			get => _character.AbilityScores[MainStatType.Charisma].ToString();
 			set
 			{
 
 				if (int.TryParse(value, out int result))
 				{
-					character.AbilityScores[MainStatType.Charisma] = result;
+					_character.AbilityScores[MainStatType.Charisma] = result;
 				}
-				character.CalculateAbilityModifiers();
-				character.CalculateSkillBonuses();
+				_character.CalculateAbilityModifiers();
+				_character.CalculateSkillBonuses();
 				RaisePropertyChanged("Skills");
 				RaiseSkillsChanged();
 				RaisePropertyChanged("CharismaMod");
@@ -658,15 +659,15 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region AbilityModifiers
 
-		public string StrengthMod => "+" + character.AbilityModifiers[MainStatType.Strength].ToString();
-		public string DexterityMod => "+" + character.AbilityModifiers[MainStatType.Dexterity].ToString();
+		public string StrengthMod => "+" + _character.AbilityModifiers[MainStatType.Strength].ToString();
+		public string DexterityMod => "+" + _character.AbilityModifiers[MainStatType.Dexterity].ToString();
 
-		public string ConstitutionMod => "+" + character.AbilityModifiers[MainStatType.Constitution].ToString();
+		public string ConstitutionMod => "+" + _character.AbilityModifiers[MainStatType.Constitution].ToString();
 
-		public string IntelligenceMod => "+" + character.AbilityModifiers[MainStatType.Intelligence].ToString();
+		public string IntelligenceMod => "+" + _character.AbilityModifiers[MainStatType.Intelligence].ToString();
 
-		public string WisdomMod => "+" + character.AbilityModifiers[MainStatType.Wisdom].ToString();
-		public string CharismaMod => "+" + character.AbilityModifiers[MainStatType.Charisma].ToString();
+		public string WisdomMod => "+" + _character.AbilityModifiers[MainStatType.Wisdom].ToString();
+		public string CharismaMod => "+" + _character.AbilityModifiers[MainStatType.Charisma].ToString();
 
 		#endregion
 
@@ -674,60 +675,60 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public bool StrIsProficient
 		{
-			get => character.AbilityScoreProficiencies[MainStatType.Strength];
+			get => _character.AbilityScoreProficiencies[MainStatType.Strength];
 			set
 			{
-				character.AbilityScoreProficiencies[MainStatType.Strength] = value;
+				_character.AbilityScoreProficiencies[MainStatType.Strength] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool DexIsProficient
 		{
-			get => character.AbilityScoreProficiencies[MainStatType.Dexterity];
+			get => _character.AbilityScoreProficiencies[MainStatType.Dexterity];
 			set
 			{
-				character.AbilityScoreProficiencies[MainStatType.Dexterity] = value;
+				_character.AbilityScoreProficiencies[MainStatType.Dexterity] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool ConIsProficient
 		{
-			get => character.AbilityScoreProficiencies[MainStatType.Constitution];
+			get => _character.AbilityScoreProficiencies[MainStatType.Constitution];
 			set
 			{
-				character.AbilityScoreProficiencies[MainStatType.Constitution] = value;
+				_character.AbilityScoreProficiencies[MainStatType.Constitution] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool IntIsProficient
 		{
-			get => character.AbilityScoreProficiencies[MainStatType.Intelligence];
+			get => _character.AbilityScoreProficiencies[MainStatType.Intelligence];
 			set
 			{
-				character.AbilityScoreProficiencies[MainStatType.Intelligence] = value;
+				_character.AbilityScoreProficiencies[MainStatType.Intelligence] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool WisIsProficient
 		{
-			get => character.AbilityScoreProficiencies[MainStatType.Wisdom];
+			get => _character.AbilityScoreProficiencies[MainStatType.Wisdom];
 			set
 			{
-				character.AbilityScoreProficiencies[MainStatType.Wisdom] = value;
+				_character.AbilityScoreProficiencies[MainStatType.Wisdom] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public bool ChaIsProficient
 		{
-			get => character.AbilityScoreProficiencies[MainStatType.Charisma];
+			get => _character.AbilityScoreProficiencies[MainStatType.Charisma];
 			set
 			{
-				character.AbilityScoreProficiencies[MainStatType.Charisma] = value;
+				_character.AbilityScoreProficiencies[MainStatType.Charisma] = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -740,54 +741,54 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string PersonalityTraits
 		{
-			get => character.PersonalityTraits;
-			set => character.PersonalityTraits = value;
+			get => _character.PersonalityTraits;
+			set => _character.PersonalityTraits = value;
 		}
 
 		public string Ideals
 		{
-			get => character.Ideals;
-			set => character.Ideals = value;
+			get => _character.Ideals;
+			set => _character.Ideals = value;
 		}
 
 		public string Bonds
 		{
-			get => character.Bonds;
-			set => character.Bonds = value;
+			get => _character.Bonds;
+			set => _character.Bonds = value;
 		}
 
 		public string Flaws
 		{
-			get => character.Flaws;
-			set => character.Flaws = value;
+			get => _character.Flaws;
+			set => _character.Flaws = value;
 		}
 
 		public string Backstory
 		{
-			get => character.Backstory;
+			get => _character.Backstory;
 			set
 			{
-				character.Backstory = value;
+				_character.Backstory = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string God
 		{
-			get => character.God;
+			get => _character.God;
 			set
 			{
-				character.God = value;
+				_character.God = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Relationships
 		{
-			get => character.RelationshipsAndAllies;
+			get => _character.RelationshipsAndAllies;
 			set
 			{
-				character.RelationshipsAndAllies = value;
+				_character.RelationshipsAndAllies = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -796,204 +797,204 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Lists
 
-		private ObservableCollection<SkillViewModel> skills = new ObservableCollection<SkillViewModel>();
+		private ObservableCollection<SkillViewModel> _skills = new ObservableCollection<SkillViewModel>();
 
 		public ObservableCollection<SkillViewModel> Skills
 		{
 			get
 			{
-				if (skills.Count == 0)
+				if (_skills.Count == 0)
 				{
-					foreach (var skill in character.Skills)
+					foreach (var skill in _character.Skills)
 					{
-						skills.Add(new SkillViewModel(skill));
+						_skills.Add(new SkillViewModel(skill));
 					}
 					RaisePropertyChanged();
 				}
-				return skills;
+				return _skills;
 			}
 		}
 
-		private ObservableCollection<ItemViewModel> items = new ObservableCollection<ItemViewModel>();
+		private ObservableCollection<ItemViewModel> _items = new ObservableCollection<ItemViewModel>();
 
 		public ObservableCollection<ItemViewModel> Items
 		{
 			get
 			{
-				if (items.Count == 0)
+				if (_items.Count == 0)
 				{
-					foreach (var item in character.Inventory)
+					foreach (var item in _character.Inventory)
 					{
-						items.Add(new ItemViewModel(item, RemoveItem));
+						_items.Add(new ItemViewModel(item, RemoveItem));
 					}
 				}
-				return items;
+				return _items;
 
 			}
 		}
 
-		private ObservableCollection<SpellViewModel> spells = new ObservableCollection<SpellViewModel>();
+		private ObservableCollection<SpellViewModel> _spells = new ObservableCollection<SpellViewModel>();
 
 		public ObservableCollection<SpellViewModel> Spells
 		{
 			get
 			{
-				if (spells.Count == 0)
+				if (_spells.Count == 0)
 				{
-					foreach (var item in character.Spells)
+					foreach (var item in _character.Spells)
 					{
-						spells.Add(new SpellViewModel(item, SetAttackSpell));
+						_spells.Add(new SpellViewModel(item, SetAttackSpell));
 					}
 				}
-				return spells;
+				return _spells;
 
 			}
 		}
 
-		private ObservableCollection<WeaponViewModel> weapons = new ObservableCollection<WeaponViewModel>();
+		private ObservableCollection<WeaponViewModel> _weapons = new ObservableCollection<WeaponViewModel>();
 
 		public ObservableCollection<WeaponViewModel> Weapons
 		{
 			get
 			{
-				if (weapons.Count == 0)
+				if (_weapons.Count == 0)
 				{
-					foreach (var item in character.Weapons)
+					foreach (var item in _character.Weapons)
 					{
-						weapons.Add(new WeaponViewModel(item, removeWeaponRelay, SetAttackWeapon));
+						_weapons.Add(new WeaponViewModel(item, RemoveWeaponRelay, SetAttackWeapon));
 					}
 				}
-				return weapons;
+				return _weapons;
 
 			}
 		}
 
-		private ObservableCollection<TraitViewModel> traits = new ObservableCollection<TraitViewModel>();
+		private ObservableCollection<TraitViewModel> _traits = new ObservableCollection<TraitViewModel>();
 
 		public ObservableCollection<TraitViewModel> CharTraits
 		{
 			get
 			{
-				if (traits.Count == 0)
+				if (_traits.Count == 0)
 				{
-					foreach (var trait in character.Traits)
+					foreach (var trait in _character.Traits)
 					{
-						traits.Add(new TraitViewModel(trait, RemoveTrait));
+						_traits.Add(new TraitViewModel(trait, RemoveTrait));
 					}
 
 				}
-				return traits;
+				return _traits;
 			}
 		}
 
-		private ObservableCollection<ProficiencyViewModel> weaponProficiencies =
+		private ObservableCollection<ProficiencyViewModel> _weaponProficiencies =
 			new ObservableCollection<ProficiencyViewModel>();
 
 		public ObservableCollection<ProficiencyViewModel> WeaponProficiencies
 		{
 			get
 			{
-				if (weaponProficiencies.Count == 0)
+				if (_weaponProficiencies.Count == 0)
 				{
-					foreach (var proficiency in character.WeaponProficiencies)
+					foreach (var proficiency in _character.WeaponProficiencies)
 					{
-						weaponProficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
+						_weaponProficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
 					}
 				}
-				return weaponProficiencies;
+				return _weaponProficiencies;
 			}
 		}
 
-		private ObservableCollection<ProficiencyViewModel> armorProficiencies =
+		private ObservableCollection<ProficiencyViewModel> _armorProficiencies =
 			new ObservableCollection<ProficiencyViewModel>();
 
 		public ObservableCollection<ProficiencyViewModel> ArmorProficiencies
 		{
 			get
 			{
-				if (armorProficiencies.Count == 0)
+				if (_armorProficiencies.Count == 0)
 				{
-					foreach (var proficiency in character.ArmorProficiencies)
+					foreach (var proficiency in _character.ArmorProficiencies)
 					{
-						armorProficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
+						_armorProficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
 					}
 
 				}
-				return armorProficiencies;
+				return _armorProficiencies;
 			}
 		}
 
-		private ObservableCollection<ProficiencyViewModel> proficiencies = new ObservableCollection<ProficiencyViewModel>();
+		private ObservableCollection<ProficiencyViewModel> _proficiencies = new ObservableCollection<ProficiencyViewModel>();
 
 		public ObservableCollection<ProficiencyViewModel> Proficiencies
 		{
 			get
 			{
-				if (proficiencies.Count == 0)
+				if (_proficiencies.Count == 0)
 				{
-					foreach (var proficiency in character.Proficiencies)
+					foreach (var proficiency in _character.Proficiencies)
 					{
-						proficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
+						_proficiencies.Add(new ProficiencyViewModel(proficiency, RemoveProficiencyEx));
 					}
 				}
-				return proficiencies;
+				return _proficiencies;
 			}
 		}
 
-		private ObservableCollection<SpellSlotsViewModel> spellSlots = new ObservableCollection<SpellSlotsViewModel>();
+		private ObservableCollection<SpellSlotsViewModel> _spellSlots = new ObservableCollection<SpellSlotsViewModel>();
 
 		public ObservableCollection<SpellSlotsViewModel> SpellSlots
 		{
 			get
 			{
-				if (spellSlots.Count == 0)
+				if (_spellSlots.Count == 0)
 				{
 					int index = 1;
-					foreach (var slot in character.SpellSlots)
+					foreach (var slot in _character.SpellSlots)
 					{
 
-						spellSlots.Add(new SpellSlotsViewModel(slot, index));
+						_spellSlots.Add(new SpellSlotsViewModel(slot, index));
 						index++;
 					}
 				}
-				return spellSlots;
+				return _spellSlots;
 			}
 		}
 
 		#region GlobalListControl
 
-		private bool addSpellToGlobalList;
+		private bool _addSpellToGlobalList;
 
 		public bool AddSpellToGlobalList
 		{
-			get => addSpellToGlobalList;
+			get => _addSpellToGlobalList;
 			set
 			{
-				addSpellToGlobalList = value;
+				_addSpellToGlobalList = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool addItemToGlobalList;
+		private bool _addItemToGlobalList;
 
 		public bool AddItemToGlobalList
 		{
-			get => addItemToGlobalList;
+			get => _addItemToGlobalList;
 			set
 			{
-				addItemToGlobalList = value;
+				_addItemToGlobalList = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool addWeaponToGlobalList;
+		private bool _addWeaponToGlobalList;
 
 		public bool AddWeaponToGlobalList
 		{
-			get => addWeaponToGlobalList;
+			get => _addWeaponToGlobalList;
 			set
 			{
-				addWeaponToGlobalList = value;
+				_addWeaponToGlobalList = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1006,26 +1007,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Item
 
-		private string newItemName = "";
+		private string _newItemName = "";
 
 		public string NewItemName
 		{
-			get => newItemName;
+			get => _newItemName;
 			set
 			{
-				newItemName = value;
+				_newItemName = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newItemDesc = "";
+		private string _newItemDesc = "";
 
 		public string NewItemDesc
 		{
-			get => newItemDesc;
+			get => _newItemDesc;
 			set
 			{
-				newItemDesc = value;
+				_newItemDesc = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1034,60 +1035,60 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region  Weapon
 
-		private string newWepName = "";
+		private string _newWepName = "";
 
 		public string NewWepName
 		{
-			get => newWepName;
+			get => _newWepName;
 			set
 			{
-				newWepName = value;
+				_newWepName = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private Damage newWepDamage = new Damage();
+		private Damage _newWepDamage = new Damage();
 
 		public string NewWepDamage
 		{
-			get => newWepDamage.ToString();
-			set => newWepDamage.ParseText(value);
+			get => _newWepDamage.ToString();
+			set => _newWepDamage.ParseText(value);
 		}
 
-		private int newWepAttackBonus = 0;
+		private int _newWepAttackBonus = 0;
 
 		public string NewWepAttackBonus
 		{
-			get => newWepAttackBonus.ToString();
+			get => _newWepAttackBonus.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					newWepAttackBonus = result;
+					_newWepAttackBonus = result;
 				}
 			}
 		}
 
-		private string newWepDesc = "";
+		private string _newWepDesc = "";
 
 		public string NewWepDesc
 		{
-			get => newWepDesc;
+			get => _newWepDesc;
 			set
 			{
-				newWepDesc = value;
+				_newWepDesc = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool newWepIsProficient;
+		private bool _newWepIsProficient;
 
 		public bool NewWepIsProficient
 		{
-			get => newWepIsProficient;
+			get => _newWepIsProficient;
 			set
 			{
-				newWepIsProficient = value;
+				_newWepIsProficient = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1102,14 +1103,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Spell
 
-		private string newSpellName;
+		private string _newSpellName;
 
 		public string NewSpellName
 		{
-			get => newSpellName;
+			get => _newSpellName;
 			set
 			{
-				newSpellName = value;
+				_newSpellName = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1118,22 +1119,22 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			new ObservableCollection<string> { "Cantrip", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 		public ObservableCollection<string> SpellLevels => _levels;
-		private int newSpellLevelIndex;
+		private int _newSpellLevelIndex;
 
 		public int NewSpellLevelIndex
 		{
-			get => newSpellLevelIndex;
+			get => _newSpellLevelIndex;
 			set
 			{
 				if (value < _levels.Count)
 				{
 					if (_levels[value] == "Cantrip")
 					{
-						newSpellLevelIndex = 0;
+						_newSpellLevelIndex = 0;
 						RaisePropertyChanged();
 						return;
 					}
-					newSpellLevelIndex = int.Parse(_levels[value]);
+					_newSpellLevelIndex = int.Parse(_levels[value]);
 					RaisePropertyChanged();
 
 				}
@@ -1153,134 +1154,134 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			SpellSchool.Transmutation
 		};
 
-		private int newSpellSchoolIndex = -1;
+		private int _newSpellSchoolIndex = -1;
 
 		public int NewSpellSchoolIndex
 		{
-			get => newSpellSchoolIndex;
+			get => _newSpellSchoolIndex;
 			set
 			{
-				newSpellSchoolIndex = value;
+				_newSpellSchoolIndex = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newSpellRange = "";
+		private string _newSpellRange = "";
 
 		public string NewSpellRange
 		{
-			get => newSpellRange;
+			get => _newSpellRange;
 			set
 			{
-				newSpellRange = value;
+				_newSpellRange = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newSpellTarget = "";
+		private string _newSpellTarget = "";
 
 		public string NewSpellTarget
 		{
-			get => newSpellTarget;
+			get => _newSpellTarget;
 			set
 			{
-				newSpellTarget = value;
+				_newSpellTarget = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newSpellDesc;
+		private string _newSpellDesc;
 
 		public string NewSpellDesc
 		{
-			get => newSpellDesc;
+			get => _newSpellDesc;
 			set
 			{
-				newSpellDesc = value;
+				_newSpellDesc = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newSpellHigherLevels = "";
+		private string _newSpellHigherLevels = "";
 
 		public string NewSpellHigherLevels
 		{
-			get => this.newSpellHigherLevels;
+			get => this._newSpellHigherLevels;
 
 			set
 			{
-				newSpellHigherLevels = value;
+				_newSpellHigherLevels = value;
 				RaisePropertyChanged();
 			}
 
 		}
 
-		private bool nSpellHasV;
+		private bool _nSpellHasV;
 
 		public bool NSpellHasV
 		{
-			get => nSpellHasV;
+			get => _nSpellHasV;
 			set
 			{
-				nSpellHasV = value;
+				_nSpellHasV = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool nSpellHasS;
+		private bool _nSpellHasS;
 
 		public bool NSpellHasS
 		{
-			get => nSpellHasS;
+			get => _nSpellHasS;
 			set
 			{
-				nSpellHasS = value;
+				_nSpellHasS = value;
 				RaisePropertyChanged();
 			}
 		}
 
 
-		private string nSpellMat = "";
+		private string _nSpellMat = "";
 
 		public string NSpellMat
 		{
-			get => nSpellMat;
+			get => _nSpellMat;
 			set
 			{
-				nSpellMat = value;
+				_nSpellMat = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool newSpellIsAttack = false;
+		private bool _newSpellIsAttack = false;
 
 		public bool NewSpellIsAttack
 		{
-			get => newSpellIsAttack;
+			get => _newSpellIsAttack;
 			set
 			{
-				newSpellIsAttack = value;
+				_newSpellIsAttack = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool newSpellIsSavingThrow;
+		private bool _newSpellIsSavingThrow;
 
 		public bool NewSpellIsSavingThrow
 		{
-			get => newSpellIsSavingThrow;
+			get => _newSpellIsSavingThrow;
 			set
 			{
-				newSpellIsSavingThrow = value;
+				_newSpellIsSavingThrow = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private Damage newSpellDamage = new Damage();
+		private Damage _newSpellDamage = new Damage();
 
 		public string NewSpellDamage
 		{
-			get => newSpellDamage.ToString();
+			get => _newSpellDamage.ToString();
 			set
 			{
 				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
@@ -1296,8 +1297,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					{
 						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
 						{
-							newSpellDamage.Dice.Clear();
-							newSpellDamage.Dice.Add(dieType, numDice);
+							_newSpellDamage.Dice.Clear();
+							_newSpellDamage.Dice.Add(dieType, numDice);
 						}
 					}
 				}
@@ -1305,14 +1306,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private string newSpellDamageType;
+		private string _newSpellDamageType;
 
 		public string NewSpellDamageType
 		{
-			get => newSpellDamageType;
+			get => _newSpellDamageType;
 			set
 			{
-				newSpellDamageType = value;
+				_newSpellDamageType = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1320,14 +1321,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ObservableCollection<string> NewSpellRangeTypes { get; } =
 			new ObservableCollection<string> { "None", "Melee", "Ranged" };
 
-		private int newSpellRangeTypeIndex;
+		private int _newSpellRangeTypeIndex;
 
 		public int NewSpellRangeTypeIndex
 		{
-			get => newSpellRangeTypeIndex;
+			get => _newSpellRangeTypeIndex;
 			set
 			{
-				newSpellRangeTypeIndex = value;
+				_newSpellRangeTypeIndex = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1342,35 +1343,35 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			MainStatType.Charisma
 		};
 
-		private int newSpellSavingThrowAttributeIndex = -1;
+		private int _newSpellSavingThrowAttributeIndex = -1;
 
 		public int NewSpellSavingThrowAttributeIndex
 		{
-			get => newSpellSavingThrowAttributeIndex;
+			get => _newSpellSavingThrowAttributeIndex;
 			set
 			{
-				newSpellSavingThrowAttributeIndex = value;
+				_newSpellSavingThrowAttributeIndex = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newSpellSavingThrowEffect = "";
+		private string _newSpellSavingThrowEffect = "";
 
 		public string NewSpellSavingThrowEffect
 		{
-			get => newSpellSavingThrowEffect;
+			get => _newSpellSavingThrowEffect;
 			set
 			{
-				newSpellSavingThrowEffect = value;
+				_newSpellSavingThrowEffect = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private Damage newSpellHigherLevelDamage = new Damage();
+		private Damage _newSpellHigherLevelDamage = new Damage();
 
 		public string NewSpellHigherLevelDamage
 		{
-			get => newSpellHigherLevelDamage.ToString();
+			get => _newSpellHigherLevelDamage.ToString();
 			set
 			{
 				var matches = Regex.Match(value, @"(\d)([dD]\d{1,3})");
@@ -1386,8 +1387,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 					{
 						if (Enum.TryParse(matches.Groups[2].Value.ToUpper(), out dieType))
 						{
-							newSpellHigherLevelDamage.Dice.Clear();
-							newSpellHigherLevelDamage.Dice.Add(dieType, numDice);
+							_newSpellHigherLevelDamage.Dice.Clear();
+							_newSpellHigherLevelDamage.Dice.Add(dieType, numDice);
 						}
 					}
 				}
@@ -1395,14 +1396,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			}
 		}
 
-		private bool newSpellAddAbilityModToDamage = false;
+		private bool _newSpellAddAbilityModToDamage = false;
 
 		public bool NewSpellAddAbilityModToDamage
 		{
-			get => newSpellAddAbilityModToDamage;
+			get => _newSpellAddAbilityModToDamage;
 			set
 			{
-				newSpellAddAbilityModToDamage = value;
+				_newSpellAddAbilityModToDamage = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1411,26 +1412,26 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region Traits
 
-		private string newTraitName = "";
+		private string _newTraitName = "";
 
 		public string NewTraitName
 		{
-			get => newTraitName;
+			get => _newTraitName;
 			set
 			{
-				newTraitName = value;
+				_newTraitName = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private string newTraitDesc = "";
+		private string _newTraitDesc = "";
 
 		public string NewTraitDesc
 		{
-			get => newTraitDesc;
+			get => _newTraitDesc;
 			set
 			{
-				newTraitDesc = value;
+				_newTraitDesc = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1443,58 +1444,58 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			TraitSource.Other
 		};
 
-		private int newTraitSourceIndex = -1;
+		private int _newTraitSourceIndex = -1;
 
 		public int NewTraitSourceIndex
 		{
-			get => newTraitSourceIndex;
+			get => _newTraitSourceIndex;
 			set
 			{
-				newTraitSourceIndex = value;
+				_newTraitSourceIndex = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private ObservableCollection<string> traitStatBonuses = new ObservableCollection<string>();
+		private ObservableCollection<string> _traitStatBonuses = new ObservableCollection<string>();
 
 		public ObservableCollection<string> TraitStatBonuses
 		{
 			get
 			{
-				if (traitStatBonuses.Count == 0)
+				if (_traitStatBonuses.Count == 0)
 				{
 					foreach (var bonus in CharacterManager.StatBonuses)
 					{
-						traitStatBonuses.Add(bonus.BonusName);
+						_traitStatBonuses.Add(bonus.BonusName);
 					}
 				}
-				return traitStatBonuses;
+				return _traitStatBonuses;
 			}
 		}
 
 		public int NewStatIncreaseBonus
 		{
-			get => selectedStatIncrease?.Bonus ?? 1;
+			get => _selectedStatIncrease?.Bonus ?? 1;
 			set
 			{
-				if (selectedStatIncrease != null)
+				if (_selectedStatIncrease != null)
 				{
-					selectedStatIncrease.Bonus = value;
+					_selectedStatIncrease.Bonus = value;
 				}
 			}
 		}
 
-		private StatIncrease selectedStatIncrease = new StatIncrease();
-		private int selectedStatBonus = -1;
+		private StatIncrease _selectedStatIncrease = new StatIncrease();
+		private int _selectedStatBonus = -1;
 
 		public int SelectedStatBonus
 		{
-			get => selectedStatBonus;
+			get => _selectedStatBonus;
 			set
 			{
-				selectedStatBonus = value;
-				selectedStatIncrease = StatIncrease.GetNewByName(traitStatBonuses[selectedStatBonus]);
-				selectedStatIncrease.Bonus = NewStatIncreaseBonus;
+				_selectedStatBonus = value;
+				_selectedStatIncrease = StatIncrease.GetNewByName(_traitStatBonuses[_selectedStatBonus]);
+				_selectedStatIncrease.Bonus = NewStatIncreaseBonus;
 			}
 		}
 
@@ -1513,14 +1514,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			ProficiencyType.Vehicle
 		};
 
-		private int newProficiencyTypeIndex = -1;
+		private int _newProficiencyTypeIndex = -1;
 
 		public int NewProficiencyTypeIndex
 		{
-			get => newProficiencyTypeIndex;
+			get => _newProficiencyTypeIndex;
 			set
 			{
-				newProficiencyTypeIndex = value;
+				_newProficiencyTypeIndex = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -1546,7 +1547,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		public ICommand RollDamage => new RelayCommand(RollDamageEx);
 
 		public ICommand HitDieUsed => new RelayCommand(HitDieUsedEx);
-		private RelayCommand<WeaponViewModel> removeWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
+		private RelayCommand<WeaponViewModel> RemoveWeaponRelay => new RelayCommand<WeaponViewModel>(RemoveWeaponExec);
 
 		#region CommandFunctions
 
@@ -1564,7 +1565,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void RemoveWeaponExec(WeaponViewModel weapon)
 		{
-			character.Weapons.Remove(weapon.weapon);
+			_character.Weapons.Remove(weapon.Weapon);
 			Weapons.Remove(weapon);
 			RaisePropertyChanged("Weapons");
 		}
@@ -1585,24 +1586,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		void DeleteItemExecute(Item param)
 		{
-			character.Inventory.Remove(param);
+			_character.Inventory.Remove(param);
 		}
 
 		void DeleteWeaponExecute(Weapon param)
 		{
-			character.Weapons.Remove(param);
+			_character.Weapons.Remove(param);
 		}
 
 		async void AddNewItemExecute()
 		{
-			var newItem = new Item(newItemName, newItemDesc);
+			var newItem = new Item(_newItemName, _newItemDesc);
 
 
 			if (Items.Count > 0)
 			{
 				Items.Add(new ItemViewModel(newItem, RemoveItem));
 			}
-			character.Inventory.Add(newItem);
+			_character.Inventory.Add(newItem);
 			RaisePropertyChanged("Items");
 			await CharacterManager.SaveCurrentCharacter();
 			if (AddItemToGlobalList)
@@ -1616,9 +1617,9 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			var newSpell = new Spell
 			{
-				Name = newSpellName,
-				Description = newSpellDesc,
-				Level = newSpellLevelIndex
+				Name = _newSpellName,
+				Description = _newSpellDesc,
+				Level = _newSpellLevelIndex
 			};
 			if (Spells.Count > 0)
 			{
@@ -1629,7 +1630,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				CharacterManager.AllSpells.Add(newSpell);
 				await CharacterManager.SaveSpells();
 			}
-			character.Spells.Add(newSpell);
+			_character.Spells.Add(newSpell);
 
 			RaisePropertyChanged("Spells");
 			await CharacterManager.SaveCurrentCharacter();
@@ -1639,17 +1640,17 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		{
 			var newWep = new Weapon
 			{
-				Name = newWepName,
-				Damage = newWepDamage,
-				Description = newWepDesc,
+				Name = _newWepName,
+				Damage = _newWepDamage,
+				Description = _newWepDesc,
 				MainStat = WeaponMainStats[NewWepSelectedMainStat],
-				AttackBonus = newWepAttackBonus,
+				AttackBonus = _newWepAttackBonus,
 				WeaponRangeType = WeaponRanges[NewWepSelectedType],
 				IsProficient = NewWepIsProficient
 			};
 			if (Weapons.Count > 0)
 			{
-				Weapons.Add(new WeaponViewModel(newWep, removeWeaponRelay, SetAttackWeapon));
+				Weapons.Add(new WeaponViewModel(newWep, RemoveWeaponRelay, SetAttackWeapon));
 			}
 			if (AddWeaponToGlobalList)
 			{
@@ -1659,7 +1660,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 
 
-			character.Weapons.Add(newWep);
+			_character.Weapons.Add(newWep);
 
 			RaisePropertyChanged("Weapons");
 			await CharacterManager.SaveCurrentCharacter();
@@ -1667,7 +1668,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		async void AddNewCharTraitExecute()
 		{
-			var newTrait = new Trait(newTraitName, newTraitDesc, TraitSources[newTraitSourceIndex]);
+			var newTrait = new Trait(_newTraitName, _newTraitDesc, TraitSources[_newTraitSourceIndex]);
 			NewTraitDesc = "";
 			NewTraitName = "";
 			NewTraitSourceIndex = -1;
@@ -1675,7 +1676,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				CharTraits.Add(new TraitViewModel(newTrait, RemoveTrait));
 			}
-			character.Traits.Add(newTrait);
+			_character.Traits.Add(newTrait);
 			RaisePropertyChanged("CharTraits");
 			await CharacterManager.SaveCurrentCharacter();
 		}
@@ -1687,24 +1688,24 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			{
 				Languages.Add(new ProficiencyViewModel(newProf, RemoveProficiencyEx));
 			}
-			character.Languages.Add(newProf);
-			character.Proficiencies.Add(newProf);
+			_character.Languages.Add(newProf);
+			_character.Proficiencies.Add(newProf);
 			RaisePropertyChanged("Languages");
 		}
 
 		void AddNewProficiencyExec(string name)
 		{
-			if (character.Proficiencies.Exists(x => x.Name == name))
+			if (_character.Proficiencies.Exists(x => x.Name == name))
 			{
 				return;
 			}
 
-			var prof = new Proficiency(ProficiencyTypes[newProficiencyTypeIndex], name);
+			var prof = new Proficiency(ProficiencyTypes[_newProficiencyTypeIndex], name);
 			if (Proficiencies.Count > 0)
 			{
 				Proficiencies.Add(new ProficiencyViewModel(prof, RemoveProficiencyEx));
 			}
-			character.Proficiencies.Add(prof);
+			_character.Proficiencies.Add(prof);
 			RaisePropertyChanged("Proficiencies");
 			NewProficiencyTypeIndex = -1;
 		}
@@ -1717,10 +1718,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			
 			if (prof.Type == ProficiencyType.Language)
 			{
-				character.Languages.Remove(character.Languages.First(x => x.Name == prof.Name));
+				_character.Languages.Remove(_character.Languages.First(x => x.Name == prof.Name));
 				Languages.Remove(prof);
 			}
-			character.Proficiencies.Remove(character.Proficiencies.First(x => x.Name == prof.Name));
+			_character.Proficiencies.Remove(_character.Proficiencies.First(x => x.Name == prof.Name));
 			RaisePropertyChanged("Proficiencies");
 			RaisePropertyChanged("Languages");
 
@@ -1733,13 +1734,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void SetAttackSpell(Spell spell, int atLevel = 0)
 		{
 			SpellOrWeaponAttackName = spell.Name;
-			attackRollBonus = character.AbilityModifiers[character.SpellcastingAttribute] + character.ProficiencyBonus;
+			_attackRollBonus = _character.AbilityModifiers[_character.SpellcastingAttribute] + _character.ProficiencyBonus;
 			var d1 = spell.Damage.RollDamage();
 			var d2 = spell.Damage2.RollDamage();
 			SpellOrWeapon = "Spell Modifier";
-			damageRoll = d1 + d2 + (spell.AddAbilityModToDamage ? character.AbilityModifiers[character.SpellcastingAttribute] : 0);
+			_damageRoll = d1 + d2 + (spell.AddAbilityModToDamage ? _character.AbilityModifiers[_character.SpellcastingAttribute] : 0);
 			DamageRollString = string.Format("{0}[{1}]", spell.Damage.ToString(), d1) + (spell.Damage2.Dice.Count > 0 ? string.Format(" + {0}[{1}]", spell.Damage2.ToString(), d2) : "") +
-				(spell.AddAbilityModToDamage ? string.Format(" + {0}[{1}]", character.SpellcastingAttribute, character.AbilityModifiers[character.SpellcastingAttribute]) : "");
+				(spell.AddAbilityModToDamage ? string.Format(" + {0}[{1}]", _character.SpellcastingAttribute, _character.AbilityModifiers[_character.SpellcastingAttribute]) : "");
 			RaisePropertyChanged("AttackRoll");
 			RaisePropertyChanged("DamageRoll");
 		}
@@ -1747,19 +1748,19 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void SetAttackWeapon(Weapon weapon)
 		{
 			SpellOrWeaponAttackName = weapon.Name;
-			attackRollBonus = weapon.AttackBonus + (weapon.IsProficient ? character.ProficiencyBonus : 0) + character.AbilityModifiers[weapon.MainStat];
+			_attackRollBonus = weapon.AttackBonus + (weapon.IsProficient ? _character.ProficiencyBonus : 0) + _character.AbilityModifiers[weapon.MainStat];
 			var d1 = weapon.Damage.RollDamage();
 			var d2 = 0;
-			damageRoll = d1 + character.AbilityModifiers[weapon.MainStat];
+			_damageRoll = d1 + _character.AbilityModifiers[weapon.MainStat];
 			if (weapon.Damage2 != null)
 			{
-				damageRoll += weapon.Damage2.RollDamage();
+				_damageRoll += weapon.Damage2.RollDamage();
 			}
-			attackRollBonusAttr = weapon.MainStat;
-			attackRollAttrBonus = character.AbilityModifiers[weapon.MainStat];
-			critDamage = weapon.Damage.RollDamage() - weapon.Damage.Bonus;
+			_attackRollBonusAttr = weapon.MainStat;
+			_attackRollAttrBonus = _character.AbilityModifiers[weapon.MainStat];
+			_critDamage = weapon.Damage.RollDamage() - weapon.Damage.Bonus;
 			DamageRollString = string.Format("{0}[{1}]", weapon.Damage.ToString(), d1) + (d2 > 0 ? string.Format(" + {0}[{1}]", weapon.Damage2.ToString(), d2) : "") +
-								string.Format(" + {0}[{1}]", MainStatType.Strength, character.AbilityModifiers[MainStatType.Strength]);
+								string.Format(" + {0}[{1}]", MainStatType.Strength, _character.AbilityModifiers[MainStatType.Strength]);
 
 			RaisePropertyChanged("AttackRoll");
 			RaisePropertyChanged("DamageRoll");
@@ -1768,13 +1769,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		void RemoveTrait(TraitViewModel trait)
 		{
 			CharTraits.Remove(trait);
-			character.Traits.Remove(trait.Trait);
+			_character.Traits.Remove(trait.Trait);
 		}
 
 		void RemoveItem(ItemViewModel item)
 		{
 			Items.Remove(item);
-			character.Inventory.Remove(item.Item);
+			_character.Inventory.Remove(item.Item);
 		}
 		async void RaiseSkillsChanged()
 		{
@@ -1786,7 +1787,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		}
 		#endregion
 
-		public override async void RaisePropertyChanged(string propertyName = null)
+		public override async void RaisePropertyChanged([CallerMemberName]string propertyName = null)
 		{
 			await CharacterManager.SaveCurrentCharacter();
 			base.RaisePropertyChanged(propertyName);

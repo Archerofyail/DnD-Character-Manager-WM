@@ -133,13 +133,13 @@ namespace TabletopRolePlayingCharacterManager
 	{
 		public MessageType MessageType { get; private set; }
 		public T Data { get; private set; }
-		public Type DestVM { get; private set; }
+		public Type DestVm { get; private set; }
 
-		public Message(MessageType message, T data, Type destVM)
+		public Message(MessageType message, T data, Type destVm)
 		{
 			MessageType = message;
 			Data = data;
-			DestVM = destVM;
+			DestVm = destVm;
 		}
 	}
 

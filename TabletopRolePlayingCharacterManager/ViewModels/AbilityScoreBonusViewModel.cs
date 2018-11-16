@@ -4,13 +4,13 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	public class AbilityScoreBonusViewModel : GenericItemViewModel
 	{
-		private AbilityScoreBonusModel bonusModel = new AbilityScoreBonusModel();
+		private AbilityScoreBonusModel _bonusModel = new AbilityScoreBonusModel();
 		public int Bonus
 		{
-			get => bonusModel.Bonus;
+			get => _bonusModel.Bonus;
 			set
 			{
-				bonusModel.Bonus = value; 
+				_bonusModel.Bonus = value; 
 				RaisePropertyChanged();
 				
 			}

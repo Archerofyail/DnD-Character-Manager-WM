@@ -12,8 +12,8 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 {
 	internal class AddNewCharacterPageViewModel : ViewModelBase
 	{
-		private readonly Random randd6 = new Random();
-		private Character5E character = CharacterManager.GetNewChar();
+		private readonly Random _randd6 = new Random();
+		private Character5E _character = CharacterManager.GetNewChar();
 
 		public AddNewCharacterPageViewModel()
 		{
@@ -25,10 +25,10 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string CharName
 		{
-			get => character.Name;
+			get => _character.Name;
 			set
 			{
-				character.Name = value;
+				_character.Name = value;
 				RaisePropertyChanged();
 
 			}
@@ -36,12 +36,12 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Age
 		{
-			get => character.Age.ToString();
+			get => _character.Age.ToString();
 			set
 			{
 				if (int.TryParse(value, out int result))
 				{
-					character.Age = result;
+					_character.Age = result;
 				}
 				RaisePropertyChanged();
 			}
@@ -49,174 +49,174 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string Height
 		{
-			get => character.Height;
+			get => _character.Height;
 			set
 			{
-				character.Height = value;
+				_character.Height = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Weight
 		{
-			get => character.Weight;
+			get => _character.Weight;
 			set
 			{
-				character.Weight = value;
+				_character.Weight = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Hair
 		{
-			get => character.Hair;
+			get => _character.Hair;
 			set
 			{
-				character.Hair = value;
+				_character.Hair = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Skin
 		{
-			get => character.Skin;
+			get => _character.Skin;
 			set
 			{
-				character.Skin = value;
+				_character.Skin = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public string Eye
 		{
-			get => character.Eyes;
+			get => _character.Eyes;
 			set
 			{
-				character.Eyes = value;
+				_character.Eyes = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int StrengthStat
 		{
-			get => character.AbilityScores[MainStatType.Strength];
+			get => _character.AbilityScores[MainStatType.Strength];
 			set
 			{
-				character.AbilityScores[MainStatType.Strength] = value;
+				_character.AbilityScores[MainStatType.Strength] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int DexterityStat
 		{
-			get => character.AbilityScores[MainStatType.Dexterity];
+			get => _character.AbilityScores[MainStatType.Dexterity];
 			set
 			{
-				character.AbilityScores[MainStatType.Dexterity] = value;
+				_character.AbilityScores[MainStatType.Dexterity] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int ConstitutionStat
 		{
-			get => character.AbilityScores[MainStatType.Constitution];
+			get => _character.AbilityScores[MainStatType.Constitution];
 			set
 			{
-				character.AbilityScores[MainStatType.Constitution] = value;
+				_character.AbilityScores[MainStatType.Constitution] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int IntelligenceStat
 		{
-			get => character.AbilityScores[MainStatType.Intelligence];
+			get => _character.AbilityScores[MainStatType.Intelligence];
 			set
 			{
-				character.AbilityScores[MainStatType.Intelligence] = value;
+				_character.AbilityScores[MainStatType.Intelligence] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int WisdomStat
 		{
-			get => character.AbilityScores[MainStatType.Wisdom];
+			get => _character.AbilityScores[MainStatType.Wisdom];
 			set
 			{
-				character.AbilityScores[MainStatType.Wisdom] = value;
+				_character.AbilityScores[MainStatType.Wisdom] = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		public int CharismaStat
 		{
-			get => character.AbilityScores[MainStatType.Charisma];
+			get => _character.AbilityScores[MainStatType.Charisma];
 			set
 			{
-				character.AbilityScores[MainStatType.Charisma] = value;
+				_character.AbilityScores[MainStatType.Charisma] = value;
 				RaisePropertyChanged();
 			}
 		}
-		private int selectedSubClassId;
+		private int _selectedSubClassId;
 		public int SelectedSubClass
 		{
-			get => selectedSubClassId;
+			get => _selectedSubClassId;
 			set
 			{
-				selectedSubClassId = value;
+				_selectedSubClassId = value;
 				RaisePropertyChanged();
 			}
 		}
 
 		#endregion
 		#region Lists
-		private readonly ObservableCollection<Skill> skills = new ObservableCollection<Skill>();
+		private readonly ObservableCollection<Skill> _skills = new ObservableCollection<Skill>();
 
 		public ObservableCollection<Skill> Skills
 		{
 			get
 			{
-				if (skills.Count == 0)
+				if (_skills.Count == 0)
 				{
-					foreach (var skill in character.Skills)
+					foreach (var skill in _character.Skills)
 					{
 						Debug.WriteLine("Added skill to list: " + skill.Name);
-						skills.Add(skill);
+						_skills.Add(skill);
 					}
 				}
-				return skills;
+				return _skills;
 			}
 		}
 
-		private ObservableCollection<RaceViewModel> races = new ObservableCollection<RaceViewModel>();
+		private ObservableCollection<RaceViewModel> _races = new ObservableCollection<RaceViewModel>();
 
 		public ObservableCollection<RaceViewModel> Races
 		{
 			get
 			{
-				if (races.Count == 0)
+				if (_races.Count == 0)
 				{
 					foreach (var race in CharacterManager.RacialBonuses)
 					{
 						if (race.ParentRace == "")
 						{
-							races.Add(new RaceViewModel(race));
+							_races.Add(new RaceViewModel(race));
 						}
 					}
 				}
-				return races;
+				return _races;
 			}
 		}
 
 
 		#region Race
-		private int selectedRaceIndex = -1;
+		private int _selectedRaceIndex = -1;
 
 		public int SelectedRaceIndex
 		{
-			get => selectedRaceIndex;
+			get => _selectedRaceIndex;
 			set
 			{
-				selectedRaceIndex = value;
+				_selectedRaceIndex = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("SelectedRace");
 				RaiseAllSelectedRaceChanged();
@@ -254,14 +254,14 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#region SelectedSubrace
 
-		private int selectedSubRaceIndex = -1;
+		private int _selectedSubRaceIndex = -1;
 
 		public int SelectedSubRaceIndex
 		{
-			get => selectedSubRaceIndex;
+			get => _selectedSubRaceIndex;
 			set
 			{
-				selectedSubRaceIndex = value;
+				_selectedSubRaceIndex = value;
 				RaisePropertyChanged();
 				RaiseAllSelectedSubraceChanged();
 			}
@@ -269,7 +269,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		#endregion
 
-		private RaceViewModel SelectedSubrace => selectedSubRaceIndex >= 0 && selectedSubRaceIndex < Subraces.Count ? Subraces[selectedSubRaceIndex] : new RaceViewModel();
+		private RaceViewModel SelectedSubrace => _selectedSubRaceIndex >= 0 && _selectedSubRaceIndex < Subraces.Count ? Subraces[_selectedSubRaceIndex] : new RaceViewModel();
 
 
 		public ObservableCollection<ChoiceViewModel<AbilityScoreBonusModel, AbilityScoreBonusViewModel>> SelectedSubraceAbilityScoreBonuses => SelectedSubrace.AbilityScoreBonuses;
@@ -304,7 +304,7 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 				var subraces = new ObservableCollection<RaceViewModel>();
 				foreach (var race in CharacterManager.RacialBonuses)
 				{
-					if (race.ParentRace == SelectedRace.racialBonuses.Race)
+					if (race.ParentRace == SelectedRace.RacialBonuses.Race)
 					{
 						subraces.Add(new RaceViewModel(race));
 					}
@@ -315,31 +315,31 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 
 
-		private ObservableCollection<ClassViewModel> classes = new ObservableCollection<ClassViewModel>();
+		private ObservableCollection<ClassViewModel> _classes = new ObservableCollection<ClassViewModel>();
 
 		public ObservableCollection<ClassViewModel> Classes
 		{
 			get
 			{
-				if (classes.Count == 0)
+				if (_classes.Count == 0)
 				{
 					foreach (var cl in CharacterManager.ClassBonuses)
 					{
-						classes.Add(new ClassViewModel(cl));
+						_classes.Add(new ClassViewModel(cl));
 					}
 				}
-				return classes;
+				return _classes;
 			}
 		}
 
-		private int selectedClassIndex;
+		private int _selectedClassIndex;
 
 		public int SelectedClassIndex
 		{
-			get => selectedClassIndex;
+			get => _selectedClassIndex;
 			set
 			{
-				selectedClassIndex = value;
+				_selectedClassIndex = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -359,32 +359,32 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 		#endregion
 
 
-		private string subclassChoiceStatement = "Choose your subclass{default}";
+		private string _subclassChoiceStatement = "Choose your subclass{default}";
 
-		public string SubclassChoiceStatement => subclassChoiceStatement;
+		public string SubclassChoiceStatement => _subclassChoiceStatement;
 
 
-		private ObservableCollection<string> rolledAbilityScores = new ObservableCollection<string>();
+		private ObservableCollection<string> _rolledAbilityScores = new ObservableCollection<string>();
 
-		public ObservableCollection<string> RolledAbilityScores => rolledAbilityScores;
+		public ObservableCollection<string> RolledAbilityScores => _rolledAbilityScores;
 
 		public void RollAbilityScores()
 		{
 
-			rolledAbilityScores.Clear();
+			_rolledAbilityScores.Clear();
 			for (var i = 0; i < 6; i++)
 			{
 				int final;
 				var rolls = new List<int>
 				{
-					randd6.Next(1, 7),
-					randd6.Next(1, 7),
-					randd6.Next(1, 7),
-					randd6.Next(1, 7)
+					_randd6.Next(1, 7),
+					_randd6.Next(1, 7),
+					_randd6.Next(1, 7),
+					_randd6.Next(1, 7)
 				};
 				rolls.Sort();
 				final = rolls[1] + rolls[2] + rolls[3];
-				rolledAbilityScores.Add(final + "");
+				_rolledAbilityScores.Add(final + "");
 
 
 			}
@@ -399,71 +399,71 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			foreach (var trait in SelectedRaceTraits)
 			{
 
-				character.Traits.AddRange(trait.GetSelectedItems());
+				_character.Traits.AddRange(trait.GetSelectedItems());
 
 			}
 			foreach (var bonus in SelectedRaceAbilityScoreBonuses)
 			{
 				foreach (var bonus1 in bonus.GetSelectedItems())
 				{
-					character.AbilityScores[bonus1.Stat] += bonus1.Bonus;
+					_character.AbilityScores[bonus1.Stat] += bonus1.Bonus;
 				}
 			}
 
 			foreach (var prof in SelectedRaceLanguageProfs)
 			{
-				character.Languages.AddRange(prof.GetSelectedItems());
+				_character.Languages.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedRaceWeaponProfs)
 			{
-				character.WeaponProficiencies.AddRange(prof.GetSelectedItems());
+				_character.WeaponProficiencies.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedRaceArmorProfs)
 			{
-				character.ArmorProficiencies.AddRange(prof.GetSelectedItems());
+				_character.ArmorProficiencies.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedRaceToolProfs)
 			{
-				character.Proficiencies.AddRange(prof.GetSelectedItems());
+				_character.Proficiencies.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedRaceToolProfs)
 			{
-				character.Proficiencies.AddRange(prof.GetSelectedItems());
+				_character.Proficiencies.AddRange(prof.GetSelectedItems());
 			}
 
 			foreach (var trait in SelectedSubraceTraits)
 			{
 
-				character.Traits.AddRange(trait.GetSelectedItems());
+				_character.Traits.AddRange(trait.GetSelectedItems());
 
 			}
 			foreach (var bonus in SelectedSubraceAbilityScoreBonuses)
 			{
 				foreach (var bonus1 in bonus.GetSelectedItems())
 				{
-					character.AbilityScores[bonus1.Stat] += bonus1.Bonus;
+					_character.AbilityScores[bonus1.Stat] += bonus1.Bonus;
 				}
 			}
 
 			foreach (var prof in SelectedSubraceLanguageProfs)
 			{
-				character.Languages.AddRange(prof.GetSelectedItems());
+				_character.Languages.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedSubraceWeaponProfs)
 			{
-				character.WeaponProficiencies.AddRange(prof.GetSelectedItems());
+				_character.WeaponProficiencies.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedSubraceArmorProfs)
 			{
-				character.ArmorProficiencies.AddRange(prof.GetSelectedItems());
+				_character.ArmorProficiencies.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedSubraceToolProfs)
 			{
-				character.Proficiencies.AddRange(prof.GetSelectedItems());
+				_character.Proficiencies.AddRange(prof.GetSelectedItems());
 			}
 			foreach (var prof in SelectedSubraceToolProfs)
 			{
-				character.Proficiencies.AddRange(prof.GetSelectedItems());
+				_character.Proficiencies.AddRange(prof.GetSelectedItems());
 			}
 		}
 

@@ -47,38 +47,38 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 			set => Subclass.MagicStartLevel = value;
 		}
 
-		private ObservableCollection<PrimitiveListViewModel<string>> skillChoices;
+		private ObservableCollection<PrimitiveListViewModel<string>> _skillChoices;
 
 		public ObservableCollection<PrimitiveListViewModel<string>> SkillChoices
 		{
 			get
 			{
-				if (skillChoices == null || skillChoices.Count == 0)
+				if (_skillChoices == null || _skillChoices.Count == 0)
 				{
-					skillChoices = new ObservableCollection<PrimitiveListViewModel<string>>();
+					_skillChoices = new ObservableCollection<PrimitiveListViewModel<string>>();
 					foreach (var skillChoice in Subclass.SkillProficiencies)
 					{
-						skillChoices.Add(new PrimitiveListViewModel<string>(skillChoice.Item1, skillChoice.Item1 > 1, skillChoice.Item2));
+						_skillChoices.Add(new PrimitiveListViewModel<string>(skillChoice.Item1, skillChoice.Item1 > 1, skillChoice.Item2));
 					}
 				}
 
-				return skillChoices;
+				return _skillChoices;
 			}
 		}
 
-		private ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> traits = new ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>>();
+		private ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> _traits = new ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>>();
 		public ObservableCollection<ChoiceViewModel<Trait, TraitViewModel>> Traits
 		{
 			get
 			{
-				if (traits.Count == 0)
+				if (_traits.Count == 0)
 				{
 					foreach (var traitChoice in Subclass.TraitsLearned)
 					{
-						traits.Add(new ChoiceViewModel<Trait, TraitViewModel>(traitChoice));
+						_traits.Add(new ChoiceViewModel<Trait, TraitViewModel>(traitChoice));
 					}
 				}
-				return traits;
+				return _traits;
 			}
 		}
 

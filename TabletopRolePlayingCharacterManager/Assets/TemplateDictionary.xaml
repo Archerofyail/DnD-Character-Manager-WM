@@ -186,14 +186,22 @@
 					        Margin="2"
 					        VerticalAlignment="Center"/>
 				</StackPanel>
-				<Button Command="{Binding RemoveItem}"
-				        Grid.Column="0"
-				        Grid.ColumnSpan="2"
-				        Grid.Row="5">
-					<Button.Content>
-						<SymbolIcon Symbol="Delete" />
-					</Button.Content>
-				</Button>
+				<StackPanel Orientation="Horizontal"
+				            Grid.Column="0"
+				            Grid.ColumnSpan="2"
+				            Grid.Row="5">
+					<Button Command="{Binding RemoveItem}"
+				       >
+						<Button.Content>
+							<SymbolIcon Symbol="Delete" />
+						</Button.Content>
+					</Button>
+					<Button Content="Done Editing"
+					        Command="{Binding StopEditing}"
+					        Tag="RollAttackButton"
+					        Margin="4" 
+					        HorizontalAlignment="Stretch"/>
+				</StackPanel>
 			</Grid>
 
 
@@ -271,7 +279,6 @@
 				<Button Content="Roll Attack"
 				        HorizontalAlignment="Stretch"
 				        Command="{Binding Attack}"
-				        Tag="RollAttackButton"
 				        Grid.Row="5"
 				        Grid.Column="0"
 				        Grid.ColumnSpan="3"
@@ -393,6 +400,10 @@
 							<SymbolIcon Symbol="Delete" />
 						</Button.Content>
 					</Button>
+					<Button Content="Done Editing"
+					        Command="{Binding StopEditing}"
+					        Margin="4" 
+					        HorizontalAlignment="Stretch"/>
 				</StackPanel>
 			</Grid>
 		</StackPanel>

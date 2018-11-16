@@ -72,30 +72,30 @@ namespace TabletopRolePlayingCharacterManager.ViewModels
 
 		public string SourceName => SourceList[SourceIndex].ToString();
 
-		private string bonusButtonText = "Enable Bonus";
+		private string _bonusButtonText = "Enable Bonus";
 
 		public string BonusButtonText
 		{
-			get => bonusButtonText;
+			get => _bonusButtonText;
 			set
 			{
-				bonusButtonText = value;
+				_bonusButtonText = value;
 				RaisePropertyChanged();
 			}
 		}
 
-		private bool isEditing;
+		private bool _isEditing;
 		public bool IsEditing
 		{
-			get => isEditing;
+			get => _isEditing;
 			set
 			{
-				isEditing = value;
+				_isEditing = value;
 				RaisePropertyChanged();
 				RaisePropertyChanged("IsNotEditing");
 			}
 		}
-		public bool IsNotEditing => !isEditing;
+		public bool IsNotEditing => !_isEditing;
 
 		public ICommand StartEditing => new RelayCommand(StartEditingEx);
 		public ICommand StopEditing => new RelayCommand(StopEditingEx);

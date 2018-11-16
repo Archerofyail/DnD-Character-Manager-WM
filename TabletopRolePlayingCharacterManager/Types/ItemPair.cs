@@ -21,17 +21,17 @@ namespace TabletopRolePlayingCharacterManager.Types
 
 	public class StringPair
 	{
-		private string item1;
-		private string item2;
+		private string _item1;
+		private string _item2;
 		public string Item1
 		{
-			get => item1;
-			set => item1 = value ?? "";
+			get => _item1;
+			set => _item1 = value ?? "";
 		}
 		public string Item2
 		{
-			get => item2;
-			set => item2 = value ?? "";
+			get => _item2;
+			set => _item2 = value ?? "";
 		}
 		public StringPair()
 		{
