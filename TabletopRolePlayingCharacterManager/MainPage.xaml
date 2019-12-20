@@ -16,9 +16,9 @@
 				<ResourceDictionary>
 					<DataTemplate x:Key="Character">
 						<StackPanel>
-							<TextBlock Text="{Binding Path=Name}" />
-							<TextBlock Text="{Binding Path=ClassAndLevel}" />
-							<TextBlock Text="{Binding Path=Campaign}" />
+							<TextBlock Text="{Binding Name}" />
+							<TextBlock Text="{Binding ClassAndLevel}" />
+							<TextBlock Text="{Binding Campaign}" />
 						</StackPanel>
 					</DataTemplate>
 				</ResourceDictionary>
